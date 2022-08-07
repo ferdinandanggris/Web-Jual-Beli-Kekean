@@ -18,10 +18,13 @@ export default function Main() {
             )
         }
     }
+    function handleClick() {
+        
+    }
     return(
         <nav className="container">
             <div className="d-flex justify-content-between align-items-center">
-                <i class="bx bx-menu d-md-none d-flex"></i>
+                <i onClick={handleClick} class="bx bx-menu d-md-none d-flex"></i>
                 <div className="nav-left d-flex d-none d-md-flex">
                     <a href="#">Home</a>
                     <a href="#">Article</a>
