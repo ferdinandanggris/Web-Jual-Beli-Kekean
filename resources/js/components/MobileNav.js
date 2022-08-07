@@ -20,14 +20,8 @@ export default function Main() {
     }
     return(
         <nav className="container">
-            <div className="d-flex justify-content-between align-items-center">
-                <i class="bx bx-menu d-md-none d-flex"></i>
-                <div className="nav-left d-flex d-none d-md-flex">
-                    <a href="#">Home</a>
-                    <a href="#">Article</a>
-                    <a href="#">Profile</a>
-                    <a href="#">Contact Us</a>
-                </div>
+            <div className="d-flex justify-content-between">
+                
                 {isLogin()}
             </div>
         </nav>
