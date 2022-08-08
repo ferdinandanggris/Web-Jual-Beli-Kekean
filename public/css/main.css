@@ -30,5 +30,10 @@ nav a {
     font-size: calc(1rem + 0.12vw);
     border-bottom: 2px solid #00000000;
 }
+
+.active {
+    color: black;
+    border-bottom: 2px solid #0000005C;
+}
 /* Hero Style */
 
