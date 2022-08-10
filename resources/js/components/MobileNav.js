@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Main() {
+export default function MobileNav({sidebar}) {
     const login = true;
     function isLogin() {
         if(login) {
@@ -19,11 +19,11 @@ export default function Main() {
         }
     }
     return(
-        <nav className="container">
-            <div className="d-flex justify-content-between">
-                
-                {isLogin()}
+            <div className={sidebar?"position-absolute sidebar sidebar--open":"position-absolute sidebar"}>
+                <li>Home</li>
+                <li>Article</li>
+                <li>Profile</li>
+                <li>Contact Us</li>
             </div>
-        </nav>
     )
 }
