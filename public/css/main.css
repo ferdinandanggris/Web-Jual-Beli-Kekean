@@ -70,4 +70,44 @@ nav a {
     display: block;
 }
 /* Hero Style */
+.hero {
+    background-image: url("../images/hero.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-size: cover;
+}
+
+.hero--text {
+    padding: 36px 60px;
+    background-image: linear-gradient(to right, rgb(245,245,245,86%), #00000000);;
+}
+
+.hero--text h1 {
+    color: black;
+    font-weight: 600;
+    font-size: 40px;
+}
+
+.hero--text p {
+    color: rgb(0, 0, 0, 31%);
+    font-weight: 600;
+    font-size: 24px;
+    word-wrap: break-word;
+    inline-size: 400px;
+}
+
+.button {
+    border-radius: 12px;
+    border-style: none;
+    color: white;
+    font-weight: 600;
+    padding: 5px 10px;
+    align-items: center;
+    display: flex;
+}
+
+.beli {
+    background-color: #FF674D;
+}
+
 
