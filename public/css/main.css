@@ -70,28 +70,28 @@ nav a {
     display: block;
 }
 /* Hero Style */
-.hero {
+/* .hero {
     background-image: url("../images/hero.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-size: cover;
-}
+} */
 
 .hero--text {
     padding: 36px 60px;
-    background-image: linear-gradient(to right, rgb(245,245,245,86%), #00000000);;
+    /* background-image: linear-gradient(to right, rgb(245,245,245,86%), #ffffff8e); */
+    position: absolute;
+    top: 69px;
 }
 
 .hero--text h1 {
     color: black;
     font-weight: 600;
-    font-size: 40px;
 }
 
 .hero--text p {
     color: rgb(0, 0, 0, 31%);
     font-weight: 600;
-    font-size: 24px;
     word-wrap: break-word;
     inline-size: 400px;
 }
@@ -106,8 +106,16 @@ nav a {
     display: flex;
 }
 
+
+
 .beli {
     background-color: #FF674D;
 }
 
-
+/* Filter Style */
+.filter--input {
+    background-color: #bbbbbb;
+    border: none;
+    border-radius: 5px;
+    width: 7rem;
+}
