@@ -4,6 +4,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 
 export default function Filter() {
+    const checkboxColor = {
+        color: '#FF674D',
+        '&.Mui-checked': {
+        color: '#FF674D',
+        }
+    }
     return(
         <div className="filter">
             <p className='fw-bolder'>Price</p>
@@ -12,19 +18,12 @@ export default function Filter() {
             <hr></hr>
             <p className='fw-bolder'>Tipe Motif</p>
             <FormGroup>
-                <FormControlLabel control={<Checkbox sx={{
-                                            color: '#FF674D',
-                                            '&.Mui-checked': {
-                                            color: '#FF674D',
-                                            },
-                                            }}/>} label="Manis"/>
-                <FormControlLabel control={<Checkbox sx={{
-                                            color: '#FF674D',
-                                            '&.Mui-checked': {
-                                            color: '#FF674D',
-                                            },
-                                            }}/>} label="Chakra"/>
+                <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="Manis"/>
+                <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="Chakra"/>
             </FormGroup>
+            <hr></hr>
+            <p className='fw-bolder'>Ukuran</p>
+
 
         </div>
     )

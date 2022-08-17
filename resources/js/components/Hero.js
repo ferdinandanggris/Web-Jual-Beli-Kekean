@@ -1,18 +1,25 @@
 import React from 'react';
 import BtnBeli from './BtnBeli';
+import { spacing } from '@mui/system';
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 export default function Hero() {
     return(
-        <div className='container'>
+        <Container>
             <div className="hero">
                 {/* Todo: Crop gambar n Export gambar yg ada gradientnya */}
-                <img src="../images/hero.png" className='img-fluid'></img>
+                <Box sx={{width: "100%"}}component='img' src="../images/hero.png" />
                     <div className='hero--text'>
                         <h1 className="display-4">Batik Cakhra 1.1</h1>
                         <p className="h4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </p>
-                        <BtnBeli className="mt-5"/>
+                        <Button sx={{ mt:4 }} variant="contained" color="primary" disableElevation>
+                            <Typography variant="button" color="white">Beli Sekarang</Typography>
+                        </Button>
                     </div>
             </div>
-        </div>
+        </Container>
     )
 }

@@ -1,4 +1,6 @@
 import React from 'react'
+import Container from '@mui/material/Container';
+import { spacing } from '@mui/system';
 
 export default function Navbar({openSidebar}) {
     const login = true;
@@ -9,6 +11,7 @@ export default function Navbar({openSidebar}) {
                     <a href="#" className="bx bx-search"></a>
                     <a href="#" className="bx bx-heart"></a>
                     <a href="#" className="bx bx-shopping-bag"></a>
+                    <a href="#" className="bx bx-user"></a>
                 </div>
         )} else {
             return(
@@ -19,7 +22,7 @@ export default function Navbar({openSidebar}) {
         }
     }
     return(
-        <nav className="container">
+        <Container sx={{ my: 2 }}>
             <div className="d-flex justify-content-between align-items-center">
                 <i onClick={openSidebar} className="pointer bx bx-menu d-md-none d-flex"></i>
                 <div className="nav-left d-flex d-none d-md-flex">
@@ -30,6 +33,6 @@ export default function Navbar({openSidebar}) {
                 </div>
                 {isLogin()}
             </div>
-        </nav>
+        </Container>
     )
 }

@@ -5,8 +5,22 @@ import Hero from '../components/Hero'
 import MobileNav from '../components/MobileNav'
 import Backdrop from '../components/backdrop';
 import Filter from '../components/Filter';
+import CssBaseline from '@mui/material/CssBaseline'
+import Container from '@mui/material/Container'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 
+const theme = createTheme({
+    palette: {
+        primary: {
+            main: "#FF674D"
+        },
+        secondary: {
+            main: "#FF674D"
+        }
+    }
+})
 function Main() {
+    
     const [sidebar, setSidebar] = React.useState(false)
 
     const toggleSidebar = () => {
@@ -14,14 +28,17 @@ function Main() {
     }
     return (
         <div>
-            <MobileNav sidebar={sidebar}/>
-            <Backdrop sidebar={sidebar}/>
-            <Navbar openSidebar={toggleSidebar}/>
-            <Hero/>
+            <ThemeProvider theme={theme}>
+                <CssBaseline/>
+                <MobileNav sidebar={sidebar}/>
+                <Backdrop sidebar={sidebar}/>
+                <Navbar openSidebar={toggleSidebar}/>
+                <Hero/>
 
-            <div className='container mt-5'>
-                <Filter/>
-            </div>
+                <Container sx={{mt:3}}>
+                    <Filter/>
+                </Container>
+            </ThemeProvider>
         </div>
     );
 }

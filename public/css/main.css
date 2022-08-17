@@ -78,10 +78,10 @@ nav a {
 } */
 
 .hero--text {
-    padding: 36px 60px;
     /* background-image: linear-gradient(to right, rgb(245,245,245,86%), #ffffff8e); */
     position: absolute;
-    top: 69px;
+    top: 86px;
+    left: 70px;
 }
 
 .hero--text h1 {
