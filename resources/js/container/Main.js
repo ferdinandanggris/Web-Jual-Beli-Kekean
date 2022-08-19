@@ -8,6 +8,7 @@ import Filter from '../components/Filter';
 import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { Grid } from '@mui/material';
 
 const theme = createTheme({
     palette: {
@@ -16,7 +17,8 @@ const theme = createTheme({
         },
         secondary: {
             main: "#FF674D"
-        }
+        },
+        subtitle : "rgb(0, 0, 0, 31%)"
     }
 })
 function Main() {
@@ -35,8 +37,14 @@ function Main() {
                 <Navbar openSidebar={toggleSidebar}/>
                 <Hero/>
 
-                <Container sx={{mt:3}}>
-                    <Filter/>
+                <Container>
+                    <Grid spacing={2} container sx={{mt:3}}>
+                        <Grid item md={2}>
+                            <Filter/>
+                        </Grid>
+                        <Grid item md={10}>
+                        </Grid>
+                    </Grid>
                 </Container>
             </ThemeProvider>
         </div>

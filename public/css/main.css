@@ -16,6 +16,7 @@ a:hover {
 .pointer {
     cursor: pointer;
 }
+
 /* Navigation Style */
 .nav-left a {
     padding: 0px 10px;
@@ -80,8 +81,8 @@ nav a {
 .hero--text {
     /* background-image: linear-gradient(to right, rgb(245,245,245,86%), #ffffff8e); */
     position: absolute;
-    top: 86px;
-    left: 70px;
+    top: 106px;
+    left: 150px;
 }
 
 .hero--text h1 {
