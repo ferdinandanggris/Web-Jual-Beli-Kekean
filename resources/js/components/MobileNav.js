@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function MobileNav({sidebar}) {
+export default function MobileNav() {
     const login = true;
     function isLogin() {
         if(login) {
@@ -19,7 +19,7 @@ export default function MobileNav({sidebar}) {
         }
     }
     return(
-            <div className={sidebar?"position-absolute sidebar sidebar--open":"position-absolute sidebar"}>
+            <div className={"position-absolute sidebar"}>
                 <li>Home</li>
                 <li>Article</li>
                 <li>Profile</li>

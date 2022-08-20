@@ -10,7 +10,6 @@ import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { Grid } from '@mui/material';
 import Catalog from './Catalog'
-import { typography } from '@mui/system';
 
 const theme = createTheme({
     palette: {
@@ -27,34 +26,40 @@ const theme = createTheme({
         "fontSize": 14,
         "fontWeightLight": 300,
         "fontWeightRegular": 400,
-        "fontWeightMedium": 500
+        "fontWeightMedium": 500,
+        button: {
+            textTransform: 'none'
+        }
     },
     shape: {
-            borderRadius: 12,
-        }, 
+        borderRadius: 12,
+    }, 
+    breakpoints: {
+        values: {
+          mobile: 0,
+          tablet: 640,
+          laptop: 1024,
+          desktop: 1200,
+        },
+    },
+
 })
 function Main() {
-    
-    const [sidebar, setSidebar] = React.useState(false)
-
-    const toggleSidebar = () => {
-        setSidebar(prevState => !prevState)
-    }
     return (
         <div>
             <ThemeProvider theme={theme}>
                 <CssBaseline/>
-                <MobileNav sidebar={sidebar}/>
-                <Backdrop sidebar={sidebar}/>
-                <Navbar openSidebar={toggleSidebar}/>
+                <MobileNav/>
+                <Backdrop/>
+                <Navbar/>
                 <Hero/>
 
                 <Container>
                     <Grid spacing={2} container sx={{mt:3}}>
-                        <Grid item md={2}>
+                        <Grid sx={{display: {mobile: 'none', laptop: 'flex'}}} item laptop={2} mobile={0}>
                             <Filter/>
                         </Grid>
-                        <Grid item md={10}>
+                        <Grid item laptop={10} mobile={12}>
                             <Catalog/>
                         </Grid>
                     </Grid>
