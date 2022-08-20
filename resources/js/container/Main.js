@@ -9,6 +9,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { Grid } from '@mui/material';
+import Catalog from './Catalog'
 
 const theme = createTheme({
     palette: {
@@ -43,6 +44,7 @@ function Main() {
                             <Filter/>
                         </Grid>
                         <Grid item md={10}>
+                            <Catalog/>
                         </Grid>
                     </Grid>
                 </Container>

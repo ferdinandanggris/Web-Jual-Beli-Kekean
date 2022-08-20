@@ -5,6 +5,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
 import { TextField, Box, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import { styled } from '@mui/system';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 
 
@@ -17,6 +18,13 @@ export default function Filter() {
     }
 
     const width = '30px'
+
+    const AccordionStyle = {
+        boxShadow: "none",
+            '&:before': {
+                display: 'none',
+            }
+    }
 
     return(
         <div className="filter">
@@ -37,20 +45,28 @@ export default function Filter() {
                 startAdornment: <InputAdornment position="start">Rp</InputAdornment>
             }}></TextField>
             <hr></hr> */}
-            <Accordion defaultExpanded="true">
-                <AccordionSummary>
+            <Accordion sx={AccordionStyle} disableGutters={true} defaultExpanded={true}>
+                <AccordionSummary sx={{
+                pl: "0px"
+                }} expandIcon={<ExpandMoreIcon />}>
                     <Typography className='fw-bolder'>Tipe Motif</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <FormGroup>
                         <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="Manis"/>
                         <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="Chakra"/>
+                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="Bhirawa"/>
+                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="Mindhi"/>
+                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="Duwo"/>
+                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="Chentil"/>
                     </FormGroup>
                 </AccordionDetails>
             </Accordion>
-
-            <Accordion disableGutters="true" defaultExpanded="true">
-                <AccordionSummary>
+            <hr></hr>
+            <Accordion sx={AccordionStyle} disableGutters={true} defaultExpanded={true}>
+                <AccordionSummary sx={{
+                pl: "0px"
+                }} expandIcon={<ExpandMoreIcon />}>
                     <Typography className='fw-bolder'>Ukuran</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -63,6 +79,7 @@ export default function Filter() {
                     </FormGroup>
                 </AccordionDetails>
             </Accordion>
+            <hr></hr>
 
         </div>
     )
