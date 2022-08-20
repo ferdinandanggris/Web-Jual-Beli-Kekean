@@ -19224,6 +19224,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var _mui_material_Container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @mui/material/Container */ "./node_modules/@mui/material/Container/Container.js");
 /* harmony import */ var _mui_material_Box__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @mui/material/Box */ "./node_modules/@mui/material/Box/Box.js");
+/* harmony import */ var _mui_material_Button__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @mui/material/Button */ "./node_modules/@mui/material/Button/Button.js");
 /* harmony import */ var _mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @mui/material/Typography */ "./node_modules/@mui/material/Typography/Typography.js");
 /* harmony import */ var _mui_material__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @mui/material */ "./node_modules/@mui/material/Grid/Grid.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
@@ -19239,7 +19240,8 @@ __webpack_require__.r(__webpack_exports__);
 function CatalogItem(props) {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      md: 4,
+      xs: 2,
+      lg: 4,
       item: true,
       px: "12px",
       pt: "10px",
@@ -19251,18 +19253,65 @@ function CatalogItem(props) {
         src: "../images/catalog-".concat(props.item, ".png")
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_mui_material_Container__WEBPACK_IMPORTED_MODULE_4__["default"], {
         sx: {
-          border: "1px solid black",
+          border: "1px solid #D9D9D9",
           borderTop: "none",
           borderRadius: "0px 0px 10px 10px"
         },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
           pt: 1,
-          fontWeight: "bold",
+          fontWeight: "500",
           children: props.nama
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("hr", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
           pb: 1,
-          fontWeight: "bold",
-          children: "Rp. ".concat(props.harga)
+          fontWeight: "500",
+          children: "Rp. ".concat(props.harga.toLocaleString())
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
+          fontWeight: "500",
+          sx: {
+            color: "rgb(0,0,0,41%)"
+          },
+          pt: 1,
+          children: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ."
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          container: true,
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            item: true,
+            lg: 7,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              sx: {
+                px: 1,
+                my: 3
+              },
+              variant: "contained",
+              color: "primary",
+              disableElevation: true,
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                variant: "button",
+                color: "white",
+                children: "Beli Sekarang"
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                pl: 0.5,
+                fontSize: 17,
+                color: "white",
+                className: "bx bx-shopping-bag"
+              })]
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            item: true,
+            lg: 1,
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_6__["default"], {
+              sx: {
+                px: 1,
+                my: 3
+              },
+              variant: "contained",
+              color: "secondary",
+              disableElevation: true,
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_5__["default"], {
+                "class": "bx bx-cart"
+              })
+            })
+          })]
         })]
       })]
     })
@@ -19452,28 +19501,36 @@ function Hero() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_mui_material_Box__WEBPACK_IMPORTED_MODULE_3__["default"], {
         sx: {
           position: 'absolute',
-          top: '106px',
-          left: '150px'
+          top: '6.5rem',
+          left: '9rem'
         },
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_4__["default"], {
-          variant: "h2",
+          fontWeight: 'medium',
+          fontSize: 50,
           children: "Batik Cakhra 1.1"
         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          fontWeight: 600,
           color: "subtitle",
           variant: "h6",
           children: ["Lorem ipsum dolor sit amet, consectetur", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("br", {}), " adipiscing elit. "]
-        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsxs)(_mui_material_Button__WEBPACK_IMPORTED_MODULE_5__["default"], {
           sx: {
+            px: 1,
             mt: 4
           },
           variant: "contained",
           color: "primary",
           disableElevation: true,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_4__["default"], {
             variant: "button",
             color: "white",
             children: "Beli Sekarang"
-          })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)(_mui_material_Typography__WEBPACK_IMPORTED_MODULE_4__["default"], {
+            pl: 0.5,
+            fontSize: 17,
+            color: "white",
+            className: "bx bx-shopping-bag"
+          })]
         })]
       })]
     })
@@ -19754,15 +19811,26 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var theme = (0,_mui_material_styles__WEBPACK_IMPORTED_MODULE_9__["default"])({
   palette: {
     primary: {
       main: "#FF674D"
     },
     secondary: {
-      main: "#FF674D"
+      main: "#7776BC"
     },
     subtitle: "rgb(0, 0, 0, 31%)"
+  },
+  typography: {
+    "fontFamily": "\"Poppins\", \"Helvetica\", \"Arial\", sans-serif",
+    "fontSize": 14,
+    "fontWeightLight": 300,
+    "fontWeightRegular": 400,
+    "fontWeightMedium": 500
+  },
+  shape: {
+    borderRadius: 12
   }
 });
 
