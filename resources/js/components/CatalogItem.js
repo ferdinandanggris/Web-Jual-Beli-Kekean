@@ -8,7 +8,7 @@ import { Grid } from "@mui/material";
 export default function CatalogItem(props) {
     return (
         <>
-            <Grid mobile={4} laptop={3} item px="12px" pt="10px">
+            <Grid mobile={4} laptop={3} item px="0px" pt="10px">
                 <Box
                     sx={{ width: "100%" }}
                     component="img"
@@ -23,17 +23,19 @@ export default function CatalogItem(props) {
                     }}
                 >
                     <Typography
-                        sx={{ borderBottom: "1px solid black" }}
-                        fontSize={{ mobile: 5, laptop: 18 }}
-                        py={1}
+                        sx={{ borderBottom: "0.5px solid #B0B0B0" }}
+                        fontSize={{ mobile: 7, laptop: 18 }}
+                        pt={1}
+                        pb={0.5}
                         fontWeight="500"
                     >
                         {props.nama}
                     </Typography>
                     <Typography
                         fontWeight="500"
-                        fontSize={{ mobile: 5, laptop: 18 }}
-                        py={1}
+                        fontSize={{ mobile: 7, laptop: 18 }}
+                        pt={0.5}
+                        pb={1}
                     >{`Rp. ${props.harga.toLocaleString()}`}</Typography>
                     <Typography
                         fontWeight="500"

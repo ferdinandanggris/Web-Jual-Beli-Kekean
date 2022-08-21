@@ -1,8 +1,9 @@
 import React from "react";
 import Container from "@mui/material/Container";
-import { spacing } from "@mui/system";
 import { Box } from "@mui/system";
-import { Drawer, Typography, IconButton } from "@mui/material";
+import { SwipeableDrawer, Typography, IconButton, AppBar, Toolbar, useScrollTrigger, Slide } from "@mui/material";
+import MenuIcon from '@mui/icons-material/Menu';
+import Button from '@mui/material/Button';
 
 export default function Navbar() {
     const login = true;
@@ -19,13 +20,6 @@ export default function Navbar() {
                         <a href="#" className="bx bx-shopping-bag"></a>
                         <a href="#" className="bx bx-user"></a>
                     </Box>
-
-                    <Box
-                        className="nav-right"
-                        sx={{ display: { mobile: "block", laptop: "none" } }}
-                    >
-                        <a href="#" className="fs-3 bx bx-cart"></a>
-                    </Box>
                 </>
             );
         } else {
@@ -36,38 +30,66 @@ export default function Navbar() {
             );
         }
     }
-
-    const [drawerState, setDrawerState] = React.useState(false)
+    const [drawerState, setDrawerState] = React.useState(false);
     return (
         <>
-        <Drawer anchor="left" open={drawerState} onClose={() => setDrawerState(false)}>
-            <Box display={{mobile: 'block', laptop: 'none'}} p={2} width='250px' textAlign='center'>
-                <Typography>
-                    Side Panel
-                </Typography>
-            </Box>
-        </Drawer>
+            <SwipeableDrawer
+                anchor="left"
+                open={drawerState}
+                onClose={() => setDrawerState(false)}
+                onOpen={() => setDrawerState(true)}
+            >
+                <Box
+                    p={2}
+                    width="250px"
+                    textAlign="center"
+                >
+                    <Typography>Side Panel</Typography>
+                </Box>
+            </SwipeableDrawer>
+            <AppBar sx={{display: { mobile: "block", laptop: "none" }, bgcolor: "white", boxShadow: '0px 1px 10px rgba(0, 0, 0, 0.17)'}}>
+                <Toolbar>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="menu"
+                        sx={{ mr: 2 }}
+                        onClick={() => setDrawerState(true)}
+                    >
+                        <MenuIcon />
+                    </IconButton>
+                    <Typography
+                        sx={{ flexGrow: 1 }}
+                        textAlign={'center'}
+                        color={'black'}
+                    >
+                        Kekean
+                    </Typography>
+                    <Button color="inherit">
+                        <Typography fontSize={20} href="#" className="bx bx-cart"></Typography>
+                    </Button>
+                </Toolbar>
+            </AppBar>
             <Container
                 sx={{
                     justifyContent: "center",
                     height: 60,
-                    boxShadow: {
-                        mobile: "0px 1px 10px rgba(0, 0, 0, 0.17);",
-                        laptop: "none",
-                    },
-                    my: { mobile: 0, laptop: 2 },
-                    mb: { mobile: -4 },
+                    display: { mobile: "none", laptop: "block" },
                 }}
             >
                 <div className="pt-3 d-flex justify-content-between align-items-center">
-                    <Typography
+                    {/* <Typography
                         onClick={() => setDrawerState(true)}
                         display={{ laptop: "none" }}
                         className="fs-3 pointer bx bx-menu"
-                    ></Typography>
-                    <Typography display={{ laptop: "none" }} fontWeight={"light"}>
+                    ></Typography> */}
+                    {/* <Typography
+                        display={{ laptop: "none" }}
+                        fontWeight={"light"}
+                    >
                         KEKEAN
-                    </Typography>
+                    </Typography> */}
                     <Box
                         display={{ laptop: "flex", mobile: "none" }}
                         className="nav-left"
