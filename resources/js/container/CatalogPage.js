@@ -12,6 +12,7 @@ export default function CatalogPage() {
                                 fontWeight={"light"}
                                 fontSize={18}
                                 py={2}
+                                textAlign={'center'}
                             >
                                 Our Collection
                             </Typography>
@@ -28,16 +29,49 @@ export default function CatalogPage() {
                                     nama="Batik Duwo"
                                     item="1"
                                     harga={599000}
+                                    catalogPage={true}
                                 />
                                 <CatalogItem
                                     nama="Batik Duwo"
                                     item="1"
                                     harga={599000}
+                                    catalogPage={true}
                                 />
                                 <CatalogItem
                                     nama="Batik Duwo"
                                     item="1"
                                     harga={599000}
+                                    catalogPage={true}
+                                />
+                                <CatalogItem
+                                    nama="Batik Duwo"
+                                    item="1"
+                                    harga={599000}
+                                    catalogPage={true}
+                                />
+                                <CatalogItem
+                                    nama="Batik Duwo"
+                                    item="1"
+                                    harga={599000}
+                                    catalogPage={true}
+                                />
+                                <CatalogItem
+                                    nama="Batik Duwo"
+                                    item="1"
+                                    harga={599000}
+                                    catalogPage={true}
+                                />
+                                <CatalogItem
+                                    nama="Batik Duwo"
+                                    item="1"
+                                    harga={599000}
+                                    catalogPage={true}
+                                />
+                                <CatalogItem
+                                    nama="Batik Duwo"
+                                    item="1"
+                                    harga={599000}
+                                    catalogPage={true}
                                 />
                             </Grid>
                         </Grid>

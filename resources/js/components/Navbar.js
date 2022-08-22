@@ -78,31 +78,42 @@ export default function Navbar() {
                     display: { mobile: "none", laptop: "block" },
                 }}
             >
-                <div className="pt-3 d-flex justify-content-between align-items-center">
-                    {/* <Typography
-                        onClick={() => setDrawerState(true)}
-                        display={{ laptop: "none" }}
-                        className="fs-3 pointer bx bx-menu"
-                    ></Typography> */}
-                    {/* <Typography
-                        display={{ laptop: "none" }}
-                        fontWeight={"light"}
-                    >
-                        KEKEAN
-                    </Typography> */}
-                    <Box
-                        display={{ laptop: "flex", mobile: "none" }}
-                        className="nav-left"
-                    >
-                        <a id="Home" className="active" href="#">
-                            Home
-                        </a>
-                        <a href="#">Article</a>
-                        <a href="#">Profile</a>
-                        <a href="#">Contact Us</a>
+                <AppBar elevation={0} sx={{display: { mobile: "none", laptop: "block" }, bgcolor: "#f9fafc"}}>
+                <Toolbar>
+                    <Box sx={{ display: 'flex', flexGrow: 1}} >
+                        <Typography
+                            color={'black'}
+                            px={2}
+                        >
+                            Shop
+                        </Typography>
+                        <Typography
+                            color={'black'}
+                            px={2}
+                        >
+                            Article
+                        </Typography>
+                        <Typography
+                            color={'black'}
+                            px={2}
+                        >
+                            Contact Us
+                        </Typography>
                     </Box>
-                    {isLogin()}
-                </div>
+                    <Button color="inherit">
+                        <Typography fontSize={20} href="#" className="bx bx-cart"></Typography>
+                    </Button>
+                    <Button color="inherit">
+                        <Typography fontSize={20} href="#" className="bx bx-cart"></Typography>
+                    </Button>
+                    <Button color="inherit">
+                        <Typography fontSize={20} href="#" className="bx bx-cart"></Typography>
+                    </Button>
+                    <Button color="inherit">
+                        <Typography fontSize={20} href="#" className="bx bx-cart"></Typography>
+                    </Button>
+                </Toolbar>
+            </AppBar>
             </Container>
         </>
     );

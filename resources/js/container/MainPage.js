@@ -52,16 +52,19 @@ export default function MainPage(props) {
                                     nama="Batik Duwo"
                                     item="1"
                                     harga={599000}
+                                    catalogPage={false}
                                 />
                                 <CatalogItem
                                     nama="Batik Duwo"
                                     item="1"
                                     harga={599000}
+                                    catalogPage={false}
                                 />
                                 <CatalogItem
                                     nama="Batik Duwo"
                                     item="1"
                                     harga={599000}
+                                    catalogPage={false}
                                 />
                             </Grid>
                         </Grid>

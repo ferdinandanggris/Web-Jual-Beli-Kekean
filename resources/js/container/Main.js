@@ -1,16 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
-import MobileNav from '../components/MobileNav'
 import Filter from '../components/Filter';
-import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { Grid } from '@mui/material';
 import MainPage from './MainPage'
 import Footer from '../components/Footer'
-import CatalogPage from './CatalogPage';
 
 function Main() {
     return (

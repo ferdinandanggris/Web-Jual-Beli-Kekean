@@ -20,7 +20,8 @@ export default function Filter() {
     const width = '30px'
 
     const AccordionStyle = {
-        boxShadow: "none",
+        boxShadow: 'none',
+        backgroundColor: '#00000000',
             '&:before': {
                 display: 'none',
             }
@@ -45,7 +46,7 @@ export default function Filter() {
                 startAdornment: <InputAdornment position="start">Rp</InputAdornment>
             }}></TextField>
             <hr></hr> */}
-            <Accordion sx={AccordionStyle} disableGutters={true} defaultExpanded={true}>
+            <Accordion elevation={0} sx={AccordionStyle} disableGutters={true} defaultExpanded={true}>
                 <AccordionSummary sx={{
                 pl: "0px"
                 }} expandIcon={<ExpandMoreIcon />}>
