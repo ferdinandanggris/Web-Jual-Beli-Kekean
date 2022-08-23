@@ -11,8 +11,8 @@ function Main() {
         <div>
             <Hero/>
             <Container>
-                <Grid spacing={0} container sx={{mt:3}}>
-                    <Grid sx={{display: {mobile: 'none', laptop: 'flex'}}} item laptop={2} mobile={0}>
+                <Grid spacing={0} container sx={{mt:{laptop: 15, mobile: 7}}}>
+                    <Grid sx={{display: {mobile: 'none', laptop: 'flex'}}} item laptop={2}>
                         <Filter/>
                     </Grid>
                     <Grid item laptop={10} mobile={12}>

@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 
 export default function Hero() {
     return (
-        <Container sx={{ display: { mobile: "none", laptop: "block" } }}>
+        <Container sx={{ display: { mobile: "none", laptop: "block" }, mt: 3 }}>
             <div className="hero">
                 <Box
                     sx={{ width: "100%" }}
@@ -16,13 +16,13 @@ export default function Hero() {
                 <Box
                     sx={{
                         position: "absolute",
-                        top: { laptop: "4.5rem", desktop: "4.7rem" },
-                        left: { laptop: "3rem", desktop: "4rem" },
+                        top: { laptop: "5.8rem", desktop: "6.4rem" },
+                        left: { laptop: "3rem", desktop: "3rem" },
                     }}
                 >
                     <Typography
                         fontWeight={"medium"}
-                        fontSize={{ tablet: 50, mobile: 13.8, desktop: 70 }}
+                        fontSize={{ tablet: 50, mobile: 13.8, desktop: 60 }}
                     >
                         Batik Cakhra 1.1
                     </Typography>

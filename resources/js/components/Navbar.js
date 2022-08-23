@@ -1,9 +1,17 @@
 import React from "react";
 import Container from "@mui/material/Container";
 import { Box } from "@mui/system";
-import { SwipeableDrawer, Typography, IconButton, AppBar, Toolbar, useScrollTrigger, Slide } from "@mui/material";
-import MenuIcon from '@mui/icons-material/Menu';
-import Button from '@mui/material/Button';
+import {
+    SwipeableDrawer,
+    Typography,
+    IconButton,
+    AppBar,
+    Toolbar,
+    useScrollTrigger,
+    Slide,
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
+import Button from "@mui/material/Button";
 
 export default function Navbar() {
     const login = true;
@@ -39,15 +47,17 @@ export default function Navbar() {
                 onClose={() => setDrawerState(false)}
                 onOpen={() => setDrawerState(true)}
             >
-                <Box
-                    p={2}
-                    width="250px"
-                    textAlign="center"
-                >
+                <Box p={2} width="250px" textAlign="center">
                     <Typography>Side Panel</Typography>
                 </Box>
             </SwipeableDrawer>
-            <AppBar sx={{display: { mobile: "block", laptop: "none" }, bgcolor: "white", boxShadow: '0px 1px 10px rgba(0, 0, 0, 0.17)'}}>
+            <AppBar
+                sx={{
+                    display: { mobile: "block", laptop: "none" },
+                    bgcolor: "white",
+                    boxShadow: "0px 1px 10px rgba(0, 0, 0, 0.17)",
+                }}
+            >
                 <Toolbar>
                     <IconButton
                         size="large"
@@ -61,13 +71,17 @@ export default function Navbar() {
                     </IconButton>
                     <Typography
                         sx={{ flexGrow: 1 }}
-                        textAlign={'center'}
-                        color={'black'}
+                        textAlign={"center"}
+                        color={"black"}
                     >
                         Kekean
                     </Typography>
                     <Button color="inherit">
-                        <Typography fontSize={20} href="#" className="bx bx-cart"></Typography>
+                        <Typography
+                            fontSize={20}
+                            href="#"
+                            className="bx bx-cart"
+                        ></Typography>
                     </Button>
                 </Toolbar>
             </AppBar>
@@ -78,42 +92,79 @@ export default function Navbar() {
                     display: { mobile: "none", laptop: "block" },
                 }}
             >
-                <AppBar elevation={0} sx={{display: { mobile: "none", laptop: "block" }, bgcolor: "#f9fafc"}}>
-                <Toolbar>
-                    <Box sx={{ display: 'flex', flexGrow: 1}} >
-                        <Typography
-                            color={'black'}
-                            px={2}
-                        >
-                            Shop
-                        </Typography>
-                        <Typography
-                            color={'black'}
-                            px={2}
-                        >
-                            Article
-                        </Typography>
-                        <Typography
-                            color={'black'}
-                            px={2}
-                        >
-                            Contact Us
-                        </Typography>
-                    </Box>
-                    <Button color="inherit">
-                        <Typography fontSize={20} href="#" className="bx bx-cart"></Typography>
-                    </Button>
-                    <Button color="inherit">
-                        <Typography fontSize={20} href="#" className="bx bx-cart"></Typography>
-                    </Button>
-                    <Button color="inherit">
-                        <Typography fontSize={20} href="#" className="bx bx-cart"></Typography>
-                    </Button>
-                    <Button color="inherit">
-                        <Typography fontSize={20} href="#" className="bx bx-cart"></Typography>
-                    </Button>
-                </Toolbar>
-            </AppBar>
+                <AppBar
+                    elevation={0}
+                    sx={{
+                        display: { mobile: "none", laptop: "block" },
+                        bgcolor: "#f9fafc",
+                    }}
+                >
+                    <Toolbar>
+                        <Box sx={{ display: "flex", flexGrow: 1 }}>
+                            <Typography
+                                color={"black"}
+                                px={2}
+                                sx={{
+                                    "&:hover": {
+                                        background: "rgb(7, 177, 77, 0.42)",
+                                    },
+                                }}
+                            >
+                                Shop
+                            </Typography>
+                            <Typography
+                                sx={{
+                                    "&:hover": {
+                                        background: "rgb(7, 177, 77, 0.42)",
+                                    },
+                                }}
+                                color={"black"}
+                                px={2}
+                            >
+                                Article
+                            </Typography>
+                            <Typography
+                                sx={{
+                                    "&:hover": {
+                                        background: "rgb(7, 177, 77, 0.42)",
+                                    },
+                                }}
+                                color={"black"}
+                                px={2}
+                            >
+                                Contact Us
+                            </Typography>
+                        </Box>
+                        <Button color="inherit">
+                            <Typography
+                                fontSize={20}
+                                href="#"
+                                className="bx bx-cart"
+                            ></Typography>
+                        </Button>
+                        <Button color="inherit">
+                            <Typography
+                                fontSize={20}
+                                href="#"
+                                className="bx bx-cart"
+                            ></Typography>
+                        </Button>
+                        <Button color="inherit">
+                            <Typography
+                                fontSize={20}
+                                href="#"
+                                className="bx bx-cart"
+                            ></Typography>
+                        </Button>
+                        <Button color="inherit">
+                            <Typography
+                                fontSize={20}
+                                href="#"
+                                className="bx bx-cart"
+                            ></Typography>
+                        </Button>
+                    </Toolbar>
+                </AppBar>
             </Container>
         </>
     );

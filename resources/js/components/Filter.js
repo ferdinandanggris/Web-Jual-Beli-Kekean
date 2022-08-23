@@ -28,7 +28,7 @@ export default function Filter() {
     }
 
     return(
-        <div className="filter">
+        <Box>
             {/* <Typography sx={{mb:1}} fontWeight="bolder ">Price</Typography>
             <TextField sx={{
                 '& legend': {display: 'none'}, 
@@ -82,6 +82,6 @@ export default function Filter() {
             </Accordion>
             <hr></hr>
 
-        </div>
+        </Box>
     )
 }

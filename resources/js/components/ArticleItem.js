@@ -5,7 +5,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 
-export default function CatalogItem(props) {
+export default function ArticleItem(props) {
     return (
         <Grid mobile={4} laptop={3} item px="0px" pt="10px">
             <Box

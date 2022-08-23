@@ -1,6 +1,7 @@
 import React from "react";
-import { Typography, Grid, Container } from "@mui/material/";
+import { Typography, Grid, Container, Button, Icon } from "@mui/material/";
 import CatalogItem from "../components/CatalogItem";
+import FilterListIcon from '@mui/icons-material/FilterList';
 
 export default function CatalogPage() {
     return(
@@ -16,6 +17,19 @@ export default function CatalogPage() {
                             >
                                 Our Collection
                             </Typography>
+                        </Grid>
+                        <Grid item mobile={6}>
+                            <Button variant='outlined'>
+                                    <FilterListIcon sx={{fontSize: 7}}/>
+                                <Typography  sx={{fontSize: 7}}>
+                                    ajdfnsdjf
+                                </Typography>
+                            </Button>
+                        </Grid>
+                        <Grid item mobile={6}>
+                            <Button variant='outlined'>
+                                ajdfnsdjf
+                            </Button>
                         </Grid>
                         <Grid item mobile={12}>
                             <Grid
