@@ -6,8 +6,10 @@ import CatalogPage from './container/CatalogPage';
 import Navbar from './components/Navbar'
 import CssBaseline from '@mui/material/CssBaseline'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
+import ProductPage from './container/ProductPage';
 
 function Navs() {
+    const catalog = JSON.parse(JSON.stringify(require('./catalog.json')))
     const theme = createTheme({
         palette: {
             primary: {
@@ -48,6 +50,7 @@ function Navs() {
             <Routes>
                 <Route path="/" exact element={<Main/>}/>
                 <Route path="/catalog" element={<CatalogPage/>}/>
+                <Route path={`/product`} element={<ProductPage/>}/>
             </Routes>
         </Router>
     </ThemeProvider>

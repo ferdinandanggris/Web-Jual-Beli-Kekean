@@ -1,33 +1,37 @@
-import React from 'react';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Typography from '@mui/material/Typography';
-import { TextField, Box, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
-import { styled } from '@mui/system';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-
+import React from "react";
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
+import Typography from "@mui/material/Typography";
+import {
+    TextField,
+    Box,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails,
+} from "@mui/material";
+import { styled } from "@mui/system";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function Filter() {
     const checkboxColor = {
-        color: '#FF674D',
-        '&.Mui-checked': {
-        color: '#FF674D',
-        }
-    }
+        color: "#FF674D",
+        "&.Mui-checked": {
+            color: "#FF674D",
+        },
+    };
 
-    const width = '30px'
+    const width = "30px";
 
     const AccordionStyle = {
-        boxShadow: 'none',
-        backgroundColor: '#00000000',
-            '&:before': {
-                display: 'none',
-            }
-    }
+        boxShadow: "none",
+        backgroundColor: "#00000000",
+        "&:before": {
+            display: "none",
+        },
+    };
 
-    return(
+    return (
         <Box>
             {/* <Typography sx={{mb:1}} fontWeight="bolder ">Price</Typography>
             <TextField sx={{
@@ -46,42 +50,89 @@ export default function Filter() {
                 startAdornment: <InputAdornment position="start">Rp</InputAdornment>
             }}></TextField>
             <hr></hr> */}
-            <Accordion elevation={0} sx={AccordionStyle} disableGutters={true} defaultExpanded={true}>
-                <AccordionSummary sx={{
-                pl: "0px"
-                }} expandIcon={<ExpandMoreIcon />}>
-                    <Typography className='fw-bolder'>Tipe Motif</Typography>
+            <Accordion
+                elevation={0}
+                sx={AccordionStyle}
+                disableGutters={true}
+                defaultExpanded={true}
+            >
+                <AccordionSummary
+                    sx={{
+                        pl: "0px",
+                    }}
+                    expandIcon={<ExpandMoreIcon />}
+                >
+                    <Typography fontSize={{laptop: 15, desktop: 17}} className="fw-bolder">Tipe Motif</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="Manis"/>
-                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="Chakra"/>
-                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="Bhirawa"/>
-                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="Mindhi"/>
-                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="Duwo"/>
-                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="Chentil"/>
+                        <FormControlLabel
+                            control={<Checkbox sx={checkboxColor} />}
+                            label={<Typography fontSize={{laptop: 12, desktop: 17}}>Manis</Typography>}
+                        />
+                        <FormControlLabel
+                            control={<Checkbox sx={checkboxColor} />}
+                            label={<Typography fontSize={{laptop: 12, desktop: 17}}>Chakra</Typography>}
+                        />
+                        <FormControlLabel
+                            control={<Checkbox sx={checkboxColor} />}
+                            label={<Typography fontSize={{laptop: 12, desktop: 17}}>Bhirawa</Typography>}
+                        />
+                        <FormControlLabel
+                            control={<Checkbox sx={checkboxColor} />}
+                            label={<Typography fontSize={{laptop: 12, desktop: 17}}>Mindhi</Typography>}
+                        />
+                        <FormControlLabel
+                            control={<Checkbox sx={checkboxColor} />}
+                            label={<Typography fontSize={{laptop: 12, desktop: 17}}>Duwo</Typography>}
+                        />
+                        <FormControlLabel
+                            control={<Checkbox sx={checkboxColor} />}
+                            label={<Typography fontSize={{laptop: 12, desktop: 17}}>Chentil</Typography>}
+                        />
                     </FormGroup>
                 </AccordionDetails>
             </Accordion>
             <hr></hr>
-            <Accordion sx={AccordionStyle} disableGutters={true} defaultExpanded={true}>
-                <AccordionSummary sx={{
-                pl: "0px"
-                }} expandIcon={<ExpandMoreIcon />}>
-                    <Typography className='fw-bolder'>Ukuran</Typography>
+            <Accordion
+                sx={AccordionStyle}
+                disableGutters={true}
+                defaultExpanded={true}
+            >
+                <AccordionSummary
+                    sx={{
+                        pl: "0px",
+                    }}
+                    expandIcon={<ExpandMoreIcon />}
+                >
+                    <Typography fontSize={{laptop: 15, desktop: 17}} className="fw-bolder">Ukuran</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                     <FormGroup>
-                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="S"/>
-                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="M"/>
-                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="ML"/>
-                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="XL"/>
-                        <FormControlLabel control={<Checkbox sx={checkboxColor}/>} label="XXL"/>
+                            <FormControlLabel
+                                control={<Checkbox sx={checkboxColor} />}
+                                label={<Typography fontSize={{laptop: 12, desktop: 17}}>S</Typography>}
+                            />
+                            <FormControlLabel
+                                control={<Checkbox sx={checkboxColor} />}
+                                label={<Typography fontSize={{laptop: 12, desktop: 17}}>M</Typography>}
+                            />
+                            <FormControlLabel
+                                control={<Checkbox sx={checkboxColor} />}
+                                label={<Typography fontSize={{laptop: 12, desktop: 17}}>ML</Typography>}
+                            />
+                            <FormControlLabel
+                                control={<Checkbox sx={checkboxColor} />}
+                                label={<Typography fontSize={{laptop: 12, desktop: 17}}>XL</Typography>}
+                            />
+                            <FormControlLabel
+                                control={<Checkbox sx={checkboxColor} />}
+                                label={<Typography fontSize={{laptop: 12, desktop: 17}}>XXL</Typography>}
+                            />
                     </FormGroup>
                 </AccordionDetails>
             </Accordion>
             <hr></hr>
-
         </Box>
-    )
+    );
 }

@@ -7,6 +7,11 @@ import CatalogCollection from "./CatalogCollection";
 import ArticleCollection from './ArticleCollection'
 
 export default function MainPage(props) {
+    const catalog = JSON.parse(JSON.stringify(require('../catalog.json')))
+    const catalogs = catalog.map((item) => 
+        <CatalogItem key={item.id} id={item.id} nama={item.nama} item={item.item} harga={item.harga} />
+    )
+    
     return (
         <Box>
             <Grid display={{mobile: 'flex', laptop: 'none'}} container alignItems="center" justifyContent="center" pt={0}>
@@ -50,19 +55,8 @@ export default function MainPage(props) {
                 container
                 spacing={2}
             >
-                <CatalogItem nama="Batik Duwo" item="1" harga={599000} />
-                <CatalogItem nama="Chakra" item="1" harga={599000} />
-                <CatalogItem nama="Ngga tau" item="1" harga={599000} />
-                <CatalogItem nama="Ngga tau" item="1" harga={599000} />
-                <CatalogItem nama="Ngga tau" item="1" harga={599000} />
-                <CatalogItem nama="Ngga tau" item="1" harga={599000} />
-                <CatalogItem nama="Ngga tau" item="1" harga={599000} />
-                <CatalogItem nama="Ngga tau" item="1" harga={599000} />
-                <CatalogItem nama="Ngga tau" item="1" harga={599000} />
-                <CatalogItem nama="Ngga tau" item="1" harga={599000} />
-                <CatalogItem nama="Ngga tau" item="1" harga={599000} />
-                <CatalogItem nama="Ngga tau" item="1" harga={599000} />
-                <CatalogItem nama="Ngga tau" item="1" harga={599000} />
+                {catalogs}
+                
             </Grid>
         </Box>
     );

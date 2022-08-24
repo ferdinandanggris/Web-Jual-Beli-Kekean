@@ -17,19 +17,19 @@ export default function Hero() {
                     sx={{
                         position: "absolute",
                         top: { laptop: "5.8rem", desktop: "6.4rem" },
-                        left: { laptop: "3rem", desktop: "3rem" },
+                        left: { laptop: "3rem", laptop: "7rem", desktop: "9rem" },
                     }}
                 >
                     <Typography
                         fontWeight={"medium"}
-                        fontSize={{ tablet: 50, mobile: 13.8, desktop: 60 }}
+                        fontSize={{ tablet: 50, mobile: 13.8, laptop: 35, desktop: 40 }}
                     >
                         Batik Cakhra 1.1
                     </Typography>
                     <Typography
                         fontWeight={600}
                         color="subtitle"
-                        fontSize={{ tablet: 15, mobile: 8.28, desktop: 20 }}
+                        fontSize={{ tablet: 15, mobile: 8.28, laptop: 15, desktop: 20 }}
                     >
                         Lorem ipsum dolor sit amet, consectetur
                         <br /> adipiscing elit.{" "}
@@ -44,12 +44,12 @@ export default function Hero() {
                         color="primary"
                         disableElevation
                     >
-                        <Typography fontSize={{desktop: 20}} variant="button" color="white">
+                        <Typography fontSize={{desktop: 15}} variant="button" color="white">
                             Beli Sekarang
                         </Typography>
                         <Typography
                             pl={0.5}
-                            fontSize={17}
+                            fontSize={{desktop: 17, laptop: 14}}
                             color="white"
                             className="bx bx-shopping-bag"
                         ></Typography>

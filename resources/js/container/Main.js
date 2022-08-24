@@ -9,8 +9,8 @@ import Footer from '../components/Footer'
 function Main() {
     return (
         <div>
-            <Hero/>
-            <Container>
+            <Container sx={{px: {mobile: 5, laptop: 10}}}>
+                <Hero/>
                 <Grid spacing={0} container sx={{mt:{laptop: 15, mobile: 7}}}>
                     <Grid sx={{display: {mobile: 'none', laptop: 'flex'}}} item laptop={2}>
                         <Filter/>

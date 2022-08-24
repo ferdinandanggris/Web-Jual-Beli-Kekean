@@ -7,15 +7,13 @@ import {
     IconButton,
     AppBar,
     Toolbar,
-    useScrollTrigger,
-    Slide,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
 
 export default function Navbar() {
     const login = true;
-    function isLogin() {
+    function IsLogin() {
         if (login) {
             return (
                 <>
@@ -23,10 +21,18 @@ export default function Navbar() {
                         className="nav-right"
                         sx={{ display: { mobile: "none", laptop: "block" } }}
                     >
-                        <a href="#" className="bx bx-search"></a>
-                        <a href="#" className="bx bx-heart"></a>
-                        <a href="#" className="bx bx-shopping-bag"></a>
-                        <a href="#" className="bx bx-user"></a>
+                        <Button color="inherit">
+                            <Typography href="#" className="bx bx-search"/>
+                        </Button>
+                        <Button color="inherit">
+                            <Typography href="#" className="bx bx-heart"/>
+                        </Button>
+                        <Button color="inherit">
+                            <Typography href="#" className="bx bx-cart"/>
+                        </Button>
+                        <Button color="inherit">
+                            <Typography href="#" className="bx bx-user"/>
+                        </Button>
                     </Box>
                 </>
             );
@@ -95,8 +101,8 @@ export default function Navbar() {
                 <AppBar
                     elevation={0}
                     sx={{
-                        display: { mobile: "none", laptop: "block" },
                         bgcolor: "#f9fafc",
+                        px: 7,
                     }}
                 >
                     <Toolbar>
@@ -135,34 +141,7 @@ export default function Navbar() {
                                 Contact Us
                             </Typography>
                         </Box>
-                        <Button color="inherit">
-                            <Typography
-                                fontSize={20}
-                                href="#"
-                                className="bx bx-cart"
-                            ></Typography>
-                        </Button>
-                        <Button color="inherit">
-                            <Typography
-                                fontSize={20}
-                                href="#"
-                                className="bx bx-cart"
-                            ></Typography>
-                        </Button>
-                        <Button color="inherit">
-                            <Typography
-                                fontSize={20}
-                                href="#"
-                                className="bx bx-cart"
-                            ></Typography>
-                        </Button>
-                        <Button color="inherit">
-                            <Typography
-                                fontSize={20}
-                                href="#"
-                                className="bx bx-cart"
-                            ></Typography>
-                        </Button>
+                        <IsLogin/>
                     </Toolbar>
                 </AppBar>
             </Container>
