@@ -50,7 +50,7 @@ function Navs() {
             <Routes>
                 <Route path="/" exact element={<Main/>}/>
                 <Route path="/catalog" element={<CatalogPage/>}/>
-                <Route path={`/product`} element={<ProductPage/>}/>
+                <Route path='/products/:productId' element={<ProductPage/>}/>
             </Routes>
         </Router>
     </ThemeProvider>

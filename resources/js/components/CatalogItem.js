@@ -20,7 +20,7 @@ export default function CatalogItem(props) {
                         textDecoration: "none",
                     }}
                     component={Link}
-                    to={`/product${props.id}`}
+                    to={`/products/${props.id}`}
                 >
                     <Box
                         sx={{ width: "100%" }}

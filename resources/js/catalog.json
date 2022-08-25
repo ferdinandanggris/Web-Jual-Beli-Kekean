@@ -8,27 +8,31 @@
     },
     {
         "id": 2,
-        "nama": "Batik Duwo",
+        "nama": "Batik 2",
         "item": 1,
-        "harga": 599000
+        "harga": 599000,
+        "deskripsi": "Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh"
     },
     {
         "id": 3,
-        "nama": "Batik Duwo",
+        "nama": "Batik 3",
         "item": 1,
-        "harga": 599000
+        "harga": 599000,
+        "deskripsi": "Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh"
     },
     {
         "id": 4,
-        "nama": "Batik Duwo",
+        "nama": "Batik 4",
         "item": 1,
-        "harga": 599000
+        "harga": 599000,
+        "deskripsi": "Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh"
     },
     {
         "id": 5,
-        "nama": "Batik Duwo",
+        "nama": "Batik 5",
         "item": 1,
-        "harga": 599000
+        "harga": 599000,
+        "deskripsi": "Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh"
     }
 ]
 
