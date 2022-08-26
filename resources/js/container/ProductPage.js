@@ -8,11 +8,11 @@ import {
     FormControl,
     Select,
     TextField,
-    Button
 } from "@mui/material";
 import React from "react";
 import ButtonBeli from "../components/ButtonBeli";
 import { useParams } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function ProductPage(props) {
     const [size, setSize] = React.useState("");
@@ -22,7 +22,7 @@ export default function ProductPage(props) {
     console.log(catalog)
 
     const handleChange = (event) => {
-        setAge(event.target.value);
+        setSize(event.target.value);
     };
     return (
         <Container sx={{ px: 10 }}>
