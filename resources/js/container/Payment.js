@@ -7,9 +7,11 @@ import {
     Typography,
     Container,
     Grid,
+    Button,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
 export default function Payment() {
     const checkboxColor = {
@@ -29,7 +31,11 @@ export default function Payment() {
     return (
         <Container sx={{ px: 50 }}>
             <Accordion
-                sx={{ AccordionStyle, border: "1px solid #BABABA", borderBottom: 'none' }}
+                sx={{
+                    AccordionStyle,
+                    border: "1px solid #BABABA",
+                    borderBottom: "none",
+                }}
                 disableGutters={true}
                 defaultExpanded={true}
             >
@@ -78,13 +84,21 @@ export default function Payment() {
                     </Grid>
                 </AccordionDetails>
             </Accordion>
-            <Accordion sx={{AccordionStyle, border: "1px solid #BABABA", borderBottom: 'none', borderTop: 'none'}} disableGutters={true}>
+            <Accordion
+                sx={{
+                    AccordionStyle,
+                    border: "1px solid #BABABA",
+                    borderBottom: "none",
+                    borderTop: "none",
+                }}
+                disableGutters={true}
+            >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography
                         fontSize={{ laptop: 15, desktop: 17 }}
                         fontWeight={"regular"}
                     >
-                        Rekening Bank
+                        E-Wallet
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
@@ -124,52 +138,55 @@ export default function Payment() {
                     </Grid>
                 </AccordionDetails>
             </Accordion>
-            <Accordion sx={{AccordionStyle, border: "1px solid #BABABA", borderTop: 'none'}} disableGutters={true}>
+            <Accordion
+                sx={{
+                    AccordionStyle,
+                    border: "1px solid #BABABA",
+                    borderTop: "none",
+                }}
+                disableGutters={true}
+            >
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography
                         fontSize={{ laptop: 15, desktop: 17 }}
                         fontWeight={"regular"}
                     >
-                        Rekening Bank
+                        Qris
                     </Typography>
                 </AccordionSummary>
                 <AccordionDetails>
-                    <Grid container alignItems="center" spacing={5}>
+                    <Grid
+                        container
+                        justifyContent={"center"}
+                        alignItems="center"
+                        spacing={5}
+                    >
                         <Grid item mobile={6}>
                             <Box
-                                sx={{ width: "131px" }}
+                                sx={{ width: "250px" }}
                                 component="img"
-                                src="../images/logo-bca.png"
+                                src="../images/qris.jpeg"
                             />
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Typography fontSize={20}>912949301</Typography>
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Box
-                                sx={{ width: "131px" }}
-                                component="img"
-                                src="../images/logo-mandiri.png"
-                            />
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Typography fontSize={20}>
-                                00000000029384739923
-                            </Typography>
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Box
-                                sx={{ width: "131px" }}
-                                component="img"
-                                src="../images/logo-bni.png"
-                            />
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Typography fontSize={20}>29348210213</Typography>
                         </Grid>
                     </Grid>
                 </AccordionDetails>
             </Accordion>
+            <Button
+                variant="contained"
+                sx={{
+                    mt: 2,
+                    borderRadius: 1,
+                    backgroundColor: "#25D366",
+                    ":hover": {
+                        backgroundColor: "#1AA04C",
+                    },
+                }}
+            >
+                <Typography mr={1} color="white">
+                    Konfirmasi Pembayaran
+                </Typography>
+                <WhatsAppIcon sx={{ color: "#FFFFFF", fontSize: 25 }} />
+            </Button>
         </Container>
     );
 }
