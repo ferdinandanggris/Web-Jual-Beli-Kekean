@@ -1,15 +1,13 @@
 import { ClassNames } from "@emotion/react";
-import { Box, Typography, TextField } from "@mui/material";
+import { Box, Typography, TextField, FilledInput, FormControl, InputLabel } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     root: {
-       [`& fieldset`]: {
-             borderRadius: 0,
-       },
-    },
- });
+        borderRadius: 10
+    }
+}))
 function LoginPage() {
     const classes = useStyles()
     return (
@@ -38,15 +36,16 @@ function LoginPage() {
                         Daftar Sekarang
                     </Box>
                 </Typography>
-                <TextField
-                    sx={{borderRadius: 0}}
-                    fullWidth
-                    InputProps={{ disableUnderline: true }}
-                    id="filled-basic"
-                    label="Email"
-                    variant="filled"
-                    classes={{root: classes.root}}
-                />
+                <FormControl  fullWidth variant='filled'>
+                    <InputLabel htmlfor='component-filled'>Email</InputLabel>
+                    <FilledInput
+                        id="component-filled"
+                        disableUnderline={true}
+                        classes={{
+                            root: classes.root
+                        }}
+                    />
+                </FormControl>
             </Box>
         </Box>
     );
