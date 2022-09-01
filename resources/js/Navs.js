@@ -8,6 +8,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import ProductPage from './container/ProductPage';
 import Payment from './container/Payment';
+import LoginPage from './container/LoginPage';
 
 function Navs() {
     const catalog = JSON.parse(JSON.stringify(require('./catalog.json')))
@@ -54,6 +55,7 @@ function Navs() {
                     <Route path="/catalog" element={<CatalogPage/>}/>
                     <Route path='/products/:productId' element={<ProductPage/>}/>
                     <Route path='/payment' element={<Payment/>}/>
+                    <Route path='/login' element={<LoginPage/>}/>
                 </Routes>
             </Router>
         </CssBaseline>
