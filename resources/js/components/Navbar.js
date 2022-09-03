@@ -101,7 +101,7 @@ export default function Navbar() {
                 <AppBar
                     elevation={0}
                     sx={{
-                        bgcolor: "#f9fafc",
+                        bgcolor: "white",
                         px: 7,
                     }}
                 >

@@ -9,6 +9,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import ProductPage from './container/ProductPage';
 import Payment from './container/Payment';
 import LoginPage from './container/LoginPage';
+import RegisterPage from './container/RegisterPage';
 
 function Navs() {
     const catalog = JSON.parse(JSON.stringify(require('./catalog.json')))
@@ -47,7 +48,7 @@ function Navs() {
     })    
     return (
         <ThemeProvider theme={theme}>
-        <CssBaseline>
+        <CssBaseline/>
             <Router>
                 <Navbar/>
                 <Routes>
@@ -56,9 +57,9 @@ function Navs() {
                     <Route path='/products/:productId' element={<ProductPage/>}/>
                     <Route path='/payment' element={<Payment/>}/>
                     <Route path='/login' element={<LoginPage/>}/>
+                    <Route path='/register' element={<RegisterPage/>}/>
                 </Routes>
             </Router>
-        </CssBaseline>
     </ThemeProvider>
     );
 }

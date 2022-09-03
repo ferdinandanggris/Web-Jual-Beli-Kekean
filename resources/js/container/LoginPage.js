@@ -1,15 +1,28 @@
 import { ClassNames } from "@emotion/react";
-import { Box, Typography, TextField, FilledInput, FormControl, InputLabel } from "@mui/material";
+import {
+    Box,
+    Typography,
+    TextField,
+    FilledInput,
+    FormControl,
+    InputLabel,
+    Button,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
     root: {
-        borderRadius: 10
-    }
-}))
+        borderRadius: 10,
+    },
+    input: {
+        "&:-webkit-autofill": {
+            borderRadius: 10,
+        },
+    },
+}));
 function LoginPage() {
-    const classes = useStyles()
+    const classes = useStyles();
     return (
         <Box
             display="flex"
@@ -17,7 +30,7 @@ function LoginPage() {
             alignItems="center"
             minHeight="85vh"
         >
-            <Box textAlign={"center"}>
+            <Box textAlign={"center"} sx={{border: '1px solid #CACACA', borderRadius: '16px'}} p={5}>
                 <Typography fontSize={"32px"}>
                     Masuk untuk belanja
                     <Box
@@ -36,16 +49,46 @@ function LoginPage() {
                         Daftar Sekarang
                     </Box>
                 </Typography>
-                <FormControl  fullWidth variant='filled'>
-                    <InputLabel htmlfor='component-filled'>Email</InputLabel>
+                <FormControl fullWidth variant="filled" sx={{ mb: 2, mt: 5 }}>
+                    <InputLabel htmlfor="component-filled">Email</InputLabel>
                     <FilledInput
                         id="component-filled"
                         disableUnderline={true}
                         classes={{
-                            root: classes.root
+                            root: classes.root,
+                            input: classes.input,
                         }}
                     />
                 </FormControl>
+
+                <FormControl fullWidth variant="filled">
+                    <InputLabel htmlfor="component-filled">Password</InputLabel>
+                    <FilledInput
+                        type="password"
+                        id="component-filled"
+                        disableUnderline={true}
+                        classes={{
+                            root: classes.root,
+                            input: classes.input,
+                        }}
+                    />
+                </FormControl>
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+                    <Button variant='contained' disableElevation="true" sx={{mt: 3, mr: 2}}>
+                        <Typography color='white' sx={{px: 6, py: 1}}>
+                        Masuk
+                        </Typography>
+                    </Button>
+                    <Button variant='text' disableElevation="true" sx={{mt: 3}}>
+                        <Typography color='primary' sx={{px: 4, py: 1}}>
+                        Lupa Password
+                        </Typography>
+                    </Button>
+                </Box>
             </Box>
         </Box>
     );
