@@ -11,6 +11,7 @@ export default function MainPage(props) {
     const catalogs = catalog.map((item) => 
         <CatalogItem key={item.id} id={item.id} nama={item.nama} item={item.item} harga={item.harga} />
     )
+
     
     return (
         <Box>

@@ -9,6 +9,7 @@ import {
     Button,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
+import axios from "axios";
 import React from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,6 +23,35 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 function LoginPage() {
+    const [register, setRegister] = React.useState({
+        firstName: '',
+        lastName: '',
+        address: '',
+        email: '',
+        password: '',
+
+    });
+
+    const handleInput = (e) => {
+        e.persist()
+        setRegister({...register, [e.target.name]: e.target.value})
+    }
+
+    const registerSubmit = (e) => {
+        e.preventDefault()
+        const data = {
+            firstName: register.firstName,
+            lastName: register.lastName,
+            address: register.address,
+            email: register.email,
+            password: register.password,
+        }
+
+        axios.post(`/api/register`, data).then(res => {
+            
+        })
+    }
+
     const classes = useStyles();
     return (
         <Box
@@ -33,35 +63,39 @@ function LoginPage() {
             <Box
                 textAlign={"center"}
                 sx={{ border: "1px solid #CACACA", borderRadius: "16px" }}
-                p={5}
+                p={3}
             >
-                <Typography fontSize={"32px"}>
+                <Typography fontSize={"28px"}>
                     Daftar untuk belanja
                     <Box
                         component={"span"}
-                        sx={{ color: "#FF674D", fontSize: "40px" }}
+                        sx={{ color: "#FF674D", fontSize: "36px" }}
                     >
                         .
                     </Box>
                 </Typography>
-                <Typography color="#939393" fontSize={"16px"}>
+                <Typography color="#939393" fontSize={"12px"}>
                     Sudah punya akun?{" "}
                     <Box
                         component={"span"}
-                        sx={{ color: "#FF674D", fontSize: "16px" }}
+                        sx={{ color: "#FF674D", fontSize: "12px" }}
                     >
                         Masuk Sekarang
                     </Box>
                 </Typography>
+                <form>
                 <Grid container sx={{maxWidth: 450, mt: 2}} spacing={2}>
                     <Grid item mobile={6}>
                         <FormControl fullWidth variant="filled">
-                            <InputLabel htmlfor="component-filled">
+                            <InputLabel htmlFor="component-filled">
                                 First Name
                             </InputLabel>
                             <FilledInput
                                 id="component-filled"
                                 disableUnderline={true}
+                                onChange={handleInput}
+                                name='firstName'
+                                value={register.firstName}
                                 classes={{
                                     root: classes.root,
                                     input: classes.input,
@@ -71,12 +105,15 @@ function LoginPage() {
                     </Grid>
                     <Grid item mobile={6}>
                         <FormControl fullWidth variant="filled">
-                            <InputLabel htmlfor="component-filled">
+                            <InputLabel htmlFor="component-filled">
                                 Last Name
                             </InputLabel>
                             <FilledInput
                                 id="component-filled"
                                 disableUnderline={true}
+                                onChange={handleInput}
+                                value={register.lastName}
+                                name='lastName'
                                 classes={{
                                     root: classes.root,
                                     input: classes.input,
@@ -86,12 +123,15 @@ function LoginPage() {
                     </Grid>
                     <Grid item mobile={12}>
                         <FormControl fullWidth variant="filled">
-                            <InputLabel htmlfor="component-filled">
+                            <InputLabel htmlFor="component-filled">
                                 Address
                             </InputLabel>
                             <FilledInput
                                 id="component-filled"
                                 disableUnderline={true}
+                                onChange={handleInput}
+                                value={register.address}
+                                name='address'
                                 classes={{
                                     root: classes.root,
                                     input: classes.input,
@@ -101,12 +141,15 @@ function LoginPage() {
                     </Grid>
                     <Grid item mobile={12}>
                         <FormControl fullWidth variant="filled">
-                            <InputLabel htmlfor="component-filled">
+                            <InputLabel htmlFor="component-filled">
                                 Email
                             </InputLabel>
                             <FilledInput
                                 id="component-filled"
                                 disableUnderline={true}
+                                value={register.email}
+                                onChange={handleInput}
+                                name='email'
                                 classes={{
                                     root: classes.root,
                                     input: classes.input,
@@ -117,13 +160,35 @@ function LoginPage() {
 
                     <Grid item mobile={12}>
                         <FormControl fullWidth variant="filled">
-                            <InputLabel htmlfor="component-filled">
+                            <InputLabel htmlFor="component-filled">
                                 Password
                             </InputLabel>
                             <FilledInput
                                 id="component-filled"
                                 disableUnderline={true}
+                                onChange={handleInput}
+                                value={register.password}
                                 type="password"
+                                name='password'
+                                classes={{
+                                    root: classes.root,
+                                    input: classes.input,
+                                }}
+                            />
+                        </FormControl>
+                    </Grid>
+
+                    <Grid item mobile={12}>
+                        <FormControl fullWidth variant="filled">
+                            <InputLabel htmlFor="component-filled">
+                                Confirm Password
+                            </InputLabel>
+                            <FilledInput
+                                id="component-filled"
+                                disableUnderline={true}
+                                onChange={handleInput}
+                                type="password"
+                                name='confirmPassword'
                                 classes={{
                                     root: classes.root,
                                     input: classes.input,
@@ -135,24 +200,18 @@ function LoginPage() {
 
                 <Box display="flex" justifyContent="center" alignItems="center">
                     <Button
+                        type='submit'
                         variant="contained"
-                        disableElevation="true"
+                        disableElevation={true}
+                        onSubmit={registerSubmit}
                         sx={{ mt: 3, mr: 2 }}
-                    >
+                        >
                         <Typography color="white" sx={{ px: 6, py: 1 }}>
-                            Masuk
-                        </Typography>
-                    </Button>
-                    <Button
-                        variant="text"
-                        disableElevation="true"
-                        sx={{ mt: 3 }}
-                    >
-                        <Typography color="primary" sx={{ px: 4, py: 1 }}>
-                            Lupa Password
+                            Daftar
                         </Typography>
                     </Button>
                 </Box>
+            </form>
             </Box>
         </Box>
     );
