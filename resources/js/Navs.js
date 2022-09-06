@@ -10,6 +10,7 @@ import ProductPage from './container/ProductPage';
 import Payment from './container/Payment';
 import LoginPage from './container/LoginPage';
 import RegisterPage from './container/RegisterPage';
+import axios from 'axios';
 
 function Navs() {
     const catalog = JSON.parse(JSON.stringify(require('./catalog.json')))
@@ -46,6 +47,10 @@ function Navs() {
         },
     
     })    
+    axios.defaults.baseURL = "http://localhost:8000/";
+    axios.defaults.headers.post['Accept'] = "application/json";
+    axios.defaults.headers.post['Content-Type'] = "application/json";
+    axios.defaults.withCredentials = true; 
     return (
         <ThemeProvider theme={theme}>
         <CssBaseline/>

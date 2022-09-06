@@ -7,6 +7,7 @@ import {
     FormControl,
     InputLabel,
     Button,
+    FormHelperText,
 } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import axios from "axios";
@@ -22,35 +23,46 @@ const useStyles = makeStyles((theme) => ({
         },
     },
 }));
+
 function LoginPage() {
     const [register, setRegister] = React.useState({
-        firstName: '',
-        lastName: '',
-        address: '',
-        email: '',
-        password: '',
-
+        first_name: "",
+        last_name: "",
+        address: "",
+        email: "",
+        password: "",
+        number_phone: '',
+        error_list: [],
     });
 
     const handleInput = (e) => {
-        e.persist()
-        setRegister({...register, [e.target.name]: e.target.value})
-    }
+        e.persist();
+        setRegister({ ...register, [e.target.name]: e.target.value });
+    };
 
     const registerSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         const data = {
-            firstName: register.firstName,
-            lastName: register.lastName,
+            first_name: register.first_name,
+            last_name: register.last_name,
             address: register.address,
             email: register.email,
             password: register.password,
-        }
+            number_phone: register.number_phone,
+        };
 
-        axios.post(`/api/register`, data).then(res => {
-            
-        })
-    }
+        axios.get("/sanctum/csrf-cookie").then((response) => {
+            axios
+                .post('/api/register', data)
+                .then((res) => {
+                    if(res.data.status === 200) {
+                        console.log("success")
+                    } else {
+                        setRegister({...register, error_list: res.data.validation_errors})
+                    }
+                });
+        });
+    };
 
     const classes = useStyles();
     return (
@@ -83,135 +95,162 @@ function LoginPage() {
                         Masuk Sekarang
                     </Box>
                 </Typography>
-                <form>
-                <Grid container sx={{maxWidth: 450, mt: 2}} spacing={2}>
-                    <Grid item mobile={6}>
-                        <FormControl fullWidth variant="filled">
-                            <InputLabel htmlFor="component-filled">
-                                First Name
-                            </InputLabel>
-                            <FilledInput
-                                id="component-filled"
-                                disableUnderline={true}
-                                onChange={handleInput}
-                                name='firstName'
-                                value={register.firstName}
-                                classes={{
-                                    root: classes.root,
-                                    input: classes.input,
-                                }}
-                            />
-                        </FormControl>
-                    </Grid>
-                    <Grid item mobile={6}>
-                        <FormControl fullWidth variant="filled">
-                            <InputLabel htmlFor="component-filled">
-                                Last Name
-                            </InputLabel>
-                            <FilledInput
-                                id="component-filled"
-                                disableUnderline={true}
-                                onChange={handleInput}
-                                value={register.lastName}
-                                name='lastName'
-                                classes={{
-                                    root: classes.root,
-                                    input: classes.input,
-                                }}
-                            />
-                        </FormControl>
-                    </Grid>
-                    <Grid item mobile={12}>
-                        <FormControl fullWidth variant="filled">
-                            <InputLabel htmlFor="component-filled">
-                                Address
-                            </InputLabel>
-                            <FilledInput
-                                id="component-filled"
-                                disableUnderline={true}
-                                onChange={handleInput}
-                                value={register.address}
-                                name='address'
-                                classes={{
-                                    root: classes.root,
-                                    input: classes.input,
-                                }}
-                            />
-                        </FormControl>
-                    </Grid>
-                    <Grid item mobile={12}>
-                        <FormControl fullWidth variant="filled">
-                            <InputLabel htmlFor="component-filled">
-                                Email
-                            </InputLabel>
-                            <FilledInput
-                                id="component-filled"
-                                disableUnderline={true}
-                                value={register.email}
-                                onChange={handleInput}
-                                name='email'
-                                classes={{
-                                    root: classes.root,
-                                    input: classes.input,
-                                }}
-                            />
-                        </FormControl>
+                <form onSubmit={registerSubmit}>
+                    <Grid container sx={{ maxWidth: 450, mt: 2 }} spacing={2}>
+                        <Grid item mobile={6}>
+                            <FormControl error={register.error_list.first_name?true:false} fullWidth variant="filled">
+                                <InputLabel htmlFor="component-filled">
+                                    First Name
+                                </InputLabel>
+                                <FilledInput
+                                    id="component-filled"
+                                    disableUnderline={true}
+                                    onChange={handleInput}
+                                    name="first_name"
+                                    value={register.first_name}
+                                    classes={{
+                                        root: classes.root,
+                                        input: classes.input,
+                                    }}
+                                />
+                                <FormHelperText sx={{fontSize: 10}}>{register.error_list.first_name}</FormHelperText>
+                            </FormControl>
+                        </Grid>
+                        <Grid item mobile={6}>
+                            <FormControl error={register.error_list.last_name?true:false} fullWidth variant="filled">
+                                <InputLabel htmlFor="component-filled">
+                                    Last Name
+                                </InputLabel>
+                                <FilledInput
+                                    id="component-filled"
+                                    disableUnderline={true}
+                                    onChange={handleInput}
+                                    value={register.last_name}
+                                    name="last_name"
+                                    classes={{
+                                        root: classes.root,
+                                        input: classes.input,
+                                    }}
+                                />
+                                <FormHelperText sx={{fontSize: 10}}>{register.error_list.last_name}</FormHelperText>
+                            </FormControl>
+                        </Grid>
+                        <Grid item mobile={12}>
+                            <FormControl error={register.error_list.address?true:false} fullWidth variant="filled">
+                                <InputLabel htmlFor="component-filled">
+                                    Address
+                                </InputLabel>
+                                <FilledInput
+                                    id="component-filled"
+                                    disableUnderline={true}
+                                    onChange={handleInput}
+                                    value={register.address}
+                                    name="address"
+                                    classes={{
+                                        root: classes.root,
+                                        input: classes.input,
+                                    }}
+                                />
+                                <FormHelperText>{register.error_list.address}</FormHelperText>
+                            </FormControl>
+                        </Grid>
+                        <Grid item mobile={12}>
+                            <FormControl error={register.error_list.address?true:false} fullWidth variant="filled">
+                                <InputLabel htmlFor="component-filled">
+                                    Phone Number
+                                </InputLabel>
+                                <FilledInput
+                                    id="component-filled"
+                                    disableUnderline={true}
+                                    onChange={handleInput}
+                                    value={register.number_phone}
+                                    name="number_phone"
+                                    classes={{
+                                        root: classes.root,
+                                        input: classes.input,
+                                    }}
+                                />
+                                <FormHelperText>{register.error_list.address}</FormHelperText>
+                            </FormControl>
+                        </Grid>
+                        <Grid item mobile={12}>
+                            <FormControl error={register.error_list.email?true:false} fullWidth variant="filled">
+                                <InputLabel htmlFor="component-filled">
+                                    Email
+                                </InputLabel>
+                                <FilledInput
+                                    id="component-filled"
+                                    disableUnderline={true}
+                                    value={register.email}
+                                    onChange={handleInput}
+                                    name="email"
+                                    classes={{
+                                        root: classes.root,
+                                        input: classes.input,
+                                    }}
+                                />
+                                <FormHelperText>{register.error_list.email}</FormHelperText>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item mobile={12}>
+                            <FormControl error={register.error_list.password?true:false} fullWidth variant="filled">
+                                <InputLabel htmlFor="component-filled">
+                                    Password
+                                </InputLabel>
+                                <FilledInput
+                                    id="component-filled"
+                                    disableUnderline={true}
+                                    onChange={handleInput}
+                                    value={register.password}
+                                    type="password"
+                                    name="password"
+                                    classes={{
+                                        root: classes.root,
+                                        input: classes.input,
+                                    }}
+                                />
+                                <FormHelperText>{register.error_list.password}</FormHelperText>
+                            </FormControl>
+                        </Grid>
+
+                        <Grid item mobile={12}>
+                            <FormControl error={register.error_list.password?true:false} fullWidth variant="filled">
+                                <InputLabel htmlFor="component-filled">
+                                    Confirm Password
+                                </InputLabel>
+                                <FilledInput
+                                    id="component-filled"
+                                    disableUnderline={true}
+                                    onChange={handleInput}
+                                    type="password"
+                                    name="confirmPassword"
+                                    classes={{
+                                        root: classes.root,
+                                        input: classes.input,
+                                    }}
+                                />
+                            </FormControl>
+                        </Grid>
                     </Grid>
 
-                    <Grid item mobile={12}>
-                        <FormControl fullWidth variant="filled">
-                            <InputLabel htmlFor="component-filled">
-                                Password
-                            </InputLabel>
-                            <FilledInput
-                                id="component-filled"
-                                disableUnderline={true}
-                                onChange={handleInput}
-                                value={register.password}
-                                type="password"
-                                name='password'
-                                classes={{
-                                    root: classes.root,
-                                    input: classes.input,
-                                }}
-                            />
-                        </FormControl>
-                    </Grid>
-
-                    <Grid item mobile={12}>
-                        <FormControl fullWidth variant="filled">
-                            <InputLabel htmlFor="component-filled">
-                                Confirm Password
-                            </InputLabel>
-                            <FilledInput
-                                id="component-filled"
-                                disableUnderline={true}
-                                onChange={handleInput}
-                                type="password"
-                                name='confirmPassword'
-                                classes={{
-                                    root: classes.root,
-                                    input: classes.input,
-                                }}
-                            />
-                        </FormControl>
-                    </Grid>
-                </Grid>
-
-                <Box display="flex" justifyContent="center" alignItems="center">
-                    <Button
-                        type='submit'
-                        variant="contained"
-                        disableElevation={true}
-                        onSubmit={registerSubmit}
-                        sx={{ mt: 3, mr: 2 }}
+                    <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                    >
+                        <Button
+                            type="submit"
+                            variant="contained"
+                            disableElevation={true}
+                            sx={{ mt: 3, mr: 2 }}
                         >
-                        <Typography color="white" sx={{ px: 6, py: 1 }}>
-                            Daftar
-                        </Typography>
-                    </Button>
-                </Box>
-            </form>
+                            <Typography color="white" sx={{ px: 6, py: 1 }}>
+                                Daftar
+                            </Typography>
+                        </Button>
+                    </Box>
+                </form>
             </Box>
         </Box>
     );
