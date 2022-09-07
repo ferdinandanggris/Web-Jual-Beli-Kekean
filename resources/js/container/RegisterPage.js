@@ -12,6 +12,8 @@ import {
 import { makeStyles } from "@mui/styles";
 import axios from "axios";
 import React from "react";
+import swal from "sweetalert";
+import { useNavigate } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function LoginPage() {
+    const history = useNavigate()
     const [register, setRegister] = React.useState({
         first_name: "",
         last_name: "",
@@ -56,7 +59,10 @@ function LoginPage() {
                 .post('/api/register', data)
                 .then((res) => {
                     if(res.data.status === 200) {
-                        console.log("success")
+                        localStorage.setItem('auth_token', res.data.token)
+                        localStorage.setItem('auth_firstName', res.data.first_name)
+                        swal('Success', res.data.message, "success")
+                        history.push('/')
                     } else {
                         setRegister({...register, error_list: res.data.validation_errors})
                     }
@@ -155,7 +161,7 @@ function LoginPage() {
                             </FormControl>
                         </Grid>
                         <Grid item mobile={12}>
-                            <FormControl error={register.error_list.address?true:false} fullWidth variant="filled">
+                            <FormControl error={register.error_list.number_phone?true:false} fullWidth variant="filled">
                                 <InputLabel htmlFor="component-filled">
                                     Phone Number
                                 </InputLabel>
@@ -170,7 +176,7 @@ function LoginPage() {
                                         input: classes.input,
                                     }}
                                 />
-                                <FormHelperText>{register.error_list.address}</FormHelperText>
+                                <FormHelperText>{register.error_list.number_phone}</FormHelperText>
                             </FormControl>
                         </Grid>
                         <Grid item mobile={12}>
