@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function LoginPage() {
+function RegisterPage() {
     const history = useNavigate()
     const [register, setRegister] = React.useState({
         first_name: "",
@@ -262,4 +262,4 @@ function LoginPage() {
     );
 }
 
-export default LoginPage;
+export default RegisterPage;

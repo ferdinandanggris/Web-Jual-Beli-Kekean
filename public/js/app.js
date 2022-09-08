@@ -32827,7 +32827,7 @@ function Navs() {
       }
     }
   });
-  (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.baseURL) = "http://localhost:8000/";
+  (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.baseURL) = "http://kekean.pusproset.site/";
   (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.headers.post.Accept) = "application/json";
   (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.headers.post["Content-Type"]) = "application/json";
   (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.withCredentials) = true;
@@ -34879,7 +34879,7 @@ var useStyles = (0,_mui_styles__WEBPACK_IMPORTED_MODULE_4__["default"])(function
   };
 });
 
-function LoginPage() {
+function RegisterPage() {
   var history = (0,react_router_dom__WEBPACK_IMPORTED_MODULE_5__.useNavigate)();
 
   var _React$useState = react__WEBPACK_IMPORTED_MODULE_1__.useState({
@@ -35170,7 +35170,7 @@ function LoginPage() {
   });
 }
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (LoginPage);
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RegisterPage);
 
 /***/ }),
 
