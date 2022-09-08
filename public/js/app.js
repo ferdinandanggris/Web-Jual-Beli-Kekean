@@ -32827,7 +32827,7 @@ function Navs() {
       }
     }
   });
-  (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.baseURL) = "http://localhost:8000/";
+  (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.baseURL) = "http://kekean.pusproset.com/";
   (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.headers.post.Accept) = "application/json";
   (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.headers.post["Content-Type"]) = "application/json";
   (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.withCredentials) = true;
