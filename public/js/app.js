@@ -34915,8 +34915,10 @@ function RegisterPage() {
         if (res.data.status === 200) {
           localStorage.setItem('auth_token', res.data.token);
           localStorage.setItem('auth_firstName', res.data.first_name);
+          localStorage.setItem('auth_lastName', res.data.last_name);
+          localStorage.setItem('auth_email', res.data.email);
           sweetalert__WEBPACK_IMPORTED_MODULE_2___default()('Success', res.data.message, "success");
-          history.push('/');
+          history('/');
         } else {
           setRegister(_objectSpread(_objectSpread({}, register), {}, {
             error_list: res.data.validation_errors
