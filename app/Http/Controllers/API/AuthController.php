@@ -10,7 +10,8 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|max:191',
             'last_name' => 'required|max:191',
@@ -20,7 +21,7 @@ class AuthController extends Controller
             'password' => 'required|min:8'
         ]);
 
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json([
                 'validation_errors' => $validator->errors(),
             ]);
@@ -34,7 +35,7 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password)
             ]);
 
-            $token = $user->createToken($user->email.'_Token')->plainTextToken;
+            $token = $user->createToken($user->email . '_Token')->plainTextToken;
             return response()->json([
                 'status' => 200,
                 'email' => $user->email,
@@ -43,6 +44,38 @@ class AuthController extends Controller
                 'token' => $token,
                 'message' => 'Registered Successfully',
             ]);
+        }
+    }
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|max:191',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'validation_errors' => $validator->errors(),
+            ]);
+        } else {
+            $user = User::where('email', $request->email)->first();
+
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return response()->json([
+                    'status' => 401,
+                    'message' => 'Invalid Credentials',
+                ]);
+            } else {
+                $token = $user->createToken($user->email . '_Token')->plainTextToken;
+                return response()->json([
+                    'status' => 200,
+                    'email' => $user->email,
+                    'first_name' => $user->first_name,
+                    'last_name' => $user->last_name,
+                    'token' => $token,
+                    'message' => 'Logged in Successfully',
+                ]);
+            }
         }
     }
 }
