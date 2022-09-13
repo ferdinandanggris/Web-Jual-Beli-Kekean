@@ -56,8 +56,8 @@ function Navs() {
     const token = localStorage.getItem('auth_token');
     axios.interceptors.request.use({
         function(config) {
-            config.headers.Authorization = token ? `Bearer ${token}`:''
-            return config
+            config.headers.Authorization = token ? `Bearer ${token}`:'';
+            return config;
         }
     })
     // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
