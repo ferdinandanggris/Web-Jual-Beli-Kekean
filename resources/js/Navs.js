@@ -53,13 +53,12 @@ function Navs() {
     axios.defaults.headers.post['Content-Type'] = "application/json";
 
     axios.defaults.withCredentials = true; 
-    const token = localStorage.getItem('auth_token');
-    axios.interceptors.request.use({
-        function(config) {
+    axios.interceptors.request.use(function(config) {
+            const token = localStorage.getItem('auth_token');
             config.headers.Authorization = token ? `Bearer ${token}`:'';
             return config;
         }
-    })
+    )
     // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     return (
         <ThemeProvider theme={theme}>

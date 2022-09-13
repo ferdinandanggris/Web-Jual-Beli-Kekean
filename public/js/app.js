@@ -32832,12 +32832,10 @@ function Navs() {
   (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.headers.post.Accept) = "application/json";
   (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.headers.post["Content-Type"]) = "application/json";
   (axios__WEBPACK_IMPORTED_MODULE_9___default().defaults.withCredentials) = true;
-  var token = localStorage.getItem('auth_token');
-  axios__WEBPACK_IMPORTED_MODULE_9___default().interceptors.request.use({
-    "function": function _function(config) {
-      config.headers.Authorization = token ? "Bearer ".concat(token) : '';
-      return config;
-    }
+  axios__WEBPACK_IMPORTED_MODULE_9___default().interceptors.request.use(function (config) {
+    var token = localStorage.getItem('auth_token');
+    config.headers.Authorization = token ? "Bearer ".concat(token) : '';
+    return config;
   }); // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
 
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_styles__WEBPACK_IMPORTED_MODULE_12__["default"], {
