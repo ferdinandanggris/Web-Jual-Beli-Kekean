@@ -10,11 +10,29 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
+import axios from "axios";
+import swal from "sweetalert";
+import { useNavigate } from "react-router";
 
 export default function Navbar() {
+    const history = useNavigate()
+    const logoutSubmit = (e) => {
+        e.preventDefault()
+
+        axios.post(`/api/logout`).then(res => {
+            if(res.data.status === 200) {
+                localStorage.removeItem('auth_token')
+                localStorage.removeItem('auth_firstName')
+                localStorage.removeItem('auth_lastName')
+                localStorage.removeItem('auth_email')
+                swal('Success', res.data.message, "Logout Successfully")
+                history('/')
+            }
+        })
+    }
     const login = true;
     function IsLogin() {
-        if (login) {
+        if (localStorage.getItem("auth_token")) {
             return (
                 <>
                     <Box
@@ -22,25 +40,32 @@ export default function Navbar() {
                         sx={{ display: { mobile: "none", laptop: "block" } }}
                     >
                         <Button color="inherit">
-                            <Typography href="#" className="bx bx-search"/>
+                            <Typography href="#" className="bx bx-search" />
                         </Button>
                         <Button color="inherit">
-                            <Typography href="#" className="bx bx-heart"/>
+                            <Typography href="#" className="bx bx-heart" />
                         </Button>
                         <Button color="inherit">
-                            <Typography href="#" className="bx bx-cart"/>
+                            <Typography href="#" className="bx bx-cart" />
                         </Button>
                         <Button color="inherit">
-                            <Typography href="#" className="bx bx-user"/>
+                            <Typography href="#" className="bx bx-user" />
+                        </Button>
+                        <Button onClick={logoutSubmit} color="inherit">
+                            <Typography href="#" className="bx bx-log-out-circle" />
                         </Button>
                     </Box>
                 </>
             );
         } else {
             return (
-                <div className="nav-right">
-                    <a href="#">Login</a>
-                </div>
+                <Box
+                    className="nav-right"
+                    sx={{ display: { mobile: "none", laptop: "block" } }}
+                >
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                </Box>
             );
         }
     }
@@ -141,7 +166,7 @@ export default function Navbar() {
                                 Contact Us
                             </Typography>
                         </Box>
-                        <IsLogin/>
+                        <IsLogin />
                     </Toolbar>
                 </AppBar>
             </Container>

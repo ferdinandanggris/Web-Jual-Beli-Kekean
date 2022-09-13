@@ -12,6 +12,7 @@ import { makeStyles } from "@mui/styles";
 import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router";
+import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,6 +51,7 @@ function LoginPage() {
                     localStorage.setItem('auth_email', res.data.email);
                     swal("Success", res.data.message)
                     history('/')
+                    location.reload()
                 } else if (res.data.status === 401) {
                     swal("Warning", res.data.message, "warning")
                 } else {
