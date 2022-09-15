@@ -33,11 +33,12 @@ export default function ProductPage(props) {
             >
                 <Grid item laptop={6}>
                     <Box>
-                        <Box
+                        {/* <Box
                             sx={{ width: "100%" }}
                             component="img"
                             src={`../images/catalog-1.png`}
-                        />
+                        /> */}
+                        <model-viewer width='300px' height='300px' src=''></model-viewer>
                         <Box my={5}>
                             <Typography fontSize={36} fontWeight={"medium"}>
                                 Deskripsi

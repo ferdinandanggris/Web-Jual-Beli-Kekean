@@ -69,6 +69,7 @@ function Navs() {
                     <Route path="/" exact element={<Main/>}/>
                     <Route path="/catalog" element={<CatalogPage/>}/>
                     <Route path='/products/:productId' element={<ProductPage/>}/>
+                    <Route path='/products/' element={<CatalogPage/>}/>
                     <Route path='/payment' element={<Payment/>}/>
                     <Route path='/login' element={<LoginPage/>}/>
                     <Route path='/register' element={<RegisterPage/>}/>
