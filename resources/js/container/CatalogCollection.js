@@ -5,6 +5,10 @@ import {Link} from 'react-router-dom'
 
 
 export default function CatalogCollection() {
+    const catalog = JSON.parse(JSON.stringify(require('../catalog.json')))
+    const catalogs = catalog.slice(0,3).map((item) => 
+        <CatalogItem key={item.id} id={item.id} nama={item.nama} item={item.item} harga={item.harga} have3d={item.have3d} model={item.model} />
+    )
     return(
         <Grid item>
             <Grid container alignItems="center" justifyContent="center">
@@ -41,24 +45,7 @@ export default function CatalogCollection() {
                             display: { mobile: "flex", laptop: "none" },
                         }}
                     >
-                        <CatalogItem
-                            nama="Batik Duwo"
-                            item="1"
-                            harga={599000}
-                            catalogPage={false}
-                        />
-                        <CatalogItem
-                            nama="Batik Duwo"
-                            item="1"
-                            harga={599000}
-                            catalogPage={false}
-                        />
-                        <CatalogItem
-                            nama="Batik Duwo"
-                            item="1"
-                            harga={599000}
-                            catalogPage={false}
-                        />
+                        {catalogs}
                     </Grid>
                 </Grid>
             </Grid>

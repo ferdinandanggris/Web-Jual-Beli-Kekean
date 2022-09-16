@@ -33914,6 +33914,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function CatalogCollection() {
+  var catalog = JSON.parse(JSON.stringify(__webpack_require__(/*! ../catalog.json */ "./resources/js/catalog.json")));
+  var catalogs = catalog.slice(0, 3).map(function (item) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_CatalogItem__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      id: item.id,
+      nama: item.nama,
+      item: item.item,
+      harga: item.harga,
+      have3d: item.have3d,
+      model: item.model
+    }, item.id);
+  });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
     item: true,
     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
@@ -33957,7 +33968,7 @@ function CatalogCollection() {
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
         item: true,
         mobile: 12,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_3__["default"], {
           container: true,
           spacing: 1,
           sx: {
@@ -33966,22 +33977,7 @@ function CatalogCollection() {
               laptop: "none"
             }
           },
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_CatalogItem__WEBPACK_IMPORTED_MODULE_1__["default"], {
-            nama: "Batik Duwo",
-            item: "1",
-            harga: 599000,
-            catalogPage: false
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_CatalogItem__WEBPACK_IMPORTED_MODULE_1__["default"], {
-            nama: "Batik Duwo",
-            item: "1",
-            harga: 599000,
-            catalogPage: false
-          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_CatalogItem__WEBPACK_IMPORTED_MODULE_1__["default"], {
-            nama: "Batik Duwo",
-            item: "1",
-            harga: 599000,
-            catalogPage: false
-          })]
+          children: catalogs
         })
       })]
     })
