@@ -9,7 +9,7 @@ import ArticleCollection from './ArticleCollection'
 export default function MainPage(props) {
     const catalog = JSON.parse(JSON.stringify(require('../catalog.json')))
     const catalogs = catalog.map((item) => 
-        <CatalogItem key={item.id} id={item.id} nama={item.nama} item={item.item} harga={item.harga} />
+        <CatalogItem key={item.id} id={item.id} nama={item.nama} item={item.item} harga={item.harga} have3d={item.have3d} model={item.model} />
     )
 
     

@@ -16,10 +16,9 @@ import { Link } from "react-router-dom";
 
 export default function ProductPage(props) {
     const [size, setSize] = React.useState("");
-    const {productId} = useParams()
-    const id = productId - 1
-    const catalog = JSON.parse(JSON.stringify(require('../catalog.json')))
-    console.log(catalog)
+    const { productId } = useParams();
+    const id = productId - 1;
+    const catalog = JSON.parse(JSON.stringify(require("../catalog.json"))); 
 
     const handleChange = (event) => {
         setSize(event.target.value);
@@ -38,24 +37,39 @@ export default function ProductPage(props) {
                             component="img"
                             src={`../images/catalog-1.png`}
                         /> */}
-                        <model-viewer width='300px' height='300px' src=''></model-viewer>
+                        {catalog.filter(id => id.id == productId)[0].have3d ? (
+                            <model-viewer
+                                camera-controls
+                                style={{ width: "400px", height: "400px" }}
+                                src={`../3dModel/${catalog.filter(id => id.id == productId)[0].model}/scene.gltf`}
+                            ></model-viewer>
+                        ) : (
+                            <Box
+                                sx={{ width: "100%" }}
+                                component="img"
+                                src={`../images/catalog-1.png`}
+                            />
+                        )}
                         <Box my={5}>
                             <Typography fontSize={36} fontWeight={"medium"}>
                                 Deskripsi
                             </Typography>
-                            <Typography>
-                                {catalog[id].deskripsi}
-                            </Typography>
+                            <Typography>{catalog[id].deskripsi}</Typography>
                         </Box>
                     </Box>
                 </Grid>
                 <Grid item laptop={6}>
-                    <Box sx={{ border: "1px solid #D9D9D9", borderRadius: 1 }} p={2}>
+                    <Box
+                        sx={{ border: "1px solid #D9D9D9", borderRadius: 1 }}
+                        p={2}
+                    >
                         <Box>
                             <Typography fontSize={30} fontWeight="medium">
                                 {catalog[id].nama}
                             </Typography>
-                            <Typography fontSize={20}>Rp {catalog[id].harga}</Typography>
+                            <Typography fontSize={20}>
+                                Rp {catalog[id].harga}
+                            </Typography>
                         </Box>
                         <Box pt={3}>
                             <FormControl sx={{ width: 300 }}>
@@ -89,7 +103,7 @@ export default function ProductPage(props) {
                                 variant="outlined"
                                 sx={{ mt: 3 }}
                             />
-                            <ButtonBeli/>
+                            <ButtonBeli />
                         </Box>
                     </Box>
                 </Grid>

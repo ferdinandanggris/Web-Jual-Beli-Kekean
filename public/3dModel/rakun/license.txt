@@ -1,0 +1,11 @@
+Model Information:
+* title:	Raccoon animation
+* source:	https://sketchfab.com/3d-models/raccoon-animation-0b2add1205d54ae2a277d5949382d22f
+* author:	dinomaster (https://sketchfab.com/dinomaster)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Raccoon animation" (https://sketchfab.com/3d-models/raccoon-animation-0b2add1205d54ae2a277d5949382d22f) by dinomaster (https://sketchfab.com/dinomaster) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

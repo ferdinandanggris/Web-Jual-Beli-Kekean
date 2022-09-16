@@ -63,7 +63,7 @@ function Navs() {
     return (
         <ThemeProvider theme={theme}>
         <CssBaseline/>
-            <Router>
+            <Router basename={'/'}>
                 <Navbar/>
                 <Routes>
                     <Route path="/" exact element={<Main/>}/>

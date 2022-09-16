@@ -32841,6 +32841,7 @@ function Navs() {
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(_mui_material_styles__WEBPACK_IMPORTED_MODULE_12__["default"], {
     theme: theme,
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_mui_material_CssBaseline__WEBPACK_IMPORTED_MODULE_13__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_14__.BrowserRouter, {
+      basename: '/',
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(_components_Navbar__WEBPACK_IMPORTED_MODULE_4__["default"], {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsxs)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Routes, {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)(react_router_dom__WEBPACK_IMPORTED_MODULE_15__.Route, {
           path: "/",
@@ -34470,7 +34471,9 @@ function MainPage(props) {
       id: item.id,
       nama: item.nama,
       item: item.item,
-      harga: item.harga
+      harga: item.harga,
+      have3d: item.have3d,
+      model: item.model
     }, item.id);
   });
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(_mui_material___WEBPACK_IMPORTED_MODULE_6__["default"], {
@@ -34846,7 +34849,6 @@ function ProductPage(props) {
 
   var id = productId - 1;
   var catalog = JSON.parse(JSON.stringify(__webpack_require__(/*! ../catalog.json */ "./resources/js/catalog.json")));
-  console.log(catalog);
 
   var handleChange = function handleChange(event) {
     setSize(event.target.value);
@@ -34867,10 +34869,23 @@ function ProductPage(props) {
         item: true,
         laptop: 6,
         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("model-viewer", {
-            width: "300px",
-            height: "300px",
-            src: ""
+          children: [catalog.filter(function (id) {
+            return id.id == productId;
+          })[0].have3d ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("model-viewer", {
+            "camera-controls": true,
+            style: {
+              width: "400px",
+              height: "400px"
+            },
+            src: "../3dModel/".concat(catalog.filter(function (id) {
+              return id.id == productId;
+            })[0].model, "/scene.gltf")
+          }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
+            sx: {
+              width: "100%"
+            },
+            component: "img",
+            src: "../images/catalog-1.png"
           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)(_mui_material__WEBPACK_IMPORTED_MODULE_6__["default"], {
             my: 5,
             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_mui_material__WEBPACK_IMPORTED_MODULE_7__["default"], {
@@ -99171,7 +99186,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse('[{"id":1,"nama":"Batik Duwo","item":1,"harga":599000,"deskripsi":"Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh"},{"id":2,"nama":"Batik 2","item":1,"harga":599000,"deskripsi":"Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh"},{"id":3,"nama":"Batik 3","item":1,"harga":599000,"deskripsi":"Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh"},{"id":4,"nama":"Batik 4","item":1,"harga":599000,"deskripsi":"Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh"},{"id":5,"nama":"Batik 5","item":1,"harga":599000,"deskripsi":"Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh"}]');
+module.exports = JSON.parse('[{"id":1,"nama":"Batik Duwo","item":1,"harga":599000,"deskripsi":"Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh","have3d":true,"model":"jamur"},{"id":2,"nama":"Batik 2","item":1,"harga":599000,"deskripsi":"Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh","have3d":false},{"id":3,"nama":"Batik 3","item":1,"harga":599000,"deskripsi":"Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh","have3d":true,"model":"angsa"},{"id":4,"nama":"Batik 4","item":1,"harga":599000,"deskripsi":"Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh","have3d":false},{"id":5,"nama":"Batik 5","item":1,"harga":599000,"deskripsi":"Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh","have3d":true,"model":"rakun"}]');
 
 /***/ })
 

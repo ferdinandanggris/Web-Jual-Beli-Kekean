@@ -4,35 +4,43 @@
         "nama": "Batik Duwo",
         "item": 1,
         "harga": 599000,
-        "deskripsi": "Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh"
+        "deskripsi": "Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh",
+        "have3d" : true,
+        "model" : "jamur"
     },
     {
         "id": 2,
         "nama": "Batik 2",
         "item": 1,
         "harga": 599000,
-        "deskripsi": "Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh"
+        "deskripsi": "Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh",
+        "have3d" : false
     },
     {
         "id": 3,
         "nama": "Batik 3",
         "item": 1,
         "harga": 599000,
-        "deskripsi": "Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh"
+        "deskripsi": "Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh",
+        "have3d" : true,
+        "model" : "angsa"
     },
     {
         "id": 4,
         "nama": "Batik 4",
         "item": 1,
         "harga": 599000,
-        "deskripsi": "Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh"
+        "deskripsi": "Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh",
+        "have3d" : false
     },
     {
         "id": 5,
         "nama": "Batik 5",
         "item": 1,
         "harga": 599000,
-        "deskripsi": "Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh"
+        "deskripsi": "Lorem Ipsum ajfisdfouasdfgyasuogyhasduiofvmgsdrouvhgsduiopbhsdfzxcuy sdtuo; yadt8yg uoadrgyhadf uilgy dawsrgdagyuig yg dt7yg dstgyd7og yhadt9pghsd dtg ydrghsdu yeupghsdupy sduiogbhjsdioh",
+        "have3d" : true,
+        "model" : "rakun"
     }
 ]
 
