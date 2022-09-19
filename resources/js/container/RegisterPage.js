@@ -13,7 +13,7 @@ import { makeStyles } from "@mui/styles";
 import axios from "axios";
 import React from "react";
 import swal from "sweetalert";
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,14 +27,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function RegisterPage() {
-    const history = useNavigate()
+    const history = useNavigate();
     const [register, setRegister] = React.useState({
         first_name: "",
         last_name: "",
         address: "",
         email: "",
         password: "",
-        number_phone: '',
+        number_phone: "",
         error_list: [],
     });
 
@@ -55,20 +55,21 @@ function RegisterPage() {
         };
 
         axios.get("/sanctum/csrf-cookie").then((response) => {
-            axios
-                .post('/api/register', data)
-                .then((res) => {
-                    if(res.data.status === 200) {
-                        localStorage.setItem('auth_token', res.data.token)
-                        localStorage.setItem('auth_firstName', res.data.first_name)
-                        localStorage.setItem('auth_lastName', res.data.last_name)
-                        localStorage.setItem('auth_email', res.data.email)
-                        swal('Success', res.data.message, "success")
-                        history('/')
-                    } else {
-                        setRegister({...register, error_list: res.data.validation_errors})
-                    }
-                });
+            axios.post("/api/register", data).then((res) => {
+                if (res.data.status === 200) {
+                    localStorage.setItem("auth_token", res.data.token);
+                    localStorage.setItem("auth_firstName", res.data.first_name);
+                    localStorage.setItem("auth_lastName", res.data.last_name);
+                    localStorage.setItem("auth_email", res.data.email);
+                    swal("Success", res.data.message, "success");
+                    history("/");
+                } else {
+                    setRegister({
+                        ...register,
+                        error_list: res.data.validation_errors,
+                    });
+                }
+            });
         });
     };
 
@@ -100,13 +101,29 @@ function RegisterPage() {
                         component={"span"}
                         sx={{ color: "#FF674D", fontSize: "12px" }}
                     >
-                        Masuk Sekarang
+                        <Link
+                            style={{
+                                textDecoration: "none",
+                                color: "#FF674D",
+                            }}
+                            to={`/login`}
+                        >
+                            Masuk Sekarang
+                        </Link>
                     </Box>
                 </Typography>
                 <form onSubmit={registerSubmit}>
                     <Grid container sx={{ maxWidth: 450, mt: 2 }} spacing={2}>
                         <Grid item mobile={6}>
-                            <FormControl error={register.error_list.first_name?true:false} fullWidth variant="filled">
+                            <FormControl
+                                error={
+                                    register.error_list.first_name
+                                        ? true
+                                        : false
+                                }
+                                fullWidth
+                                variant="filled"
+                            >
                                 <InputLabel htmlFor="component-filled">
                                     First Name
                                 </InputLabel>
@@ -121,11 +138,19 @@ function RegisterPage() {
                                         input: classes.input,
                                     }}
                                 />
-                                <FormHelperText sx={{fontSize: 10}}>{register.error_list.first_name}</FormHelperText>
+                                <FormHelperText sx={{ fontSize: 10 }}>
+                                    {register.error_list.first_name}
+                                </FormHelperText>
                             </FormControl>
                         </Grid>
                         <Grid item mobile={6}>
-                            <FormControl error={register.error_list.last_name?true:false} fullWidth variant="filled">
+                            <FormControl
+                                error={
+                                    register.error_list.last_name ? true : false
+                                }
+                                fullWidth
+                                variant="filled"
+                            >
                                 <InputLabel htmlFor="component-filled">
                                     Last Name
                                 </InputLabel>
@@ -140,11 +165,19 @@ function RegisterPage() {
                                         input: classes.input,
                                     }}
                                 />
-                                <FormHelperText sx={{fontSize: 10}}>{register.error_list.last_name}</FormHelperText>
+                                <FormHelperText sx={{ fontSize: 10 }}>
+                                    {register.error_list.last_name}
+                                </FormHelperText>
                             </FormControl>
                         </Grid>
                         <Grid item mobile={12}>
-                            <FormControl error={register.error_list.address?true:false} fullWidth variant="filled">
+                            <FormControl
+                                error={
+                                    register.error_list.address ? true : false
+                                }
+                                fullWidth
+                                variant="filled"
+                            >
                                 <InputLabel htmlFor="component-filled">
                                     Address
                                 </InputLabel>
@@ -159,11 +192,21 @@ function RegisterPage() {
                                         input: classes.input,
                                     }}
                                 />
-                                <FormHelperText>{register.error_list.address}</FormHelperText>
+                                <FormHelperText>
+                                    {register.error_list.address}
+                                </FormHelperText>
                             </FormControl>
                         </Grid>
                         <Grid item mobile={12}>
-                            <FormControl error={register.error_list.number_phone?true:false} fullWidth variant="filled">
+                            <FormControl
+                                error={
+                                    register.error_list.number_phone
+                                        ? true
+                                        : false
+                                }
+                                fullWidth
+                                variant="filled"
+                            >
                                 <InputLabel htmlFor="component-filled">
                                     Phone Number
                                 </InputLabel>
@@ -178,11 +221,17 @@ function RegisterPage() {
                                         input: classes.input,
                                     }}
                                 />
-                                <FormHelperText>{register.error_list.number_phone}</FormHelperText>
+                                <FormHelperText>
+                                    {register.error_list.number_phone}
+                                </FormHelperText>
                             </FormControl>
                         </Grid>
                         <Grid item mobile={12}>
-                            <FormControl error={register.error_list.email?true:false} fullWidth variant="filled">
+                            <FormControl
+                                error={register.error_list.email ? true : false}
+                                fullWidth
+                                variant="filled"
+                            >
                                 <InputLabel htmlFor="component-filled">
                                     Email
                                 </InputLabel>
@@ -197,12 +246,20 @@ function RegisterPage() {
                                         input: classes.input,
                                     }}
                                 />
-                                <FormHelperText>{register.error_list.email}</FormHelperText>
+                                <FormHelperText>
+                                    {register.error_list.email}
+                                </FormHelperText>
                             </FormControl>
                         </Grid>
 
                         <Grid item mobile={12}>
-                            <FormControl error={register.error_list.password?true:false} fullWidth variant="filled">
+                            <FormControl
+                                error={
+                                    register.error_list.password ? true : false
+                                }
+                                fullWidth
+                                variant="filled"
+                            >
                                 <InputLabel htmlFor="component-filled">
                                     Password
                                 </InputLabel>
@@ -218,12 +275,20 @@ function RegisterPage() {
                                         input: classes.input,
                                     }}
                                 />
-                                <FormHelperText>{register.error_list.password}</FormHelperText>
+                                <FormHelperText>
+                                    {register.error_list.password}
+                                </FormHelperText>
                             </FormControl>
                         </Grid>
 
                         <Grid item mobile={12}>
-                            <FormControl error={register.error_list.password?true:false} fullWidth variant="filled">
+                            <FormControl
+                                error={
+                                    register.error_list.password ? true : false
+                                }
+                                fullWidth
+                                variant="filled"
+                            >
                                 <InputLabel htmlFor="component-filled">
                                     Confirm Password
                                 </InputLabel>

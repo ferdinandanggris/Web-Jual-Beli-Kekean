@@ -12,6 +12,7 @@ import { makeStyles } from "@mui/styles";
 import axios from "axios";
 import React from "react";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 import swal from "sweetalert";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 function LoginPage() {
-    const history = useNavigate()
+    const history = useNavigate();
     const [login, setLogin] = React.useState({
         email: "",
         password: "",
@@ -47,13 +48,13 @@ function LoginPage() {
         axios.get("/sanctum/csrf-cookie").then((response) => {
             axios.post(`api/login`, data).then((res) => {
                 if (res.data.status === 200) {
-                    localStorage.setItem('auth_token', res.data.token);
-                    localStorage.setItem('auth_email', res.data.email);
-                    swal("Success", res.data.message)
-                    history('/')
-                    location.reload()
+                    localStorage.setItem("auth_token", res.data.token);
+                    localStorage.setItem("auth_email", res.data.email);
+                    swal("Success", res.data.message);
+                    history("/");
+                    location.reload();
                 } else if (res.data.status === 401) {
-                    swal("Warning", res.data.message, "warning")
+                    swal("Warning", res.data.message, "warning");
                 } else {
                     setLogin({
                         ...login,
@@ -93,7 +94,15 @@ function LoginPage() {
                             component={"span"}
                             sx={{ color: "#FF674D", fontSize: "16px" }}
                         >
-                            Daftar Sekarang
+                            <Link
+                                style={{
+                                    textDecoration: "none",
+                                    color: "#FF674D",
+                                }}
+                                to={`/register`}
+                            >
+                                Daftar Sekarang
+                            </Link>
                         </Box>
                     </Typography>
                     <FormControl

@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 export default function CatalogItem(props) {
     return (
         <>
-        
             <Grid
                 mobile={props.catalogPage ? 6 : 4}
                 laptop={3}
