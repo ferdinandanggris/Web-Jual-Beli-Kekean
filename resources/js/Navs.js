@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Main from './container/Main'
 import CatalogPage from './container/CatalogPage';
 import Navbar from './components/Navbar'
@@ -11,9 +11,10 @@ import Payment from './container/Payment';
 import LoginPage from './container/LoginPage';
 import RegisterPage from './container/RegisterPage';
 import axios from 'axios';
+import Admin from './container/Admin';
+import NavAdmin from './components/NavAdmin';
 
 function Navs() {
-    const catalog = JSON.parse(JSON.stringify(require('./catalog.json')))
     const theme = createTheme({
         palette: {
             primary: {
@@ -39,10 +40,10 @@ function Navs() {
         }, 
         breakpoints: {
             values: {
-              mobile: 0,
-              tablet: 640,
-              laptop: 1024,
-              desktop: 1200,
+                mobile: 0,
+                tablet: 640,
+                laptop: 1024,
+                desktop: 1200,
             },
         },
     
@@ -64,7 +65,7 @@ function Navs() {
         <ThemeProvider theme={theme}>
         <CssBaseline/>
             <Router basename={'/'}>
-                <Navbar/>
+                {window.location.pathname != '/admin'?<Navbar/>:<NavAdmin/>}
                 <Routes>
                     <Route path="/" exact element={<Main/>}/>
                     <Route path="/catalog" element={<CatalogPage/>}/>
@@ -73,6 +74,7 @@ function Navs() {
                     <Route path='/payment' element={<Payment/>}/>
                     <Route path='/login' element={<LoginPage/>}/>
                     <Route path='/register' element={<RegisterPage/>}/>
+                    <Route path='/admin' element={<Admin/>}/>
                 </Routes>
             </Router>
     </ThemeProvider>

@@ -13,6 +13,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 import swal from "sweetalert";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
     const history = useNavigate()
@@ -63,8 +64,25 @@ export default function Navbar() {
                     className="nav-right"
                     sx={{ display: { mobile: "none", laptop: "block" } }}
                 >
-                    <a href="/login">Login</a>
-                    <a href="/register">Register</a>
+                    <Typography
+                        sx={{
+                            "&:hover": {
+                                borderBottom: "1px solid black",
+                            },
+                        }}
+                        color={"black"}
+                        px={2}
+                    >
+                        <Link
+                            style={{
+                                textDecoration: "none",
+                                color: "black",
+                            }}
+                            to={`/login`}
+                        >
+                            Login
+                        </Link>
+                    </Typography>
                 </Box>
             );
         }
@@ -137,7 +155,7 @@ export default function Navbar() {
                                 px={2}
                                 sx={{
                                     "&:hover": {
-                                        background: "rgb(7, 177, 77, 0.42)",
+                                        borderBottom: "1px solid black",
                                     },
                                 }}
                             >
@@ -146,7 +164,7 @@ export default function Navbar() {
                             <Typography
                                 sx={{
                                     "&:hover": {
-                                        background: "rgb(7, 177, 77, 0.42)",
+                                        borderBottom: "1px solid black",
                                     },
                                 }}
                                 color={"black"}
@@ -157,7 +175,7 @@ export default function Navbar() {
                             <Typography
                                 sx={{
                                     "&:hover": {
-                                        background: "rgb(7, 177, 77, 0.42)",
+                                        borderBottom: "1px solid black",
                                     },
                                 }}
                                 color={"black"}
