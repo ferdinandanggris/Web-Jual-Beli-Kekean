@@ -81,7 +81,7 @@ export default function AddProduct() {
         // }
         axios.get("/sanctum/csrf-cookie").then((response) => {
             axios.post("/api/login", input).then((res) => {
-                if (res.input.status === 200) {
+                if (res.data.status === 200) {
                     console.log(res.data.message);
                     setInput({
                         product_name: "",
