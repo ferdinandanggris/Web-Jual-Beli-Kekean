@@ -1,29 +1,34 @@
 import { Box, Button, Container, Paper, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Admin() {
     const columns = [
         { field: "id", headerName: "ID", width: 70 },
-        { field: "firstName", headerName: "First name", width: 130 },
-        { field: "lastName", headerName: "Last name", width: 130 },
+        { field: "product_name", headerName: "Nama Barang", width: 130 },
+        { field: "description", headerName: "Deskripsi Barang", width: 130 },
         {
-            field: "age",
-            headerName: "Age",
+            field: "price",
+            headerName: "Harga barang",
             type: "number",
             width: 90,
         },
         {
-            field: "fullName",
-            headerName: "Full name",
+            field: "has_3d",
+            headerName: "Apakah ada 3D?",
             description: "This column has a value getter and is not sortable.",
-            sortable: false,
+            type: 'boolean',
             width: 160,
             valueGetter: (params) =>
                 `${params.getValue(params.id, "firstName") || ""} ${
                     params.getValue(params.id, "lastName") || ""
                 }`,
         },
+        { field: "image_detail1", headerName: "Gambar 1", width: 130 },
+        { field: "image_detail2", headerName: "Gambar 2", width: 130 },
+        { field: "image_detail3", headerName: "Gambar 3", width: 130 },
+        { field: "3d_model", headerName: "Model 3D", width: 130 },
         {
             field: "action",
             headerName: "Action",
@@ -83,11 +88,13 @@ export default function Admin() {
                             Daftar barang
                         </Typography>
 
-                        <Button>
-                            <Typography fontWeight={"medium"}>
-                                Tambahkan Barang
-                            </Typography>
-                        </Button>
+                        <Link to={'/admin/addProduct'} style={{textDecoration: 'none'}}>
+                            <Button>
+                                    <Typography fontWeight={"medium"}>
+                                        Tambahkan Barang
+                                    </Typography>
+                            </Button>
+                        </Link>
                     </Box>
                     <Box sx={{ height: 400, width: '100%' }}>
                         <DataGrid

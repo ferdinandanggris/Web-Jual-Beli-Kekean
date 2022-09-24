@@ -12,7 +12,12 @@ class Product extends Model
         'product_name',
         'price',
         'description',
-        'image'
+        'has_3d',
+        'image_detail1',
+        'image_detail2',
+        'image_detail3',
+        'image_thumbnail',
+        '3d_model'
     ];
 
     public function keranjang() {

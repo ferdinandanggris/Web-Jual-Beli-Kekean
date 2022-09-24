@@ -31,6 +31,7 @@
     "@mui/material": "^5.10.0",
     "@mui/styles": "^5.10.3",
     "@mui/x-data-grid": "^5.17.3",
+    "mui-file-dropzone": "^4.0.2",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "sweetalert": "^2.1.2"

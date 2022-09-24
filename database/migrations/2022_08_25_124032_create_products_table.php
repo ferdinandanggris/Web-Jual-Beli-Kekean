@@ -18,7 +18,11 @@ class CreateProductsTable extends Migration
             $table->string('product_name');
             $table->integer('price');
             $table->text('description');
-            $table->string('image');
+            $table->boolean('has_3d');
+            $table->string('image_detail1');
+            $table->string('image_detail2');
+            $table->string('image_detail3');
+            $table->string('3d_model');
             $table->timestamps();
         });
     }

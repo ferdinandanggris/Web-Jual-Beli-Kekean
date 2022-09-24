@@ -12,6 +12,7 @@ import LoginPage from './container/LoginPage';
 import RegisterPage from './container/RegisterPage';
 import axios from 'axios';
 import Admin from './container/Admin';
+import AddProduct from './container/AddProduct';
 import NavAdmin from './components/NavAdmin';
 
 function Navs() {
@@ -48,8 +49,8 @@ function Navs() {
         },
     
     })    
-    axios.defaults.baseURL = "http://kekean.pusproset.site/";
-    // axios.defaults.baseURL = "http://127.0.0.1:8000";
+    axios.defaults.baseURL = "https://kekean.pusproset.site/";
+    // axios.defaults.baseURL = "http://localhost:8000";
     axios.defaults.headers.post['Accept'] = "application/json";
     axios.defaults.headers.post['Content-Type'] = "application/json";
 
@@ -75,6 +76,7 @@ function Navs() {
                     <Route path='/login' element={<LoginPage/>}/>
                     <Route path='/register' element={<RegisterPage/>}/>
                     <Route path='/admin' element={<Admin/>}/>
+                    <Route path='/admin/addProduct' element={<AddProduct/>}/>
                 </Routes>
             </Router>
     </ThemeProvider>
