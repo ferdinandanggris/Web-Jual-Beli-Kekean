@@ -66,7 +66,7 @@ export default function AddProduct() {
         });
     };
 
-    const saveProduct = (e) => {
+    const saveProduct = async (e) => {
         e.preventDefault();
 
         const res = await axios.post("api/add-product", input);
