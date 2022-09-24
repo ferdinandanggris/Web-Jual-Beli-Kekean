@@ -69,29 +69,29 @@ export default function AddProduct() {
     const saveProduct = (e) => {
         e.preventDefault();
 
-        // const res = await axios.post("api/add-product", input);
-        // if (res.data.status === 200) {
-        //     console.log(res.data.message);
-        //     setInput({
-        //         product_name: "",
-        //         price: "",
-        //         description: "",
-        //         has_3d: e.target.checked,
-        //     });
-        // }
-        axios.get("/sanctum/csrf-cookie").then((response) => {
-            axios.post("/api/login", input).then((res) => {
-                if (res.data.status === 200) {
-                    console.log(res.data.message);
-                    setInput({
-                        product_name: "",
-                        price: "",
-                        description: "",
-                        has_3d: e.target.checked,
-                    });
-                }
+        const res = await axios.post("api/add-product", input);
+        if (res.data.status === 200) {
+            console.log(res.data.message);
+            setInput({
+                product_name: "",
+                price: "",
+                description: "",
+                has_3d: e.target.checked,
             });
-        });
+        }
+        // axios.get("/sanctum/csrf-cookie").then((response) => {
+        //     axios.post("/api/login", input).then((res) => {
+        //         if (res.data.status === 200) {
+        //             console.log(res.data.message);
+        //             setInput({
+        //                 product_name: "",
+        //                 price: "",
+        //                 description: "",
+        //                 has_3d: e.target.checked,
+        //             });
+        //         }
+        //     });
+        // });
     };
 
     const classes = useStyles();
