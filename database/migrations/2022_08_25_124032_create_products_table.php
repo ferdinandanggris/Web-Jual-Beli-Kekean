@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->string('image_detail1');
             $table->string('image_detail2');
             $table->string('image_detail3');
-            $table->string('3d_model');
+            $table->string('model_3d');
             $table->timestamps();
         });
     }

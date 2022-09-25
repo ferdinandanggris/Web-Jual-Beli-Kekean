@@ -1,6 +1,5 @@
 import { makeStyles } from "@mui/styles";
 import {
-    TextField,
     Container,
     Paper,
     FilledInput,
@@ -17,14 +16,24 @@ import React from "react";
 import { DropzoneDialog } from "mui-file-dropzone";
 
 export default function AddProduct() {
-    const [open, setOpen] = React.useState(false);
+    const [imageDropzone, setImageDropzone] = React.useState(false);
+    const [modelDropzone, setModelDropzone] = React.useState(false);
 
-    function handleOpen() {
-        setOpen(true);
+    function handleOpenImage() {
+        setImageDropzone(true);
     }
 
-    function handleClose() {
-        setOpen(false);
+    function handleCloseImage() {
+        setImageDropzone(false);
+    }
+
+
+    function handleOpenModel() {
+        setModelDropzone(true);
+    }
+
+    function handleCloseModel() {
+        setModelDropzone(false);
     }
 
     const checkboxColor = {
@@ -50,6 +59,10 @@ export default function AddProduct() {
         price: "",
         description: "",
         has_3d: false,
+        image_detail1: "",
+        image_detail2: "",
+        image_detail3: "",
+        model_3d: "",
     });
 
     const handleInput = (e) => {
@@ -64,6 +77,26 @@ export default function AddProduct() {
             ...input,
             has_3d: e.target.checked,
         });
+    };
+
+    const handleImage = (files) => {
+        
+        if(!files[1]) {
+            files[1] = {name: ''}
+        }
+        if(!files[2]) {
+            files[2] = {name: ''}
+        }
+        setInput({
+            ...input,
+            image_detail1: files[0].name,
+            image_detail2: files[1].name,
+            image_detail3: files[2].name
+        })
+        
+        console.log(typeof files[1].name)
+        console.log(input.image_detail2)
+        handleCloseImage()
     };
 
     const saveProduct = async (e) => {
@@ -165,6 +198,7 @@ export default function AddProduct() {
                                                 onChange={handleCheckbox}
                                                 value={input.has_3d}
                                                 sx={checkboxColor}
+                                                name="has_3d"
                                             />
                                         }
                                         name={"has_3d"}
@@ -189,16 +223,20 @@ export default function AddProduct() {
                                 </Typography>
                                 <Button
                                     variant="contained"
-                                    onClick={handleOpen}
+                                    onClick={handleOpenImage}
                                 >
                                     <Typography color={"white"}>
                                         Add Image
                                     </Typography>
                                 </Button>
                                 <DropzoneDialog
-                                    open={open}
-                                    onClose={handleClose}
+                                    open={imageDropzone}
+                                    onClose={handleCloseImage}
+                                    onSave={handleImage}
+                                    filesLimit={3}
+                                    acceptedFiles={['image/*']}
                                 />
+                                {input.image_detail1?<Typography>{input.image_detail1}{', ' + input.image_detail2}{', ' + input.image_detail3}</Typography>:''}
                             </Grid>
 
                             <Grid item mobile={12}>
@@ -207,15 +245,16 @@ export default function AddProduct() {
                                 </Typography>
                                 <Button
                                     variant="contained"
-                                    onClick={handleOpen}
+                                    onClick={handleOpenModel}
                                 >
                                     <Typography color={"white"}>
                                         Add Model
                                     </Typography>
                                 </Button>
                                 <DropzoneDialog
-                                    open={open}
-                                    onClose={handleClose}
+                                    open={modelDropzone}
+                                    onClose={handleCloseModel}
+                                    acceptedFiles={['model/gltf+json']}
                                 />
                             </Grid>
 

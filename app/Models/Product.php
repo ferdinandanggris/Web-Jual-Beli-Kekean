@@ -17,7 +17,7 @@ class Product extends Model
         'image_detail2',
         'image_detail3',
         'image_thumbnail',
-        '3d_model'
+        'model_3d'
     ];
 
     public function keranjang() {

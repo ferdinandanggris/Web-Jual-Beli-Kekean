@@ -15,6 +15,7 @@ class ProductController extends Controller
         $product->price = $request->input('price');
         $product->description = $request->input('description');
         $product->has_3d = $request->input('has_3d');
+        $product->model_3d = $request->input('has_3d');
         $product->save();
 
         // $product = Product::create([
