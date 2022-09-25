@@ -18,6 +18,16 @@ import { DropzoneDialog } from "mui-file-dropzone";
 export default function AddProduct() {
     const [imageDropzone, setImageDropzone] = React.useState(false);
     const [modelDropzone, setModelDropzone] = React.useState(false);
+    const [input, setInput] = React.useState({
+        product_name: "",
+        price: "",
+        description: "",
+        has_3d: false,
+        image_detail1: "",
+        image_detail2: "",
+        image_detail3: "",
+        model_3d: "",
+    });
 
     function handleOpenImage() {
         setImageDropzone(true);
@@ -54,16 +64,6 @@ export default function AddProduct() {
         },
     }));
 
-    const [input, setInput] = React.useState({
-        product_name: "",
-        price: "",
-        description: "",
-        has_3d: false,
-        image_detail1: "",
-        image_detail2: "",
-        image_detail3: "",
-        model_3d: "",
-    });
 
     const handleInput = (e) => {
         setInput({
@@ -79,32 +79,43 @@ export default function AddProduct() {
         });
     };
 
-    const handleImage = (files) => {
+    
+    const handleImage = async (files) => {
         
-        if(!files[1]) {
-            files[1] = {name: ''}
-        }
-        if(!files[2]) {
-            files[2] = {name: ''}
-        }
+        // if(!files[1]) {
+        //     files[1] = {name: ''}
+        // }
+        // if(!files[2]) {
+        //     files[2] = {name: ''}
+        // }
         setInput({
             ...input,
             image_detail1: files[0].name,
-            image_detail2: files[1].name,
-            image_detail3: files[2].name
+            // image_detail2: files[1].name,
+            // image_detail3: files[2].name
         })
+
+        let imgData = new FormData()
+        imgData.append('image', files[0])
         
-        console.log(typeof files[1].name)
+        
+        console.log(typeof files[0].name)
         console.log(input.image_detail2)
-        handleCloseImage()
+        console.log(imgData.getAll('image'))
+
+        const res = await axios.post("api/save-image", imgData)
+        if(res.data.status === 200) {
+            console.log(res.data.message)
+            handleCloseImage()
+        }
     };
 
     const saveProduct = async (e) => {
         e.preventDefault();
 
-        const res = await axios.post("api/add-product", input);
+        const res = await axios.post("api/add-product", input)
         if (res.data.status === 200) {
-            console.log(res.data.message);
+            console.log(res.data.message)
             setInput({
                 product_name: "",
                 price: "",
@@ -233,10 +244,10 @@ export default function AddProduct() {
                                     open={imageDropzone}
                                     onClose={handleCloseImage}
                                     onSave={handleImage}
-                                    filesLimit={3}
+                                    filesLimit={1}
                                     acceptedFiles={['image/*']}
                                 />
-                                {input.image_detail1?<Typography>{input.image_detail1}{', ' + input.image_detail2}{', ' + input.image_detail3}</Typography>:''}
+                                <Typography>{input.image_detail1}</Typography>
                             </Grid>
 
                             <Grid item mobile={12}>

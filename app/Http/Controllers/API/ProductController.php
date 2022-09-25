@@ -16,6 +16,9 @@ class ProductController extends Controller
         $product->description = $request->input('description');
         $product->has_3d = $request->input('has_3d');
         $product->model_3d = $request->input('has_3d');
+        $product->imageDetail1 = $request->input('imageDetail1');
+        $product->imageDetail2 = '';
+        $product->imageDetail3 = '';
         $product->save();
 
         // $product = Product::create([
@@ -30,5 +33,10 @@ class ProductController extends Controller
             'message' => 'Product Added Successfully',
 
         ]);
+    }
+
+    public function storeImage(Request $request) {
+        $nama_file = $request->image->getClientOriginalName();
+        $request->image->store('catalog', $nama_file);
     }
 }
