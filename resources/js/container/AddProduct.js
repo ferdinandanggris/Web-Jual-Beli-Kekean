@@ -143,7 +143,7 @@ export default function AddProduct() {
         <Container>
             <Paper elevation={5}>
                 <Container sx={{ py: 5 }}>
-                    <form onSubmit={saveProduct}>
+                    <form onSubmit={saveProduct} encType="multipart/form-data">
                         <Grid container spacing={2}>
                             <Grid item mobile={12}>
                                 <FormControl fullWidth variant="filled">

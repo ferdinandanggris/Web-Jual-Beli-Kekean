@@ -37,6 +37,6 @@ class ProductController extends Controller
 
     public function storeImage(Request $request) {
         $nama_file = $request->image->getClientOriginalName();
-        $request->image->store('catalog', $nama_file);
+        $request->image->storeAs('catalog', $nama_file);
     }
 }
