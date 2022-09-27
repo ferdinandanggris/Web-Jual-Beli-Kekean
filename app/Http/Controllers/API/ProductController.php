@@ -43,4 +43,12 @@ class ProductController extends Controller
             'message' => 'Image Added Successfully',
         ]);
     }
+    public function storeModel(Request $request) {
+        $nama_file = $request->file->getClientOriginalName();
+        $request->file->storeAs('model', $nama_file);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Model Added Successfully',
+        ]);
+    }
 }
