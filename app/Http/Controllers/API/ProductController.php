@@ -17,7 +17,7 @@ class ProductController extends Controller
         $product->description = $request->input('description');
         $product->has_3d = $request->input('has_3d');
         $product->model_3d = $request->input('has_3d');
-        $product->image_detail1 = $request->input('imageDetail1');
+        $product->image_detail1 = $request->input('image_detail1');
         $product->image_detail2 = '';
         $product->image_detail3 = '';
         $product->save();
