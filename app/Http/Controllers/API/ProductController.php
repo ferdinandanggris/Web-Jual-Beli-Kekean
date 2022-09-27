@@ -48,10 +48,6 @@ class ProductController extends Controller
     public function storeModel(Request $request) {
         $nama_file = $request->file->getClientOriginalName();
         $request->file->storeAs('model', $nama_file);
-        return response()->json([
-            'status' => 200,
-            'message' => 'Model Added Successfully',
-        ]);
 
         $zip = new ZipArchive();
         $status = $zip->open($request->file->getRealPath());
@@ -59,7 +55,7 @@ class ProductController extends Controller
             throw new \Exception($status);
         }
         else{
-            $storageDestinationPath = storage_path("/public_html/kekean/storage/app/model/");
+            $storageDestinationPath = storage_path("app/uploads/unzip/");
             
             if (!File::exists( $storageDestinationPath)) {
                 File::makeDirectory($storageDestinationPath, 0755, true);
@@ -69,7 +65,7 @@ class ProductController extends Controller
         }
         return response()->json([
             'status' => 200,
-            'message' => 'Model Extracted Successfully',
+            'message' => 'Model Added and Extracted Successfully',
         ]);
     }
 }
