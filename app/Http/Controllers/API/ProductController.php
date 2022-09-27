@@ -54,7 +54,7 @@ class ProductController extends Controller
         ]);
 
         $zip = new ZipArchive();
-        $status = $zip->open($request->file("zip")->getRealPath());
+        $status = $zip->open($request->file->getRealPath());
         if ($status !== true) {
             throw new \Exception($status);
         }
