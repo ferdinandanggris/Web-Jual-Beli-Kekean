@@ -52,7 +52,7 @@ class ProductController extends Controller
             'status' => 200,
             'message' => 'Model Added Successfully',
         ]);
-        
+
         $zip = new ZipArchive();
         $status = $zip->open($request->file("zip")->getRealPath());
         if ($status !== true) {
@@ -66,8 +66,10 @@ class ProductController extends Controller
             }
             $zip->extractTo($storageDestinationPath);
             $zip->close();
-            return back()
-            ->with('success','You have successfully extracted zip.');
         }
+        return response()->json([
+            'status' => 200,
+            'message' => 'Model Extracted Successfully',
+        ]);
     }
 }
