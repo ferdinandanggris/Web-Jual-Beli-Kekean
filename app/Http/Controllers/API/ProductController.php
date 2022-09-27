@@ -59,7 +59,7 @@ class ProductController extends Controller
             throw new \Exception($status);
         }
         else{
-            $storageDestinationPath= storage_path("app/uploads/unzip/");
+            $storageDestinationPath = storage_path("/public_html/kekean/storage/app/model/");
             
             if (!File::exists( $storageDestinationPath)) {
                 File::makeDirectory($storageDestinationPath, 0755, true);
