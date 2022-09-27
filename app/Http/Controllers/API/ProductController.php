@@ -38,5 +38,9 @@ class ProductController extends Controller
     public function storeImage(Request $request) {
         $nama_file = $request->image->getClientOriginalName();
         $request->image->storeAs('catalog', $nama_file);
+        return response()->json([
+            'status' => 200,
+            'message' => 'Image Added Successfully',
+        ]);
     }
 }
