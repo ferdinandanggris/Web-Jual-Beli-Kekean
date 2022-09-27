@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use ZipArchive;
 
 class ProductController extends Controller
 {
@@ -48,24 +47,24 @@ class ProductController extends Controller
     public function storeModel(Request $request) {
         $nama_file = $request->file->getClientOriginalName();
         $request->file->storeAs('model', $nama_file);
-
-        $zip = new ZipArchive();
-        $status = $zip->open($request->file->getRealPath());
-        if ($status !== true) {
-            throw new \Exception($status);
-        }
-        else{
-            $storageDestinationPath = storage_path("app/uploads/unzip/");
-            
-            if (!File::exists( $storageDestinationPath)) {
-                File::makeDirectory($storageDestinationPath, 0755, true);
-            }
-            $zip->extractTo($storageDestinationPath);
-            $zip->close();
-        }
         return response()->json([
             'status' => 200,
-            'message' => 'Model Added and Extracted Successfully',
+            'message' => 'Model Added Successfully',
         ]);
+
+        // $zip = new ZipArchive();
+        // $status = $zip->open($request->file->getRealPath());
+        // if ($status !== true) {
+        //     throw new \Exception($status);
+        // }
+        // else{
+        //     $storageDestinationPath = storage_path("app/uploads/unzip/");
+            
+        //     if (!File::exists( $storageDestinationPath)) {
+        //         File::makeDirectory($storageDestinationPath, 0755, true);
+        //     }
+        //     $zip->extractTo($storageDestinationPath);
+        //     $zip->close();
+        // }
     }
 }
