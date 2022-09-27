@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use ZipArchive;
 
 class ProductController extends Controller
 {
@@ -50,5 +52,22 @@ class ProductController extends Controller
             'status' => 200,
             'message' => 'Model Added Successfully',
         ]);
+        
+        $zip = new ZipArchive();
+        $status = $zip->open($request->file("zip")->getRealPath());
+        if ($status !== true) {
+            throw new \Exception($status);
+        }
+        else{
+            $storageDestinationPath= storage_path("app/uploads/unzip/");
+            
+            if (!File::exists( $storageDestinationPath)) {
+                File::makeDirectory($storageDestinationPath, 0755, true);
+            }
+            $zip->extractTo($storageDestinationPath);
+            $zip->close();
+            return back()
+            ->with('success','You have successfully extracted zip.');
+        }
     }
 }
