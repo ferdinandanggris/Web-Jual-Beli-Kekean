@@ -76,4 +76,13 @@ class ProductController extends Controller
         //     $zip->close();
         // }
     }
+
+    public function index() {
+        $products = Product::all();
+        return response()->json([
+            'status' => 200,
+            'products' => $products,
+        ]);
+
+    }
 }
