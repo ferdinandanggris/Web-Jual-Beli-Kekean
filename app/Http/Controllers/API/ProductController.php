@@ -16,10 +16,17 @@ class ProductController extends Controller
         $product->price = $request->input('price');
         $product->description = $request->input('description');
         $product->has_3d = $request->input('has_3d');
-        $product->model_3d = $request->input('model_3d');
-        $product->image_detail1 = $request->input('image_detail1');
-        $product->image_detail2 = '';
-        $product->image_detail3 = '';
+        if ($request->input('has_3d') == true) {
+            $product->model_3d = $request->input('model_3d');
+            $product->image_detail1 = '';
+            $product->image_detail2 = '';
+            $product->image_detail3 = '';
+        } else {
+            $product->image_detail1 = $request->input('image_detail1');
+            $product->image_detail2 = '';
+            $product->image_detail3 = '';
+            $product->model_3d = $request->input('');
+        }
         $product->save();
 
         // $product = Product::create([
@@ -36,7 +43,8 @@ class ProductController extends Controller
         ]);
     }
 
-    public function storeImage(Request $request) {
+    public function storeImage(Request $request)
+    {
         $nama_file = $request->image->getClientOriginalName();
         $request->image->storeAs('catalog', $nama_file);
         return response()->json([
@@ -44,7 +52,8 @@ class ProductController extends Controller
             'message' => 'Image Added Successfully',
         ]);
     }
-    public function storeModel(Request $request) {
+    public function storeModel(Request $request)
+    {
         $nama_file = $request->file->getClientOriginalName();
         $request->file->storeAs('model', $nama_file);
         return response()->json([
@@ -59,7 +68,7 @@ class ProductController extends Controller
         // }
         // else{
         //     $storageDestinationPath = storage_path("app/uploads/unzip/");
-            
+
         //     if (!File::exists( $storageDestinationPath)) {
         //         File::makeDirectory($storageDestinationPath, 0755, true);
         //     }
