@@ -1,41 +1,56 @@
 import { Box, Button, Container, Paper, Typography } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
+import Skeleton from '@mui/material/Skeleton';
+import { useNavigate } from "react-router";
 
 export default function Admin() {
+    const history = useNavigate()
     const columns = [
         { field: "id", headerName: "ID", width: 70 },
         { field: "product_name", headerName: "Nama Barang", width: 130 },
-        { field: "description", headerName: "Deskripsi Barang", width: 130 },
+        { field: "description", headerName: "Deskripsi Barang", width: 150 },
         {
             field: "price",
             headerName: "Harga barang",
             type: "number",
-            width: 90,
+            width: 130,
         },
         {
             field: "has_3d",
             headerName: "Apakah ada 3D?",
             description: "This column has a value getter and is not sortable.",
-            type: 'boolean',
-            width: 160,
-            valueGetter: (params) =>
-                `${params.getValue(params.id, "firstName") || ""} ${
-                    params.getValue(params.id, "lastName") || ""
-                }`,
+            type: "boolean",
+            width: 150,
         },
-        { field: "image_detail1", headerName: "Gambar 1", width: 130 },
-        { field: "image_detail2", headerName: "Gambar 2", width: 130 },
-        { field: "image_detail3", headerName: "Gambar 3", width: 130 },
-        { field: "3d_model", headerName: "Model 3D", width: 130 },
+        { field: "image_detail1", headerName: "Gambar", width: 130 },
+        { field: "model_3d", headerName: "Model 3D", width: 130 },
         {
             field: "action",
             headerName: "Action",
             sortable: false,
             width: 160,
             renderCell: (params) => {
-                const onClick = (e) => {
+                const handleEdit = (e) => {
+                    e.stopPropagation(); // don't select this row after clicking
+
+                    const api = params.api;
+                    const thisRow = {};
+
+                    api.getAllColumns()
+                        .filter((c) => c.field !== "__check__" && !!c)
+                        .forEach(
+                            (c) =>
+                                (thisRow[c.field] = params.getValue(
+                                    params.id,
+                                    c.field
+                                ))
+                        );
+                        history(`/admin/editProduct/${thisRow.id}`)
+                };
+                const handleDelete = (e) => {
                     e.stopPropagation(); // don't select this row after clicking
 
                     const api = params.api;
@@ -56,25 +71,37 @@ export default function Admin() {
 
                 return (
                     <>
-                    <Button onClick={onClick}>Click</Button>
-                    <Button onClick={onClick}>Click</Button>
+                        <Button onClick={handleEdit}>Edit</Button>
+                        <Button onClick={handleDelete}>Delete</Button>
                     </>
                 );
             },
         },
     ];
- 
-    const rows = [
-        { id: 1, lastName: "Snow", firstName: "Jon", age: 35 },
-        { id: 2, lastName: "Lannister", firstName: "Cersei", age: 42 },
-        { id: 3, lastName: "Lannister", firstName: "Jaime", age: 45 },
-        { id: 4, lastName: "Stark", firstName: "Arya", age: 16 },
-        { id: 5, lastName: "Targaryen", firstName: "Daenerys", age: null },
-        { id: 6, lastName: "Melisandre", firstName: null, age: 150 },
-        { id: 7, lastName: "Clifford", firstName: "Ferrara", age: 44 },
-        { id: 8, lastName: "Frances", firstName: "Rossini", age: 36 },
-        { id: 9, lastName: "Roxie", firstName: "Harvey", age: 65 },
-    ];
+
+    const [rows, setRows] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+    let products = [];
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            try {
+                const { data: res } = await axios.get("/api/products");
+                products = res.products;
+                products.has_3d = res.products.map(
+                    (u) => (u.has_3d = !!Number(u.has_3d))
+                );
+                setRows(products);
+                console.log(products);
+            } catch (error) {
+                console.error(error.message);
+            }
+            setLoading(false);
+        };
+        fetchData();
+    }, []);
+
     return (
         <Container sx={{ px: 10 }}>
             <Paper elevation={3}>
@@ -88,24 +115,36 @@ export default function Admin() {
                             Daftar barang
                         </Typography>
 
-                        <Link to={'/admin/addProduct'} style={{textDecoration: 'none'}}>
+                        <Link
+                            to={"/admin/addProduct"}
+                            style={{ textDecoration: "none" }}
+                        >
                             <Button>
-                                    <Typography fontWeight={"medium"}>
-                                        Tambahkan Barang
-                                    </Typography>
+                                <Typography fontWeight={"medium"}>
+                                    Tambahkan Barang
+                                </Typography>
                             </Button>
                         </Link>
                     </Box>
-                    <Box sx={{ height: 400, width: '100%' }}>
-                        <DataGrid
-                            rows={rows}
-                            columns={columns}
-                            pageSize={5}
-                            rowsPerPageOptions={[5]}
-                            checkboxSelection
-                            disableSelectionOnClick
-                            experimentalFeatures={{ newEditingApi: true }}
-                        />
+                    <Box sx={{ height: 400, width: "100%" }}>
+                        {loading ? (
+                            <Skeleton
+                                variant="rectangular"
+                                width={'100%'}
+                                height={'100%'}
+                                animation={'wave'}
+                                sx={{borderRadius: 1}}
+                            />
+                        ) : (
+                            <DataGrid
+                                rows={rows}
+                                columns={columns}
+                                pageSize={5}
+                                rowsPerPageOptions={[5]}
+                                disableSelectionOnClick
+                                experimentalFeatures={{ newEditingApi: true }}
+                            />
+                        )}
                     </Box>
                 </Container>
             </Paper>

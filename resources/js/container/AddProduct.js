@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import React from "react";
 import { DropzoneDialog } from "mui-file-dropzone";
+import { useNavigate } from "react-router";
 
 export default function AddProduct() {
     const [imageDropzone, setImageDropzone] = React.useState(false);
@@ -28,6 +29,7 @@ export default function AddProduct() {
         image_detail3: "",
         model_3d: "",
     });
+    const history = useNavigate()
 
     function handleOpenImage() {
         setImageDropzone(true);
@@ -36,7 +38,6 @@ export default function AddProduct() {
     function handleCloseImage() {
         setImageDropzone(false);
     }
-
 
     function handleOpenModel() {
         setModelDropzone(true);
@@ -64,7 +65,6 @@ export default function AddProduct() {
         },
     }));
 
-
     const handleInput = (e) => {
         setInput({
             ...input,
@@ -79,9 +79,7 @@ export default function AddProduct() {
         });
     };
 
-    
     const handleImage = async (files) => {
-        
         // if(!files[1]) {
         //     files[1] = {name: ''}
         // }
@@ -92,36 +90,60 @@ export default function AddProduct() {
             ...input,
             image_detail1: files[0].name,
             // image_detail2: files[1].name,
-            // image_detail3: files[2].name
-        })
+            // imagedetail3: files[2].name
+        });
 
-        let imgData = new FormData()
-        imgData.append('image', files[0])
-        
-        
-        console.log(typeof files[0].name)
-        console.log(input.image_detail2)
-        console.log(imgData.getAll('image'))
+        let imgData = new FormData();
+        imgData.append("image", files[0]);
 
-        const res = await axios.post("api/save-image", imgData)
-        if(res.data.status === 200) {
-            console.log(res.data.message)
-            handleCloseImage()
+        const res = await axios.post("api/save-image", imgData);
+        if (res.data.status === 200) {
+            console.log(res.data.message);
+        }
+        handleCloseImage();
+    };
+    const handleModel = async (files) => {
+        // if(!files[1]) {
+        //     files[1] = {name: ''}
+        // }
+        // if(!files[2]) {
+        //     files[2] = {name: ''}
+        // }
+        setInput({
+            ...input,
+            model_3d: files[0].name,
+            // image_detail2: files[1].name,
+            // imagedetail3: files[2].name
+        });
+
+        let file_model = new FormData();
+        file_model.append("file", files[0]);
+
+        console.log(typeof files[0].name);
+        console.log(input.model_3d);
+        console.log(file_model.getAll("file"));
+
+        const res = await axios.post("api/save-model", file_model);
+        if (res.data.status === 200) {
+            console.log(res.data.message);
+            handleCloseModel();
         }
     };
 
     const saveProduct = async (e) => {
         e.preventDefault();
 
-        const res = await axios.post("api/add-product", input)
+        const res = await axios.post("api/add-product", input);
         if (res.data.status === 200) {
-            console.log(res.data.message)
+            console.log(res.data.message);
             setInput({
                 product_name: "",
                 price: "",
                 description: "",
                 has_3d: e.target.checked,
+                model_3d: '',
             });
+            history('/admin')
         }
         // axios.get("/sanctum/csrf-cookie").then((response) => {
         //     axios.post("/api/login", input).then((res) => {
@@ -235,6 +257,7 @@ export default function AddProduct() {
                                 <Button
                                     variant="contained"
                                     onClick={handleOpenImage}
+                                    disabled={input.has_3d?true:false}
                                 >
                                     <Typography color={"white"}>
                                         Add Image
@@ -245,12 +268,12 @@ export default function AddProduct() {
                                     onClose={handleCloseImage}
                                     onSave={handleImage}
                                     filesLimit={1}
-                                    acceptedFiles={['image/*']}
+                                    acceptedFiles={["image/*"]}
                                 />
                                 <Typography>{input.image_detail1}</Typography>
                             </Grid>
 
-                            <Grid item mobile={12}>
+                            {/* <Grid item mobile={12}>
                                 <Typography fontWeight={"medium"}>
                                     Model 3D
                                 </Typography>
@@ -265,8 +288,30 @@ export default function AddProduct() {
                                 <DropzoneDialog
                                     open={modelDropzone}
                                     onClose={handleCloseModel}
-                                    acceptedFiles={['model/gltf+json']}
+                                    maxFileSize={100000000}
+                                    filesLimit={1}
+                                    onSave={handleModel}
                                 />
+                            </Grid> */}
+
+                            <Grid item mobile={12}>
+                                <FormControl fullWidth variant="filled">
+                                    <InputLabel htmlFor="component-filled">
+                                        Link model  3d dari sketchfab
+                                    </InputLabel>
+                                    <FilledInput
+                                        value={input.model_3d}
+                                        onChange={handleInput}
+                                        name="model_3d"
+                                        id="component-filled"
+                                        disableUnderline={true}
+                                        disabled={input.has_3d?false:true}
+                                        classes={{
+                                            root: classes.root,
+                                            input: classes.input,
+                                        }}
+                                    />
+                                </FormControl>
                             </Grid>
 
                             <Grid sx={{ mt: 5 }} item mobile={12}>
