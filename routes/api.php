@@ -25,6 +25,7 @@ Route::post('save-image', [ProductController::class, 'storeImage']);
 Route::post('save-model', [ProductController::class, 'storeModel']);
 
 Route::get('products', [ProductController::class, 'index']);
+Route::get('products/{id}', [ProductController::class, 'edit']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);

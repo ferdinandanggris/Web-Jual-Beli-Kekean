@@ -85,4 +85,12 @@ class ProductController extends Controller
         ]);
 
     }
+    public function edit($id) {
+        $products = Product::find($id);
+        return response()->json([
+            'status' => 200,
+            'products' => $products,
+        ]);
+
+    }
 }

@@ -14,9 +14,9 @@ import {
 } from "@mui/material";
 import React from "react";
 import { DropzoneDialog } from "mui-file-dropzone";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
-export default function EditProduct() {
+export default function EditProduct(props) {
     const [imageDropzone, setImageDropzone] = React.useState(false);
     const [modelDropzone, setModelDropzone] = React.useState(false);
     const [data, setData] = React.useState([])
@@ -65,11 +65,13 @@ export default function EditProduct() {
             },
         },
     }));
+    const prod_id = useParams()
 
     let products = [];
     React.useEffect(() => {
         const fetchData = async () => {
             try {
+                console.log(prod_id)
                 const { data: res } = await axios.get("/api/products");
                 products = res.products;
                 products.has_3d = res.products.map(
@@ -81,6 +83,7 @@ export default function EditProduct() {
                 console.error(error.message);
             }
         };
+        
         fetchData();
     }, []);
 
