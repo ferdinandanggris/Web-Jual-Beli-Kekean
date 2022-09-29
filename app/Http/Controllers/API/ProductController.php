@@ -93,4 +93,37 @@ class ProductController extends Controller
         ]);
 
     }
+    public function update(Request $request, $id) {
+        $product = Product::find($id);
+        $product->product_name = $request->input('product_name');
+        $product->price = $request->input('price');
+        $product->description = $request->input('description');
+        $product->has_3d = $request->input('has_3d');
+        if ($request->input('has_3d') == true) {
+            $product->model_3d = $request->input('model_3d');
+            $product->image_detail1 = '';
+            $product->image_detail2 = '';
+            $product->image_detail3 = '';
+        } else {
+            $product->image_detail1 = $request->input('image_detail1');
+            $product->image_detail2 = '';
+            $product->image_detail3 = '';
+            $product->model_3d = '';
+        }
+        $product->update();
+
+        // $product = Product::create([
+        //     'product_name' => $request->product_name,
+        //     'price' => $request->price,
+        //     'description' => $request->description,
+        //     'has_3d' => $request->has_3d,
+        // ]);
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Product Updated Successfully',
+
+        ]);
+
+    }
 }
