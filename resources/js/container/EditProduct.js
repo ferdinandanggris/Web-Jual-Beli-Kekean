@@ -20,6 +20,7 @@ export default function EditProduct(props) {
     const [imageDropzone, setImageDropzone] = React.useState(false);
     const [modelDropzone, setModelDropzone] = React.useState(false);
     const [data, setData] = React.useState([])
+    const prod_id = useParams()
     const [input, setInput] = React.useState({
         product_name: "",
         price: "",
@@ -65,20 +66,18 @@ export default function EditProduct(props) {
             },
         },
     }));
-    const prod_id = useParams()
+    
 
-    let products = [];
+    let products = {};
     React.useEffect(() => {
         const fetchData = async () => {
             try {
                 console.log(prod_id)
-                const { data: res } = await axios.get("/api/products");
-                products = res.products;
-                products.has_3d = res.products.map(
-                    (u) => (u.has_3d = !!Number(u.has_3d))
-                );
-                setData(products);
-                console.log(products);
+                const res = await axios.get(`api/edit-products/${prod_id.id}`);
+                products = res.data.products;
+                products.has_3d = !!Number(products.has_3d)
+                setInput(products);
+                console.log(input.has_3d);
             } catch (error) {
                 console.error(error.message);
             }
@@ -154,8 +153,8 @@ export default function EditProduct(props) {
 
     const editProduct = async (e) => {
         e.preventDefault();
+        const res = await axios.post(`api/update-product/${prod_id.id}`, input);
 
-        const res = await axios.post("api/add-product", input);
         if (res.data.status === 200) {
             console.log(res.data.message);
             setInput({
@@ -195,7 +194,7 @@ export default function EditProduct(props) {
                                         Nama Barang
                                     </InputLabel>
                                     <FilledInput
-                                        value={data.product_name}
+                                        value={input.product_name}
                                         onChange={handleInput}
                                         name="product_name"
                                         id="component-filled"
