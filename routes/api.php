@@ -23,9 +23,9 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('add-product', [ProductController::class, 'store']);
 Route::post('save-image', [ProductController::class, 'storeImage']);
 Route::post('save-model', [ProductController::class, 'storeModel']);
+Route::post('edit-products/{id}', [ProductController::class, 'edit']);
 
 Route::get('products', [ProductController::class, 'index']);
-Route::get('edit-products/{id}', [ProductController::class, 'edit']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
