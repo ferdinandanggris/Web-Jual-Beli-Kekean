@@ -25,6 +25,7 @@ Route::post('save-image', [ProductController::class, 'storeImage']);
 Route::post('save-model', [ProductController::class, 'storeModel']);
 
 Route::put('update-products/{id}', [ProductController::class, 'update']);
+Route::delete('delete-products/{id}', [ProductController::class, 'destroy']);
 
 Route::get('products', [ProductController::class, 'index']);
 Route::get('edit-products/{id}', [ProductController::class, 'edit']);

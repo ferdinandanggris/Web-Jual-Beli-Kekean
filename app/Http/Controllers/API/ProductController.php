@@ -126,4 +126,15 @@ class ProductController extends Controller
         ]);
 
     }
+
+    public function destroy($id)
+    {
+        $product  = Product::find($id);
+        $product->delete();
+
+        return response()->json([
+            'status' => 200,
+            'message' => 'Product Deleted Successfully',
+        ]);
+    }
 }

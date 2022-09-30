@@ -50,7 +50,7 @@ export default function Admin() {
                         );
                         history(`/admin/editProduct/${thisRow.id}`)
                 };
-                const handleDelete = (e) => {
+                const handleDelete = async (e) => {
                     e.stopPropagation(); // don't select this row after clicking
 
                     const api = params.api;
@@ -65,8 +65,10 @@ export default function Admin() {
                                     c.field
                                 ))
                         );
-
-                    return alert(JSON.stringify(thisRow, null, 4));
+                        const res = await axios.delete(`/api/delete-products/${thisRow.id}`)
+                        if(res.data.status === 200) {
+                            console.log(res.data.message)
+                        }
                 };
 
                 return (
