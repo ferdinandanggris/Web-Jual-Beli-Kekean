@@ -77,7 +77,7 @@ export default function EditProduct(props) {
                 products = res.data.products;
                 products.has_3d = !!Number(products.has_3d)
                 setInput(products);
-                console.log(input.has_3d);
+                console.log(products.has_3d);
             } catch (error) {
                 console.error(error.message);
             }
@@ -153,7 +153,7 @@ export default function EditProduct(props) {
 
     const editProduct = async (e) => {
         e.preventDefault();
-        const res = await axios.post(`api/update-product/${prod_id.id}`, input);
+        const res = await axios.put(`api/update-products/${prod_id.id}`, input);
 
         if (res.data.status === 200) {
             console.log(res.data.message);
@@ -250,7 +250,7 @@ export default function EditProduct(props) {
                                         control={
                                             <Checkbox
                                                 onChange={handleCheckbox}
-                                                value={input.has_3d}
+                                                checked={input.has_3d}
                                                 sx={checkboxColor}
                                                 name="has_3d"
                                             />

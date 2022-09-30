@@ -23,7 +23,8 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('add-product', [ProductController::class, 'store']);
 Route::post('save-image', [ProductController::class, 'storeImage']);
 Route::post('save-model', [ProductController::class, 'storeModel']);
-Route::post('update-products/{id}', [ProductController::class, 'update']);
+
+Route::put('update-products/{id}', [ProductController::class, 'update']);
 
 Route::get('products', [ProductController::class, 'index']);
 Route::get('edit-products/{id}', [ProductController::class, 'edit']);
