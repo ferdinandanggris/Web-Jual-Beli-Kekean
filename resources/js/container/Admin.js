@@ -8,6 +8,8 @@ import { useNavigate } from "react-router";
 
 export default function Admin() {
     const history = useNavigate()
+    const [rows, setRows] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
     const columns = [
         { field: "id", headerName: "ID", width: 70 },
         { field: "product_name", headerName: "Nama Barang", width: 130 },
@@ -68,6 +70,8 @@ export default function Admin() {
                         const res = await axios.delete(`/api/delete-products/${thisRow.id}`)
                         if(res.data.status === 200) {
                             console.log(res.data.message)
+                            location.reload()
+                            console.log(rows)
                         }
                 };
 
@@ -80,9 +84,7 @@ export default function Admin() {
             },
         },
     ];
-
-    const [rows, setRows] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
+    
     let products = [];
 
     React.useEffect(() => {

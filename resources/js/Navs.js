@@ -15,6 +15,7 @@ import Admin from './container/Admin';
 import AddProduct from './container/AddProduct';
 import EditProduct from './container/EditProduct';
 import NavAdmin from './components/NavAdmin';
+import AdminPrivateRoute from './AdminPrivateRoute';
 
 function Navs() {
     const theme = createTheme({
@@ -76,9 +77,13 @@ function Navs() {
                     <Route path='/payment' element={<Payment/>}/>
                     <Route path='/login' element={<LoginPage/>}/>
                     <Route path='/register' element={<RegisterPage/>}/>
-                    <Route path='/admin' element={<Admin/>}/>
+                    {/* <Route path='/admin' element={<Admin/>}/>
                     <Route path='/admin/addProduct' element={<AddProduct/>}/>
-                    <Route path='/admin/editProduct/:id' element={<EditProduct/>}/>
+                    <Route path='/admin/editProduct/:id' element={<EditProduct/>}/> */}
+                    {/* <AdminPrivateRoute path='/admin' name='Admin'/> */}
+                    <Route path='/admin' name='Admin' element={<AdminPrivateRoute comp={Admin}/>}/>
+                    <Route path='/admin/addProduct' name='Admin' element={<AdminPrivateRoute comp={AddProduct}/>}/>
+                    <Route path='/admin/editProduct/:id' name='Admin' element={<AdminPrivateRoute comp={EditProduct}/>}/>
                 </Routes>
             </Router>
     </ThemeProvider>
