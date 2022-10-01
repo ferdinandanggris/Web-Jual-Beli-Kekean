@@ -6,18 +6,24 @@ import Admin from "./container/Admin";
 export default function AdminPrivateRoute(props) {
 
     const [authenticated, setAuthenticated] = React.useState(false)
+    const [loading, setLoading] = React.useState(true)
     React.useEffect(() => {
 
         axios.get(`/api/checkingAuthenticated`).then(res => {
             if(res.status === 200) {
                 setAuthenticated(true)
             }
+            setLoading(false)
         })
 
         return () => {
             setAuthenticated(false)
         }
     }, [])
+
+    if(loading) {
+        return <h1>Loading...</h1>
+    }
 
     return (
 
@@ -29,7 +35,7 @@ export default function AdminPrivateRoute(props) {
         //         (<Redirect to={{ pathname: "/login", state: { from: location } }}/>)
         //     }
         // />
-        localStorage.getItem('auth_token')?
+        {authenticated}?
         (<props.comp/>) : 
         (<Navigate to={"/login"}/>)
 
