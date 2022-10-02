@@ -31,7 +31,7 @@ Route::get('products', [ProductController::class, 'index']);
 Route::get('edit-products/{id}', [ProductController::class, 'edit']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('', [AuthController::class, 'logout']);
 
     Route::middleware(isAPIAdmin::class)->group(function() {
         Route::get('/checkingAuthenticated', function() {
