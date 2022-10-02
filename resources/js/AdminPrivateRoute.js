@@ -3,6 +3,7 @@ import axios from "axios";
 import { initial } from "lodash";
 import React, { useEffect } from "react";
 import { BrowserRouter as Route, Navigate, useNavigate } from 'react-router-dom';
+import swal from "sweetalert";
 import Admin from "./container/Admin";
 
 export default function AdminPrivateRoute(props) {
@@ -31,6 +32,20 @@ export default function AdminPrivateRoute(props) {
         }
         return Promise.reject(err)
     })
+
+    axios.interceptors.response.use(function (response) {
+            return response
+        }, function (error) {
+            if(error.response.status === 403) {
+                swal("Forbidden", error.response.data.message, "warning")
+                history('/')
+            } else if(error.response.status === 404) {
+                swal("404 Not Found", "Page Not Found", "warning")
+                history('/Page404')
+            } 
+            return Promise.reject(error) 
+        }
+    )
 
     if(loading) {
         return <></>
