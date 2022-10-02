@@ -30,13 +30,11 @@ Route::delete('delete-products/{id}', [ProductController::class, 'destroy']);
 Route::get('products', [ProductController::class, 'index']);
 Route::get('edit-products/{id}', [ProductController::class, 'edit']);
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('', [AuthController::class, 'logout']);
+Route::middleware(['auth:sanctum', 'isAPIAdmin'])->group(function () {
+    Route::post('logout', [AuthController::class, 'logout']);
 
-    Route::middleware(isAPIAdmin::class)->group(function() {
-        Route::get('/checkingAuthenticated', function() {
-            return response()->json(['message'=>'You are in', 'status'=>200], 200);
-        });
+    Route::get('/checkingAuthenticated', function() {
+        return response()->json(['message'=>'You are in', 'status'=>200], 200);
     });
 });
 
