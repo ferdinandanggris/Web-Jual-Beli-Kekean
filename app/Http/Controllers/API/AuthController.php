@@ -36,13 +36,7 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password)
             ]);
 
-            if($user->role_as == 1) {
-                $role = 'admin';
-                $token = $user->createToken($user->email . '_AdminToken', ['server:admin'])->plainTextToken;
-            } else {
-                $role = '';
-                $token = $user->createToken($user->email . '_Token', [''])->plainTextToken;
-            }
+            $token = $user->createToken($user->email . '_Token')->plainTextToken;
 
             return response()->json([
                 'status' => 200,
@@ -51,7 +45,6 @@ class AuthController extends Controller
                 'last_name' => $user->last_name,
                 'token' => $token,
                 'message' => 'Registered Successfully',
-                'role' => $role,
             ]);
         }
     }
@@ -74,7 +67,13 @@ class AuthController extends Controller
                     'message' => 'Invalid Credentials',
                 ]);
             } else {
-                $token = $user->createToken($user->email . '_Token')->plainTextToken;
+                if($user->role_as == 1) {
+                    $role = 'admin';
+                    $token = $user->createToken($user->email . '_AdminToken', ['server:admin'])->plainTextToken;
+                } else {
+                    $role = '';
+                    $token = $user->createToken($user->email . '_Token', [''])->plainTextToken;
+                }
                 return response()->json([
                     'status' => 200,
                     'email' => $user->email,
@@ -82,6 +81,7 @@ class AuthController extends Controller
                     'last_name' => $user->last_name,
                     'token' => $token,
                     'message' => 'Logged in Successfully',
+                    'role' => $role,
                 ]);
             }
         }
