@@ -50,7 +50,11 @@ function LoginPage() {
                     localStorage.setItem('auth_token', res.data.token);
                     localStorage.setItem('auth_email', res.data.email);
                     swal("Success", res.data.message)
-                    history('/')
+                    if(res.data.role === 'admin') {
+                        history('/admin')
+                    } else {
+                        history('/')
+                    }
                     location.reload()
                 } else if (res.data.status === 401) {
                     swal("Warning", res.data.message, "warning")
