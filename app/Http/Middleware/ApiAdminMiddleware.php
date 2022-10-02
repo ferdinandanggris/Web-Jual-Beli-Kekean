@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,7 @@ class ApiAdminMiddleware
     public function handle(Request $request, Closure $next)
     {
         if(Auth::check()) {
-            if(auth()->user()->tokenCan('server:admin')) {
+            if(User::tokenCan('server:admin')) {
                 return $next($request);
             } else {
                 return response()->json([
