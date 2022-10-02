@@ -18,7 +18,7 @@ class ProductController extends Controller
         $product->has_3d = $request->input('has_3d');
         if ($request->input('has_3d') == true) {
             $product->model_3d = $request->input('model_3d');
-            $product->image_detail1 = '';
+            $product->image_detail1 = $request->input('image_detail1');
             $product->image_detail2 = '';
             $product->image_detail3 = '';
         } else {
@@ -101,7 +101,7 @@ class ProductController extends Controller
         $product->has_3d = $request->input('has_3d');
         if ($request->input('has_3d') == true) {
             $product->model_3d = $request->input('model_3d');
-            $product->image_detail1 = '';
+            $product->image_detail1 = $request->input('image_detail1');
             $product->image_detail2 = '';
             $product->image_detail3 = '';
         } else {

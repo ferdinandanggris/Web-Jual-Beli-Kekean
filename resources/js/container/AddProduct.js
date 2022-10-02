@@ -257,7 +257,6 @@ export default function AddProduct() {
                                 <Button
                                     variant="contained"
                                     onClick={handleOpenImage}
-                                    disabled={input.has_3d?true:false}
                                 >
                                     <Typography color={"white"}>
                                         Add Image
