@@ -2,24 +2,67 @@ import React from "react";
 import { Container, Grid, Typography, Box } from "@mui/material/";
 import CatalogItem from "../components/CatalogItem";
 import ArticleItem from "../components/ArticleItem";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 import CatalogCollection from "./CatalogCollection";
-import ArticleCollection from './ArticleCollection'
+import ArticleCollection from "./ArticleCollection";
 
 export default function MainPage(props) {
-    const catalog = JSON.parse(JSON.stringify(require('../catalog.json')))
-    const catalogs = catalog.map((item) => 
-        <CatalogItem key={item.id} id={item.id} nama={item.nama} item={item.item} harga={item.harga} have3d={item.have3d} model={item.model} />
-    )
-
+    // const product = JSON.parse(JSON.stringify(require('../product.json')))
     
+
+    const [loading, setLoading] = React.useState(true);
+    const [product, setProduct] = React.useState([]);
+    let isMounted = true;
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true)
+            try {
+                axios.get(`api/products`).then((res) => {
+                    if (res.data.status === 200) {
+                        setProduct(res.data.products);
+                        setLoading(false);
+                    }
+                });
+            } catch(error) {
+                console.error(error.message)
+            }
+        }
+        fetchData()
+        isMounted = false;
+    }, []);
+
+    if (loading) {
+        return <Typography>Loading....</Typography>;
+    } else {
+        var showProductList = "";
+        showProductList = product.map((item, id) => 
+            <CatalogItem
+                key={id}
+                id={item.id}
+                nama={item.product_name}
+                image={item.image_detail1}
+                harga={item.price}
+                have3d={item.has_3d}
+                model={item.model_3d}
+            />
+        );
+        console.log(product)
+    }
+
     return (
         <Box>
-            <Grid display={{mobile: 'flex', laptop: 'none'}} container alignItems="center" justifyContent="center" pt={0}>
-                <CatalogCollection/>
-                <CatalogCollection/>
-                <CatalogCollection/>
-                <ArticleCollection/>
+            <Grid
+                display={{ mobile: "flex", laptop: "none" }}
+                container
+                alignItems="center"
+                justifyContent="center"
+                pt={0}
+            >
+                <CatalogCollection />
+                <CatalogCollection />
+                <CatalogCollection />
+                <ArticleCollection />
                 <Grid item mobile={12}>
                     <Container>
                         <Typography
@@ -39,7 +82,7 @@ export default function MainPage(props) {
                         <Typography
                             fontSize={8.65}
                             mt={1}
-                            fontWeight={'regular'}
+                            fontWeight={"regular"}
                             mb={5}
                         >
                             Kekean Wastra Gallery is a business that carries
@@ -56,8 +99,7 @@ export default function MainPage(props) {
                 container
                 spacing={2}
             >
-                {catalogs}
-                
+                {showProductList}
             </Grid>
         </Box>
     );
