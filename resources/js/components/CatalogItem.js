@@ -26,7 +26,7 @@ export default function CatalogItem(props) {
                     <Box
                         sx={{ width: "100%" }}
                         component="img"
-                        src={`../images/catalog/${props.image}`}
+                        src={`../catalog/${props.image}`}
                     />
                     <Container
                         sx={{
