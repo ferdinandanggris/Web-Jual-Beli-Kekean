@@ -69,9 +69,8 @@ export default function Admin() {
                         );
                         const res = await axios.delete(`/api/delete-products/${thisRow.id}`)
                         if(res.data.status === 200) {
-                            console.log(res.data.message)
+                            swal("Success", res.data.message)
                             location.reload()
-                            console.log(rows)
                         }
                 };
 

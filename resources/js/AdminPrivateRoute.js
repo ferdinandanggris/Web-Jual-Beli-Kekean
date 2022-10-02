@@ -1,12 +1,15 @@
+import { Container } from "@mui/material";
+import axios from "axios";
 import { initial } from "lodash";
 import React, { useEffect } from "react";
-import { BrowserRouter as Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Route, Navigate, useNavigate } from 'react-router-dom';
 import Admin from "./container/Admin";
 
 export default function AdminPrivateRoute(props) {
 
     const [authenticated, setAuthenticated] = React.useState(false)
     const [loading, setLoading] = React.useState(true)
+    const history = useNavigate()
     React.useEffect(() => {
 
         axios.get(`/api/checkingAuthenticated`).then(res => {
@@ -21,8 +24,16 @@ export default function AdminPrivateRoute(props) {
         }
     }, [])
 
+    axios.interceptors.response.use(undefined, function axiosRetryInterceptor(err) {
+        if(err.response.status === 401) {
+            swal("Unauthorized", err.response.data.message, "warning")
+            history('/')
+        }
+        return Promise.reject(err)
+    })
+
     if(loading) {
-        return <h1>Loading...</h1>
+        return <></>
     }
 
     return (

@@ -30,7 +30,7 @@ Route::delete('delete-products/{id}', [ProductController::class, 'destroy']);
 Route::get('products', [ProductController::class, 'index']);
 Route::get('edit-products/{id}', [ProductController::class, 'edit']);
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum'], 'isAPIAdmin')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 
     Route::get('/checkingAuthenticated', function() {
