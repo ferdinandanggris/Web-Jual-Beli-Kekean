@@ -72,7 +72,7 @@ export default function ProductPage(props) {
                             ></model-viewer>
                         ) : (
                             <Box
-                                sx={{ width: "100%" }}
+                                sx={{ width: "400px", height: "400px" }}
                                 component="img"
                                 src={`../catalog/${currentProduct[0].image_detail1}`}
                             />
