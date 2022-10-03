@@ -16,9 +16,36 @@ import { Link } from "react-router-dom";
 
 export default function ProductPage(props) {
     const [size, setSize] = React.useState("");
+    const [product, setProduct] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+    let isMounted = true;
     const { productId } = useParams();
-    const id = productId - 1;
-    const catalog = JSON.parse(JSON.stringify(require("../catalog.json"))); 
+    // const catalog = JSON.parse(JSON.stringify(require("../catalog.json")));
+    React.useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true)
+            try {
+                axios.get(`api/products`).then((res) => {
+                    if (res.data.status === 200) {
+                        setProduct(res.data.products);
+                        setLoading(false);
+                    }
+                });
+            } catch(error) {
+                console.error(error.message)
+            }
+        }
+        fetchData()
+        isMounted = false;
+    }, []);
+
+    if (loading) {
+        return <Typography>Loading....</Typography>;
+    } else {
+        var currentProduct = ""
+        currentProduct = product.filter(item => item.id == productId)
+        console.log(currentProduct)
+    }
 
     const handleChange = (event) => {
         setSize(event.target.value);
@@ -37,24 +64,24 @@ export default function ProductPage(props) {
                             component="img"
                             src={`../images/catalog-1.png`}
                         /> */}
-                        {catalog.filter(id => id.id == productId)[0].have3d ? (
+                        {currentProduct.have3d ? (
                             <model-viewer
                                 camera-controls
                                 style={{ width: "400px", height: "400px" }}
-                                src={`../3dModel/${catalog.filter(id => id.id == productId)[0].model}/scene.gltf`}
+                                src={`../3dModel/${currentProduct[0].model}/scene.gltf`}
                             ></model-viewer>
                         ) : (
                             <Box
                                 sx={{ width: "100%" }}
                                 component="img"
-                                src={`../images/catalog-1.png`}
+                                src={`../images/${currentProduct[0].image_detail1}.png`}
                             />
                         )}
                         <Box my={5}>
                             <Typography fontSize={36} fontWeight={"medium"}>
                                 Deskripsi
                             </Typography>
-                            <Typography>{catalog[id].deskripsi}</Typography>
+                            <Typography>{currentProduct[0].description}</Typography>
                         </Box>
                     </Box>
                 </Grid>
@@ -65,10 +92,10 @@ export default function ProductPage(props) {
                     >
                         <Box>
                             <Typography fontSize={30} fontWeight="medium">
-                                {catalog[id].nama}
+                                {currentProduct[0].product_name}
                             </Typography>
                             <Typography fontSize={20}>
-                                Rp {catalog[id].harga}
+                                Rp {currentProduct[0].price}
                             </Typography>
                         </Box>
                         <Box pt={3}>

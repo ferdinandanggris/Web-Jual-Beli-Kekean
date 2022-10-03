@@ -40,6 +40,7 @@ export default function MainPage(props) {
             <CatalogItem
                 key={id}
                 id={item.id}
+                description={item.description}
                 nama={item.product_name}
                 image={item.image_detail1}
                 harga={item.price}
