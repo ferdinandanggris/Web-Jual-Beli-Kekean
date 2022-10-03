@@ -25,6 +25,6 @@ class Product extends Model
         return $this->belongsTo(Keranjang::class);
     }
     public function size() {
-        return $this->hasOne(Size::class);
+        return $this->belongsTo(Size::class);
     }
 }
