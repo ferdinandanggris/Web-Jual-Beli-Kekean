@@ -16,7 +16,6 @@ class Size extends Model
         'L',
         'XL',
         'XXL',
-        'product_id'
     ];
 
     public function product() {

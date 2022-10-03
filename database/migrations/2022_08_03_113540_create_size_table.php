@@ -21,7 +21,6 @@ class CreateSizeTable extends Migration
             $table->boolean('L');
             $table->boolean('XL');
             $table->boolean('XXL');
-
         });
     }
 
