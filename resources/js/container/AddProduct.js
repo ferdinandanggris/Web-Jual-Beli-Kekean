@@ -36,11 +36,8 @@ export default function AddProduct() {
         image_detail2: "",
         image_detail3: "",
         model_3d: "",
-        size: sizes,
     });
-    var selectedSizes = () => {
-
-    }
+    
     const history = useNavigate()
 
     function handleOpenImage() {
@@ -125,12 +122,9 @@ export default function AddProduct() {
     const saveProduct = async (e) => {
         e.preventDefault();
 
-        setInput({
-            ...input,
-            size: sizes
-        })
-        setTimeout(() => {  console.log(input); }, 2000);
-        const res = await axios.post("api/add-product", input);
+        let data = {input, sizes}
+        console.log(data)
+        const res = await axios.post("api/add-product", data);
         if (res.data.status === 200) {
             console.log(res.data.message);
             setInput({

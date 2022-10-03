@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -12,6 +13,8 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $product = new Product;
+        $size = new Size;
+        $product->size_id = $size->id;
         $product->product_name = $request->input('product_name');
         $product->price = $request->input('price');
         $product->description = $request->input('description');
@@ -28,6 +31,7 @@ class ProductController extends Controller
             $product->model_3d = '';
         }
         $product->save();
+
 
         // $product = Product::create([
         //     'product_name' => $request->product_name,
