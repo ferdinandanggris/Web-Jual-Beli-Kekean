@@ -74,7 +74,7 @@ export default function ProductPage(props) {
                             <Box
                                 sx={{ width: "100%" }}
                                 component="img"
-                                src={`../images/${currentProduct[0].image_detail1}.png`}
+                                src={`../catalog/${currentProduct[0].image_detail1}.png`}
                             />
                         )}
                         <Box my={5}>
