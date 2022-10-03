@@ -19,6 +19,14 @@ import { useNavigate } from "react-router";
 export default function AddProduct() {
     const [imageDropzone, setImageDropzone] = React.useState(false);
     const [modelDropzone, setModelDropzone] = React.useState(false);
+    const [sizes, setSizes] = React.useState({
+        S: false,
+        M: false,
+        ML: false,
+        L: false,
+        XL: false,
+        XXL: false,
+    })
     const [input, setInput] = React.useState({
         product_name: "",
         price: "",
@@ -28,7 +36,11 @@ export default function AddProduct() {
         image_detail2: "",
         image_detail3: "",
         model_3d: "",
+        size: sizes,
     });
+    var selectedSizes = () => {
+
+    }
     const history = useNavigate()
 
     function handleOpenImage() {
@@ -79,6 +91,13 @@ export default function AddProduct() {
         });
     };
 
+    const handleSize = (e) => {
+        setSizes({
+            ...sizes,
+            [e.target.name]: e.target.checked,
+        })
+    }
+
     const handleImage = async (files) => {
         // if(!files[1]) {
         //     files[1] = {name: ''}
@@ -102,37 +121,15 @@ export default function AddProduct() {
         }
         handleCloseImage();
     };
-    const handleModel = async (files) => {
-        // if(!files[1]) {
-        //     files[1] = {name: ''}
-        // }
-        // if(!files[2]) {
-        //     files[2] = {name: ''}
-        // }
-        setInput({
-            ...input,
-            model_3d: files[0].name,
-            // image_detail2: files[1].name,
-            // imagedetail3: files[2].name
-        });
-
-        let file_model = new FormData();
-        file_model.append("file", files[0]);
-
-        console.log(typeof files[0].name);
-        console.log(input.model_3d);
-        console.log(file_model.getAll("file"));
-
-        const res = await axios.post("api/save-model", file_model);
-        if (res.data.status === 200) {
-            console.log(res.data.message);
-            handleCloseModel();
-        }
-    };
 
     const saveProduct = async (e) => {
         e.preventDefault();
 
+        setInput({
+            ...input,
+            size: sizes
+        })
+        setTimeout(() => {  console.log(input); }, 2000);
         const res = await axios.post("api/add-product", input);
         if (res.data.status === 200) {
             console.log(res.data.message);
@@ -223,6 +220,17 @@ export default function AddProduct() {
                                     />
                                 </FormControl>
                             </Grid>
+                            <Grid item mobile={12}>
+                                <FormGroup row={true}>
+                                    <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.S} onChange={handleSize} name='S'/>} label="S"/>
+                                    <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.M} onChange={handleSize} name='M'/>} label="M"/>
+                                    <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.ML} onChange={handleSize} name='ML'/>} label="ML"/>
+                                    <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.L} onChange={handleSize} name='L'/>} label="L"/>
+                                    <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.XL} onChange={handleSize} name='XL'/>} label="XL"/>
+                                    <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.XXL} onChange={handleSize} name='XXL'/>} label="XXL"/>
+                                </FormGroup>
+                            </Grid>
+
                             <Grid item mobile={12}>
                                 <FormGroup>
                                     <FormControlLabel

@@ -16,6 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('product_name');
+            $table->unsignedBigInteger('size_id');
             $table->integer('price');
             $table->text('description');
             $table->boolean('has_3d');
@@ -23,6 +24,9 @@ class CreateProductsTable extends Migration
             $table->string('image_detail2');
             $table->string('image_detail3');
             $table->string('model_3d');
+            $table->foreign('size_id')
+                ->references('id')
+                ->on('size');
             $table->timestamps();
         });
     }
