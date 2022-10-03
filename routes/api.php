@@ -28,6 +28,7 @@ Route::put('update-products/{id}', [ProductController::class, 'update']);
 Route::delete('delete-products/{id}', [ProductController::class, 'destroy']);
 
 Route::get('products', [ProductController::class, 'index']);
+Route::get('products/{id}', [ProductController::class, 'indexDetail']);
 Route::get('edit-products/{id}', [ProductController::class, 'edit']);
 
 Route::middleware(['auth:sanctum', 'isAPIAdmin'])->group(function () {

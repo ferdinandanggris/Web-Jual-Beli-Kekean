@@ -16,6 +16,7 @@ import { Link } from "react-router-dom";
 
 export default function ProductPage(props) {
     const [size, setSize] = React.useState("");
+    const [sizes, setSizes] = React.useState({});
     const [product, setProduct] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     let isMounted = true;
@@ -28,6 +29,7 @@ export default function ProductPage(props) {
                 axios.get(`api/products/${productId}`).then((res) => {
                     if (res.data.status === 200) {
                         setProduct(res.data.products);
+                        setSizes(res.data.size);
                         setLoading(false);
                     }
                 });
