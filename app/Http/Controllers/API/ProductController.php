@@ -15,17 +15,17 @@ class ProductController extends Controller
         $product = new Product;
         $size = new Size;
         $product->size_id = $size->id;
-        $product->product_name = $request->data->input('product_name');
-        $product->price = $request->data->input('price');
-        $product->description = $request->data->input('description');
-        $product->has_3d = $request->data->input('has_3d');
-        if ($request->data->input('has_3d') == true) {
-            $product->model_3d = $request->data->input('model_3d');
-            $product->image_detail1 = $request->data->input('image_detail1');
+        $product->product_name = $request->input('input')->input('product_name');
+        $product->price = $request->input('input')->input('price');
+        $product->description = $request->input('input')->input('description');
+        $product->has_3d = $request->input('input')->input('has_3d');
+        if ($request->input('input')->input('has_3d') == true) {
+            $product->model_3d = $request->input('input')->input('model_3d');
+            $product->image_detail1 = $request->input('input')->input('image_detail1');
             $product->image_detail2 = '';
             $product->image_detail3 = '';
         } else {
-            $product->image_detail1 = $request->data->input('image_detail1');
+            $product->image_detail1 = $request->input('input')->input('image_detail1');
             $product->image_detail2 = '';
             $product->image_detail3 = '';
             $product->model_3d = '';
