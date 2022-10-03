@@ -21,7 +21,7 @@ class ProductController extends Controller
         $size->XL = $request->input('sizes.XL');
         $size->XXL = $request->input('sizes.XXL');
         $size->save();
-        
+
         $product->size_id = $size->id;
         $product->product_name = $request->input('input.product_name');
         $product->price = $request->input('input.price');
@@ -95,8 +95,18 @@ class ProductController extends Controller
             'status' => 200,
             'products' => $products,
         ]);
-
     }
+
+    public function indexDetail($id) {
+        $products = Product::all();
+        $size = Product::find($id)->size;
+        return response()->json([
+            'status' => 200,
+            'products' => $products,
+            'size' => $size,
+        ]);
+    }
+
     public function edit($id) {
         $products = Product::find($id);
         return response()->json([
@@ -142,7 +152,9 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product  = Product::find($id);
+        $size = Size::find($product->size_id);
         $product->delete();
+        $size->delete();
 
         return response()->json([
             'status' => 200,

@@ -25,7 +25,7 @@ export default function ProductPage(props) {
         const fetchData = async () => {
             setLoading(true);
             try {
-                axios.get(`api/products`).then((res) => {
+                axios.get(`api/products/${productId}`).then((res) => {
                     if (res.data.status === 200) {
                         setProduct(res.data.products);
                         setLoading(false);
@@ -91,7 +91,7 @@ export default function ProductPage(props) {
                                     objectFit: "cover",
                                 }}
                                 component="img"
-                                src={`../catalog/${currentProduct[0].image_detail1}`}
+                                src={`../catalog/${currentProduct[0].image_detail1}`} 
                             />
                         )}
                         <Box my={5}>
