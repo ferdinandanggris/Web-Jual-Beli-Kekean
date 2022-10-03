@@ -14,6 +14,14 @@ class ProductController extends Controller
     {
         $product = new Product;
         $size = new Size;
+        $size->S = $request->input('sizes.S');
+        $size->M = $request->input('sizes.M');
+        $size->ML = $request->input('sizes.ML');
+        $size->L = $request->input('sizes.L');
+        $size->XL = $request->input('sizes.XL');
+        $size->XXL = $request->input('sizes.XXL');
+        $size->save();
+        
         $product->size_id = $size->id;
         $product->product_name = $request->input('input.product_name');
         $product->price = $request->input('input.price');
