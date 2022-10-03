@@ -23,7 +23,7 @@ export default function ProductPage(props) {
     // const catalog = JSON.parse(JSON.stringify(require("../catalog.json")));
     React.useEffect(() => {
         const fetchData = async () => {
-            setLoading(true)
+            setLoading(true);
             try {
                 axios.get(`api/products`).then((res) => {
                     if (res.data.status === 200) {
@@ -31,20 +31,20 @@ export default function ProductPage(props) {
                         setLoading(false);
                     }
                 });
-            } catch(error) {
-                console.error(error.message)
+            } catch (error) {
+                console.error(error.message);
             }
-        }
-        fetchData()
+        };
+        fetchData();
         isMounted = false;
     }, []);
 
     if (loading) {
         return <Typography>Loading....</Typography>;
     } else {
-        var currentProduct = ""
-        currentProduct = product.filter(item => item.id == productId)
-        console.log(currentProduct)
+        var currentProduct = "";
+        currentProduct = product.filter((item) => item.id == productId);
+        console.log(currentProduct);
     }
 
     const handleChange = (event) => {
@@ -64,15 +64,32 @@ export default function ProductPage(props) {
                             component="img"
                             src={`../images/catalog-1.png`}
                         /> */}
-                        {currentProduct.have3d ? (
-                            <model-viewer
-                                camera-controls
-                                style={{ width: "400px", height: "400px" }}
-                                src={`../3dModel/${currentProduct[0].model}/scene.gltf`}
-                            ></model-viewer>
+                        {!!Number(currentProduct[0].has_3d) ? (
+                            <div className="sketchfab-embed-wrapper">
+                                <iframe
+                                    title="Horse free download"
+                                    frameBorder="0"
+                                    allowFullScreen
+                                    mozAllowFullscreen="true"
+                                    webkitAllowFullscreen="true"
+                                    allow="autoplay; fullscreen; xr-spatial-tracking"
+                                    xrSpecialTracking
+                                    executionWhileOutOfViewPort
+                                    executionWhileNotRendered
+                                    webShare
+                                    width={"512px"}
+                                    height={"400px"}
+                                    src={currentProduct[0].model_3d}
+                                >
+                                </iframe>
+                            </div>
                         ) : (
                             <Box
-                                sx={{ width: "538px", height: "400px", objectFit: "cover" }}
+                                sx={{
+                                    width: "538px",
+                                    height: "400px",
+                                    objectFit: "cover",
+                                }}
                                 component="img"
                                 src={`../catalog/${currentProduct[0].image_detail1}`}
                             />
@@ -81,7 +98,9 @@ export default function ProductPage(props) {
                             <Typography fontSize={36} fontWeight={"medium"}>
                                 Deskripsi
                             </Typography>
-                            <Typography>{currentProduct[0].description}</Typography>
+                            <Typography>
+                                {currentProduct[0].description}
+                            </Typography>
                         </Box>
                     </Box>
                 </Grid>

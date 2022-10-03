@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Grid, Typography, Box } from "@mui/material/";
+import { Container, Grid, Typography, Box, Skeleton } from "@mui/material/";
 import CatalogItem from "../components/CatalogItem";
 import ArticleItem from "../components/ArticleItem";
 import { Link } from "react-router-dom";
@@ -21,7 +21,7 @@ export default function MainPage(props) {
                 axios.get(`api/products`).then((res) => {
                     if (res.data.status === 200) {
                         setProduct(res.data.products);
-                        setLoading(false);
+                        setLoading(false)
                     }
                 });
             } catch(error) {
@@ -30,11 +30,8 @@ export default function MainPage(props) {
         }
         fetchData()
         isMounted = false;
-    }, []);
-
-    if (loading) {
-        return <Typography>Loading....</Typography>;
-    } else {
+    }, []) 
+    if(!loading) {
         var showProductList = "";
         showProductList = product.map((item, id) => 
             <CatalogItem
@@ -100,7 +97,41 @@ export default function MainPage(props) {
                 container
                 spacing={2}
             >
-                {showProductList}
+                {loading?(
+                    <>
+                    <Grid item>
+                        <Skeleton variant="rounded" width={250} height={130}/>
+                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
+                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
+                    </Grid>
+                    <Grid item>
+                        <Skeleton variant="rounded" width={250} height={130}/>
+                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
+                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
+                    </Grid>
+                    <Grid item>
+                        <Skeleton variant="rounded" width={250} height={130}/>
+                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
+                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
+                    </Grid>
+                    <Grid item>
+                        <Skeleton variant="rounded" width={250} height={130}/>
+                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
+                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
+                    </Grid>
+                    <Grid item>
+                        <Skeleton variant="rounded" width={250} height={130}/>
+                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
+                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
+                    </Grid>
+                    <Grid item>
+                        <Skeleton variant="rounded" width={250} height={130}/>
+                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
+                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
+                    </Grid>
+                    
+                    </>
+                ):showProductList}
             </Grid>
         </Box>
     );
