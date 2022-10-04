@@ -24,15 +24,15 @@ class CartController extends Controller
                         'message'=> $productCheck->name . ' Barang sudah ada di keranjang',
                     ]);
                 } else {
-                    if($product_qty == 0 || $product_size == '') {
-                        return response()->json([
-                            'status'=>500,
-                            'message'=> 'harap menentukan jumlah produk yang akan dibeli',
-                        ]);
-                    } else if($product_size == '') {
+                    if($product_size == '') {
                         return response()->json([
                             'status'=>500,
                             'message'=> 'Harap memilih ukuran produk',
+                        ]);
+                    } else if($product_qty == 0) {
+                        return response()->json([
+                            'status'=>500,
+                            'message'=> 'harap menentukan jumlah produk yang akan dibeli',
                         ]);
                     } else {
                             $cartItem = new Keranjang;
