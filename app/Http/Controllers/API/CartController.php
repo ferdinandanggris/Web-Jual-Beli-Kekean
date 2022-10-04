@@ -24,25 +24,35 @@ class CartController extends Controller
                         'message'=> $productCheck->name . ' Barang sudah ada di keranjang',
                     ]);
                 } else {
-                    $cartItem = new Keranjang;
-                    $cartItem->user_id = $user_id;
-                    $cartItem->product_id = $product_id;
-                    $cartItem->qty = $product_qty;
-                    $cartItem->size = $product_size;
-                    $cartItem->save();
-                    return response()->json([
-                        'status'=>201,
-                        'message'=>'Barang sudah masuk ke keranjang',
-                    ]);
-                }
+                    if($product_qty == 0 || $product_size == '') {
+                        return response()->json([
+                            'status'=>500,
+                            'message'=> 'harap menentukan jumlah produk yang akan dibeli',
+                        ]);
+                    } else if($product_size == '') {
+                        return response()->json([
+                            'status'=>500,
+                            'message'=> 'Harap memilih ukuran produk',
+                        ]);
+                    } else {
+                            $cartItem = new Keranjang;
+                            $cartItem->user_id = $user_id;
+                            $cartItem->product_id = $product_id;
+                            $cartItem->qty = $product_qty;
+                            $cartItem->size = $product_size;
+                            $cartItem->save();
+                            return response()->json([
+                                'status'=>201,
+                                'message'=>'Barang sudah masuk ke keranjang',
+                            ]);
+                        }
+                    }
             } else {
                 return response()->json([
                     'status'=>404,
                     'message'=>'Product tidak ditemukan',
                 ]);
             }
-            
-            
         } else {
             return response()->json([
                 'status'=>401,

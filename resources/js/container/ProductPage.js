@@ -67,7 +67,7 @@ export default function ProductPage(props) {
 
     function submitToCart(e) {
         const data = {
-            product_id: product.id,
+            product_id: productId,
             product_qty: quantity,
             product_size: size,
         };
@@ -78,6 +78,10 @@ export default function ProductPage(props) {
                 swal("Warning", res.data.message, "warning")
             } else if(res.data.status === 401) {
                 swal("Error", res.data.message, "error")
+            } else if(res.data.status === 404) {
+                swal("Error", res.data.message, "error")
+            } else if(res.data.status === 500) {
+                swal("Warning", res.data.message, "warning")
             }
         });
     }
