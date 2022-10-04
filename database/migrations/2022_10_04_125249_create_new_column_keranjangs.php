@@ -14,7 +14,7 @@ class CreateNewColumnKeranjangs extends Migration
     public function up()
     {
         Schema::table('keranjangs', function (Blueprint $table) {
-            $table->string('size');
+            $table->string('size')->after('qty');
         });
     }
 
