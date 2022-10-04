@@ -13,7 +13,7 @@ class ChangeSizeTable extends Migration
      */
     public function up()
     {
-        Schema::table('keranjangs', function (Blueprint $table) {
+        Schema::table('size', function (Blueprint $table) {
             $table->renameColumn('ML', 'XS');
         });
     }
@@ -25,7 +25,7 @@ class ChangeSizeTable extends Migration
      */
     public function down()
     {
-        Schema::table('keranjangs', function (Blueprint $table) {
+        Schema::table('size', function (Blueprint $table) {
             $table->renameColumn('XS', 'ML');
         });
     }
