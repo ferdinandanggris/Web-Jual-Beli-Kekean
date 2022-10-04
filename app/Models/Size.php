@@ -14,8 +14,8 @@ class Size extends Model
     protected $fillable = [
         'S',
         'M',
-        'ML',
         'L',
+        'XS',
         'XL',
         'XXL',
     ];

@@ -27,6 +27,10 @@ class User extends Authenticatable
         'role_as'
     ];
 
+    public function keranjang() {
+        return $this->hasOne(Keranjang::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *

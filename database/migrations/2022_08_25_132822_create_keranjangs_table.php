@@ -18,10 +18,10 @@ class CreateKeranjangsTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->integer('qty');
             $table->integer('total');
+            $table->timestamps();
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products');
-            $table->timestamps();
         });
     }
 

@@ -22,7 +22,7 @@ export default function AddProduct() {
     const [sizes, setSizes] = React.useState({
         S: false,
         M: false,
-        ML: false,
+        XS: false,
         L: false,
         XL: false,
         XXL: false,
@@ -218,7 +218,7 @@ export default function AddProduct() {
                                 <FormGroup row={true}>
                                     <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.S} onChange={handleSize} name='S'/>} label="S"/>
                                     <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.M} onChange={handleSize} name='M'/>} label="M"/>
-                                    <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.ML} onChange={handleSize} name='ML'/>} label="ML"/>
+                                    <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.XS} onChange={handleSize} name='XS'/>} label="XS"/>
                                     <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.L} onChange={handleSize} name='L'/>} label="L"/>
                                     <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.XL} onChange={handleSize} name='XL'/>} label="XL"/>
                                     <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.XXL} onChange={handleSize} name='XXL'/>} label="XXL"/>
