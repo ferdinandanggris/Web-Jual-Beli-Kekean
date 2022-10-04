@@ -17,12 +17,12 @@ import { Link } from "react-router-dom";
 export default function ProductPage(props) {
     const [size, setSize] = React.useState("");
     const [sizes, setSizes] = React.useState({
-        S: '',
-        M: '',
-        ML: '',
-        L: '',
-        XL: '',
-        XXL: '',
+        S: '0',
+        M: '0',
+        ML: '0',
+        L: '0',
+        XL: '0',
+        XXL: '0',
 
     });
     const [product, setProduct] = React.useState([]);
@@ -140,13 +140,12 @@ export default function ProductPage(props) {
                                     label="Pilih Ukuran"
                                     onChange={handleChange}
                                 >
-                                    {!!Number(sizes.S)?<MenuItem value='S'>S</MenuItem>:''}
-                                    {!!Number(sizes.M)?<MenuItem value='M'>M</MenuItem>:''}
-                                    {!!Number(sizes.ML)?<MenuItem value='ML'>ML</MenuItem>:''}
-                                    {!!Number(sizes.L)?<MenuItem value='L'>L</MenuItem>:''}
-                                    {!!Number(sizes.XL)?<MenuItem value='XL'>XL</MenuItem>:''}
-                                    {!!Number(sizes.XXL)?<MenuItem value='XXL'>XXL</MenuItem>:''}
-                                    
+                                    {!!Number(sizes.S)?<MenuItem value={'S'}>S</MenuItem>:''}
+                                    {!!Number(sizes.M)?<MenuItem value={'M'}>M</MenuItem>:''}
+                                    {!!Number(sizes.ML)?<MenuItem value={'ML'}>ML</MenuItem>:''}
+                                    {!!Number(sizes.L)?<MenuItem value={'L'}>L</MenuItem>:''}
+                                    {!!Number(sizes.XL)?<MenuItem value={'XL'}>XL</MenuItem>:''}
+                                    {!!Number(sizes.XXL)?<MenuItem value={'XXL'}>XXL</MenuItem>:''}
                                 </Select>
                             </FormControl>
                             <TextField
