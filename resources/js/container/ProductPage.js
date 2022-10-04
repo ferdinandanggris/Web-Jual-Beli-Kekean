@@ -13,20 +13,23 @@ import React from "react";
 import ButtonBeli from "../components/ButtonBeli";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
+import ButtonKeranjang from "../components/ButtonKeranjang";
+import axios from "axios";
+import swal from "sweetalert";
 
 export default function ProductPage(props) {
     const [size, setSize] = React.useState("");
     const [sizes, setSizes] = React.useState({
-        S: '0',
-        M: '0',
-        ML: '0',
-        L: '0',
-        XL: '0',
-        XXL: '0',
-
+        S: "0",
+        M: "0",
+        ML: "0",
+        L: "0",
+        XL: "0",
+        XXL: "0",
     });
     const [product, setProduct] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
+    const [quantity, setQuantity] = React.useState(0);
     let isMounted = true;
     const { productId } = useParams();
     // const catalog = JSON.parse(JSON.stringify(require("../catalog.json")));
@@ -38,7 +41,7 @@ export default function ProductPage(props) {
                     if (res.data.status === 200) {
                         setProduct(res.data.products);
                         setSizes(res.data.size);
-                        console.log(res.data.size)
+                        console.log(res.data.size);
                         setLoading(false);
                     }
                 });
@@ -61,6 +64,23 @@ export default function ProductPage(props) {
     const handleChange = (event) => {
         setSize(event.target.value);
     };
+
+    function submitToCart(e) {
+        const data = {
+            product_id: product.id,
+            product_qty: quantity,
+            product_size: size,
+        };
+        axios.post("/api/add-to-cart", data).then((res) => {
+            if(res.data.status === 201) {
+                swal("Success", res.data.message, "success")
+            } else if(res.data.status === 409) {
+                swal("Warning", res.data.message, "warning")
+            } else if(res.data.status === 401) {
+                swal("Error", res.data.message, "error")
+            }
+        });
+    }
     return (
         <Container sx={{ px: 10 }}>
             <Grid
@@ -91,8 +111,7 @@ export default function ProductPage(props) {
                                     width={"512px"}
                                     height={"400px"}
                                     src={currentProduct[0].model_3d}
-                                >
-                                </iframe>
+                                ></iframe>
                             </div>
                         ) : (
                             <Box
@@ -102,7 +121,7 @@ export default function ProductPage(props) {
                                     objectFit: "cover",
                                 }}
                                 component="img"
-                                src={`../catalog/${currentProduct[0].image_detail1}`} 
+                                src={`../catalog/${currentProduct[0].image_detail1}`}
                             />
                         )}
                         <Box my={5}>
@@ -141,20 +160,54 @@ export default function ProductPage(props) {
                                     label="Pilih Ukuran"
                                     onChange={handleChange}
                                 >
-                                    <MenuItem disabled={!Number(sizes.S)} value={'S'}>Small</MenuItem>
-                                    <MenuItem disabled={!Number(sizes.M)} value={'M'}>Medium</MenuItem>
-                                    <MenuItem disabled={!Number(sizes.ML)} value={'ML'}>Medium Large</MenuItem>
-                                    <MenuItem disabled={!Number(sizes.L)}value={'L'}>Large</MenuItem>
-                                    <MenuItem disabled={!Number(sizes.XL)} value={'XL'}>Xtra Large (XL)</MenuItem>
-                                    <MenuItem disabled={!Number(sizes.XXL)} value={'XXL'}>Xtra Xtra Large (XXL)</MenuItem>
+                                    <MenuItem
+                                        disabled={!Number(sizes.S)}
+                                        value={"S"}
+                                    >
+                                        Small
+                                    </MenuItem>
+                                    <MenuItem
+                                        disabled={!Number(sizes.M)}
+                                        value={"M"}
+                                    >
+                                        Medium
+                                    </MenuItem>
+                                    <MenuItem
+                                        disabled={!Number(sizes.ML)}
+                                        value={"ML"}
+                                    >
+                                        Medium Large
+                                    </MenuItem>
+                                    <MenuItem
+                                        disabled={!Number(sizes.L)}
+                                        value={"L"}
+                                    >
+                                        Large
+                                    </MenuItem>
+                                    <MenuItem
+                                        disabled={!Number(sizes.XL)}
+                                        value={"XL"}
+                                    >
+                                        Xtra Large (XL)
+                                    </MenuItem>
+                                    <MenuItem
+                                        disabled={!Number(sizes.XXL)}
+                                        value={"XXL"}
+                                    >
+                                        Xtra Xtra Large (XXL)
+                                    </MenuItem>
                                 </Select>
                             </FormControl>
                             <TextField
-                                onChange={(event) =>
-                                    event.target.value < 0
-                                        ? (event.target.value = 0)
-                                        : event.target.value
-                                }
+                                onChange={(event) => {
+                                    if(event.target.value < 0) {
+                                        event.target.value = 0
+                                        setQuantity(event.target.value)
+                                    } else {
+                                        event.target.value
+                                        setQuantity(event.target.value)
+                                    }
+                                }}
                                 id="jumlah-barang"
                                 label="Quantity"
                                 type="number"
@@ -164,7 +217,17 @@ export default function ProductPage(props) {
                                 variant="outlined"
                                 sx={{ mt: 3 }}
                             />
-                            <ButtonBeli />
+                            <Grid container>
+                                <Grid item laptop={4}>
+                                    <ButtonBeli />
+                                </Grid>
+                                <Grid item laptop={6}>
+                                    <ButtonKeranjang
+                                        id={productId}
+                                        onClick={submitToCart}
+                                    />
+                                </Grid>
+                            </Grid>
                         </Box>
                     </Box>
                 </Grid>

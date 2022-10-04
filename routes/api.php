@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\CartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,8 @@ Route::post('login', [AuthController::class, 'login']);
 Route::post('add-product', [ProductController::class, 'store']);
 Route::post('save-image', [ProductController::class, 'storeImage']);
 Route::post('save-model', [ProductController::class, 'storeModel']);
+Route::post('add-to-cart', [CartController::class, 'addToCart']);
+
 
 Route::put('update-products/{id}', [ProductController::class, 'update']);
 Route::delete('delete-products/{id}', [ProductController::class, 'destroy']);
