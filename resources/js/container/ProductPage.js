@@ -137,15 +137,16 @@ export default function ProductPage(props) {
                                     labelId="demo-simple-select-label"
                                     id="ukuran"
                                     value={size}
+                                    displayEmpty={true}
                                     label="Pilih Ukuran"
                                     onChange={handleChange}
                                 >
-                                    {!!Number(sizes.S)?<MenuItem value={'S'}>S</MenuItem>:''}
-                                    {!!Number(sizes.M)?<MenuItem value={'M'}>M</MenuItem>:''}
-                                    {!!Number(sizes.ML)?<MenuItem value={'ML'}>ML</MenuItem>:''}
-                                    {!!Number(sizes.L)?<MenuItem value={'L'}>L</MenuItem>:''}
-                                    {!!Number(sizes.XL)?<MenuItem value={'XL'}>XL</MenuItem>:''}
-                                    {!!Number(sizes.XXL)?<MenuItem value={'XXL'}>XXL</MenuItem>:''}
+                                    <MenuItem disabled={!Number(sizes.S)} value={'S'}>Small</MenuItem>
+                                    <MenuItem disabled={!Number(sizes.M)} value={'M'}>Medium</MenuItem>
+                                    <MenuItem disabled={!Number(sizes.ML)} value={'ML'}>Medium Large</MenuItem>
+                                    <MenuItem disabled={!Number(sizes.L)}value={'L'}>Large</MenuItem>
+                                    <MenuItem disabled={!Number(sizes.XL)} value={'XL'}>Xtra Large (XL)</MenuItem>
+                                    <MenuItem disabled={!Number(sizes.XXL)} value={'XXL'}>Xtra Xtra Large (XXL)</MenuItem>
                                 </Select>
                             </FormControl>
                             <TextField
