@@ -22,7 +22,7 @@ class Product extends Model
     ];
 
     public function keranjang() {
-        return $this->belongsTo(Keranjang::class);
+        return $this->hasMany(Keranjang::class);
     }
     public function size() {
         return $this->belongsTo(Size::class);

@@ -28,6 +28,7 @@ Route::post('add-to-cart', [CartController::class, 'addToCart']);
 
 
 Route::put('update-products/{id}', [ProductController::class, 'update']);
+Route::put('cart-update-quantity/{id}', [CartController::class, 'updateQuantity']);
 Route::delete('delete-products/{id}', [ProductController::class, 'destroy']);
 
 Route::get('products', [ProductController::class, 'index']);

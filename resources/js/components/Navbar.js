@@ -14,23 +14,36 @@ import axios from "axios";
 import swal from "sweetalert";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import styled from "@mui/system";
 
 export default function Navbar() {
-    const history = useNavigate()
+    const StyledButton = (props) => (
+        <Button
+            sx={{
+                "& .MuiTouchRipple-child": { backgroundColor: "blue" },
+                "&& .MuiTouchRipple-rippleVisible": {
+                    backgroundColor: "blue",
+                }
+            }}
+        >
+            {props.children}
+        </Button>
+    );
+    const history = useNavigate();
     const logoutSubmit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        axios.post(`/api/logout`).then(res => {
-            if(res.data.status === 200) {
-                localStorage.removeItem('auth_token')
-                localStorage.removeItem('auth_firstName')
-                localStorage.removeItem('auth_lastName')
-                localStorage.removeItem('auth_email')
-                swal('Success', res.data.message, "Logout Successfully")
-                history('/')
+        axios.post(`/api/logout`).then((res) => {
+            if (res.data.status === 200) {
+                localStorage.removeItem("auth_token");
+                localStorage.removeItem("auth_firstName");
+                localStorage.removeItem("auth_lastName");
+                localStorage.removeItem("auth_email");
+                swal("Success", res.data.message, "Logout Successfully");
+                history("/");
             }
-        })
-    }
+        });
+    };
     const login = true;
     function IsLogin() {
         if (localStorage.getItem("auth_token")) {
@@ -40,20 +53,26 @@ export default function Navbar() {
                         className="nav-right"
                         sx={{ display: { mobile: "none", laptop: "block" } }}
                     >
-                        <Button color="inherit">
+                        {/* <Button color="inherit">
                             <Typography href="#" className="bx bx-search" />
-                        </Button>
-                        <Button color="inherit">
+                        </Button> */}
+                        {/* <Button color="inherit">
                             <Typography href="#" className="bx bx-heart" />
-                        </Button>
-                        <Button color="inherit">
+                        </Button> */}
+                        <Button
+                            onClick={() => history("/cart")}
+                            color="inherit"
+                        >
                             <Typography href="#" className="bx bx-cart" />
                         </Button>
-                        <Button color="inherit">
+                        {/* <Button color="inherit">
                             <Typography href="#" className="bx bx-user" />
-                        </Button>
+                        </Button> */}
                         <Button onClick={logoutSubmit} color="inherit">
-                            <Typography href="#" className="bx bx-log-out-circle" />
+                            <Typography
+                                href="#"
+                                className="bx bx-log-out-circle"
+                            />
                         </Button>
                     </Box>
                 </>
@@ -150,39 +169,44 @@ export default function Navbar() {
                 >
                     <Toolbar>
                         <Box sx={{ display: "flex", flexGrow: 1 }}>
-                            <Typography
-                                color={"black"}
-                                px={2}
-                                sx={{
-                                    "&:hover": {
-                                        borderBottom: "1px solid black",
-                                    },
-                                }}
-                            >
-                                Shop
-                            </Typography>
-                            <Typography
-                                sx={{
-                                    "&:hover": {
-                                        borderBottom: "1px solid black",
-                                    },
-                                }}
-                                color={"black"}
-                                px={2}
-                            >
-                                Article
-                            </Typography>
-                            <Typography
-                                sx={{
-                                    "&:hover": {
-                                        borderBottom: "1px solid black",
-                                    },
-                                }}
-                                color={"black"}
-                                px={2}
-                            >
-                                Contact Us
-                            </Typography>
+                            <Button color="inherit" onClick={() => history('/')}>
+                                <Typography
+                                    sx={{
+                                        "&:hover": {
+                                            borderBottom: "1px solid black",
+                                        },
+                                    }}
+                                    px={2}
+                                >
+                                    Shop
+                                </Typography>
+                            </Button>
+                            <Button color="inherit">
+                                <Typography
+                                    sx={{
+                                        "&:hover": {
+                                            borderBottom: "1px solid black",
+                                        },
+                                    }}
+                                    color={"black"}
+                                    px={2}
+                                >
+                                    Article
+                                </Typography>
+                            </Button>
+                            <Button color="inherit">
+                                <Typography
+                                    sx={{
+                                        "&:hover": {
+                                            borderBottom: "1px solid black",
+                                        },
+                                    }}
+                                    color={"black"}
+                                    px={2}
+                                >
+                                    Contact Us
+                                </Typography>
+                            </Button>
                         </Box>
                         <IsLogin />
                     </Toolbar>
