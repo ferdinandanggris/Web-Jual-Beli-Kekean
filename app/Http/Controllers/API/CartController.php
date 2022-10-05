@@ -60,4 +60,20 @@ class CartController extends Controller
             ]);
         }
     }
+
+    public function viewcart() {
+        if(auth('sanctum')->check()) {
+            $user_id = auth('sanctum')->user()->id;
+            $cartItems = Keranjang::where('user_id', $user_id)->get();
+            return response()->json([
+                'status'=>200,
+                'cart'=>$cartItems,
+            ]);
+        } else {
+            return response()->json([
+                'status'=>401,
+                'message'=>'Login untuk melihat keranjang',
+            ]);
+        }
+    }
 }

@@ -148,7 +148,7 @@ export default function ProductPage(props) {
                                 {currentProduct[0].product_name}
                             </Typography>
                             <Typography fontSize={20}>
-                                Rp {currentProduct[0].price}
+                                Rp. {Number(currentProduct[0].price).toLocaleString()}
                             </Typography>
                         </Box>
                         <Box pt={3}>
@@ -165,6 +165,12 @@ export default function ProductPage(props) {
                                     onChange={handleChange}
                                 >
                                     <MenuItem
+                                        disabled={!Number(sizes.XS)}
+                                        value={"XS"}
+                                    >
+                                        Xtra Small (XS)
+                                    </MenuItem>
+                                    <MenuItem
                                         disabled={!Number(sizes.S)}
                                         value={"S"}
                                     >
@@ -175,12 +181,6 @@ export default function ProductPage(props) {
                                         value={"M"}
                                     >
                                         Medium
-                                    </MenuItem>
-                                    <MenuItem
-                                        disabled={!Number(sizes.ML)}
-                                        value={"ML"}
-                                    >
-                                        Medium Large
                                     </MenuItem>
                                     <MenuItem
                                         disabled={!Number(sizes.L)}

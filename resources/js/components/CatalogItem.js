@@ -53,7 +53,7 @@ export default function CatalogItem(props) {
                             pt={0.5}
                             pb={0.5}
                             color={"#000000"}
-                        >{`Rp. ${props.harga.toLocaleString()}`}</Typography>
+                        >{`Rp. ${Number(props.harga.toLocaleString('en-US'))}`}</Typography>
                         <Typography
                             fontWeight="500"
                             sx={{ color: "rgb(0,0,0,41%)" }}

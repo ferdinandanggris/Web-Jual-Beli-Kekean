@@ -16,6 +16,7 @@ import AddProduct from './container/AddProduct';
 import EditProduct from './container/EditProduct';
 import NavAdmin from './components/NavAdmin';
 import AdminPrivateRoute from './AdminPrivateRoute';
+import Cart from './container/Cart';
 
 function Navs() {
     const theme = createTheme({
@@ -77,6 +78,7 @@ function Navs() {
                     <Route path='/payment' element={<Payment/>}/>
                     <Route path='/login' element={<LoginPage/>}/>
                     <Route path='/register' element={<RegisterPage/>}/>
+                    <Route path='/cart' element={<Cart/>}/>
                     {/* <Route path='/admin' element={<Admin/>}/>
                     <Route path='/admin/addProduct' element={<AddProduct/>}/>
                     <Route path='/admin/editProduct/:id' element={<EditProduct/>}/> */}
