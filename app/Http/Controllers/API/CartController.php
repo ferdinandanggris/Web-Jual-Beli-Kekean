@@ -84,7 +84,7 @@ class CartController extends Controller
         if (auth('sanctum')->check()) {
             $user_id = auth('sanctum')->user()->id;
             $cartItem = Keranjang::where('id', $cart_id)->where('user_id', $user_id)->first();
-            $cartItem->qty = $request->value;
+            $cartItem->qty = $request->newQty;
             $cartItem->update();
 
             return response()->json([

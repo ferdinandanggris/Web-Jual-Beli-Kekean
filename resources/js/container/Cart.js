@@ -55,23 +55,34 @@ export default function Cart() {
     }
 
     const handleQtyChange = (event, cart_id) => {
-        let promise = new Promise(function(Resolved, Rejected) {
-            setCart(cart => cart.map((item) => 
-                cart_id === item.id ? {...item, qty: (event.target.value < 1?1:event.target.value)} : item
-            ))
-            Resolved(value)
-            Rejected(value)
-        })
-        promise.then(updateCartQuantity(cart_id, event.target.value), console.log("gagal"))
+        let promise = new Promise(function (Resolved) {
+            setCart((cart) =>
+                cart.map((item) =>
+                    cart_id === item.id
+                        ? {
+                            ...item,
+                            qty:
+                                event.target.value < 1
+                                    ? 1
+                                    : event.target.value,
+                        }
+                        : item
+                )
+            );
+            Resolved();
+        });
+        promise.then(() => {
+            updateCartQuantity(cart_id, event.target.value)
+        });
     };
 
-    const updateCartQuantity = (cart_id, value) => {
-        axios.put(`api/cart-update-quantity/${cart_id}`, value).then(res=> {
-            if(res.data.status === 200) {
-                swal("Success", res.data.message, "success")
+    const updateCartQuantity = (cart_id, newQty) => {
+        axios.put(`api/cart-update-quantity/${cart_id}`, newQty).then((res) => {
+            if (res.data.status === 200) {
+                swal("Success", res.data.message, "success");
             }
-        })
-    }
+        });
+    };
 
     return (
         <Grid paddingX={10} container spacing={2}>
@@ -97,12 +108,21 @@ export default function Cart() {
                                     qty={Number(item.qty)}
                                     value={item.size}
                                     img={item.product.item}
-                                    onQtyChange={event => handleQtyChange(event, item.id)}
+                                    onQtyChange={(event) =>
+                                        handleQtyChange(event, item.id)
+                                    }
                                 />
                             );
                         })
                     ) : (
-                        <Typography textAlign={'center'} color={'#BABABA'} mx={2} my={9.5} fontWeight="500" fontSize={16}>
+                        <Typography
+                            textAlign={"center"}
+                            color={"#BABABA"}
+                            mx={2}
+                            my={9.5}
+                            fontWeight="500"
+                            fontSize={16}
+                        >
                             Keranjang anda kosong
                         </Typography>
                     )}
