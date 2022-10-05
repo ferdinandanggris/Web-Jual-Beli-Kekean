@@ -29,7 +29,7 @@ export default function ProductPage(props) {
     });
     const [product, setProduct] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
-    const [quantity, setQuantity] = React.useState(0);
+    const [quantity, setQuantity] = React.useState(1);
     let isMounted = true;
     const { productId } = useParams();
     // const catalog = JSON.parse(JSON.stringify(require("../catalog.json")));
@@ -220,6 +220,7 @@ export default function ProductPage(props) {
                                 }}
                                 variant="outlined"
                                 sx={{ mt: 3 }}
+                                value={quantity}
                             />
                             <Grid container>
                                 <Grid item laptop={4}>

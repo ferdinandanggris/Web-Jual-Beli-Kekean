@@ -1,10 +1,11 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Skeleton, Typography } from "@mui/material";
 import axios from "axios";
 import React from "react";
 import { useNavigate, useParams } from "react-router";
 import swal from "sweetalert";
 import ButtonBeli from "../components/ButtonBeli";
 import CartItem from "../components/CartItem";
+import CartItemLoading from "../components/CartItemLoading";
 
 export default function Cart() {
     const [size, setSize] = React.useState("S");
@@ -17,7 +18,7 @@ export default function Cart() {
         XXL: "0",
     });
     const [cart, setCart] = React.useState([]);
-    const [loading, setLoading] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
     const [quantity, setQuantity] = React.useState(0);
     let isMounted = true;
     const { productId } = useParams();
@@ -27,28 +28,26 @@ export default function Cart() {
         history.push("/");
         swal("Warning", "Login untuk melihat keranjang belanja", "error");
     }
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            axios.get(`api/cart`).then((res) => {
+                if (res.data.status === 200) {
+                    setCart(res.data.cart);
+                    setLoading(false);
+                }
+            });
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
     React.useEffect(() => {
-        const fetchData = async () => {
-            // setLoading(true);
-            try {
-                axios.get(`api/cart`).then((res) => {
-                    if (res.data.status === 200) {
-                        setCart(res.data.cart);
-                        setLoading(false);
-                    }
-                });
-            } catch (error) {
-                console.error(error.message);
-            }
-        };
         fetchData();
         isMounted = false;
     }, []);
+    
     var totalPrice;
-
-    if (loading) {
-        return <Typography>Loading....</Typography>;
-    } else {
+    if (!loading) {
         totalPrice = cart.reduce((acc, tot) => {
             return acc + tot.product.price * tot.qty;
         }, 0);
@@ -84,16 +83,15 @@ export default function Cart() {
     const deleteCartItem = (e, cart_id) => {
         e.preventDefault()
 
-        const thisClicked = e.currentTarget
-
         axios.delete(`api/delete-cart-item/${cart_id}`).then(res => {
             if(res.data.status === 200) {
                 swal("Success", res.data.message, "success")
-                thisClicked.closest('#CartItem').remove()
+                fetchData()
             } else if(res.data.status === 404) {
                 swal("Error", res.data.message, "error")
             }
         })
+        
     }
 
     return (
@@ -110,7 +108,11 @@ export default function Cart() {
                     <Typography mx={2} fontWeight="500" fontSize={24}>
                         Keranjang Belanja
                     </Typography>
-                    {cart.length > 0 ? (
+                    {loading ? <>
+                    <CartItemLoading/>
+                    <CartItemLoading/>
+                    <CartItemLoading/>
+                    </> : cart.length > 0 ? (
                         cart.map((item) => {
                             return (
                                 <CartItem
@@ -149,7 +151,7 @@ export default function Cart() {
                         </Typography>
                         <hr />
                         <Typography mx={2} fontWeight="500" fontSize={36}>
-                            RP. {totalPrice.toLocaleString()}
+                            {loading ? <Skeleton variant="text"/> : `RP. ${totalPrice.toLocaleString()}`}
                         </Typography>
 
                         <Button
