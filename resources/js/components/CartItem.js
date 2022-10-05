@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { LoadingButton } from "@mui/lab";
 
 export default function CartItem({
     name,
@@ -19,14 +20,15 @@ export default function CartItem({
     img,
     qty,
     onQtyChange,
-    value
+    value,
+    onDeleteClick
 }) {
     const handleChange = (event) => {
         setSize(event.target.value);
     };
 
     return (
-        <Box pt={2}>
+        <Box pt={2} id="CartItem">
             <Grid container spacing={3}>
                 <Grid item laptop={3}>
                     <Box
@@ -55,7 +57,7 @@ export default function CartItem({
                             </Typography>
                         </Box>
                         <Box>
-                            <IconButton color="primary">
+                            <IconButton onClick={onDeleteClick} color="primary">
                                 <DeleteIcon />
                             </IconButton>
                         </Box>

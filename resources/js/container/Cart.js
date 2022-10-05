@@ -72,17 +72,29 @@ export default function Cart() {
             Resolved();
         });
         promise.then(() => {
-            updateCartQuantity(cart_id, event.target.value)
+            const newQty = {newQty: event.target.value}
+            updateCartQuantity(cart_id, newQty)
         });
     };
 
     const updateCartQuantity = (cart_id, newQty) => {
-        axios.put(`api/cart-update-quantity/${cart_id}`, newQty).then((res) => {
-            if (res.data.status === 200) {
-                swal("Success", res.data.message, "success");
-            }
-        });
+        axios.put(`api/cart-update-quantity/${cart_id}`, newQty)
     };
+
+    const deleteCartItem = (e, cart_id) => {
+        e.preventDefault()
+
+        const thisClicked = e.currentTarget
+
+        axios.delete(`api/delete-cart-item/${cart_id}`).then(res => {
+            if(res.data.status === 200) {
+                swal("Success", res.data.message, "success")
+                thisClicked.closest('#CartItem').remove()
+            } else if(res.data.status === 404) {
+                swal("Error", res.data.message, "error")
+            }
+        })
+    }
 
     return (
         <Grid paddingX={10} container spacing={2}>
@@ -111,6 +123,7 @@ export default function Cart() {
                                     onQtyChange={(event) =>
                                         handleQtyChange(event, item.id)
                                     }
+                                    onDeleteClick={(e) => deleteCartItem(e, item.id)}
                                 />
                             );
                         })

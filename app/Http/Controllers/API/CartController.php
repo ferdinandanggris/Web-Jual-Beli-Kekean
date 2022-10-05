@@ -98,4 +98,27 @@ class CartController extends Controller
             ]);
         }
     }
+
+    public function deleteCartItem($cart_id) {
+    if (auth('sanctum')->check()) {
+        $user_id = auth('sanctum')->user()->id;
+        $cartItem = Keranjang::where('id', $cart_id)->where('user_id', $user_id)->first();
+        if($cartItem) {
+            $cartItem->delete();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Item berhasil dihapus',
+            ]);
+        } else {
+            return response()->json([
+                'status' => 401,
+                'message' => 'Item tidak ditemukan',
+            ]);
+        }
+    } else {
+        return response()->json([
+            'status' => 401,
+            'message' => 'Login untuk mengubah keranjang',
+        ]);
+    }
 }
