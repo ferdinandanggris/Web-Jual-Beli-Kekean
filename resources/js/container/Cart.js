@@ -94,11 +94,11 @@ export default function Cart() {
                         return (
                             <CartItem
                                 name={item.product_name}
-                                price="599000"
-                                qty={quantity}
+                                price={item.price}
+                                qty={Number(item.qty)}
                                 onQtyChange={handleQtyChange}
                                 onSizeChange={handleSizeChange}
-                                value={size}
+                                value={item.size}
                             />
                         );
                     })}
