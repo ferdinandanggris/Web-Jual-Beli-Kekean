@@ -8,6 +8,7 @@ import {
     FormControl,
     Select,
     TextField,
+    Skeleton,
 } from "@mui/material";
 import React from "react";
 import ButtonBeli from "../components/ButtonBeli";
@@ -53,9 +54,7 @@ export default function ProductPage(props) {
         isMounted = false;
     }, []);
 
-    if (loading) {
-        return <Typography>Loading....</Typography>;
-    } else {
+    if (!loading) {
         var currentProduct = "";
         currentProduct = product.filter((item) => item.id == productId);
         console.log(currentProduct);
@@ -72,16 +71,16 @@ export default function ProductPage(props) {
             product_size: size,
         };
         axios.post("/api/add-to-cart", data).then((res) => {
-            if(res.data.status === 201) {
-                swal("Success", res.data.message, "success")
-            } else if(res.data.status === 409) {
-                swal("Warning", res.data.message, "warning")
-            } else if(res.data.status === 401) {
-                swal("Error", res.data.message, "error")
-            } else if(res.data.status === 404) {
-                swal("Error", res.data.message, "error")
-            } else if(res.data.status === 500) {
-                swal("Warning", res.data.message, "warning")
+            if (res.data.status === 201) {
+                swal("Success", res.data.message, "success");
+            } else if (res.data.status === 409) {
+                swal("Warning", res.data.message, "warning");
+            } else if (res.data.status === 401) {
+                swal("Error", res.data.message, "error");
+            } else if (res.data.status === 404) {
+                swal("Error", res.data.message, "error");
+            } else if (res.data.status === 500) {
+                swal("Warning", res.data.message, "warning");
             }
         });
     }
@@ -93,50 +92,57 @@ export default function ProductPage(props) {
                 display={{ mobile: "none", laptop: "flex" }}
             >
                 <Grid item laptop={6}>
-                    <Box>
-                        {/* <Box
-                            sx={{ width: "100%" }}
-                            component="img"
-                            src={`../images/catalog-1.png`}
-                        /> */}
-                        {!!Number(currentProduct[0].has_3d) ? (
-                            <div className="sketchfab-embed-wrapper">
-                                <iframe
-                                    title="Horse free download"
-                                    frameBorder="0"
-                                    allowFullScreen
-                                    mozAllowFullscreen="true"
-                                    webkitAllowFullscreen="true"
-                                    allow="autoplay; fullscreen; xr-spatial-tracking"
-                                    xrSpecialTracking
-                                    executionWhileOutOfViewPort
-                                    executionWhileNotRendered
-                                    webShare
-                                    width={"512px"}
-                                    height={"400px"}
-                                    src={currentProduct[0].model_3d}
-                                ></iframe>
-                            </div>
-                        ) : (
-                            <Box
-                                sx={{
-                                    width: "538px",
-                                    height: "400px",
-                                    objectFit: "cover",
-                                }}
-                                component="img"
-                                src={`../catalog/${currentProduct[0].image_detail1}`}
+                    {loading ? (
+                        <>
+                            <Skeleton
+                                variant="rounded"
+                                width="538px"
+                                height="400px"
                             />
-                        )}
-                        <Box my={5}>
-                            <Typography fontSize={36} fontWeight={"medium"}>
-                                Deskripsi
-                            </Typography>
-                            <Typography>
-                                {currentProduct[0].description}
-                            </Typography>
+                            <Skeleton variant="text" sx={{ fontSize: 36, mt: 5 }} />
+                            <Skeleton variant="text" sx={{ fontSize: 12 }} />
+                        </>
+                    ) : (
+                        <Box>
+                            {!!Number(currentProduct[0].has_3d) ? (
+                                <div className="sketchfab-embed-wrapper">
+                                    <iframe
+                                        title="Horse free download"
+                                        frameBorder="0"
+                                        allowFullScreen
+                                        mozAllowFullscreen="true"
+                                        webkitAllowFullscreen="true"
+                                        allow="autoplay; fullscreen; xr-spatial-tracking"
+                                        xrSpecialTracking
+                                        executionWhileOutOfViewPort
+                                        executionWhileNotRendered
+                                        webShare
+                                        width={"512px"}
+                                        height={"400px"}
+                                        src={currentProduct[0].model_3d}
+                                    ></iframe>
+                                </div>
+                            ) : (
+                                <Box
+                                    sx={{
+                                        width: "538px",
+                                        height: "400px",
+                                        objectFit: "cover",
+                                    }}
+                                    component="img"
+                                    src={`../catalog/${currentProduct[0].image_detail1}`}
+                                />
+                            )}
+                            <Box my={5}>
+                                <Typography fontSize={36} fontWeight={"medium"}>
+                                    Deskripsi
+                                </Typography>
+                                <Typography>
+                                    {currentProduct[0].description}
+                                </Typography>
+                            </Box>
                         </Box>
-                    </Box>
+                    )}
                 </Grid>
                 <Grid item laptop={6}>
                     <Box
@@ -144,12 +150,23 @@ export default function ProductPage(props) {
                         p={2}
                     >
                         <Box>
-                            <Typography fontSize={30} fontWeight="medium">
-                                {currentProduct[0].product_name}
-                            </Typography>
-                            <Typography fontSize={20}>
-                                Rp. {Number(currentProduct[0].price).toLocaleString()}
-                            </Typography>
+                            {loading ? (
+                                <Skeleton variant="text" sx={{fontSize: 36}} />
+                            ) : (
+                                <Typography fontSize={30} fontWeight="medium">
+                                    {currentProduct[0].product_name}
+                                </Typography>
+                            )}
+                            {loading ? (
+                                <Skeleton variant="text" sx={{fontSize: 24}} />
+                            ) : (
+                                <Typography fontSize={20}>
+                                    Rp.{" "}
+                                    {Number(
+                                        currentProduct[0].price
+                                    ).toLocaleString()}
+                                </Typography>
+                            )}
                         </Box>
                         <Box pt={3}>
                             <FormControl sx={{ width: 300 }}>
@@ -202,30 +219,27 @@ export default function ProductPage(props) {
                                     </MenuItem>
                                 </Select>
                             </FormControl>
-                            <TextField
-                                onChange={(event) => {
-                                    if(event.target.value < 0) {
-                                        event.target.value = 0
-                                        setQuantity(event.target.value)
-                                    } else {
-                                        event.target.value
-                                        setQuantity(event.target.value)
-                                    }
-                                }}
-                                id="jumlah-barang"
-                                label="Quantity"
-                                type="number"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                variant="outlined"
-                                sx={{ mt: 3 }}
-                                value={quantity}
-                            />
+                                <TextField
+                                    onChange={(event) => {
+                                        if (event.target.value < 0) {
+                                            event.target.value = 0;
+                                            setQuantity(event.target.value);
+                                        } else {
+                                            event.target.value;
+                                            setQuantity(event.target.value);
+                                        }
+                                    }}
+                                    id="jumlah-barang"
+                                    label="Quantity"
+                                    type="number"
+                                    InputLabelProps={{
+                                        shrink: true,
+                                    }}
+                                    variant="outlined"
+                                    sx={{ mt: 3 }}
+                                    value={quantity}
+                                />
                             <Grid container>
-                                <Grid item laptop={4}>
-                                    <ButtonBeli />
-                                </Grid>
                                 <Grid item laptop={6}>
                                     <ButtonKeranjang
                                         id={productId}
