@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Keranjang;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Facade\FlareClient\Http\Response;
 use PDF;
 use Illuminate\Support\Facades\Auth;
 
@@ -69,10 +70,12 @@ class CartController extends Controller
     {
         if (auth('sanctum')->check()) {
             $user_id = auth('sanctum')->user()->id;
+            $user = auth('sanctum')->user();
             $cartItems = Keranjang::where('user_id', $user_id)->get();
             return response()->json([
                 'status' => 200,
                 'cart' => $cartItems,
+                'user' => $user,
             ]);
         } else {
             return response()->json([
@@ -125,15 +128,5 @@ class CartController extends Controller
                 'message' => 'Login untuk mengubah keranjang',
             ]);
         }
-    }
-
-    public function getInvoice() {
-        $user_id = auth('sanctum')->user()->id;
-        $data = [
-            'heading' => $user_id
-        ];
-        $pdf = PDF::loadView('Invoice', $data);
-        
-        return $pdf->stream('Invoice.pdf');
     }
 }
