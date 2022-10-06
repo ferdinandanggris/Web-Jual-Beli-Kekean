@@ -28,6 +28,7 @@ export default function Cart() {
         history.push("/");
         swal("Warning", "Login untuk melihat keranjang belanja", "error");
     }
+
     const fetchData = async () => {
         setLoading(true);
         try {
@@ -41,6 +42,7 @@ export default function Cart() {
             console.error(error.message);
         }
     };
+    
     React.useEffect(() => {
         fetchData();
         isMounted = false;

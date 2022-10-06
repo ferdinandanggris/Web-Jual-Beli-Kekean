@@ -19,8 +19,7 @@ import { useNavigate, useParams } from "react-router";
 export default function EditProduct(props) {
     const [imageDropzone, setImageDropzone] = React.useState(false);
     const [modelDropzone, setModelDropzone] = React.useState(false);
-    const [data, setData] = React.useState([])
-    const prod_id = useParams()
+    const [data, setData] = React.useState([]);
     const [input, setInput] = React.useState({
         product_name: "",
         price: "",
@@ -31,7 +30,16 @@ export default function EditProduct(props) {
         image_detail3: "",
         model_3d: "",
     });
-    const history = useNavigate()
+    const [sizes, setSizes] = React.useState({
+        S: '0',
+        M: '0',
+        XS: '0',
+        L: '0',
+        XL: '0',
+        XXL: '0',
+    });
+    const prod_id = useParams();
+    const history = useNavigate();
 
     function handleOpenImage() {
         setImageDropzone(true);
@@ -39,14 +47,6 @@ export default function EditProduct(props) {
 
     function handleCloseImage() {
         setImageDropzone(false);
-    }
-
-    function handleOpenModel() {
-        setModelDropzone(true);
-    }
-
-    function handleCloseModel() {
-        setModelDropzone(false);
     }
 
     const checkboxColor = {
@@ -66,25 +66,28 @@ export default function EditProduct(props) {
             },
         },
     }));
-    
 
     let products = {};
+    let size = {};
     React.useEffect(() => {
-        const fetchData = async () => {
+        const fetchData = () => {
             try {
-                console.log(prod_id)
-                const res = await axios.get(`api/edit-products/${prod_id.id}`);
-                products = res.data.products;
-                products.has_3d = !!Number(products.has_3d)
-                setInput(products);
-                console.log(products.has_3d);
+                axios.get(`api/edit-products/${prod_id.id}`).then((res) => {
+                    products = res.data.products;
+                    size = res.data.size;
+                    products.has_3d = !!Number(products.has_3d);
+                    setInput(products);
+                    setSizes(size);
+                });
             } catch (error) {
                 console.error(error.message);
             }
         };
-        
+
         fetchData();
     }, []);
+
+    console.log(sizes)
 
     const handleInput = (e) => {
         setInput({
@@ -123,48 +126,28 @@ export default function EditProduct(props) {
         }
         handleCloseImage();
     };
-    const handleModel = async (files) => {
-        // if(!files[1]) {
-        //     files[1] = {name: ''}
-        // }
-        // if(!files[2]) {
-        //     files[2] = {name: ''}
-        // }
-        setInput({
-            ...input,
-            model_3d: files[0].name,
-            // image_detail2: files[1].name,
-            // imagedetail3: files[2].name
+
+    const handleSize = (e) => {
+        setSizes({
+            ...sizes,
+            [e.target.name]: e.target.checked,
         });
-
-        let file_model = new FormData();
-        file_model.append("file", files[0]);
-
-        console.log(typeof files[0].name);
-        console.log(input.model_3d);
-        console.log(file_model.getAll("file"));
-
-        const res = await axios.post("api/save-model", file_model);
-        if (res.data.status === 200) {
-            console.log(res.data.message);
-            handleCloseModel();
-        }
     };
 
     const editProduct = async (e) => {
         e.preventDefault();
-        const res = await axios.put(`api/update-products/${prod_id.id}`, input);
+        let data = {input, sizes}
+        const res = await axios.put(`api/update-products/${prod_id.id}`, data);
 
         if (res.data.status === 200) {
-            console.log(res.data.message);
             setInput({
                 product_name: "",
                 price: "",
                 description: "",
                 has_3d: e.target.checked,
-                model_3d: '',
+                model_3d: "",
             });
-            history('/admin')
+            history("/admin");
         }
         // axios.get("/sanctum/csrf-cookie").then((response) => {
         //     axios.post("/api/login", input).then((res) => {
@@ -244,6 +227,77 @@ export default function EditProduct(props) {
                                     />
                                 </FormControl>
                             </Grid>
+
+                            <Grid item mobile={12}>
+                                <FormGroup row={true}>
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                sx={checkboxColor}
+                                                checked={!!Number(sizes.S)}
+                                                onChange={handleSize}
+                                                name="S"
+                                            />
+                                        }
+                                        label="S"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                sx={checkboxColor}
+                                                checked={!!Number(sizes.M)}
+                                                onChange={handleSize}
+                                                name="M"
+                                            />
+                                        }
+                                        label="M"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                sx={checkboxColor}
+                                                checked={!!Number(sizes.XS)}
+                                                onChange={handleSize}
+                                                name="XS"
+                                            />
+                                        }
+                                        label="XS"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                sx={checkboxColor}
+                                                checked={!!Number(sizes.L)}
+                                                onChange={handleSize}
+                                                name="L"
+                                            />
+                                        }
+                                        label="L"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                sx={checkboxColor}
+                                                checked={!!Number(sizes.XL)}
+                                                onChange={handleSize}
+                                                name="XL"
+                                            />
+                                        }
+                                        label="XL"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                sx={checkboxColor}
+                                                checked={!!Number(sizes.XXL)}
+                                                onChange={handleSize}
+                                                name="XXL"
+                                            />
+                                        }
+                                        label="XXL"
+                                    />
+                                </FormGroup>
+                            </Grid>
                             <Grid item mobile={12}>
                                 <FormGroup>
                                     <FormControlLabel
@@ -278,7 +332,7 @@ export default function EditProduct(props) {
                                 <Button
                                     variant="contained"
                                     onClick={handleOpenImage}
-                                    disabled={input.has_3d?true:false}
+                                    disabled={input.has_3d ? true : false}
                                 >
                                     <Typography color={"white"}>
                                         Add Image
@@ -318,7 +372,7 @@ export default function EditProduct(props) {
                             <Grid item mobile={12}>
                                 <FormControl fullWidth variant="filled">
                                     <InputLabel htmlFor="component-filled">
-                                        Link model  3d dari sketchfab
+                                        Link model 3d dari sketchfab
                                     </InputLabel>
                                     <FilledInput
                                         value={input.model_3d}
@@ -326,7 +380,7 @@ export default function EditProduct(props) {
                                         name="model_3d"
                                         id="component-filled"
                                         disableUnderline={true}
-                                        disabled={input.has_3d?false:true}
+                                        disabled={input.has_3d ? false : true}
                                         classes={{
                                             root: classes.root,
                                             input: classes.input,

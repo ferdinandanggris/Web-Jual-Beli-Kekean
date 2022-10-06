@@ -119,17 +119,25 @@ class ProductController extends Controller
     }
     public function update(Request $request, $id) {
         $product = Product::find($id);
-        $product->product_name = $request->input('product_name');
-        $product->price = $request->input('price');
-        $product->description = $request->input('description');
-        $product->has_3d = $request->input('has_3d');
-        if ($request->input('has_3d') == true) {
-            $product->model_3d = $request->input('model_3d');
-            $product->image_detail1 = $request->input('image_detail1');
+        $size = Size::find($product->size_id);
+        $size->S = $request->input('sizes.S');
+        $size->M = $request->input('sizes.M');
+        $size->XS = $request->input('sizes.XS');
+        $size->L = $request->input('sizes.L');
+        $size->XL = $request->input('sizes.XL');
+        $size->XXL = $request->input('sizes.XXL');
+
+        $product->product_name = $request->input('input.product_name');
+        $product->price = $request->input('input.price');
+        $product->description = $request->input('input.description');
+        $product->has_3d = $request->input('input.has_3d');
+        if ($request->input('input.has_3d') == true) {
+            $product->model_3d = $request->input('input.model_3d');
+            $product->image_detail1 = $request->input('input.image_detail1');
             $product->image_detail2 = '';
             $product->image_detail3 = '';
         } else {
-            $product->image_detail1 = $request->input('image_detail1');
+            $product->image_detail1 = $request->input('input.image_detail1');
             $product->image_detail2 = '';
             $product->image_detail3 = '';
             $product->model_3d = '';

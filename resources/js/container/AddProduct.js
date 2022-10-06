@@ -18,7 +18,6 @@ import { useNavigate } from "react-router";
 
 export default function AddProduct() {
     const [imageDropzone, setImageDropzone] = React.useState(false);
-    const [modelDropzone, setModelDropzone] = React.useState(false);
     const [sizes, setSizes] = React.useState({
         S: false,
         M: false,
@@ -46,14 +45,6 @@ export default function AddProduct() {
 
     function handleCloseImage() {
         setImageDropzone(false);
-    }
-
-    function handleOpenModel() {
-        setModelDropzone(true);
-    }
-
-    function handleCloseModel() {
-        setModelDropzone(false);
     }
 
     const checkboxColor = {

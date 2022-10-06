@@ -10,13 +10,55 @@ import {
     Button,
     Stack,
 } from "@mui/material";
-import { styled } from "@mui/system";
+import {
+    PDFDownloadLink,
+    Document,
+    Page,
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    PDFViewer,
+} from "@react-pdf/renderer";
+import {
+    Table,
+    TableBody,
+    TableHeader,
+    TableCell,
+    DataTableCell,
+} from "@david.kucsai/react-pdf-table";
+import { style, styled } from "@mui/system";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import axios from "axios";
 
 export default function Payment() {
+    const [cart, setCart] = React.useState([]);
+    const [user, setUser] = React.useState({});
+    const [loading, setLoading] = React.useState(true);
+    let isMounted = true;
+
+    const fetchData = async () => {
+        setLoading(true);
+        try {
+            axios.get(`api/cart`).then((res) => {
+                if (res.data.status === 200) {
+                    setCart(res.data.cart);
+                    setUser(res.data.user);
+                    setLoading(false);
+                }
+            });
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
+
+    React.useEffect(() => {
+        fetchData();
+        isMounted = false;
+    }, []);
+
     const checkboxColor = {
         color: "#FF674D",
         "&.Mui-checked": {
@@ -32,9 +74,197 @@ export default function Payment() {
         },
     };
 
-    const getInvoice = () => {
-        axios.get('/api/get-invoice')
+    const styles = StyleSheet.create({
+        page: {
+            flexDirection: "row",
+            justifyContent: "center",
+        },
+        section: {
+            margin: "50px",
+        },
+        logoStyle: {
+            width: "100px",
+            height: "50px",
+            objectFit: "cover",
+            bottom: "25px",
+        },
+    });
+
+    var totalPrice;
+    if (!loading) {
+        totalPrice = cart.reduce((acc, tot) => {
+            return acc + tot.product.price * tot.qty;
+        }, 0);
     }
+
+    const Invoice = () => (
+        <Document>
+            <Page size="A4">
+                <View
+                    style={{
+                        alignContents: "center",
+                        marginHorizontal: "50px",
+                        marginTop: "50px",
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                    }}
+                >
+                    <Text>Invoice</Text>
+                    <Image
+                        style={styles.logoStyle}
+                        src={"../images/logoKekean.jpg"}
+                    />
+                </View>
+                <View style={styles.section}>
+                    <View style={{ flexDirection: "row" }}>
+                        <View>
+                            <Text style={{ fontSize: 12, marginBottom: "5px" }}>
+                                Nama Pembeli:{" "}
+                                {user.first_name + " " + user.last_name}
+                            </Text>
+                            <Text style={{ fontSize: 12, marginBottom: "5px" }}>
+                                Alamat: {user.address}
+                            </Text>
+                            <Text style={{ fontSize: 12, marginBottom: "5px" }}>
+                                Nomor Telepon: {user.number_phone}
+                            </Text>
+                            <Text
+                                style={{
+                                    fontSize: 12,
+                                    marginBottom: "5px",
+                                    marginBottom: "50px",
+                                }}
+                            >
+                                Email: {user.email}
+                            </Text>
+                        </View>
+
+                        <View
+                            style={{
+                                marginBottom: "70px",
+                                marginLeft: 200,
+                                marginRight: 90,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    textAlign: "left",
+                                    fontSize: 12,
+                                    marginBottom: "5px",
+                                }}
+                            >
+                                Invoice date:
+                            </Text>
+                            <Text
+                                style={{
+                                    textAlign: "left",
+                                    fontSize: 12,
+                                    marginBottom: "5px",
+                                }}
+                            >
+                                Name: Kekean
+                            </Text>
+                            <Text
+                                style={{
+                                    textAlign: "left",
+                                    fontSize: 12,
+                                    marginBottom: "5px",
+                                }}
+                            >
+                                Address: Kekean Wastra Gallery
+                            </Text>
+                            <Text
+                                style={{
+                                    textAlign: "left",
+                                    fontSize: 12,
+                                    marginBottom: "5px",
+                                }}
+                            >
+                                Phone: 0274-2885822
+                            </Text>
+                            <Text
+                                style={{
+                                    textAlign: "left",
+                                    fontSize: 12,
+                                    marginBottom: "5px",
+                                }}
+                            >
+                                Email: cs@niagahoster.co.id
+                            </Text>
+                        </View>
+                    </View>
+
+                    <Table data={cart}>
+                        <TableHeader>
+                            <TableCell
+                                style={{ fontSize: 12, marginLeft: "5px" }}
+                            >
+                                Nama barang
+                            </TableCell>
+                            <TableCell
+                                style={{ fontSize: 12, marginLeft: "5px" }}
+                            >
+                                Jumlah
+                            </TableCell>
+                            <TableCell
+                                style={{ fontSize: 12, marginLeft: "5px" }}
+                            >
+                                Ukuran
+                            </TableCell>
+                            <TableCell
+                                style={{ fontSize: 12, marginLeft: "5px" }}
+                            >
+                                Harga
+                            </TableCell>
+                        </TableHeader>
+                        <TableBody>
+                            <DataTableCell
+                                style={{ fontSize: 12, marginLeft: "5px" }}
+                                getContent={(r) => r.product.product_name}
+                            />
+                            <DataTableCell
+                                style={{ fontSize: 12, marginLeft: "5px" }}
+                                getContent={(r) => r.size}
+                            />
+                            <DataTableCell
+                                style={{ fontSize: 12, marginLeft: "5px" }}
+                                getContent={(r) => r.qty}
+                            />
+                            <DataTableCell
+                                style={{ fontSize: 12, marginLeft: "5px" }}
+                                getContent={(r) =>
+                                    (
+                                        Number(r.product.price) * Number(r.qty)
+                                    ).toLocaleString()
+                                }
+                            />
+                        </TableBody>
+                    </Table>
+                    <Text style={{ fontSize: 12, marginTop: "10px" }}>
+                        Total : {totalPrice}
+                    </Text>
+                </View>
+                <View style={{ marginTop: "250px", marginHorizontal: "50px" }}>
+                    <Text style={{ fontSize: "12px" }}>
+                        Surabaya, 06 Oct 2022
+                    </Text>
+                    <Image
+                        style={{
+                            marginTop: '20px',
+                            width: "100px",
+                            height: "50px",
+                            objectFit: "cover",
+                        }}
+                        src={"../images/logoKekean.jpg"}
+                    />
+                    <Text style={{ marginTop: "20px", fontSize: "12px" }}>
+                        Surabaya, 06 Oct 2022
+                    </Text>
+                </View>
+            </Page>
+        </Document>
+    );
+
     return (
         <Container sx={{ px: 50 }}>
             <Accordion
@@ -180,23 +410,31 @@ export default function Payment() {
             </Accordion>
             <Stack direction={"row"} spacing={2}>
                 <Box>
-                    <Button
-                        variant="contained"
-                        sx={{
-                            mt: 2,
-                            borderRadius: 1,
-                            backgroundColor: "#009E93",
-                            ":hover": {
-                                backgroundColor: "#00637A",
-                            },
-                        }}
-                        onClick={getInvoice}
+                    <PDFDownloadLink
+                        document={<Invoice />}
+                        fileName="somename.pdf"
+                        style={{ textDecoration: "none", width: 0, height: 0 }}
                     >
-                        <Typography mr={1} color="white">
-                            Download Invoice
-                        </Typography>
-                        <ReceiptIcon sx={{ color: "#FFFFFF", fontSize: 25 }} />
-                    </Button>
+                        <Button
+                            disabled={loading}
+                            variant="contained"
+                            sx={{
+                                mt: 2,
+                                borderRadius: 1,
+                                backgroundColor: "#009E93",
+                                ":hover": {
+                                    backgroundColor: "#00637A",
+                                },
+                            }}
+                        >
+                            <Typography mr={1} color="white">
+                                Download Invoice
+                            </Typography>
+                            <ReceiptIcon
+                                sx={{ color: "#FFFFFF", fontSize: 25 }}
+                            />
+                        </Button>
+                    </PDFDownloadLink>
                 </Box>
                 <Box>
                     <Button
