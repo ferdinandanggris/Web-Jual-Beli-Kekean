@@ -67,9 +67,9 @@ class ProductController extends Controller
     }
     public function editImage(Request $request, $id)
     {
+        $product = Product::find($id);
         $path = public_path() . 'catalog/' . $product->image_detail1;
         dd($path);
-        $product = Product::find($id);
         $nama_file = $request->image->getClientOriginalName();
         $request->image->storeAs('catalog', $nama_file);
         if (File::exists($path)) {
