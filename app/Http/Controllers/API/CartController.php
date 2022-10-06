@@ -4,10 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Models\User;
 use App\Models\Product;
-use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\Keranjang;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
@@ -132,7 +132,7 @@ class CartController extends Controller
         $data = [
             'heading' => $user_id
         ];
-        $pdf = Pdf::loadView('Invoice', $data);
+        $pdf = PDF::loadView('Invoice', $data);
         
         return $pdf->download();
     }
