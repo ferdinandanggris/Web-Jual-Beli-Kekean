@@ -24,7 +24,7 @@ export default function CatalogItem(props) {
                     to={`/products/${props.id}`}
                 >
                     <Box
-                        sx={{ width: "100%", maxHeight: '132px', objectFit: "cover", borderRadius: 1 }}
+                        sx={{ width: "100%", maxHeight: '132px', objectFit: "cover", borderRadius: '12px 12px 0 0' }}
                         component="img"
                         src={`../catalog/${props.image}`}
                     />
