@@ -134,6 +134,6 @@ class CartController extends Controller
         ];
         $pdf = PDF::loadView('Invoice', $data);
         
-        return $pdf->download('Invoice.pdf');
+        return $pdf->stream('Invoice.pdf');
     }
 }
