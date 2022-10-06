@@ -72,7 +72,7 @@ class ProductController extends Controller
         $request->image->storeAs('catalog', $nama_file);
         $path = $product->image_detail1;
         if (File::exists($path)) {
-            File::delete();
+            File::delete($path);
         }
         return response()->json([
             'status' => 200,
