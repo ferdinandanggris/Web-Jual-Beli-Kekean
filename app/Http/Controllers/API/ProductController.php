@@ -126,6 +126,7 @@ class ProductController extends Controller
         $size->L = $request->input('sizes.L');
         $size->XL = $request->input('sizes.XL');
         $size->XXL = $request->input('sizes.XXL');
+        $size->update();
 
         $product->product_name = $request->input('input.product_name');
         $product->price = $request->input('input.price');
