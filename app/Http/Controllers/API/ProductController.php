@@ -64,6 +64,7 @@ class ProductController extends Controller
             'message' => 'Image Added Successfully',
         ]);
     }
+    
     public function storeModel(Request $request)
     {
         $nama_file = $request->file->getClientOriginalName();
@@ -142,6 +143,12 @@ class ProductController extends Controller
             $product->image_detail2 = '';
             $product->image_detail3 = '';
             $product->model_3d = '';
+        }
+        if($request->hasFile('image')) {
+            $path = $product->image_detail1;
+            if(File::exists($path)) {
+                File::delete();
+            }
         }
         $product->update();
 
