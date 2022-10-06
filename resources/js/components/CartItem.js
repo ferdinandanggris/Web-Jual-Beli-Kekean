@@ -31,10 +31,17 @@ export default function CartItem({
         <Box pt={2} id="CartItem">
             <Grid container spacing={3}>
                 <Grid item laptop={3}>
-                <Box
-                        sx={{ width: "100%", maxHeight: '132px', objectFit: "cover" }}
+                    <Box
+                        sx={{
+                            width: { laptop: 90, desktop: 110 },
+                            height: { laptop: 90, desktop: 110 },
+                            aspectRatio: 1 / 1,
+                            objectFit: "cover",
+                            borderRadius: 0.5,
+                            ml: 2,
+                        }}
                         component="img"
-                        src={`../catalog/${props.image}`}
+                        src={`../catalog/${img}`}
                     />
                 </Grid>
                 <Grid item laptop={9}>
