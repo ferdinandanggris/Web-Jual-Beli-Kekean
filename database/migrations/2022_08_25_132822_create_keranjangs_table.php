@@ -20,7 +20,7 @@ class CreateKeranjangsTable extends Migration
             $table->timestamps();
             $table->foreign('product_id')
                 ->references('id')
-                ->on('products');
+                ->on('products')->onDelete('cascade');
         });
     }
 
