@@ -8,10 +8,13 @@ import {
     Container,
     Grid,
     Button,
+    Stack,
 } from "@mui/material";
 import { styled } from "@mui/system";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import axios from "axios";
 
 export default function Payment() {
     const checkboxColor = {
@@ -28,6 +31,10 @@ export default function Payment() {
             display: "none",
         },
     };
+
+    const getInvoice = () => {
+        axios.get('/api/get-invoice')
+    }
     return (
         <Container sx={{ px: 50 }}>
             <Accordion
@@ -171,22 +178,45 @@ export default function Payment() {
                     </Grid>
                 </AccordionDetails>
             </Accordion>
-            <Button
-                variant="contained"
-                sx={{
-                    mt: 2,
-                    borderRadius: 1,
-                    backgroundColor: "#25D366",
-                    ":hover": {
-                        backgroundColor: "#1AA04C",
-                    },
-                }}
-            >
-                <Typography mr={1} color="white">
-                    Konfirmasi Pembayaran
-                </Typography>
-                <WhatsAppIcon sx={{ color: "#FFFFFF", fontSize: 25 }} />
-            </Button>
+            <Stack direction={"row"} spacing={2}>
+                <Box>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            mt: 2,
+                            borderRadius: 1,
+                            backgroundColor: "#009E93",
+                            ":hover": {
+                                backgroundColor: "#00637A",
+                            },
+                        }}
+                        onClick={getInvoice}
+                    >
+                        <Typography mr={1} color="white">
+                            Download Invoice
+                        </Typography>
+                        <ReceiptIcon sx={{ color: "#FFFFFF", fontSize: 25 }} />
+                    </Button>
+                </Box>
+                <Box>
+                    <Button
+                        variant="contained"
+                        sx={{
+                            mt: 2,
+                            borderRadius: 1,
+                            backgroundColor: "#25D366",
+                            ":hover": {
+                                backgroundColor: "#1AA04C",
+                            },
+                        }}
+                    >
+                        <Typography mr={1} color="white">
+                            Konfirmasi Pembayaran
+                        </Typography>
+                        <WhatsAppIcon sx={{ color: "#FFFFFF", fontSize: 25 }} />
+                    </Button>
+                </Box>
+            </Stack>
         </Container>
     );
 }

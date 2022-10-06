@@ -159,6 +159,7 @@ export default function Cart() {
                             color="primary"
                             disableElevation
                             sx={{ py: 1.5, px: 3, ml: 2, mt: 5, mb: 2 }}
+                            onClick={() => history('/payment')}
                         >
                             <Typography color={"white"}>
                                 Lanjutkan ke pembayaran

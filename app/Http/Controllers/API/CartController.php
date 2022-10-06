@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\User;
+use App\Models\Product;
+use Barryvdh\DomPDF\Facade as PDF;
+use App\Models\Keranjang;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Keranjang;
-use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -122,5 +125,15 @@ class CartController extends Controller
                 'message' => 'Login untuk mengubah keranjang',
             ]);
         }
+    }
+
+    public function getInvoice() {
+        $user_id = auth('sanctum')->user()->id;
+        $data = [
+            'heading' => $user_id
+        ];
+        $pdf = PDF::loadView('Invoice', $data);
+        
+        return $pdf->download();
     }
 }
