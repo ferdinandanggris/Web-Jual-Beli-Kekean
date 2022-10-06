@@ -7,7 +7,7 @@ use App\Models\Product;
 use App\Models\Keranjang;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Barryvdh\DomPDF\PDF;
+use PDF;
 use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
