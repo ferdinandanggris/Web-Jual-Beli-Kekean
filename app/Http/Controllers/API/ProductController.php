@@ -70,7 +70,8 @@ class ProductController extends Controller
         $product = Product::find($id);
         $nama_file = $request->image->getClientOriginalName();
         $request->image->storeAs('catalog', $nama_file);
-        $path = $product->image_detail1;
+        $path = public_path() . 'catalog/' . $product->image_detail1;
+        dd($path);
         if (File::exists($path)) {
             File::delete($path);
         }
