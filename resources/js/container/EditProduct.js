@@ -120,7 +120,7 @@ export default function EditProduct(props) {
         let imgData = new FormData();
         imgData.append("image", files[0]);
 
-        const res = await axios.post("api/save-image", imgData);
+        const res = await axios.post(`api/edit-image/${prod_id.id}`, imgData);
         if (res.data.status === 200) {
             console.log(res.data.message);
         }

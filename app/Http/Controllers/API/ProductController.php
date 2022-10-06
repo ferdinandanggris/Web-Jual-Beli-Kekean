@@ -59,12 +59,27 @@ class ProductController extends Controller
     {
         $nama_file = $request->image->getClientOriginalName();
         $request->image->storeAs('catalog', $nama_file);
+        
         return response()->json([
             'status' => 200,
             'message' => 'Image Added Successfully',
         ]);
     }
-    
+    public function editImage(Request $request, $id)
+    {
+        $product = Product::find($id);
+        $nama_file = $request->image->getClientOriginalName();
+        $request->image->storeAs('catalog', $nama_file);
+        $path = $product->image_detail1;
+        if (File::exists($path)) {
+            File::delete();
+        }
+        return response()->json([
+            'status' => 200,
+            'message' => 'Image Added Successfully',
+        ]);
+    }
+
     public function storeModel(Request $request)
     {
         $nama_file = $request->file->getClientOriginalName();
@@ -90,7 +105,8 @@ class ProductController extends Controller
         // }
     }
 
-    public function index() {
+    public function index()
+    {
         $products = Product::all();
         return response()->json([
             'status' => 200,
@@ -98,7 +114,8 @@ class ProductController extends Controller
         ]);
     }
 
-    public function indexDetail($id) {
+    public function indexDetail($id)
+    {
         $products = Product::all();
         $size = Product::find($id)->size;
         return response()->json([
@@ -108,7 +125,8 @@ class ProductController extends Controller
         ]);
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $products = Product::find($id);
         $size = Product::find($id)->size;
         return response()->json([
@@ -116,9 +134,9 @@ class ProductController extends Controller
             'products' => $products,
             'size' => $size,
         ]);
-
     }
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $product = Product::find($id);
         $size = Size::find($product->size_id);
         $size->S = $request->input('sizes.S');
@@ -144,12 +162,6 @@ class ProductController extends Controller
             $product->image_detail3 = '';
             $product->model_3d = '';
         }
-        if($request->hasFile('image')) {
-            $path = $product->image_detail1;
-            if(File::exists($path)) {
-                File::delete();
-            }
-        }
         $product->update();
 
         // $product = Product::create([
@@ -164,7 +176,6 @@ class ProductController extends Controller
             'message' => 'Product Updated Successfully',
 
         ]);
-
     }
 
     public function destroy($id)

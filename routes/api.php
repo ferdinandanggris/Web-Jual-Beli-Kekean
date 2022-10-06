@@ -22,7 +22,8 @@ Route::post('login', [AuthController::class, 'login']);
 
 
 Route::post('add-product', [ProductController::class, 'store']);
-Route::post('save-image', [ProductController::class, 'storeImage']);
+Route::post('save-image/', [ProductController::class, 'storeImage']);
+Route::post('edit-image/{id}', [ProductController::class, 'editImage']);
 Route::post('save-model', [ProductController::class, 'storeModel']);
 Route::post('add-to-cart', [CartController::class, 'addToCart']);
 
