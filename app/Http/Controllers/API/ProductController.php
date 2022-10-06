@@ -109,9 +109,11 @@ class ProductController extends Controller
 
     public function edit($id) {
         $products = Product::find($id);
+        $size = Product::find($id)->size;
         return response()->json([
             'status' => 200,
             'products' => $products,
+            'size' => $size,
         ]);
 
     }
