@@ -137,8 +137,8 @@ export default function ProductPage(props) {
                                         component="img"
                                         src={`../catalog/${currentProduct[0].image_detail1}`}
                                     />
-                                    {() => {
-                                        if (currentProduct[0].image_detail2) {
+                                    {currentProduct[0].image_detail3 ? (
+                                        <>
                                             <Box
                                                 sx={{
                                                     width: "538px",
@@ -147,9 +147,7 @@ export default function ProductPage(props) {
                                                 }}
                                                 component="img"
                                                 src={`../catalog/${currentProduct[0].image_detail2}`}
-                                            />;
-                                        }
-                                        if (currentProduct[0].image_detail3) {
+                                            />
                                             <Box
                                                 sx={{
                                                     width: "538px",
@@ -158,9 +156,19 @@ export default function ProductPage(props) {
                                                 }}
                                                 component="img"
                                                 src={`../catalog/${currentProduct[0].image_detail3}`}
-                                            />;
-                                        }
-                                    }}
+                                            />
+                                        </>
+                                    ) : (
+                                        <Box
+                                            sx={{
+                                                width: "538px",
+                                                height: "400px",
+                                                objectFit: "cover",
+                                            }}
+                                            component="img"
+                                            src={`../catalog/${currentProduct[0].image_detail2}`}
+                                        />
+                                    )}
                                 </Carousel>
                                 // <Box
                                 //     sx={{
