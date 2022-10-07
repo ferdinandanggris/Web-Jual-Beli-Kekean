@@ -31,10 +31,11 @@
     "@mui/icons-material": "^5.8.4",
     "@mui/lab": "^5.0.0-alpha.101",
     "@mui/material": "^5.10.0",
-    "@mui/styles": "^5.10.3",
+    "@mui/styles": "^5.10.8",
     "@mui/x-data-grid": "^5.17.3",
     "@react-pdf/renderer": "^3.0.0",
     "mui-file-dropzone": "^4.0.2",
+    "react-material-ui-carousel": "^3.4.2",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "sweetalert": "^2.1.2"

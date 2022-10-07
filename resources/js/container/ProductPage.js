@@ -17,6 +17,7 @@ import { Link } from "react-router-dom";
 import ButtonKeranjang from "../components/ButtonKeranjang";
 import axios from "axios";
 import swal from "sweetalert";
+import Carousel from "react-material-ui-carousel";
 
 export default function ProductPage(props) {
     const [size, setSize] = React.useState("");
@@ -99,7 +100,10 @@ export default function ProductPage(props) {
                                 width="538px"
                                 height="400px"
                             />
-                            <Skeleton variant="text" sx={{ fontSize: 36, mt: 5 }} />
+                            <Skeleton
+                                variant="text"
+                                sx={{ fontSize: 36, mt: 5 }}
+                            />
                             <Skeleton variant="text" sx={{ fontSize: 12 }} />
                         </>
                     ) : (
@@ -123,15 +127,35 @@ export default function ProductPage(props) {
                                     ></iframe>
                                 </div>
                             ) : (
-                                <Box
-                                    sx={{
-                                        width: "538px",
-                                        height: "400px",
-                                        objectFit: "cover",
-                                    }}
-                                    component="img"
-                                    src={`../catalog/${currentProduct[0].image_detail1}`}
-                                />
+                                <Carousel>
+                                    <Box
+                                        sx={{
+                                            width: "538px",
+                                            height: "400px",
+                                            objectFit: "cover",
+                                        }}
+                                        component="img"
+                                        src={`../catalog/${currentProduct[0].image_detail1}`}
+                                    />
+                                    <Box
+                                        sx={{
+                                            width: "538px",
+                                            height: "400px",
+                                            objectFit: "cover",
+                                        }}
+                                        component="img"
+                                        src={`../catalog/${currentProduct[0].image_detail1}`}
+                                    />
+                                </Carousel>
+                                // <Box
+                                //     sx={{
+                                //         width: "538px",
+                                //         height: "400px",
+                                //         objectFit: "cover",
+                                //     }}
+                                //     component="img"
+                                //     src={`../catalog/${currentProduct[0].image_detail1}`}
+                                // />
                             )}
                             <Box my={5}>
                                 <Typography fontSize={36} fontWeight={"medium"}>
@@ -151,14 +175,20 @@ export default function ProductPage(props) {
                     >
                         <Box>
                             {loading ? (
-                                <Skeleton variant="text" sx={{fontSize: 36}} />
+                                <Skeleton
+                                    variant="text"
+                                    sx={{ fontSize: 36 }}
+                                />
                             ) : (
                                 <Typography fontSize={30} fontWeight="medium">
                                     {currentProduct[0].product_name}
                                 </Typography>
                             )}
                             {loading ? (
-                                <Skeleton variant="text" sx={{fontSize: 24}} />
+                                <Skeleton
+                                    variant="text"
+                                    sx={{ fontSize: 24 }}
+                                />
                             ) : (
                                 <Typography fontSize={20}>
                                     Rp.{" "}
@@ -219,26 +249,26 @@ export default function ProductPage(props) {
                                     </MenuItem>
                                 </Select>
                             </FormControl>
-                                <TextField
-                                    onChange={(event) => {
-                                        if (event.target.value < 0) {
-                                            event.target.value = 0;
-                                            setQuantity(event.target.value);
-                                        } else {
-                                            event.target.value;
-                                            setQuantity(event.target.value);
-                                        }
-                                    }}
-                                    id="jumlah-barang"
-                                    label="Quantity"
-                                    type="number"
-                                    InputLabelProps={{
-                                        shrink: true,
-                                    }}
-                                    variant="outlined"
-                                    sx={{ mt: 3 }}
-                                    value={quantity}
-                                />
+                            <TextField
+                                onChange={(event) => {
+                                    if (event.target.value < 0) {
+                                        event.target.value = 0;
+                                        setQuantity(event.target.value);
+                                    } else {
+                                        event.target.value;
+                                        setQuantity(event.target.value);
+                                    }
+                                }}
+                                id="jumlah-barang"
+                                label="Quantity"
+                                type="number"
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                variant="outlined"
+                                sx={{ mt: 3 }}
+                                value={quantity}
+                            />
                             <Grid container>
                                 <Grid item laptop={6}>
                                     <ButtonKeranjang

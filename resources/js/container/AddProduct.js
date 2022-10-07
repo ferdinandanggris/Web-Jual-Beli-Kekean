@@ -25,7 +25,7 @@ export default function AddProduct() {
         L: false,
         XL: false,
         XXL: false,
-    })
+    });
     const [input, setInput] = React.useState({
         product_name: "",
         price: "",
@@ -36,8 +36,8 @@ export default function AddProduct() {
         image_detail3: "",
         model_3d: "",
     });
-    
-    const history = useNavigate()
+
+    const history = useNavigate();
 
     function handleOpenImage() {
         setImageDropzone(true);
@@ -83,8 +83,8 @@ export default function AddProduct() {
         setSizes({
             ...sizes,
             [e.target.name]: e.target.checked,
-        })
-    }
+        });
+    };
 
     const handleImage = async (files) => {
         // if(!files[1]) {
@@ -93,15 +93,35 @@ export default function AddProduct() {
         // if(!files[2]) {
         //     files[2] = {name: ''}
         // }
-        setInput({
-            ...input,
-            image_detail1: files[0].name,
-            // image_detail2: files[1].name,
-            // imagedetail3: files[2].name
-        });
-
         let imgData = new FormData();
-        imgData.append("image", files[0]);
+        if (files.length == 1) {
+            setInput({
+                ...input,
+                image_detail1: files[0].name,
+                // image_detail2: files[1].name,
+                // imagedetail3: files[2].name
+            });
+            imgData.append("image", files[0]);
+        } else if (files.length == 2) {
+            setInput({
+                ...input,
+                image_detail1: files[0].name,
+                image_detail2: files[1].name,
+                // image_detail3: files[2].name
+            });
+            imgData.append("image[]", files[0]);
+            imgData.append("image[]", files[1]);
+        } else if (files.length == 3) {
+            setInput({
+                ...input,
+                image_detail1: files[0].name,
+                image_detail2: files[1].name,
+                image_detail3: files[2].name,
+            });
+            imgData.append("image[]", files[0]);
+            imgData.append("image[]", files[1]);
+            imgData.append("image[]", files[2]);
+        }
 
         const res = await axios.post("api/save-image", imgData);
         if (res.data.status === 200) {
@@ -113,8 +133,8 @@ export default function AddProduct() {
     const saveProduct = async (e) => {
         e.preventDefault();
 
-        let data = {input, sizes}
-        console.log(data)
+        let data = { input, sizes };
+        console.log(data);
         const res = await axios.post("api/add-product", data);
         if (res.data.status === 200) {
             console.log(res.data.message);
@@ -123,9 +143,9 @@ export default function AddProduct() {
                 price: "",
                 description: "",
                 has_3d: e.target.checked,
-                model_3d: '',
+                model_3d: "",
             });
-            history('/admin')
+            history("/admin");
         }
         // axios.get("/sanctum/csrf-cookie").then((response) => {
         //     axios.post("/api/login", input).then((res) => {
@@ -207,12 +227,72 @@ export default function AddProduct() {
                             </Grid>
                             <Grid item mobile={12}>
                                 <FormGroup row={true}>
-                                    <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.S} onChange={handleSize} name='S'/>} label="S"/>
-                                    <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.M} onChange={handleSize} name='M'/>} label="M"/>
-                                    <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.XS} onChange={handleSize} name='XS'/>} label="XS"/>
-                                    <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.L} onChange={handleSize} name='L'/>} label="L"/>
-                                    <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.XL} onChange={handleSize} name='XL'/>} label="XL"/>
-                                    <FormControlLabel control={<Checkbox sx={checkboxColor} checked={sizes.XXL} onChange={handleSize} name='XXL'/>} label="XXL"/>
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                sx={checkboxColor}
+                                                checked={sizes.S}
+                                                onChange={handleSize}
+                                                name="S"
+                                            />
+                                        }
+                                        label="S"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                sx={checkboxColor}
+                                                checked={sizes.M}
+                                                onChange={handleSize}
+                                                name="M"
+                                            />
+                                        }
+                                        label="M"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                sx={checkboxColor}
+                                                checked={sizes.XS}
+                                                onChange={handleSize}
+                                                name="XS"
+                                            />
+                                        }
+                                        label="XS"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                sx={checkboxColor}
+                                                checked={sizes.L}
+                                                onChange={handleSize}
+                                                name="L"
+                                            />
+                                        }
+                                        label="L"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                sx={checkboxColor}
+                                                checked={sizes.XL}
+                                                onChange={handleSize}
+                                                name="XL"
+                                            />
+                                        }
+                                        label="XL"
+                                    />
+                                    <FormControlLabel
+                                        control={
+                                            <Checkbox
+                                                sx={checkboxColor}
+                                                checked={sizes.XXL}
+                                                onChange={handleSize}
+                                                name="XXL"
+                                            />
+                                        }
+                                        label="XXL"
+                                    />
                                 </FormGroup>
                             </Grid>
 
@@ -259,7 +339,7 @@ export default function AddProduct() {
                                     open={imageDropzone}
                                     onClose={handleCloseImage}
                                     onSave={handleImage}
-                                    filesLimit={1}
+                                    filesLimit={3}
                                     acceptedFiles={["image/*"]}
                                 />
                                 <Typography>{input.image_detail1}</Typography>
@@ -289,7 +369,7 @@ export default function AddProduct() {
                             <Grid item mobile={12}>
                                 <FormControl fullWidth variant="filled">
                                     <InputLabel htmlFor="component-filled">
-                                        Link model  3d dari sketchfab
+                                        Link model 3d dari sketchfab
                                     </InputLabel>
                                     <FilledInput
                                         value={input.model_3d}
@@ -297,7 +377,7 @@ export default function AddProduct() {
                                         name="model_3d"
                                         id="component-filled"
                                         disableUnderline={true}
-                                        disabled={input.has_3d?false:true}
+                                        disabled={input.has_3d ? false : true}
                                         classes={{
                                             root: classes.root,
                                             input: classes.input,
