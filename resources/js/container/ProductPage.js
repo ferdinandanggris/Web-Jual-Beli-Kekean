@@ -137,38 +137,24 @@ export default function ProductPage(props) {
                                         component="img"
                                         src={`../catalog/${currentProduct[0].image_detail1}`}
                                     />
-                                    {currentProduct[0].image_detail3 ? (
-                                        <>
-                                            <Box
-                                                sx={{
-                                                    width: "538px",
-                                                    height: "400px",
-                                                    objectFit: "cover",
-                                                }}
-                                                component="img"
-                                                src={`../catalog/${currentProduct[0].image_detail2}`}
-                                            />
-                                            <Box
-                                                sx={{
-                                                    width: "538px",
-                                                    height: "400px",
-                                                    objectFit: "cover",
-                                                }}
-                                                component="img"
-                                                src={`../catalog/${currentProduct[0].image_detail3}`}
-                                            />
-                                        </>
-                                    ) : (
-                                        <Box
-                                            sx={{
-                                                width: "538px",
-                                                height: "400px",
-                                                objectFit: "cover",
-                                            }}
-                                            component="img"
-                                            src={`../catalog/${currentProduct[0].image_detail2}`}
-                                        />
-                                    )}
+                                    <Box
+                                        sx={{
+                                            width: "538px",
+                                            height: "400px",
+                                            objectFit: "cover",
+                                        }}
+                                        component="img"
+                                        src={`../catalog/${currentProduct[0].image_detail2}`}
+                                    />
+                                    <Box
+                                        sx={{
+                                            width: "538px",
+                                            height: "400px",
+                                            objectFit: "cover",
+                                        }}
+                                        component="img"
+                                        src={`../catalog/${currentProduct[0].image_detail3}`}
+                                    />
                                 </Carousel>
                                 // <Box
                                 //     sx={{
