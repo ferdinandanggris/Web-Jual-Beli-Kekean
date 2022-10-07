@@ -144,7 +144,7 @@ export default function ProductPage(props) {
                                             objectFit: "cover",
                                         }}
                                         component="img"
-                                        src={`../catalog/${currentProduct[0].image_detail1}`}
+                                        src={`../catalog/${currentProduct[0].image_detail2}`}
                                     />
                                 </Carousel>
                                 // <Box
