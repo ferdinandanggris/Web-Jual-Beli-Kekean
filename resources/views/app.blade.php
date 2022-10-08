@@ -13,7 +13,7 @@
 
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Your Website Title</title>
+    <title>Kekean</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>

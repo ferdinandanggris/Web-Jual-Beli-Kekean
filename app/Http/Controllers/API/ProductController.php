@@ -57,11 +57,11 @@ class ProductController extends Controller
 
     public function storeImage(Request $request)
     {
-        foreach($request->image as $r) {
+        foreach ($request->image as $r) {
             $nama_file = $r->getClientOriginalName();
             $r->storeAs('catalog', $nama_file);
         }
-        
+
         return response()->json([
             'status' => 200,
             'message' => 'Image Added Successfully',
@@ -70,8 +70,8 @@ class ProductController extends Controller
     public function editImage(Request $request, $id)
     {
         $product = Product::find($id);
-        $path = public_path() . '/catalog/' . $product->image_detail1;
         $nama_file = $request->image->getClientOriginalName();
+        $path = public_path() . '/catalog/' . $product->image_detail1;
         $request->image->storeAs('catalog', $nama_file);
         if (File::exists($path)) {
             File::delete($path);
@@ -186,6 +186,22 @@ class ProductController extends Controller
         $size = Size::find($product->size_id);
         $product->delete();
         $size->delete();
+        $path = public_path() . '/catalog/' . $product->image_detail1;
+        if (File::exists($path)) {
+            File::delete($path);
+        }
+        if ($product->image_detail2 != null) {
+            $path = public_path() . '/catalog/' . $product->image_detail2;
+            if (File::exists($path)) {
+                File::delete($path);
+            }
+        }
+        if ($product->image_detail3 != null) {
+            $path = public_path() . '/catalog/' . $product->image_detail3;
+            if (File::exists($path)) {
+                File::delete($path);
+            }
+        }
 
         return response()->json([
             'status' => 200,
