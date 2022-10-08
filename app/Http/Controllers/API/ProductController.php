@@ -156,12 +156,12 @@ class ProductController extends Controller
         if ($request->input('input.has_3d') == true) {
             $product->model_3d = $request->input('input.model_3d');
             $product->image_detail1 = $request->input('input.image_detail1');
-            $product->image_detail2 = '';
-            $product->image_detail3 = '';
+            $product->image_detail2 = $request->input('input.image_detail2');
+            $product->image_detail3 = $request->input('input.image_detail3');
         } else {
             $product->image_detail1 = $request->input('input.image_detail1');
-            $product->image_detail2 = '';
-            $product->image_detail3 = '';
+            $product->image_detail2 = $request->input('input.image_detail2');
+            $product->image_detail3 = $request->input('input.image_detail3');
             $product->model_3d = '';
         }
         $product->update();

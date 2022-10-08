@@ -142,7 +142,7 @@ export default function Admin() {
                             <DataGrid
                                 rows={rows}
                                 columns={columns}
-                                pageSize={5}
+                                pageSize={10}
                                 rowsPerPageOptions={[5]}
                                 disableSelectionOnClick
                                 experimentalFeatures={{ newEditingApi: true }}
