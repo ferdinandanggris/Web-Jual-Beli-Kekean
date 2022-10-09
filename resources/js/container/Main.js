@@ -5,6 +5,7 @@ import Container from '@mui/material/Container'
 import { Grid } from '@mui/material';
 import MainPage from './MainPage'
 import Footer from '../components/Footer'
+import Carousel from 'react-material-ui-carousel/dist/components/Carousel';
 
 function Main() {
     return (

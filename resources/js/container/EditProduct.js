@@ -11,6 +11,7 @@ import {
     Checkbox,
     Typography,
     Button,
+    FormHelperText,
 } from "@mui/material";
 import React from "react";
 import { DropzoneDialog } from "mui-file-dropzone";
@@ -74,7 +75,7 @@ export default function EditProduct(props) {
         const fetchData = () => {
             try {
                 axios.get(`api/edit-products/${prod_id.id}`).then((res) => {
-                    products = res.data.products;
+                    products = {...res.data.products, error_list: []};
                     size = res.data.size;
                     products.has_3d = !!Number(products.has_3d);
                     setInput(products);
@@ -88,7 +89,7 @@ export default function EditProduct(props) {
         fetchData();
     }, []);
 
-    console.log(sizes);
+    console.log(input);
 
     const handleInput = (e) => {
         setInput({
