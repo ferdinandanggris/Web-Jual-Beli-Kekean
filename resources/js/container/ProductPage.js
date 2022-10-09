@@ -133,6 +133,7 @@ export default function ProductPage(props) {
                                             width: "538px",
                                             height: "400px",
                                             objectFit: "cover",
+                                            objectPosition: '0 -20%'
                                         }}
                                         component="img"
                                         src={`../catalog/${currentProduct[0].image_detail1}`}
@@ -142,6 +143,7 @@ export default function ProductPage(props) {
                                             width: "538px",
                                             height: "400px",
                                             objectFit: "cover",
+                                            objectPosition: '0 -20%'
                                         }}
                                         component="img"
                                         src={`../catalog/${currentProduct[0].image_detail2}`}
@@ -151,6 +153,7 @@ export default function ProductPage(props) {
                                             width: "538px",
                                             height: "400px",
                                             objectFit: "cover",
+                                            objectPosition: '0 -20%'
                                         }}
                                         component="img"
                                         src={`../catalog/${currentProduct[0].image_detail3}`}
