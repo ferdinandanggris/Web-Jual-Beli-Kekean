@@ -132,7 +132,7 @@ export default function AddProduct() {
 
     const saveProduct = async (e) => {
         e.preventDefault();
-
+        
         let data = { input, sizes };
         console.log(data);
         const res = await axios.post("api/add-product", data);

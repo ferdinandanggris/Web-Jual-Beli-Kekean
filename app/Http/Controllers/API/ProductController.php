@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Models\Product;
 use App\Models\Size;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -22,23 +23,36 @@ class ProductController extends Controller
         $size->XXL = $request->input('sizes.XXL');
         $size->save();
 
-        $product->size_id = $size->id;
-        $product->product_name = $request->input('input.product_name');
-        $product->price = $request->input('input.price');
-        $product->description = $request->input('input.description');
-        $product->has_3d = $request->input('input.has_3d');
-        if ($request->input('input.has_3d') == true) {
-            $product->model_3d = $request->input('input.model_3d');
-            $product->image_detail1 = $request->input('input.image_detail1');
-            $product->image_detail2 = $request->input('input.image_detail2');
-            $product->image_detail3 = $request->input('input.image_detail3');
+        $validator = Validator::make($request->all(), [
+            'input.product_name' => 'required',
+            'input.price' => 'required',
+            'input.description' => 'required',
+            'input.image_detail1' => 'required',
+            'input.model_3d' => 'required_if:has_3d,true'
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'validation_errors' => $validator->errors(),
+            ]);
         } else {
-            $product->image_detail1 = $request->input('input.image_detail1');
-            $product->image_detail2 = $request->input('input.image_detail2');
-            $product->image_detail3 = $request->input('input.image_detail3');
-            $product->model_3d = '';
+            $product->size_id = $size->id;
+            $product->product_name = $request->input('input.product_name');
+            $product->price = $request->input('input.price');
+            $product->description = $request->input('input.description');
+            $product->has_3d = $request->input('input.has_3d');
+            if ($request->input('input.has_3d') == true) {
+                $product->model_3d = $request->input('input.model_3d');
+                $product->image_detail1 = $request->input('input.image_detail1');
+                $product->image_detail2 = $request->input('input.image_detail2');
+                $product->image_detail3 = $request->input('input.image_detail3');
+            } else {
+                $product->image_detail1 = $request->input('input.image_detail1');
+                $product->image_detail2 = $request->input('input.image_detail2');
+                $product->image_detail3 = $request->input('input.image_detail3');
+                $product->model_3d = '';
+            }
+            $product->save();
         }
-        $product->save();
 
 
         // $product = Product::create([
@@ -70,22 +84,22 @@ class ProductController extends Controller
     public function editImage(Request $request, $id)
     {
         $product = Product::find($id);
-        
+
         $path = public_path() . '/catalog/' . $product->image_detail1;
         if (File::exists($path)) {
             File::delete($path);
         }
-        if($product->image_detail2 != null) {
+        if ($product->image_detail2 != null) {
             $path = public_path() . '/catalog/' . $product->image_detail2;
             if (File::exists($path)) {
                 File::delete($path);
-            }   
+            }
         }
-        if($product->image_detail3 != null) {
+        if ($product->image_detail3 != null) {
             $path = public_path() . '/catalog/' . $product->image_detail3;
             if (File::exists($path)) {
                 File::delete($path);
-            }   
+            }
         }
         foreach ($request->image as $r) {
             $nama_file = $r->getClientOriginalName();
