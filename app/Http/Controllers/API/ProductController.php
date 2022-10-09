@@ -52,6 +52,11 @@ class ProductController extends Controller
                 $product->model_3d = '';
             }
             $product->save();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Product Added Successfully',
+    
+            ]);
         }
 
 
@@ -62,11 +67,6 @@ class ProductController extends Controller
         //     'has_3d' => $request->has_3d,
         // ]);
 
-        return response()->json([
-            'status' => 200,
-            'message' => 'Product Added Successfully',
-
-        ]);
     }
 
     public function storeImage(Request $request)
