@@ -71,24 +71,24 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         
-        foreach ($request->image as $r) {
-            $nama_file = $r->getClientOriginalName();
-            $path = public_path() . '/catalog/' . $product->image_detail1;
+        $path = public_path() . '/catalog/' . $product->image_detail1;
+        if (File::exists($path)) {
+            File::delete($path);
+        }
+        if($product->image_detail2 != null) {
+            $path = public_path() . '/catalog/' . $product->image_detail2;
             if (File::exists($path)) {
                 File::delete($path);
-            }
-            if($product->image_detail2 != null) {
-                $path = public_path() . '/catalog/' . $product->image_detail2;
-                if (File::exists($path)) {
-                    File::delete($path);
-                }   
-            }
-            if($product->image_detail3 != null) {
-                $path = public_path() . '/catalog/' . $product->image_detail3;
-                if (File::exists($path)) {
-                    File::delete($path);
-                }   
-            }
+            }   
+        }
+        if($product->image_detail3 != null) {
+            $path = public_path() . '/catalog/' . $product->image_detail3;
+            if (File::exists($path)) {
+                File::delete($path);
+            }   
+        }
+        foreach ($request->image as $r) {
+            $nama_file = $r->getClientOriginalName();
             $r->storeAs('catalog', $nama_file);
         }
         return response()->json([
