@@ -23,12 +23,12 @@ class ProductController extends Controller
         $size->XXL = $request->input('sizes.XXL');
         $size->save();
 
-        $validator = Validator::make($request->all(), [
-            'input.product_name' => 'required',
-            'input.price' => 'required',
-            'input.description' => 'required',
-            'input.image_detail1' => 'required',
-            'input.model_3d' => 'required_if:has_3d,true'
+        $validator = Validator::make($request->input('input'), [
+            'product_name' => 'required',
+            'price' => 'required',
+            'description' => 'required',
+            'image_detail1' => 'required',
+            'model_3d' => 'required_if:has_3d,true'
         ]);
         if ($validator->fails()) {
             return response()->json([
@@ -55,7 +55,6 @@ class ProductController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'Product Added Successfully',
-    
             ]);
         }
 
