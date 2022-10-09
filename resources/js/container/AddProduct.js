@@ -11,6 +11,7 @@ import {
     Checkbox,
     Typography,
     Button,
+    FormHelperText,
 } from "@mui/material";
 import React from "react";
 import { DropzoneDialog } from "mui-file-dropzone";
@@ -35,6 +36,7 @@ export default function AddProduct() {
         image_detail2: "",
         image_detail3: "",
         model_3d: "",
+        error_list: [],
     });
 
     const history = useNavigate();
@@ -132,21 +134,22 @@ export default function AddProduct() {
 
     const saveProduct = async (e) => {
         e.preventDefault();
-        
+
         let data = { input, sizes };
         console.log(data);
-        const res = await axios.post("api/add-product", data);
-        if (res.data.status === 200) {
-            console.log(res.data.message);
-            setInput({
-                product_name: "",
-                price: "",
-                description: "",
-                has_3d: e.target.checked,
-                model_3d: "",
+        axios.get("/sanctum/csrf-cookie").then((response) => {
+            axios.post("api/add-product", data).then((res) => {
+                if (res.data.status === 200) {
+                    console.log(res.data.message);
+                    history("/admin");
+                } else {
+                    setInput({
+                        ...input,
+                        error_list: res.data.validation_errors,
+                    });
+                }
             });
-            history("/admin");
-        }
+        });
         // axios.get("/sanctum/csrf-cookie").then((response) => {
         //     axios.post("/api/login", input).then((res) => {
         //         if (res.data.status === 200) {
@@ -186,6 +189,9 @@ export default function AddProduct() {
                                         }}
                                     />
                                 </FormControl>
+                                <FormHelperText sx={{ color: 'red', fontSize: 10 }}>
+                                    {input.error_list.product_name}
+                                </FormHelperText>
                             </Grid>
 
                             <Grid item mobile={12}>
@@ -204,6 +210,9 @@ export default function AddProduct() {
                                             input: classes.input,
                                         }}
                                     />
+                                    <FormHelperText sx={{ color: 'red', fontSize: 10 }}>
+                                        {input.error_list.price}
+                                    </FormHelperText>
                                 </FormControl>
                             </Grid>
 
@@ -223,6 +232,9 @@ export default function AddProduct() {
                                             input: classes.input,
                                         }}
                                     />
+                                    <FormHelperText sx={{ color: 'red', fontSize: 10 }}>
+                                        {input.error_list.description}
+                                    </FormHelperText>
                                 </FormControl>
                             </Grid>
                             <Grid item mobile={12}>
@@ -343,7 +355,16 @@ export default function AddProduct() {
                                     maxFileSize={50000000}
                                     acceptedFiles={["image/*"]}
                                 />
-                                {input.image_detail1 ? <Typography>{input.image_detail1}{`, ${input.image_detail2}`}{`, ${input.image_detail3}`}</Typography> : ''}
+                                {input.image_detail1 ? (
+                                    <Typography>
+                                        {input.image_detail1}
+                                        {`, ${input.image_detail2}`}
+                                        {`, ${input.image_detail3}`}
+                                    </Typography>
+                                ) : (
+                                    ""
+                                )}
+                                <Typography color={'red'}>{input.error_list.image_detail1}</Typography>
                             </Grid>
 
                             {/* <Grid item mobile={12}>

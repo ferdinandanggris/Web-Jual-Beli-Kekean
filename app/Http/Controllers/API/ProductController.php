@@ -25,7 +25,7 @@ class ProductController extends Controller
 
         $validator = Validator::make($request->input('input'), [
             'product_name' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric',
             'description' => 'required',
             'image_detail1' => 'required',
             'model_3d' => 'required_if:has_3d,true'

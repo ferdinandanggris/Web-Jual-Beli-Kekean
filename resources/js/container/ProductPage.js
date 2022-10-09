@@ -130,30 +130,27 @@ export default function ProductPage(props) {
                                 <Carousel>
                                     <Box
                                         sx={{
-                                            width: "538px",
                                             height: "400px",
-                                            objectFit: "cover",
-                                            objectPosition: '0 -20%'
+                                            objectFit: "fill",
+                                            ml: '30%'
                                         }}
                                         component="img"
                                         src={`../catalog/${currentProduct[0].image_detail1}`}
                                     />
                                     <Box
                                         sx={{
-                                            width: "538px",
                                             height: "400px",
-                                            objectFit: "cover",
-                                            objectPosition: '0 -20%'
+                                            objectFit: "fill",
+                                            ml: '30%'
                                         }}
                                         component="img"
                                         src={`../catalog/${currentProduct[0].image_detail2}`}
                                     />
                                     <Box
                                         sx={{
-                                            width: "538px",
                                             height: "400px",
-                                            objectFit: "cover",
-                                            objectPosition: '0 -20%'
+                                            objectFit: "fill",
+                                            ml: '30%'
                                         }}
                                         component="img"
                                         src={`../catalog/${currentProduct[0].image_detail3}`}

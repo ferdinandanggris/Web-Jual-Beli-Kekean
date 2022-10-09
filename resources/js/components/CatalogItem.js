@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 export default function CatalogItem(props) {
     return (
         <>
-        
             <Grid
                 mobile={props.catalogPage ? 6 : 4}
                 laptop={3}
@@ -24,7 +23,15 @@ export default function CatalogItem(props) {
                     to={`/products/${props.id}`}
                 >
                     <Box
-                        sx={{ width: "100%", maxHeight: '132px', objectFit: "cover", borderRadius: '12px 12px 0 0' }}
+                        sx={{
+                            width: "100%",
+                            maxHeight: "132px",
+                            objectFit: "cover",
+                            borderRadius: "12px 12px 0 0",
+                            objectPosition: "0 -50px",
+                            border: "1px solid #D9D9D9",
+                            borderBottom: "none",
+                        }}
                         component="img"
                         src={`../catalog/${props.image}`}
                     />
@@ -53,10 +60,18 @@ export default function CatalogItem(props) {
                             pt={0.5}
                             pb={0.5}
                             color={"#000000"}
-                        >{`Rp. ${Number(props.harga).toLocaleString()}`}</Typography>
+                        >{`Rp. ${Number(
+                            props.harga
+                        ).toLocaleString()}`}</Typography>
                         <Typography
                             fontWeight="500"
-                            sx={{ color: "rgb(0,0,0,41%)", overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '150px', whiteSpace: 'nowrap' }}
+                            sx={{
+                                color: "rgb(0,0,0,41%)",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                maxWidth: "150px",
+                                whiteSpace: "nowrap",
+                            }}
                             pb={1}
                             fontSize={{ mobile: 7, laptop: 10, desktop: 15 }}
                         >
