@@ -332,7 +332,6 @@ export default function EditProduct(props) {
                                 <Button
                                     variant="contained"
                                     onClick={handleOpenImage}
-                                    disabled={input.has_3d ? true : false}
                                 >
                                     <Typography color={"white"}>
                                         Add Image
@@ -342,7 +341,7 @@ export default function EditProduct(props) {
                                     open={imageDropzone}
                                     onClose={handleCloseImage}
                                     onSave={handleImage}
-                                    filesLimit={1}
+                                    filesLimit={3}
                                     acceptedFiles={["image/*"]}
                                 />
                                 <Typography>{input.image_detail1}</Typography>

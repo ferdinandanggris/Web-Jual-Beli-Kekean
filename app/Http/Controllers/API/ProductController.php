@@ -70,11 +70,28 @@ class ProductController extends Controller
     public function editImage(Request $request, $id)
     {
         $product = Product::find($id);
-        $nama_file = $request->image->getClientOriginalName();
-        $path = public_path() . '/catalog/' . $product->image_detail1;
-        $request->image->storeAs('catalog', $nama_file);
-        if (File::exists($path)) {
-            File::delete($path);
+        
+        foreach ($request->image as $r) {
+            $nama_file = $r->getClientOriginalName();
+            $nama_file = $r->getClientOriginalName();
+            $r->storeAs('catalog', $nama_file);
+            $path = public_path() . '/catalog/' . $product->image_detail1;
+            if (File::exists($path)) {
+                File::delete($path);
+            }
+            if($product->image_detail2) {
+                $path = public_path() . '/catalog/' . $product->image_detail2;
+                if (File::exists($path)) {
+                    File::delete($path);
+                }   
+            }
+            if($product->image_detail3) {
+                $path = public_path() . '/catalog/' . $product->image_detail3;
+                if (File::exists($path)) {
+                    File::delete($path);
+                }   
+            }
+            $r->storeAs('catalog', $nama_file);
         }
         return response()->json([
             'status' => 200,
