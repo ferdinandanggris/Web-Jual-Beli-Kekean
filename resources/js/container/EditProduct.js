@@ -370,6 +370,7 @@ export default function EditProduct(props) {
                                     onSave={handleImage}
                                     filesLimit={3}
                                     acceptedFiles={["image/*"]}
+                                    maxFileSize={50000000}
                                 />
                                 <Typography>
                                     {input.image_detail1 != null

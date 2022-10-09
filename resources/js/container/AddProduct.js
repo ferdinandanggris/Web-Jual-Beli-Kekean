@@ -340,6 +340,7 @@ export default function AddProduct() {
                                     onClose={handleCloseImage}
                                     onSave={handleImage}
                                     filesLimit={3}
+                                    maxFileSize={50000000}
                                     acceptedFiles={["image/*"]}
                                 />
                                 {input.image_detail1 ? <Typography>{input.image_detail1}{`, ${input.image_detail2}`}{`, ${input.image_detail3}`}</Typography> : ''}
