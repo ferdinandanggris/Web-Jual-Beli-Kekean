@@ -371,7 +371,7 @@ export default function EditProduct(props) {
                                     filesLimit={3}
                                     acceptedFiles={["image/*"]}
                                 />
-                                <Typography>{input.image_detail1 ? <Typography>{input.image_detail1}{`, ${input.image_detail2}`}{`, ${input.image_detail3}`}</Typography> : ''}</Typography>
+                                <Typography>{input.image_detail1 ? <Typography>{input.image_detail1}{`, ${input.image_detail2 != null}`}{`, ${input.image_detail3 != null}`}</Typography> : ''}</Typography>
                             </Grid>
 
                             {/* <Grid item mobile={12}>
