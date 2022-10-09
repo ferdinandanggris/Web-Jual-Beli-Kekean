@@ -181,7 +181,7 @@ export default function Navbar() {
                                     Shop
                                 </Typography>
                             </Button>
-                            <Button color="inherit">
+                            {/* <Button color="inherit">
                                 <Typography
                                     sx={{
                                         "&:hover": {
@@ -206,7 +206,7 @@ export default function Navbar() {
                                 >
                                     Contact Us
                                 </Typography>
-                            </Button>
+                            </Button> */}
                         </Box>
                         <IsLogin />
                     </Toolbar>

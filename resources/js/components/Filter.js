@@ -54,7 +54,7 @@ export default function Filter() {
                 elevation={0}
                 sx={AccordionStyle}
                 disableGutters={true}
-                defaultExpanded={true}
+                defaultExpanded={false}
             >
                 <AccordionSummary
                     sx={{
@@ -97,7 +97,7 @@ export default function Filter() {
             <Accordion
                 sx={AccordionStyle}
                 disableGutters={true}
-                defaultExpanded={true}
+                defaultExpanded={false}
             >
                 <AccordionSummary
                     sx={{
