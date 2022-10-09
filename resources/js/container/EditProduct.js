@@ -31,12 +31,12 @@ export default function EditProduct(props) {
         model_3d: "",
     });
     const [sizes, setSizes] = React.useState({
-        S: '0',
-        M: '0',
-        XS: '0',
-        L: '0',
-        XL: '0',
-        XXL: '0',
+        S: "0",
+        M: "0",
+        XS: "0",
+        L: "0",
+        XL: "0",
+        XXL: "0",
     });
     const prod_id = useParams();
     const history = useNavigate();
@@ -87,7 +87,7 @@ export default function EditProduct(props) {
         fetchData();
     }, []);
 
-    console.log(sizes)
+    console.log(sizes);
 
     const handleInput = (e) => {
         setInput({
@@ -163,7 +163,7 @@ export default function EditProduct(props) {
 
     const editProduct = async (e) => {
         e.preventDefault();
-        let data = {input, sizes}
+        let data = { input, sizes };
         const res = await axios.put(`api/update-products/${prod_id.id}`, data);
 
         if (res.data.status === 200) {
@@ -371,7 +371,21 @@ export default function EditProduct(props) {
                                     filesLimit={3}
                                     acceptedFiles={["image/*"]}
                                 />
-                                <Typography>{input.image_detail1 != null ? input.image_detail1 : ''}{`, ${input.image_detail2 != null ? input.image_detail2 : ''}`}{`, ${input.image_detail2 != null ? input.image_detail2 : ''}`}</Typography>
+                                <Typography>
+                                    {input.image_detail1 != null
+                                        ? input.image_detail1
+                                        : ""}
+                                    {`, ${
+                                        input.image_detail2 != null
+                                            ? input.image_detail2
+                                            : ""
+                                    }`}
+                                    {`, ${
+                                        input.image_detail3 != null
+                                            ? input.image_detail3
+                                            : ""
+                                    }`}
+                                </Typography>
                             </Grid>
 
                             {/* <Grid item mobile={12}>
