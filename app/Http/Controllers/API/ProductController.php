@@ -77,13 +77,13 @@ class ProductController extends Controller
             if (File::exists($path)) {
                 File::delete($path);
             }
-            if($product->image_detail2) {
+            if($product->image_detail2 != null) {
                 $path = public_path() . '/catalog/' . $product->image_detail2;
                 if (File::exists($path)) {
                     File::delete($path);
                 }   
             }
-            if($product->image_detail3) {
+            if($product->image_detail3 != null) {
                 $path = public_path() . '/catalog/' . $product->image_detail3;
                 if (File::exists($path)) {
                     File::delete($path);
