@@ -8,7 +8,7 @@ import Carousel from "react-material-ui-carousel";
 export default function Hero() {
     return (
         <Container sx={{ display: { mobile: "none", laptop: "block" }, mt: 3 }}>
-            <Carousel indicators={true} swipe={false} sx={{height: 310}}>
+            <Carousel indicators={true} swipe={false} height={310}>
                 <div className="hero">
                     <Box
                         sx={{ borderRadius: 1, width: "100%" }}
