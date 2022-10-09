@@ -258,6 +258,7 @@ export default function ProductPage(props) {
                                     </MenuItem>
                                 </Select>
                             </FormControl>
+                            <br/>
                             <TextField
                                 onChange={(event) => {
                                     if (event.target.value < 0) {

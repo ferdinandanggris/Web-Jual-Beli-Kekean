@@ -344,33 +344,33 @@ export default function Payment() {
                             <Box
                                 sx={{ width: "131px" }}
                                 component="img"
-                                src="../images/logo-bca.png"
+                                src="../images/logo-ovo.png"
                             />
                         </Grid>
                         <Grid item mobile={6}>
-                            <Typography fontSize={20}>912949301</Typography>
+                            <Typography fontSize={20}>085155241155</Typography>
                         </Grid>
                         <Grid item mobile={6}>
                             <Box
                                 sx={{ width: "131px" }}
                                 component="img"
-                                src="../images/logo-mandiri.png"
+                                src="../images/logo-dana.png"
                             />
                         </Grid>
                         <Grid item mobile={6}>
                             <Typography fontSize={20}>
-                                00000000029384739923
+                            085155241155
                             </Typography>
                         </Grid>
                         <Grid item mobile={6}>
                             <Box
                                 sx={{ width: "131px" }}
                                 component="img"
-                                src="../images/logo-bni.png"
+                                src="../images/logo-gopay.png"
                             />
                         </Grid>
                         <Grid item mobile={6}>
-                            <Typography fontSize={20}>29348210213</Typography>
+                            <Typography fontSize={20}>085155241155</Typography>
                         </Grid>
                     </Grid>
                 </AccordionDetails>
@@ -412,7 +412,7 @@ export default function Payment() {
                 <Box>
                     <PDFDownloadLink
                         document={<Invoice />}
-                        fileName="somename.pdf"
+                        fileName="Invoice Pembelian.pdf"
                         style={{ textDecoration: "none", width: 0, height: 0 }}
                     >
                         <Button
