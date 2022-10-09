@@ -29,6 +29,7 @@ export default function EditProduct(props) {
         image_detail2: "",
         image_detail3: "",
         model_3d: "",
+        error_list: [],
     });
     const [sizes, setSizes] = React.useState({
         S: "0",
@@ -164,18 +165,20 @@ export default function EditProduct(props) {
     const editProduct = async (e) => {
         e.preventDefault();
         let data = { input, sizes };
-        const res = await axios.put(`api/update-products/${prod_id.id}`, data);
 
-        if (res.data.status === 200) {
-            setInput({
-                product_name: "",
-                price: "",
-                description: "",
-                has_3d: e.target.checked,
-                model_3d: "",
+        axios.get("/sanctum/csrf-cookie").then((response) => {
+            axios.put(`api/update-products/${prod_id.id}`, data).then((res) => {
+                if (res.data.status === 200) {
+                    console.log(res.data.message);
+                    history("/admin");
+                } else {
+                    setInput({
+                        ...input,
+                        error_list: res.data.validation_errors,
+                    });
+                }
             });
-            history("/admin");
-        }
+        });
         // axios.get("/sanctum/csrf-cookie").then((response) => {
         //     axios.post("/api/login", input).then((res) => {
         //         if (res.data.status === 200) {
@@ -214,6 +217,11 @@ export default function EditProduct(props) {
                                             input: classes.input,
                                         }}
                                     />
+                                    <FormHelperText
+                                        sx={{ color: "red", fontSize: 10 }}
+                                    >
+                                        {input.error_list.product_name}
+                                    </FormHelperText>
                                 </FormControl>
                             </Grid>
 
@@ -233,6 +241,9 @@ export default function EditProduct(props) {
                                             input: classes.input,
                                         }}
                                     />
+                                    <FormHelperText sx={{ color: 'red', fontSize: 10 }}>
+                                        {input.error_list.price}
+                                    </FormHelperText>
                                 </FormControl>
                             </Grid>
 
@@ -252,6 +263,9 @@ export default function EditProduct(props) {
                                             input: classes.input,
                                         }}
                                     />
+                                    <FormHelperText sx={{ color: 'red', fontSize: 10 }}>
+                                        {input.error_list.description}
+                                    </FormHelperText>
                                 </FormControl>
                             </Grid>
 
@@ -387,6 +401,7 @@ export default function EditProduct(props) {
                                             : ""
                                     }`}
                                 </Typography>
+                                <Typography color={'red'}>{input.error_list.image_detail1}</Typography>
                             </Grid>
 
                             {/* <Grid item mobile={12}>
