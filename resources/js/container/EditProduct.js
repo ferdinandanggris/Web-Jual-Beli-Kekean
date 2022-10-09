@@ -118,7 +118,34 @@ export default function EditProduct(props) {
         });
 
         let imgData = new FormData();
-        imgData.append("image", files[0]);
+        if (files.length == 1) {
+            setInput({
+                ...input,
+                image_detail1: files[0].name,
+                // image_detail2: files[1].name,
+                // imagedetail3: files[2].name
+            });
+            imgData.append("image[]", files[0]);
+        } else if (files.length == 2) {
+            setInput({
+                ...input,
+                image_detail1: files[0].name,
+                image_detail2: files[1].name,
+                // image_detail3: files[2].name
+            });
+            imgData.append("image[]", files[0]);
+            imgData.append("image[]", files[1]);
+        } else if (files.length == 3) {
+            setInput({
+                ...input,
+                image_detail1: files[0].name,
+                image_detail2: files[1].name,
+                image_detail3: files[2].name,
+            });
+            imgData.append("image[]", files[0]);
+            imgData.append("image[]", files[1]);
+            imgData.append("image[]", files[2]);
+        }
 
         const res = await axios.post(`api/edit-image/${prod_id.id}`, imgData);
         if (res.data.status === 200) {

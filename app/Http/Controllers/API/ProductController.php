@@ -74,7 +74,6 @@ class ProductController extends Controller
         foreach ($request->image as $r) {
             $nama_file = $r->getClientOriginalName();
             $nama_file = $r->getClientOriginalName();
-            $r->storeAs('catalog', $nama_file);
             $path = public_path() . '/catalog/' . $product->image_detail1;
             if (File::exists($path)) {
                 File::delete($path);
