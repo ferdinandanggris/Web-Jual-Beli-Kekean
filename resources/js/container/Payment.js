@@ -97,6 +97,27 @@ export default function Payment() {
         }, 0);
     }
 
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, "0");
+    var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+    var yyyy = today.getFullYear();
+    const monthNames = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+
+    today ="Surabaya, " + dd + " " + monthNames[mm] + " " + yyyy;
+
     const Invoice = () => (
         <Document>
             <Page size="A4">
@@ -241,16 +262,14 @@ export default function Payment() {
                         </TableBody>
                     </Table>
                     <Text style={{ fontSize: 12, marginTop: "10px" }}>
-                        Total : {totalPrice}
+                        Total : {"Rp. " + Number(totalPrice).toLocaleString()}
                     </Text>
                 </View>
                 <View style={{ marginTop: "250px", marginHorizontal: "50px" }}>
-                    <Text style={{ fontSize: "12px" }}>
-                        Surabaya, 06 Oct 2022
-                    </Text>
+                    <Text style={{ fontSize: "12px" }}>{today}</Text>
                     <Image
                         style={{
-                            marginTop: '20px',
+                            marginTop: "20px",
                             width: "100px",
                             height: "50px",
                             objectFit: "cover",
@@ -258,7 +277,7 @@ export default function Payment() {
                         src={"../images/logoKekean.jpg"}
                     />
                     <Text style={{ marginTop: "20px", fontSize: "12px" }}>
-                        Surabaya, 06 Oct 2022
+                        Kekean Wastra Gallery
                     </Text>
                 </View>
             </Page>
@@ -358,9 +377,7 @@ export default function Payment() {
                             />
                         </Grid>
                         <Grid item mobile={6}>
-                            <Typography fontSize={20}>
-                            085155241155
-                            </Typography>
+                            <Typography fontSize={20}>085155241155</Typography>
                         </Grid>
                         <Grid item mobile={6}>
                             <Box
