@@ -49,13 +49,12 @@ function LoginPage() {
                 if (res.data.status === 200) {
                     localStorage.setItem("auth_token", res.data.token);
                     localStorage.setItem("auth_email", res.data.email);
-                    swal("Success", res.data.message);
+                    swal("Success", res.data.message, "success");
                     if (res.data.role === "admin") {
                         history("/admin");
                     } else {
                         history("/");
                     }
-                    location.reload();
                 } else if (res.data.status === 401) {
                     swal("Warning", res.data.message, "warning");
                 } else {
