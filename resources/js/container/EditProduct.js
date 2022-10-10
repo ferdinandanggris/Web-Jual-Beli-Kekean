@@ -75,7 +75,7 @@ export default function EditProduct(props) {
         const fetchData = () => {
             try {
                 axios.get(`api/edit-products/${prod_id.id}`).then((res) => {
-                    products = {...res.data.products, error_list: []};
+                    products = { ...res.data.products, error_list: [] };
                     size = res.data.size;
                     products.has_3d = !!Number(products.has_3d);
                     setInput(products);
@@ -197,7 +197,7 @@ export default function EditProduct(props) {
 
     const classes = useStyles();
     return (
-        <Container>
+        <Container sx={{ my: 5 }}>
             <Paper elevation={5}>
                 <Container sx={{ py: 5 }}>
                     <form onSubmit={editProduct} encType="multipart/form-data">
@@ -242,7 +242,9 @@ export default function EditProduct(props) {
                                             input: classes.input,
                                         }}
                                     />
-                                    <FormHelperText sx={{ color: 'red', fontSize: 10 }}>
+                                    <FormHelperText
+                                        sx={{ color: "red", fontSize: 10 }}
+                                    >
                                         {input.error_list.price}
                                     </FormHelperText>
                                 </FormControl>
@@ -264,7 +266,9 @@ export default function EditProduct(props) {
                                             input: classes.input,
                                         }}
                                     />
-                                    <FormHelperText sx={{ color: 'red', fontSize: 10 }}>
+                                    <FormHelperText
+                                        sx={{ color: "red", fontSize: 10 }}
+                                    >
                                         {input.error_list.description}
                                     </FormHelperText>
                                 </FormControl>
@@ -402,7 +406,9 @@ export default function EditProduct(props) {
                                             : ""
                                     }`}
                                 </Typography>
-                                <Typography color={'red'}>{input.error_list.image_detail1}</Typography>
+                                <Typography color={"red"}>
+                                    {input.error_list.image_detail1}
+                                </Typography>
                             </Grid>
 
                             {/* <Grid item mobile={12}>
@@ -447,7 +453,16 @@ export default function EditProduct(props) {
                             </Grid>
 
                             <Grid sx={{ mt: 5 }} item mobile={12}>
-                                <Button variant="contained" type="submit">
+                                <Button onClick={() => history("/admin")}>
+                                    <Typography color={"main"}>
+                                        Cancel
+                                    </Typography>
+                                </Button>
+                                <Button
+                                    sx={{ ml: 2 }}
+                                    variant="contained"
+                                    type="submit"
+                                >
                                     <Typography color={"white"}>
                                         Update
                                     </Typography>

@@ -261,7 +261,7 @@ export default function Payment() {
                             />
                         </TableBody>
                     </Table>
-                    <Text style={{ fontSize: 12, marginTop: "10px" }}>
+                    <Text style={{ textAlign: 'right', fontSize: 12, marginTop: "10px" }}>
                         Total : {"Rp. " + Number(totalPrice).toLocaleString()}
                     </Text>
                 </View>

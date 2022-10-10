@@ -132,7 +132,7 @@ export default function NavAdmin() {
                 <AppBar
                     elevation={0}
                     sx={{
-                        bgcolor: "white",
+                        bgcolor: "#C4A484",
                         px: 7,
                     }}
                 >

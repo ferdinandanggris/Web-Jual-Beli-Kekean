@@ -167,7 +167,7 @@ export default function AddProduct() {
 
     const classes = useStyles();
     return (
-        <Container>
+        <Container sx={{my: 5}}>
             <Paper elevation={5}>
                 <Container sx={{ py: 5 }}>
                     <form onSubmit={saveProduct} encType="multipart/form-data">
@@ -409,7 +409,16 @@ export default function AddProduct() {
                             </Grid>
 
                             <Grid sx={{ mt: 5 }} item mobile={12}>
-                                <Button variant="contained" type="submit">
+                                <Button onClick={() => history('/admin')}>
+                                    <Typography color={"main"}>
+                                        Cancel
+                                    </Typography>
+                                </Button>
+                                <Button
+                                    sx={{ ml: 2 }}
+                                    variant="contained"
+                                    type="submit"
+                                >
                                     <Typography color={"white"}>
                                         Submit
                                     </Typography>

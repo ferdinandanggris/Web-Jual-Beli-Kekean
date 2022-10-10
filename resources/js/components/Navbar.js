@@ -7,6 +7,7 @@ import {
     IconButton,
     AppBar,
     Toolbar,
+    Icon,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
@@ -14,16 +15,18 @@ import axios from "axios";
 import swal from "sweetalert";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import styled from "@mui/system";
+import LogoutIcon from "@mui/icons-material/Logout";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 export default function Navbar() {
+
     const StyledButton = (props) => (
         <Button
             sx={{
                 "& .MuiTouchRipple-child": { backgroundColor: "blue" },
                 "&& .MuiTouchRipple-rippleVisible": {
                     backgroundColor: "blue",
-                }
+                },
             }}
         >
             {props.children}
@@ -44,7 +47,6 @@ export default function Navbar() {
             }
         });
     };
-    const login = true;
     function IsLogin() {
         if (localStorage.getItem("auth_token")) {
             return (
@@ -62,18 +64,24 @@ export default function Navbar() {
                         <Button
                             onClick={() => history("/cart")}
                             color="inherit"
+                            sx={{ color: "white", }}
                         >
-                            <Typography href="#" className="bx bx-cart" />
+                            <Typography>
+                                Cart
+                            </Typography>
                         </Button>
                         {/* <Button color="inherit">
                             <Typography href="#" className="bx bx-user" />
                         </Button> */}
-                        <Button onClick={logoutSubmit} color="inherit">
-                            <Typography
-                                href="#"
-                                className="bx bx-log-out-circle"
-                            />
-                        </Button>
+                        <IconButton
+                            onClick={logoutSubmit}
+                            color="inherit"
+                            sx={{ color: "white" }}
+                        >
+                            <Typography>
+                                Logout
+                            </Typography>
+                        </IconButton>
                     </Box>
                 </>
             );
@@ -86,7 +94,7 @@ export default function Navbar() {
                     <Typography
                         sx={{
                             "&:hover": {
-                                borderBottom: "1px solid black",
+                                borderBottom: "1px solid white",
                             },
                         }}
                         color={"black"}
@@ -95,7 +103,7 @@ export default function Navbar() {
                         <Link
                             style={{
                                 textDecoration: "none",
-                                color: "black",
+                                color: "white",
                             }}
                             to={`/login`}
                         >
@@ -163,19 +171,23 @@ export default function Navbar() {
                 <AppBar
                     elevation={0}
                     sx={{
-                        bgcolor: "white",
+                        bgcolor: "#3C2317",
                         px: 7,
                     }}
                 >
                     <Toolbar>
                         <Box sx={{ display: "flex", flexGrow: 1 }}>
-                            <Button color="inherit" onClick={() => history('/')}>
+                            <Button
+                                color="inherit"
+                                onClick={() => history("/")}
+                            >
                                 <Typography
                                     sx={{
                                         "&:hover": {
-                                            borderBottom: "1px solid black",
+                                            borderBottom: "1px solid white",
                                         },
                                     }}
+                                    color="white"
                                     px={2}
                                 >
                                     Shop

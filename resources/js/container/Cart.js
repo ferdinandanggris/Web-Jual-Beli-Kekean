@@ -97,7 +97,7 @@ export default function Cart() {
     }
 
     return (
-        <Grid paddingX={10} container spacing={2}>
+        <Grid paddingX={10} mt={5} container spacing={2}>
             <Grid item laptop={6}>
                 <Box
                     sx={{

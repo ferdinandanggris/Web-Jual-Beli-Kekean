@@ -69,7 +69,7 @@ function Navs() {
         <ThemeProvider theme={theme}>
         <CssBaseline/>
             <Router basename={'/'}>
-                {window.location.pathname != '/admin'?<Navbar/>:<NavAdmin/>}
+                <Navbar/>
                 <Routes>
                     <Route path="/" exact element={<Main/>}/>
                     <Route path="/catalog" element={<CatalogPage/>}/>

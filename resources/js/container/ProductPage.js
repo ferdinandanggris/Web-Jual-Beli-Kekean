@@ -86,7 +86,7 @@ export default function ProductPage(props) {
         });
     }
     return (
-        <Container sx={{ px: 10 }}>
+        <Container sx={{ px: 10, mt: 5 }}>
             <Grid
                 spacing={15}
                 container

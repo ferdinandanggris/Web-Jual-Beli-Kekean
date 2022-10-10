@@ -54,7 +54,7 @@ export default function Admin() {
                 };
                 const handleDelete = async (e) => {
                     e.stopPropagation(); // don't select this row after clicking
-
+                    
                     const api = params.api;
                     const thisRow = {};
 
@@ -106,7 +106,7 @@ export default function Admin() {
     }, []);
 
     return (
-        <Container sx={{ px: 10 }}>
+        <Container sx={{ px: 10, mt: 5 }}>
             <Paper elevation={3}>
                 <Container sx={{ px: 6, pt: 6, pb: 4 }}>
                     <Box
