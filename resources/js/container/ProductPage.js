@@ -276,7 +276,7 @@ export default function ProductPage(props) {
                                     shrink: true,
                                 }}
                                 variant="outlined"
-                                sx={{ mt: 3 }}
+                                sx={{ mt: 3, width: 300 }}
                                 value={quantity}
                             />
                             <Grid container>

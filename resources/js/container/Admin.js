@@ -106,8 +106,8 @@ export default function Admin() {
     }, []);
 
     return (
-        <Container sx={{ px: 10, mt: 5 }}>
-            <Paper elevation={3}>
+        <Container sx={{ px: 10, my: 5 }}>
+            <Paper  elevation={3}>
                 <Container sx={{ px: 6, pt: 6, pb: 4 }}>
                     <Box
                         display={"flex"}
@@ -129,7 +129,7 @@ export default function Admin() {
                             </Button>
                         </Link>
                     </Box>
-                    <Box sx={{ height: 400, width: "100%" }}>
+                    <Box sx={{ height: 800, width: "100%" }}>
                         {loading ? (
                             <Skeleton
                                 variant="rectangular"
@@ -142,7 +142,7 @@ export default function Admin() {
                             <DataGrid
                                 rows={rows}
                                 columns={columns}
-                                pageSize={10}
+                                pageSize={15}
                                 rowsPerPageOptions={[5]}
                                 disableSelectionOnClick
                                 experimentalFeatures={{ newEditingApi: true }}

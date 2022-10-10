@@ -42,7 +42,7 @@ export default function Navbar() {
                 localStorage.removeItem("auth_firstName");
                 localStorage.removeItem("auth_lastName");
                 localStorage.removeItem("auth_email");
-                swal("Success", res.data.message, "Logout Successfully");
+                swal("Berhasil Logout", res.data.message, "success");
                 history("/");
             }
         });

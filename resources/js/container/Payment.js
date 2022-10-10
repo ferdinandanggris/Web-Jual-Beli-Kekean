@@ -324,7 +324,7 @@ export default function Payment() {
                         </Grid>
                         <Grid item mobile={6}>
                             <Typography fontSize={20}>
-                                00000000029384739923
+                            1400020055878
                             </Typography>
                         </Grid>
                         <Grid item mobile={6}>
