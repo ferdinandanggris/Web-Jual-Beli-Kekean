@@ -1,13 +1,20 @@
-import { Box, Button, Container, Paper, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    Container,
+    Paper,
+    Stack,
+    Typography,
+} from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
-import Skeleton from '@mui/material/Skeleton';
+import Skeleton from "@mui/material/Skeleton";
 import { useNavigate } from "react-router";
 
 export default function Admin() {
-    const history = useNavigate()
+    const history = useNavigate();
     const [rows, setRows] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     const columns = [
@@ -50,11 +57,11 @@ export default function Admin() {
                                     c.field
                                 ))
                         );
-                        history(`/admin/editProduct/${thisRow.id}`)
+                    history(`/admin/editProduct/${thisRow.id}`);
                 };
                 const handleDelete = async (e) => {
                     e.stopPropagation(); // don't select this row after clicking
-                    
+
                     const api = params.api;
                     const thisRow = {};
 
@@ -67,11 +74,13 @@ export default function Admin() {
                                     c.field
                                 ))
                         );
-                        const res = await axios.delete(`/api/delete-products/${thisRow.id}`)
-                        if(res.data.status === 200) {
-                            swal("Success", res.data.message)
-                            location.reload()
-                        }
+                    const res = await axios.delete(
+                        `/api/delete-products/${thisRow.id}`
+                    );
+                    if (res.data.status === 200) {
+                        swal("Success", res.data.message);
+                        location.reload();
+                    }
                 };
 
                 return (
@@ -83,7 +92,7 @@ export default function Admin() {
             },
         },
     ];
-    
+
     let products = [];
 
     React.useEffect(() => {
@@ -107,7 +116,7 @@ export default function Admin() {
 
     return (
         <Container sx={{ px: 10, my: 5 }}>
-            <Paper  elevation={3}>
+            <Paper elevation={3}>
                 <Container sx={{ px: 6, pt: 6, pb: 4 }}>
                     <Box
                         display={"flex"}
@@ -118,25 +127,37 @@ export default function Admin() {
                             Daftar barang
                         </Typography>
 
-                        <Link
-                            to={"/admin/addProduct"}
-                            style={{ textDecoration: "none" }}
-                        >
-                            <Button>
-                                <Typography fontWeight={"medium"}>
-                                    Tambahkan Barang
-                                </Typography>
-                            </Button>
-                        </Link>
+                        <Stack direction={"row"}>
+                            <Link
+                                to={"/admin/editPayment"}
+                                style={{ textDecoration: "none" }}
+                            >
+                                <Button>
+                                    <Typography fontWeight={"medium"}>
+                                        Ubah Metode Pembayaran
+                                    </Typography>
+                                </Button>
+                            </Link>
+                            <Link
+                                to={"/admin/addProduct"}
+                                style={{ textDecoration: "none" }}
+                            >
+                                <Button>
+                                    <Typography fontWeight={"medium"}>
+                                        Tambahkan Barang
+                                    </Typography>
+                                </Button>
+                            </Link>
+                        </Stack>
                     </Box>
                     <Box sx={{ height: 800, width: "100%" }}>
                         {loading ? (
                             <Skeleton
                                 variant="rectangular"
-                                width={'100%'}
-                                height={'100%'}
-                                animation={'wave'}
-                                sx={{borderRadius: 1}}
+                                width={"100%"}
+                                height={"100%"}
+                                animation={"wave"}
+                                sx={{ borderRadius: 1 }}
                             />
                         ) : (
                             <DataGrid

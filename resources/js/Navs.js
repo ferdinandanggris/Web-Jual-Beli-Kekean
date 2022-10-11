@@ -13,6 +13,7 @@ import RegisterPage from './container/RegisterPage';
 import axios from 'axios';
 import Admin from './container/Admin';
 import AddProduct from './container/AddProduct';
+import EditPayment from './container/EditPayment';
 import EditProduct from './container/EditProduct';
 import NavAdmin from './components/NavAdmin';
 import AdminPrivateRoute from './AdminPrivateRoute';
@@ -86,6 +87,7 @@ function Navs() {
                     <Route path='/admin' name='Admin' element={<AdminPrivateRoute comp={Admin}/>}/>
                     <Route path='/admin/addProduct' name='Admin' element={<AdminPrivateRoute comp={AddProduct}/>}/>
                     <Route path='/admin/editProduct/:id' name='Admin' element={<AdminPrivateRoute comp={EditProduct}/>}/>
+                    <Route path='/admin/editPayment' name='Admin' element={<AdminPrivateRoute comp={EditPayment}/>}/>
                 </Routes>
             </Router>
     </ThemeProvider>
