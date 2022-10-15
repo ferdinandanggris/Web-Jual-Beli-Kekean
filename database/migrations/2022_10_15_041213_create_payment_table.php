@@ -15,9 +15,9 @@ class CreatePaymentTable extends Migration
     {
         Schema::create('payment', function (Blueprint $table) {
             $table->id();
-            $table->integer('Jenis');
-            $table->string('Nama Bank / Ewalet');
-            $table->string('Nomor Rekening / Ewallet');
+            $table->integer('jenis');
+            $table->string('nama_bank');
+            $table->string('nomor_rekening');
             $table->timestamps();
         });
     }
