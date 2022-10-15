@@ -2,8 +2,10 @@ import {
     Box,
     Button,
     Container,
+    IconButton,
     Paper,
     Stack,
+    SwipeableDrawer,
     Typography,
 } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
@@ -12,11 +14,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import { useNavigate } from "react-router";
+import AdminHeader from "../components/AdminHeader";
+import MenuIcon from "@mui/icons-material/Menu";
+import InventoryIcon from "@mui/icons-material/Inventory";
+import PaymentIcon from "@mui/icons-material/Payment";
 
 export default function Admin() {
     const history = useNavigate();
     const [rows, setRows] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     const columns = [
         { field: "id", headerName: "ID", width: 70 },
         { field: "product_name", headerName: "Nama Barang", width: 130 },
@@ -93,6 +100,10 @@ export default function Admin() {
         },
     ];
 
+    const toggleDrawer = () => {
+        setOpen(!open);
+    };
+
     let products = [];
 
     React.useEffect(() => {
@@ -118,38 +129,7 @@ export default function Admin() {
         <Container sx={{ px: 10, my: 5 }}>
             <Paper elevation={3}>
                 <Container sx={{ px: 6, pt: 6, pb: 4 }}>
-                    <Box
-                        display={"flex"}
-                        alignItems={"center"}
-                        justifyContent={"space-between"}
-                    >
-                        <Typography fontWeight={"medium"}>
-                            Daftar barang
-                        </Typography>
-
-                        <Stack direction={"row"}>
-                            <Link
-                                to={"/admin/editPayment"}
-                                style={{ textDecoration: "none" }}
-                            >
-                                <Button>
-                                    <Typography fontWeight={"medium"}>
-                                        Ubah Metode Pembayaran
-                                    </Typography>
-                                </Button>
-                            </Link>
-                            <Link
-                                to={"/admin/addProduct"}
-                                style={{ textDecoration: "none" }}
-                            >
-                                <Button>
-                                    <Typography fontWeight={"medium"}>
-                                        Tambahkan Barang
-                                    </Typography>
-                                </Button>
-                            </Link>
-                        </Stack>
-                    </Box>
+                    <AdminHeader daftar="Barang" tambahkan="Barang" adminPage="addProduct"/>
                     <Box sx={{ height: 800, width: "100%" }}>
                         {loading ? (
                             <Skeleton

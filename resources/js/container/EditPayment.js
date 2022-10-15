@@ -12,6 +12,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import { useNavigate } from "react-router";
+import AdminHeader from "../components/AdminHeader";
 
 function EditPayment() {
     const [rows, setRows] = React.useState([]);
@@ -76,32 +77,15 @@ function EditPayment() {
             },
         },
     ];
-    return ( 
+    return (
         <Container sx={{ px: 10, my: 5 }}>
             <Paper elevation={3}>
                 <Container sx={{ px: 6, pt: 6, pb: 4 }}>
-                    <Box
-                        display={"flex"}
-                        alignItems={"center"}
-                        justifyContent={"space-between"}
-                    >
-                        <Typography fontWeight={"medium"}>
-                            Rekening Bank
-                        </Typography>
-
-                        <Stack direction={"row"}>
-                            <Link
-                                to={"/admin/addProduct"}
-                                style={{ textDecoration: "none" }}
-                            >
-                                <Button>
-                                    <Typography fontWeight={"medium"}>
-                                        Tambahkan Rekening
-                                    </Typography>
-                                </Button>
-                            </Link>
-                        </Stack>
-                    </Box>
+                    <AdminHeader
+                        daftar="Nomor Rekening"
+                        tambahkan="Rekening"
+                        adminPage="editRekening"
+                    />
                     <Box sx={{ height: 400, width: "100%" }}>
                         {loading ? (
                             <Skeleton
@@ -166,7 +150,7 @@ function EditPayment() {
                 </Container>
             </Paper>
         </Container>
-     );
+    );
 }
 
 export default EditPayment;
