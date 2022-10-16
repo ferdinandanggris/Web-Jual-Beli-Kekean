@@ -21,6 +21,7 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 
+Route::post('add-payment', [PaymentController::class, 'addPayment']);
 Route::post('add-product', [ProductController::class, 'store']);
 Route::post('save-image/', [ProductController::class, 'storeImage']);
 Route::post('edit-image/{id}', [ProductController::class, 'editImage']);

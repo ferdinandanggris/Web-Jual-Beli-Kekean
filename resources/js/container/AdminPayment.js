@@ -14,7 +14,7 @@ import Skeleton from "@mui/material/Skeleton";
 import { useNavigate } from "react-router";
 import AdminHeader from "../components/AdminHeader";
 
-function EditPayment() {
+function AdminPayment() {
     const [rows, setRows] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const columns = [
@@ -84,7 +84,7 @@ function EditPayment() {
                     <AdminHeader
                         daftar="Nomor Rekening"
                         tambahkan="Rekening"
-                        adminPage="editRekening"
+                        adminPage="addPayment"
                     />
                     <Box sx={{ height: 400, width: "100%" }}>
                         {loading ? (
@@ -153,4 +153,4 @@ function EditPayment() {
     );
 }
 
-export default EditPayment;
+export default AdminPayment;

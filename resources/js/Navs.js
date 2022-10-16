@@ -13,11 +13,12 @@ import RegisterPage from './container/RegisterPage';
 import axios from 'axios';
 import Admin from './container/Admin';
 import AddProduct from './container/AddProduct';
-import EditPayment from './container/EditPayment';
+import AdminPayment from './container/AdminPayment';
 import EditProduct from './container/EditProduct';
 import NavAdmin from './components/NavAdmin';
 import AdminPrivateRoute from './AdminPrivateRoute';
 import Cart from './container/Cart';
+import AddPayment from './container/AddPayment';
 
 function Navs() {
     const theme = createTheme({
@@ -87,7 +88,8 @@ function Navs() {
                     <Route path='/admin' name='Admin' element={<AdminPrivateRoute comp={Admin}/>}/>
                     <Route path='/admin/addProduct' name='Admin' element={<AdminPrivateRoute comp={AddProduct}/>}/>
                     <Route path='/admin/editProduct/:id' name='Admin' element={<AdminPrivateRoute comp={EditProduct}/>}/>
-                    <Route path='/admin/editPayment' name='Admin' element={<AdminPrivateRoute comp={EditPayment}/>}/>
+                    <Route path='/admin/payment' name='Admin' element={<AdminPrivateRoute comp={AdminPayment}/>}/>
+                    <Route path='/admin/addPayment' name='Admin' element={<AdminPrivateRoute comp={AddPayment}/>}/>
                 </Routes>
             </Router>
     </ThemeProvider>

@@ -57,7 +57,7 @@ function AdminHeader(props) {
                         </Link>
 
                         <Link
-                            to={"/admin/editPayment"}
+                            to={"/admin/payment"}
                             style={{
                                 textDecoration: "none",
                                 color: "black",
