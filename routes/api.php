@@ -22,13 +22,14 @@ Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
 
-Route::post('add-payment', [PaymentController::class, 'addPayment']);
 Route::post('add-product', [ProductController::class, 'store']);
 Route::post('save-image/', [ProductController::class, 'storeImage']);
 Route::post('edit-image/{id}', [ProductController::class, 'editImage']);
 Route::post('save-model', [ProductController::class, 'storeModel']);
 Route::post('add-to-cart', [CartController::class, 'addToCart']);
 
+Route::post('add-payment', [PaymentController::class, 'addPayment']);
+Route::get('payments', [PaymentController::class, 'getPayment']);
 
 Route::put('update-products/{id}', [ProductController::class, 'update']);
 Route::put('cart-update-quantity/{id}', [CartController::class, 'updateQuantity']);

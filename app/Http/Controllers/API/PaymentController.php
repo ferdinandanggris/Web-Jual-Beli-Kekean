@@ -32,4 +32,12 @@ class PaymentController extends Controller
             ]);
         }
     }
+
+    public function getPayment() {
+        $payments = Payment::all();
+        return response()->json([
+            'status' => 200,
+            'payments' => $payments,
+        ]);
+    }
 }
