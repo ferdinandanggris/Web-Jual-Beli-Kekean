@@ -25,6 +25,11 @@ class PaymentController extends Controller
             $payments->jenis = $request->input('jenis');
             $payments->nama_bank = $request->input('namaBank');
             $payments->nomor_rekening = $request->input('rekening');
+            $payments->save();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Product Added Successfully',
+            ]);
         }
     }
 }
