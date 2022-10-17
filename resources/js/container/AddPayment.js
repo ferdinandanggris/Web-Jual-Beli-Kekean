@@ -17,9 +17,9 @@ import { useNavigate } from "react-router";
 
 export default function AddPayment() {
     const [input, setInput] = React.useState({
-        namaBank: '',
-        rekening: '',
-        jenis: ''
+        namaBank: "",
+        rekening: "",
+        jenis: null,
     });
     const history = useNavigate();
     const useStyles = makeStyles((theme) => ({
@@ -58,6 +58,28 @@ export default function AddPayment() {
         });
     };
 
+    const pilihanBank = () => {
+        if (input.jenis == 1) {
+            return (
+                <>
+                    <MenuItem value={"BCA"}>BCA</MenuItem>
+                    <MenuItem value={"Mandiri"}>Mandiri</MenuItem>
+                    <MenuItem value={"Cimb_Niaga"}>Cimb Niaga</MenuItem>
+                    <MenuItem value={"BNI"}>BNI</MenuItem>
+                </>
+            );
+        } else if (input.jenis == 2) {
+            return (
+                <>
+                    <MenuItem value={"OVO"}>OVO</MenuItem>
+                    <MenuItem value={"Dana"}>Dana</MenuItem>
+                    <MenuItem value={"Gopay"}>Gopay</MenuItem>
+                    <MenuItem value={"Shopeepay"}>Shopeepay</MenuItem>
+                </>
+            );
+        }
+    };
+
     const classes = useStyles();
     return (
         <Container sx={{ my: 5 }}>
@@ -65,7 +87,89 @@ export default function AddPayment() {
                 <Container sx={{ py: 5 }}>
                     <form onSubmit={savePayment} encType="multipart/form-data">
                         <Grid container spacing={2}>
-                            <Grid item mobile={12}>
+                            <Grid item mobile={6}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">
+                                        Bank / E-Wallet
+                                    </InputLabel>
+                                    <Select
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        label="Bank / E-Wallet"
+                                        name="jenis"
+                                        value={input.jenis}
+                                        onChange={handleInput}
+                                    >
+                                        <MenuItem value={1}>Bank</MenuItem>
+                                        <MenuItem value={2}>Ewallet</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+
+                            <Grid item mobile={6}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="demo-simple-select-label">
+                                        {input.jenis != null
+                                            ? `Nama ${
+                                                  input.jenis == 1
+                                                      ? "Bank"
+                                                      : "E-Wallet"
+                                              }`
+                                            : "Silahkan pilih jenis rekening"}
+                                    </InputLabel>
+                                    <Select
+                                        disabled={input.jenis == null}
+                                        labelId="demo-simple-select-label"
+                                        id="demo-simple-select"
+                                        label={
+                                            input.jenis != null
+                                                ? `Nama ${
+                                                      input.jenis == 1
+                                                          ? "Bank"
+                                                          : "E-Wallet"
+                                                  }`
+                                                : "Silahkan pilih jenis rekening"
+                                        }
+                                        name="namaBank"
+                                        value={input.namaBank}
+                                        onChange={handleInput}
+                                    >
+                                        {input.jenis == 1 ? (
+                                            [
+                                                <MenuItem value={"BCA"}>
+                                                    BCA
+                                                </MenuItem>,
+                                                <MenuItem value={"Mandiri"}>
+                                                    Mandiri
+                                                </MenuItem>,
+                                                <MenuItem value={"Cimb_Niaga"}>
+                                                    Cimb Niaga
+                                                </MenuItem>,
+                                                <MenuItem value={"BNI"}>
+                                                    BNI
+                                                </MenuItem>,
+                                            ]
+                                        ) : (
+                                            [
+                                                <MenuItem value={"OVO"}>
+                                                    OVO
+                                                </MenuItem>,
+                                                <MenuItem value={"Dana"}>
+                                                    Dana
+                                                </MenuItem>,
+                                                <MenuItem value={"Gopay"}>
+                                                    Gopay
+                                                </MenuItem>,
+                                                <MenuItem value={"Shopeepay"}>
+                                                    Shopeepay
+                                                </MenuItem>,
+                                            ]
+                                        )}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+
+                            {/* <Grid item mobile={6}>
                                 <FormControl fullWidth variant="filled">
                                     <InputLabel htmlFor="component-filled">
                                         Nama Bank / E-Wallet
@@ -85,9 +189,9 @@ export default function AddPayment() {
                                 <FormHelperText
                                     sx={{ color: "red", fontSize: 10 }}
                                 >
-                                    {/* {input.error_list.product_name} */}
+                                    {input.error_list.product_name}
                                 </FormHelperText>
-                            </Grid>
+                            </Grid> */}
 
                             <Grid item mobile={12}>
                                 <FormControl fullWidth variant="filled">
@@ -110,25 +214,6 @@ export default function AddPayment() {
                                     >
                                         {/* {input.error_list.price} */}
                                     </FormHelperText>
-                                </FormControl>
-                            </Grid>
-
-                            <Grid item mobile={3}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="demo-simple-select-label">
-                                        Rekening / E-Wallet
-                                    </InputLabel>
-                                    <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
-                                        label="Rekening / E-Wallet"
-                                        name="jenis"
-                                        value={input.jenis}
-                                        onChange={handleInput}
-                                    >
-                                        <MenuItem value={1}>Bank</MenuItem>
-                                        <MenuItem value={2}>Ewallet</MenuItem>
-                                    </Select>
                                 </FormControl>
                             </Grid>
 

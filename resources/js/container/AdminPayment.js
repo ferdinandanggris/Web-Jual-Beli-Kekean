@@ -15,11 +15,12 @@ import { useNavigate } from "react-router";
 import AdminHeader from "../components/AdminHeader";
 
 function AdminPayment() {
-    const [rows, setRows] = React.useState([]);
+    const [rowsEwallet, setRowsEwallet] = React.useState([]);
+    const [rowsRekening, setRowsRekening] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
     const columns = [
         { field: "id", headerName: "ID", width: 70 },
-        { field: "nama_rekening", headerName: "Nama Bank", width: 430 },
+        { field: "nama_bank", headerName: "Nama Bank", width: 430 },
         { field: "nomor_rekening", headerName: "Nomor Rekening", width: 432 },
         {
             field: "action",
@@ -77,6 +78,16 @@ function AdminPayment() {
             },
         },
     ];
+
+    React.useEffect(() => {
+        axios.get('/api/payments')
+        .then((res) => {
+            setRowsRekening(res.data.payments.filter((d) => (d.jenis == '1')))
+            setRowsEwallet(res.data.payments.filter((d) => (d.jenis == '2')))
+        })
+    }, [])
+
+
     return (
         <Container sx={{ px: 10, my: 5 }}>
             <Paper elevation={3}>
@@ -97,7 +108,7 @@ function AdminPayment() {
                             />
                         ) : (
                             <DataGrid
-                                rows={rows}
+                                rows={rowsRekening}
                                 columns={columns}
                                 pageSize={15}
                                 rowsPerPageOptions={[5]}
@@ -139,7 +150,7 @@ function AdminPayment() {
                             />
                         ) : (
                             <DataGrid
-                                rows={rows}
+                                rows={rowsEwallet}
                                 columns={columns}
                                 pageSize={15}
                                 rowsPerPageOptions={[5]}
