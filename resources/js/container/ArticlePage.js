@@ -11,7 +11,7 @@ function ArticlePage() {
         });
     })
     return (
-        <Grid container sx={{ px: 10, mt: 10 }}>
+        <Grid container sx={{ px: 17.5, mt: 10 }}>
             <Grid item laptop={12}>
                 <Grid container spacing={5} alignItems={"center"}>
                     <Grid item laptop={4}>
