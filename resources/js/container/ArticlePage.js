@@ -1,8 +1,15 @@
 import { Grid, Box, Typography } from "@mui/material";
+import axios from "axios";
 import React from "react";
 import ArticleItem from "../components/ArticleItem";
 
 function ArticlePage() {
+    const [articles, setArticles] = React.useState({})
+    React.useEffect(() => {
+        axios.get(api/getArticles).then((res) => {
+            setArticles(res);
+        });
+    })
     return (
         <Grid container sx={{ px: 10 }}>
             <Grid item laptop={12}>

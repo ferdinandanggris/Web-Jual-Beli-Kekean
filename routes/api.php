@@ -26,20 +26,20 @@ Route::post('add-product', [ProductController::class, 'store']);
 Route::post('save-image/', [ProductController::class, 'storeImage']);
 Route::post('edit-image/{id}', [ProductController::class, 'editImage']);
 Route::post('save-model', [ProductController::class, 'storeModel']);
-Route::post('add-to-cart', [CartController::class, 'addToCart']);
-
-Route::post('add-payment', [PaymentController::class, 'addPayment']);
-Route::get('payments', [PaymentController::class, 'getPayment']);
-
 Route::put('update-products/{id}', [ProductController::class, 'update']);
-Route::put('cart-update-quantity/{id}', [CartController::class, 'updateQuantity']);
 Route::delete('delete-products/{id}', [ProductController::class, 'destroy']);
-Route::delete('delete-cart-item/{id}', [CartController::class, 'deleteCartItem']);
-
 Route::get('products', [ProductController::class, 'index']);
 Route::get('products/{id}', [ProductController::class, 'indexDetail']);
 Route::get('edit-products/{id}', [ProductController::class, 'edit']);
+
+Route::post('add-to-cart', [CartController::class, 'addToCart']);
 Route::get('cart', [CartController::class, 'viewcart']);
+Route::put('cart-update-quantity/{id}', [CartController::class, 'updateQuantity']);
+Route::delete('delete-cart-item/{id}', [CartController::class, 'deleteCartItem']);
+
+Route::get('payments', [PaymentController::class, 'getPayment']);
+Route::post('add-payment', [PaymentController::class, 'addPayment']);
+
 
 Route::middleware(['auth:sanctum', 'isAPIAdmin'])->group(function () {
     Route::get('/checkingAuthenticated', function() {
