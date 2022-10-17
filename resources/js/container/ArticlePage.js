@@ -6,12 +6,12 @@ import ArticleItem from "../components/ArticleItem";
 function ArticlePage() {
     const [articles, setArticles] = React.useState({})
     React.useEffect(() => {
-        axios.get(api/getArticles).then((res) => {
+        axios.get('api/getArticles').then((res) => {
             setArticles(res);
         });
     })
     return (
-        <Grid container sx={{ px: 10 }}>
+        <Grid container sx={{ px: 10, mt: 10 }}>
             <Grid item laptop={12}>
                 <Grid container spacing={5} alignItems={"center"}>
                     <Grid item laptop={4}>
@@ -58,12 +58,6 @@ function ArticlePage() {
                 </Grid>
             </Grid>
             <Grid container spacing={3} sx={{mt: 5}}>
-            <ArticleItem
-                item={1}
-                tanggal="20 Juli 2020"
-                nama="Ngga tau"
-                deskripsi="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus."
-            />
             <ArticleItem
                 item={1}
                 tanggal="20 Juli 2020"
