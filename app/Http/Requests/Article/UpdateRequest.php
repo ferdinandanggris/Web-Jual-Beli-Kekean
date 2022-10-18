@@ -28,7 +28,8 @@ class UpdateRequest extends FormRequest
         return [
             "id" => 'required',
             "title" => 'required',
-            "body" => 'required'
+            "isi" => 'required',
+            "overview" => 'max:100'
         ];
     }
 
@@ -42,7 +43,8 @@ class UpdateRequest extends FormRequest
         return [
             "id.required" => "Id harus diisi",
             "title.required" => "Title harus diisi",
-            "body.required" => "Body harus diisi",
+            "isi.required" => "Isi harus diisi",
+            "overview.max" => "Overview hanya boleh diisi kurang dari 100 karakter"
         ];
     }
 

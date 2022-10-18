@@ -14,7 +14,8 @@ class Article extends Model
     protected $fillable = [
         'title',
         'isi',
-        'featured'
+        'featured',
+        'overview'
     ];
 
     public function getAll(array $filter, int $itemPerPage, string $sort)
