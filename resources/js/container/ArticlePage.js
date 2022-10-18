@@ -9,7 +9,7 @@ function ArticlePage() {
         axios.get("/api/article/").then((res) => {
             setArticles(res);
         });
-    });
+    }, []);
     return (
         <Grid container sx={{ px: 17.5, mt: 10 }}>
             <Grid item laptop={12}>
