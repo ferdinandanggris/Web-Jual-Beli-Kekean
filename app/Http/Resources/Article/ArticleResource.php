@@ -18,6 +18,7 @@ class ArticleResource extends JsonResource
             "title" => $this->title,
             "isi" => $this->isi,
             "featured" => $this->featured,
+            "date" => $this->created_at,
         ];
     }
 }
