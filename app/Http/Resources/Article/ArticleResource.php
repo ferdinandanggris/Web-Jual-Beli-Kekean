@@ -16,7 +16,7 @@ class ArticleResource extends JsonResource
     {
         return [
             "title" => $this->title,
-            "body" => $this->body,
+            "isi" => $this->isi,
             "featured" => $this->featured,
         ];
     }
