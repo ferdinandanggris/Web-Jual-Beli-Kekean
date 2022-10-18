@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticles extends Migration
+class AddFeaturedColumnArticles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateArticles extends Migration
      */
     public function up()
     {
-        Schema::create('article', function (Blueprint $table) {
-            $table->id();
-            $table->string("title");
-            $table->text("body");
-            $table->boolean("featured")->default(false);
-            $table->timestamps();
+        Schema::table('articles', function (Blueprint $table) {
+            $table->boolean("featured")->default(false)->after('isi');
         });
     }
 
@@ -29,6 +25,8 @@ class CreateArticles extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('article');
+        Schema::table('articles', function (Blueprint $table) {
+            $table->dropColumn('featured');
+        });
     }
 }
