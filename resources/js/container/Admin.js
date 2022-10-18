@@ -129,7 +129,11 @@ export default function Admin() {
         <Container sx={{ px: 10, my: 5 }}>
             <Paper elevation={3}>
                 <Container sx={{ px: 6, pt: 6, pb: 4 }}>
-                    <AdminHeader daftar="Barang" tambahkan="Barang" adminPage="addProduct"/>
+                    <AdminHeader
+                        daftar="Barang"
+                        tambahkan="Barang"
+                        adminPage="addProduct"
+                    />
                     <Box sx={{ height: 800, width: "100%" }}>
                         {loading ? (
                             <Skeleton
