@@ -25,7 +25,9 @@ class ArticleSeeder extends Seeder
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam, id. Cum quod vero mollitia magni, iure id hic quisquam commodi quaerat vel non iusto similique, repellendus inventore. Odit ex rerum facilis impedit excepturi eos quibusdam sunt. Fuga fugit consectetur nobis consequuntur facere odit! Pariatur temporibus, autem sint harum sunt a. Explicabo facilis asperiores minus velit neque cumque rem libero unde sed, repellat temporibus laudantium est eveniet recusandae omnis earum quam reiciendis, fugit porro ullam ut quidem expedita. Unde recusandae vero consequuntur facilis beatae libero accusamus quidem numquam? Id adipisci hic quisquam excepturi placeat voluptatem quidem voluptate autem repellat. Dolorem, iste!
 
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam, id. Cum quod vero mollitia magni, iure id hic quisquam commodi quaerat vel non iusto similique, repellendus inventore. Odit ex rerum facilis impedit excepturi eos quibusdam sunt. Fuga fugit consectetur nobis consequuntur facere odit! Pariatur temporibus, autem sint harum sunt a. Explicabo facilis asperiores minus velit neque cumque rem libero unde sed, repellat temporibus laudantium est eveniet recusandae omnis earum quam reiciendis, fugit porro ullam ut quidem expedita. Unde recusandae vero consequuntur facilis beatae libero accusamus quidem numquam? Id adipisci hic quisquam excepturi placeat voluptatem quidem voluptate autem repellat. Dolorem, iste!",
-            "featured" => true
+            "featured" => true,
+            "overview" => "Lorem ipsum dolor sit, amet consectetur adipisicing elit."
+
         ]);
         foreach ($arr as $value) {
 
@@ -36,7 +38,8 @@ class ArticleSeeder extends Seeder
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam, id. Cum quod vero mollitia magni, iure id hic quisquam commodi quaerat vel non iusto similique, repellendus inventore. Odit ex rerum facilis impedit excepturi eos quibusdam sunt. Fuga fugit consectetur nobis consequuntur facere odit! Pariatur temporibus, autem sint harum sunt a. Explicabo facilis asperiores minus velit neque cumque rem libero unde sed, repellat temporibus laudantium est eveniet recusandae omnis earum quam reiciendis, fugit porro ullam ut quidem expedita. Unde recusandae vero consequuntur facilis beatae libero accusamus quidem numquam? Id adipisci hic quisquam excepturi placeat voluptatem quidem voluptate autem repellat. Dolorem, iste!
 
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam, id. Cum quod vero mollitia magni, iure id hic quisquam commodi quaerat vel non iusto similique, repellendus inventore. Odit ex rerum facilis impedit excepturi eos quibusdam sunt. Fuga fugit consectetur nobis consequuntur facere odit! Pariatur temporibus, autem sint harum sunt a. Explicabo facilis asperiores minus velit neque cumque rem libero unde sed, repellat temporibus laudantium est eveniet recusandae omnis earum quam reiciendis, fugit porro ullam ut quidem expedita. Unde recusandae vero consequuntur facilis beatae libero accusamus quidem numquam? Id adipisci hic quisquam excepturi placeat voluptatem quidem voluptate autem repellat. Dolorem, iste!",
-                "featured" => false
+                "featured" => false,
+                "overview" => "Lorem ipsum dolor sit, amet consectetur adipisicing elit."
             ]);
         }
     }

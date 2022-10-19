@@ -55,8 +55,9 @@ class ArticleController extends Controller
         }
         $payload = $request->only([
             "title",
-            "body",
-            "featured"
+            "isi",
+            "featured",
+            "overview"
         ]);
 
         try {
@@ -86,8 +87,9 @@ class ArticleController extends Controller
         $payload = $request->only([
             "id",
             "title",
-            "body",
-            "featured"
+            "isi",
+            "featured",
+            "overview"
         ]);
 
         try {
