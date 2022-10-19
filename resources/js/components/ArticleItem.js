@@ -16,7 +16,7 @@ export default function ArticleItem(props) {
                     objectFit: "cover",
                 }}
                 component="img"
-                src={`../images/catalog-${props.item}.png`}
+                src={`../articles/article-${props.image}.png`}
                 borderRadius={0.5}
             />
             <Typography
@@ -32,7 +32,10 @@ export default function ArticleItem(props) {
                 fontWeight={"bold"}
                 fontSize={{ mobile: 10.65, laptop: 16 }}
             >
-                {props.nama}
+                <LinesEllipsis
+                    text={props.nama}
+                    maxLine={2}
+                />
             </Typography>
             <Typography
                 textOverflow={"ellipsis"}

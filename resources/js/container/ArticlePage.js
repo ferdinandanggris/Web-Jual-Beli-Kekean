@@ -1,13 +1,14 @@
 import { Grid, Box, Typography } from "@mui/material";
 import axios from "axios";
+import moment from "moment";
 import React from "react";
 import ArticleItem from "../components/ArticleItem";
 
 function ArticlePage() {
-    const [articles, setArticles] = React.useState({});
+    const [articles, setArticles] = React.useState([]);
     React.useEffect(() => {
-        axios.get("/api/article/").then((res) => {
-            setArticles(res);
+        axios.get("/api/article").then((res) => {
+            setArticles(res.data.data);
         });
     }, []);
     return (
@@ -58,54 +59,7 @@ function ArticlePage() {
                 </Grid>
             </Grid>
             <Grid container spacing={3} sx={{ mt: 5 }}>
-                <ArticleItem
-                    item={1}
-                    tanggal="20 Juli 2020"
-                    nama="Ngga tau"
-                    deskripsi="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus."
-                />
-                <ArticleItem
-                    item={1}
-                    tanggal="20 Juli 2020"
-                    nama="Ngga tau"
-                    deskripsi="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus."
-                />
-                <ArticleItem
-                    item={1}
-                    tanggal="20 Juli 2020"
-                    nama="Ngga tau"
-                    deskripsi="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus."
-                />
-                <ArticleItem
-                    item={1}
-                    tanggal="20 Juli 2020"
-                    nama="Ngga tau"
-                    deskripsi="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus."
-                />
-                <ArticleItem
-                    item={1}
-                    tanggal="20 Juli 2020"
-                    nama="Ngga tau"
-                    deskripsi="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus."
-                />
-                <ArticleItem
-                    item={1}
-                    tanggal="20 Juli 2020"
-                    nama="Ngga tau"
-                    deskripsi="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus."
-                />
-                <ArticleItem
-                    item={1}
-                    tanggal="20 Juli 2020"
-                    nama="Ngga tau"
-                    deskripsi="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus."
-                />
-                <ArticleItem
-                    item={1}
-                    tanggal="20 Juli 2020"
-                    nama="Ngga tau"
-                    deskripsi="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nec porttitor lacus."
-                />
+                {articles.map((item, id) => <ArticleItem image={item.id} tanggal={moment(item.date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY')} nama={item.title} deskripsi={item.isi}/>)}
             </Grid>
         </Grid>
     );
