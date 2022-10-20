@@ -22,6 +22,7 @@ import AddPayment from './container/AddPayment';
 import ArticlePage from './container/ArticlePage';
 import ArticleDetailPage from './container/ArticleDetailPage';
 import AboutUs from './container/AboutUs';
+import Footer from './container/Footer';
 function Navs() {
     const theme = createTheme({
         palette: {
@@ -93,6 +94,7 @@ function Navs() {
                     <Route path='/admin/payment' name='Admin' element={<AdminPrivateRoute comp={AdminPayment}/>}/>
                     <Route path='/admin/addPayment' name='Admin' element={<AdminPrivateRoute comp={AddPayment}/>}/>
                 </Routes>
+                <Footer/>
             </Router>
     </ThemeProvider>
     );
