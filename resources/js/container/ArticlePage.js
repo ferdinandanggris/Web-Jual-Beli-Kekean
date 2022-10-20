@@ -1,8 +1,7 @@
-import { Grid, Box, Typography } from "@mui/material";
+import { Grid, Box, Typography, Link } from "@mui/material";
 import axios from "axios";
 import moment from "moment";
 import React from "react";
-import { Link } from "react-router-dom";
 import ArticleItem from "../components/ArticleItem";
 import Carousel from "react-material-ui-carousel/dist/components/Carousel";
 import LinesEllipsis from "react-lines-ellipsis";
@@ -20,9 +19,11 @@ function ArticlePage() {
     return (
         <Grid container sx={{ px: 17.5, mt: 10 }}>
             <Grid item laptop={12}>
-                <Carousel height={235}>
+                <Carousel swipe={false} height={235}>
                 {featured.map((item, id) => (
-                    <ArticleCarousel img={item.id} date={moment(item.date,"YYYY-MM-DD HH:mm:ss").format("DD MMMM YYYY")} title={item.title} body={item.isi} />
+                    <Link sx={{'&:hover': {color: 'inherit'}}} underline="none" color="inherit" href={`/artikel/${item.id}`}>
+                        <ArticleCarousel img={item.id} date={moment(item.date,"YYYY-MM-DD HH:mm:ss").format("DD MMMM YYYY")} title={item.title} body={item.isi} />
+                    </Link>
                 ))}
                 </Carousel>
             </Grid>
