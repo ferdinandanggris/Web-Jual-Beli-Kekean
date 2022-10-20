@@ -23,6 +23,7 @@ import ArticlePage from './container/ArticlePage';
 import ArticleDetailPage from './container/ArticleDetailPage';
 import AboutUs from './container/AboutUs';
 import Footer from './container/Footer';
+
 function Navs() {
     const theme = createTheme({
         palette: {

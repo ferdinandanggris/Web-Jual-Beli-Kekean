@@ -21,7 +21,7 @@ function AboutUs() {
                 component="img"
                 src={`../images/aboutUs.png`}
             />
-            <Typography sx={{mt: 3}} fontSize={24} align={'justify'}>
+            <Typography sx={{mt: 3}} fontSize={20} align={'justify'}>
                 Kekean Wastra Gallery is a business that carries local
                 Indonesian cultural values. This business was established in
                 Bali on December 2, 2014. Kekean Wastra Gallery focuses on

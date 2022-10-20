@@ -33,6 +33,8 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import ReceiptIcon from "@mui/icons-material/Receipt";
 import PaymentItem from "../components/PaymentItem";
 import axios from "axios";
+import { useNavigate } from "react-router";
+import swal from "sweetalert";
 
 export default function Payment() {
     const [cart, setCart] = React.useState([]);
@@ -40,6 +42,7 @@ export default function Payment() {
     const [rekening, setRekening] = React.useState([]);
     const [ewallet, setEwallet] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
+    const history = useNavigate();
     let isMounted = true;
 
     const fetchCart = async () => {
@@ -50,6 +53,10 @@ export default function Payment() {
                     setCart(res.data.cart);
                     setUser(res.data.user);
                     setLoading(false);
+                    if(res.data.cart.length == 0) {
+                        swal("Warning", 'Keranjang belanja anda kosong', "warning");
+                        history('/')
+                    }
                 }
             });
         } catch (error) {
