@@ -206,19 +206,19 @@ export default function Navbar() {
                                     Article
                                 </Typography>
                             </Button>
-                            {/* <Button color="inherit">
+                            <Button onClick={() => history("/about")} color="inherit">
                                 <Typography
                                     sx={{
                                         "&:hover": {
-                                            borderBottom: "1px solid black",
+                                            borderBottom: "1px solid white",
                                         },
                                     }}
-                                    color={"black"}
+                                    color={"white"}
                                     px={2}
                                 >
-                                    Contact Us
+                                    About Us
                                 </Typography>
-                            </Button> */}
+                            </Button>
                         </Box>
                         <IsLogin />
                     </Toolbar>

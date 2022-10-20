@@ -40,7 +40,6 @@ Route::delete('delete-cart-item/{id}', [CartController::class, 'deleteCartItem']
 Route::get('payments', [PaymentController::class, 'getPayment']);
 Route::post('add-payment', [PaymentController::class, 'addPayment']);
 
-
 Route::middleware(['auth:sanctum', 'isAPIAdmin'])->group(function () {
     Route::get('/checkingAuthenticated', function () {
         return response()->json(['message' => 'You are in', 'status' => 200], 200);

@@ -15,11 +15,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 export default function Filter() {
     const checkboxColor = {
-        color: "#FF674D",
+        color: "primary.main",
         "&.Mui-checked": {
-            color: "#FF674D",
+            color: "primary",
         },
     };
+    
 
     const width = "30px";
 

@@ -31,15 +31,18 @@ import { style, styled } from "@mui/system";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import ReceiptIcon from "@mui/icons-material/Receipt";
+import PaymentItem from "../components/PaymentItem";
 import axios from "axios";
 
 export default function Payment() {
     const [cart, setCart] = React.useState([]);
     const [user, setUser] = React.useState({});
+    const [rekening, setRekening] = React.useState([]);
+    const [ewallet, setEwallet] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
     let isMounted = true;
 
-    const fetchData = async () => {
+    const fetchCart = async () => {
         setLoading(true);
         try {
             axios.get(`api/cart`).then((res) => {
@@ -53,9 +56,24 @@ export default function Payment() {
             console.error(error.message);
         }
     };
+    const fetchPayments = async () => {
+        setLoading(true);
+        try {
+            axios.get(`api/payments`).then((res) => {
+                if (res.data.status === 200) {
+                    setRekening(res.data.payments.filter((d) => (d.jenis == '1')))
+                    setEwallet(res.data.payments.filter((d) => (d.jenis == '2')))
+                    setLoading(false);
+                }
+            });
+        } catch (error) {
+            console.error(error.message);
+        }
+    };
 
     React.useEffect(() => {
-        fetchData();
+        fetchCart();
+        fetchPayments();
         isMounted = false;
     }, []);
 
@@ -305,38 +323,7 @@ export default function Payment() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container alignItems="center" spacing={5}>
-                        <Grid item mobile={6}>
-                            <Box
-                                sx={{ width: "131px" }}
-                                component="img"
-                                src="../images/logo-bca.png"
-                            />
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Typography fontSize={20}>912949301</Typography>
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Box
-                                sx={{ width: "131px" }}
-                                component="img"
-                                src="../images/logo-mandiri.png"
-                            />
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Typography fontSize={20}>
-                            1400020055878
-                            </Typography>
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Box
-                                sx={{ width: "131px" }}
-                                component="img"
-                                src="../images/logo-bni.png"
-                            />
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Typography fontSize={20}>29348210213</Typography>
-                        </Grid>
+                        {rekening.map((item, key) => <PaymentItem key={key} img={item.nama_bank} rekening={item.nomor_rekening}/>)}
                     </Grid>
                 </AccordionDetails>
             </Accordion>
@@ -359,36 +346,7 @@ export default function Payment() {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Grid container alignItems="center" spacing={5}>
-                        <Grid item mobile={6}>
-                            <Box
-                                sx={{ width: "131px" }}
-                                component="img"
-                                src="../images/logo-ovo.png"
-                            />
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Typography fontSize={20}>085155241155</Typography>
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Box
-                                sx={{ width: "131px" }}
-                                component="img"
-                                src="../images/logo-dana.png"
-                            />
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Typography fontSize={20}>085155241155</Typography>
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Box
-                                sx={{ width: "131px" }}
-                                component="img"
-                                src="../images/logo-gopay.png"
-                            />
-                        </Grid>
-                        <Grid item mobile={6}>
-                            <Typography fontSize={20}>085155241155</Typography>
-                        </Grid>
+                    {ewallet.map((item, key) => <PaymentItem key={key} img={item.nama_bank} rekening={item.nomor_rekening}/>)}
                     </Grid>
                 </AccordionDetails>
             </Accordion>
