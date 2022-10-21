@@ -38,7 +38,10 @@ Route::put('cart-update-quantity/{id}', [CartController::class, 'updateQuantity'
 Route::delete('delete-cart-item/{id}', [CartController::class, 'deleteCartItem']);
 
 Route::get('payments', [PaymentController::class, 'getPayment']);
+Route::get('payments/{id}', [PaymentController::class, 'show']);
 Route::post('add-payment', [PaymentController::class, 'addPayment']);
+Route::put('update-payment', [PaymentController::class, 'updatePayment']);
+Route::delete('delete-payment/{id}', [PaymentController::class, 'destroy']);
 
 
 Route::middleware(['auth:sanctum', 'isAPIAdmin'])->group(function () {
@@ -61,3 +64,11 @@ Route::group(["prefix" => "article"], function () {
     Route::put("/", [ArticleController::class, "update"]);
     Route::delete("/{id}", [ArticleController::class, "destroy"]);
 });
+
+// Route::group(["prefix" => "payments"], function () {
+//     Route::get("/", [PaymentController::class, "getPayment"]);
+//     Route::get("/{id}", [PaymentController::class, "show"]);
+//     Route::post("/", [PaymentController::class, "addPayment"]);
+//     Route::put("/", [PaymentController::class, "updatePayment"]);
+//     Route::delete("/{id}", [PaymentController::class, "destroy"]);
+// });

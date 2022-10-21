@@ -3,12 +3,22 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Payment\CreateRequest;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class PaymentController extends Controller
 {
+
+    private $payment;
+
+    public function __construct()
+    {
+        $this->payment = new Payment();
+    }
+
+
     public function addPayment(Request $request)
     {
         $payments = new Payment;
@@ -41,5 +51,60 @@ class PaymentController extends Controller
             'status' => 200,
             'payments' => $payments,
         ]);
+    }
+
+    public function show($id)
+    {
+        // dd($id);
+        $payment = $this->payment->getById($id);
+        if ($payment) {
+            return response([
+                "status" => true,
+                "message" => "Data telah ditemukan.",
+                "payments" => $payment
+            ], 200);
+        }
+        return response([
+            "status" => false,
+            "message" => "Data tidak ditemukan."
+        ], 422);
+    }
+
+    public function updatePayment(CreateRequest $request)
+    {
+        if (isset($request->validator) && $request->validator->fails()) {
+            return response([
+                "status" => false,
+                "message" => $request->validator->errors(),
+            ], 422);
+        }
+        $payment = $request->only(['jenis', 'rekening', 'namaBank', 'id']);
+        try {
+            $this->payment->edit($payment, $payment['id']);
+            return response([
+                'status' => true,
+                'message' => 'Data berhasil diubah',
+            ], 422);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response([
+                'status' => false,
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $response = $this->payment->drop($id);
+
+        if (!$response) {
+            return response(["Mohon maaf data  tidak ditemukan"], 422);
+        }
+
+        return response([
+            "status" => true,
+            "message" => "Berhasil menghapus data.",
+        ], 422);
     }
 }
