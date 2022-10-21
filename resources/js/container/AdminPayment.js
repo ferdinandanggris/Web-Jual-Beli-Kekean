@@ -128,7 +128,7 @@ function AdminPayment() {
 
                         <Stack direction={"row"}>
                             <Link
-                                to={"/admin/addProduct"}
+                                to={"/admin/addPayment"}
                                 style={{ textDecoration: "none" }}
                             >
                                 <Button>

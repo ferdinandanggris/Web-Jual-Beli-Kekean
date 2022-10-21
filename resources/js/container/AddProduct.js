@@ -50,9 +50,9 @@ export default function AddProduct() {
     }
 
     const checkboxColor = {
-        color: "#FF674D",
+        color: "primary.main",
         "&.Mui-checked": {
-            color: "#FF674D",
+            color: "primary",
         },
     };
 

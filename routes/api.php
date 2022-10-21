@@ -43,7 +43,6 @@ Route::post('add-payment', [PaymentController::class, 'addPayment']);
 Route::put('update-payment', [PaymentController::class, 'updatePayment']);
 Route::delete('delete-payment/{id}', [PaymentController::class, 'destroy']);
 
-
 Route::middleware(['auth:sanctum', 'isAPIAdmin'])->group(function () {
     Route::get('/checkingAuthenticated', function () {
         return response()->json(['message' => 'You are in', 'status' => 200], 200);

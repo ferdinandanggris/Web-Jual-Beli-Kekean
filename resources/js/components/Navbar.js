@@ -188,37 +188,37 @@ export default function Navbar() {
                                         },
                                     }}
                                     color="white"
-                                    px={2}
+                                    px={1}
                                 >
                                     Shop
                                 </Typography>
                             </Button>
-                            {/* <Button color="inherit">
+                            <Button onClick={() => history("/artikel")} color="inherit">
                                 <Typography
                                     sx={{
                                         "&:hover": {
-                                            borderBottom: "1px solid black",
+                                            borderBottom: "1px solid white",
                                         },
                                     }}
-                                    color={"black"}
-                                    px={2}
+                                    color={"white"}
+                                    px={1}
                                 >
                                     Article
                                 </Typography>
                             </Button>
-                            <Button color="inherit">
+                            <Button onClick={() => history("/about")} color="inherit">
                                 <Typography
                                     sx={{
                                         "&:hover": {
-                                            borderBottom: "1px solid black",
+                                            borderBottom: "1px solid white",
                                         },
                                     }}
-                                    color={"black"}
+                                    color={"white"}
                                     px={2}
                                 >
-                                    Contact Us
+                                    About Us
                                 </Typography>
-                            </Button> */}
+                            </Button>
                         </Box>
                         <IsLogin />
                     </Toolbar>

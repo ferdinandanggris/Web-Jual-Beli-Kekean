@@ -5,10 +5,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Grid } from "@mui/material";
 import LinesEllipsis from "react-lines-ellipsis";
+import { Link } from "react-router-dom";
 
 export default function ArticleItem(props) {
     return (
         <Grid mobile={4} laptop={3} item px="0px" pt="10px">
+            <Link to={`/artikel/${props.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
             <Box
                 sx={{
                     width: "100%",
@@ -16,7 +18,7 @@ export default function ArticleItem(props) {
                     objectFit: "cover",
                 }}
                 component="img"
-                src={`../images/catalog-${props.item}.png`}
+                src={`../articles/article-${props.image}.png`}
                 borderRadius={0.5}
             />
             <Typography
@@ -32,7 +34,10 @@ export default function ArticleItem(props) {
                 fontWeight={"bold"}
                 fontSize={{ mobile: 10.65, laptop: 16 }}
             >
-                {props.nama}
+                <LinesEllipsis
+                    text={props.nama}
+                    maxLine={2}
+                />
             </Typography>
             <Typography
                 textOverflow={"ellipsis"}
@@ -44,6 +49,7 @@ export default function ArticleItem(props) {
                 />
                 
             </Typography>
+            </Link>
         </Grid>
     );
 }

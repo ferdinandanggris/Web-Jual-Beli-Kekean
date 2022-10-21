@@ -20,12 +20,15 @@ import AdminPrivateRoute from './AdminPrivateRoute';
 import Cart from './container/Cart';
 import AddPayment from './container/AddPayment';
 import ArticlePage from './container/ArticlePage';
+import ArticleDetailPage from './container/ArticleDetailPage';
+import AboutUs from './container/AboutUs';
+import Footer from './container/Footer';
 
 function Navs() {
     const theme = createTheme({
         palette: {
             primary: {
-                main: "#FF674D"
+                main: "#CC6143"
             },
             secondary: {
                 main: "#7776BC"
@@ -83,6 +86,8 @@ function Navs() {
                     <Route path='/register' element={<RegisterPage/>}/>
                     <Route path='/cart' element={<Cart/>}/>
                     <Route path='/artikel' element={<ArticlePage/>}/>
+                    <Route path='/artikel/:id' element={<ArticleDetailPage/>}/>
+                    <Route path='/about' element={<AboutUs/>}/>
                     {/* Admin Routes */}
                     <Route path='/admin' name='Admin' element={<AdminPrivateRoute comp={Admin}/>}/>
                     <Route path='/admin/addProduct' name='Admin' element={<AdminPrivateRoute comp={AddProduct}/>}/>
@@ -90,6 +95,7 @@ function Navs() {
                     <Route path='/admin/payment' name='Admin' element={<AdminPrivateRoute comp={AdminPayment}/>}/>
                     <Route path='/admin/addPayment' name='Admin' element={<AdminPrivateRoute comp={AddPayment}/>}/>
                 </Routes>
+                <Footer/>
             </Router>
     </ThemeProvider>
     );
