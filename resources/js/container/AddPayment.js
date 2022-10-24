@@ -19,7 +19,7 @@ export default function AddPayment() {
     const [input, setInput] = React.useState({
         namaBank: "",
         rekening: "",
-        jenis: null,
+        jenis: undefined,
     });
     const history = useNavigate();
     const useStyles = makeStyles((theme) => ({
@@ -134,37 +134,59 @@ export default function AddPayment() {
                                         value={input.namaBank}
                                         onChange={handleInput}
                                     >
-                                        {input.jenis == 1 ? (
-                                            [
-                                                <MenuItem value={"BCA"}>
-                                                    BCA
-                                                </MenuItem>,
-                                                <MenuItem value={"Mandiri"}>
-                                                    Mandiri
-                                                </MenuItem>,
-                                                <MenuItem value={"Cimb_Niaga"}>
-                                                    Cimb Niaga
-                                                </MenuItem>,
-                                                <MenuItem value={"BNI"}>
-                                                    BNI
-                                                </MenuItem>,
-                                            ]
-                                        ) : (
-                                            [
-                                                <MenuItem value={"OVO"}>
-                                                    OVO
-                                                </MenuItem>,
-                                                <MenuItem value={"Dana"}>
-                                                    Dana
-                                                </MenuItem>,
-                                                <MenuItem value={"Gopay"}>
-                                                    Gopay
-                                                </MenuItem>,
-                                                <MenuItem value={"Shopeepay"}>
-                                                    Shopeepay
-                                                </MenuItem>,
-                                            ]
-                                        )}
+                                        {input.jenis == 1
+                                            ? [
+                                                  <MenuItem
+                                                      key={1}
+                                                      value={"BCA"}
+                                                  >
+                                                      BCA
+                                                  </MenuItem>,
+                                                  <MenuItem
+                                                      key={2}
+                                                      value={"Mandiri"}
+                                                  >
+                                                      Mandiri
+                                                  </MenuItem>,
+                                                  <MenuItem
+                                                      key={3}
+                                                      value={"Cimb_Niaga"}
+                                                  >
+                                                      Cimb Niaga
+                                                  </MenuItem>,
+                                                  <MenuItem
+                                                      key={4}
+                                                      value={"BNI"}
+                                                  >
+                                                      BNI
+                                                  </MenuItem>,
+                                              ]
+                                            : [
+                                                  <MenuItem
+                                                      key={1}
+                                                      value={"OVO"}
+                                                  >
+                                                      OVO
+                                                  </MenuItem>,
+                                                  <MenuItem
+                                                      key={2}
+                                                      value={"Dana"}
+                                                  >
+                                                      Dana
+                                                  </MenuItem>,
+                                                  <MenuItem
+                                                      key={3}
+                                                      value={"Gopay"}
+                                                  >
+                                                      Gopay
+                                                  </MenuItem>,
+                                                  <MenuItem
+                                                      key={4}
+                                                      value={"Shopeepay"}
+                                                  >
+                                                      Shopeepay
+                                                  </MenuItem>,
+                                              ]}
                                     </Select>
                                 </FormControl>
                             </Grid>

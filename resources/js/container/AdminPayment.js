@@ -18,6 +18,7 @@ function AdminPayment() {
     const [rowsEwallet, setRowsEwallet] = React.useState([]);
     const [rowsRekening, setRowsRekening] = React.useState([]);
     const [loading, setLoading] = React.useState(false);
+    const history = useNavigate();
     const columns = [
         { field: "id", headerName: "ID", width: 70 },
         { field: "nama_bank", headerName: "Nama Bank", width: 430 },
@@ -43,7 +44,7 @@ function AdminPayment() {
                                     c.field
                                 ))
                         );
-                    history(`/admin/editProduct/${thisRow.id}`);
+                    history(`/admin/editPayment/${thisRow.id}`);
                 };
                 const handleDelete = async (e) => {
                     e.stopPropagation(); // don't select this row after clicking
@@ -61,7 +62,7 @@ function AdminPayment() {
                                 ))
                         );
                     const res = await axios.delete(
-                        `/api/delete-products/${thisRow.id}`
+                        `/api/delete-payment/${thisRow.id}`
                     );
                     if (res.data.status === 200) {
                         swal("Success", res.data.message);

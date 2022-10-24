@@ -19,8 +19,6 @@ import { useNavigate, useParams } from "react-router";
 
 export default function EditProduct(props) {
     const [imageDropzone, setImageDropzone] = React.useState(false);
-    const [modelDropzone, setModelDropzone] = React.useState(false);
-    const [data, setData] = React.useState([]);
     const [input, setInput] = React.useState({
         product_name: "",
         price: "",
