@@ -58,7 +58,7 @@ function Navs() {
         },
     
     })    
-    axios.defaults.baseURL = "https://kekean.pusproset.site/";
+    axios.defaults.baseURL = "https://kekean.id/";
     // axios.defaults.baseURL = "http://localhost:8000";
     axios.defaults.headers.post['Accept'] = "application/json";
     axios.defaults.headers.post['Content-Type'] = "application/json";
