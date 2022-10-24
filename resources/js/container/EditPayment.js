@@ -20,7 +20,7 @@ function EditPayment() {
     const history = useNavigate();
     const idPayment = useParams().id;
     const [input, setInput] = React.useState({
-        id: idPayment,
+        id: Number(idPayment),
         namaBank: "",
         rekening: "",
         jenis: "",
@@ -86,6 +86,7 @@ function EditPayment() {
         axios.get(`/api/payments/${idPayment}`).then((res) => {
             console.log(res);
             setInput({
+                ...input,
                 jenis: Number(res.data.payments.jenis),
                 namaBank: res.data.payments.nama_bank,
                 rekening: res.data.payments.nomor_rekening,
