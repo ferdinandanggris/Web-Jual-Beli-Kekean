@@ -84,7 +84,7 @@ class PaymentController extends Controller
             return response([
                 'status' => true,
                 'message' => 'Data berhasil diubah',
-            ], 422);
+            ], 200);
         } catch (\Throwable $th) {
             //throw $th;
             return response([
