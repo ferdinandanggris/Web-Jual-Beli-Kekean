@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Payment\CreateRequest;
+use App\Http\Requests\Payment\UpdateRequest;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -27,12 +28,14 @@ class PaymentController extends Controller
             'rekening' => 'required',
             'namaBank' => 'required'
         ]);
-
+        
         if ($validator->fails()) {
             return response()->json([
                 'validation_errors' => $validator->errors(),
             ]);
         } else {
+            // dd($request->toArray());
+            // $payments->create($request->toArray());
             $payments->jenis = $request->input('jenis');
             $payments->nama_bank = $request->input('namaBank');
             $payments->nomor_rekening = $request->input('rekening');
@@ -70,7 +73,7 @@ class PaymentController extends Controller
         ], 422);
     }
 
-    public function updatePayment(CreateRequest $request)
+    public function updatePayment(UpdateRequest $request)
     {
         if (isset($request->validator) && $request->validator->fails()) {
             return response([
@@ -79,8 +82,14 @@ class PaymentController extends Controller
             ], 422);
         }
         $payment = $request->only(['jenis', 'rekening', 'namaBank', 'id']);
+        $req = [
+            'jenis' => $payment['jenis'],
+            'nomor_rekening' => $payment['rekening'],
+            'nama_bank' => $payment['namaBank'],
+            'id' => $payment['id']
+        ];
         try {
-            $this->payment->edit($payment, $payment['id']);
+            $this->payment->edit($req, $req['id']);
             return response([
                 'status' => true,
                 'message' => 'Data berhasil diubah',

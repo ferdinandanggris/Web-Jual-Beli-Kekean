@@ -27,7 +27,7 @@ class CreateRequest extends FormRequest
     {
         return [
             'jenis' => 'required',
-            'rekening' => 'required',
+            'nomor_rekening' => 'required',
             'namaBank' => 'required',
             'id'    => 'required'
         ];
@@ -37,7 +37,7 @@ class CreateRequest extends FormRequest
     {
         return [
             'jenis.required' => 'Jenis harus diisi',
-            'rekening.required' => 'Rekening harus diisi',
+            'nomor_rekening.required' => 'Nomor Rekening harus diisi',
             'namaBank.required' => 'Nama Bank harus diisi',
         ];
     }

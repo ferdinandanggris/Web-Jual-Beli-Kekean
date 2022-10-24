@@ -37,7 +37,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'jenis.required' => 'Jenis harus diisi',
-            'rekening.required' => 'Rekening harus diisi',
+            'rekening.required' => 'Nomor Rekening harus diisi',
             'namaBank.required' => 'Nama Bank harus diisi',
         ];
     }
