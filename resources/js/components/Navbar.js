@@ -73,7 +73,7 @@ export default function Navbar() {
                         {/* <Button color="inherit">
                             <Typography href="#" className="bx bx-user" />
                         </Button> */}
-                        <IconButton
+                        <Button
                             onClick={logoutSubmit}
                             color="inherit"
                             sx={{ color: "white" }}
@@ -81,7 +81,7 @@ export default function Navbar() {
                             <Typography>
                                 Logout
                             </Typography>
-                        </IconButton>
+                        </Button>
                     </Box>
                 </>
             );
