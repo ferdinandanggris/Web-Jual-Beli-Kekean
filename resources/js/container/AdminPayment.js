@@ -64,7 +64,7 @@ function AdminPayment() {
                     const res = await axios.delete(
                         `/api/delete-payment/${thisRow.id}`
                     );
-                    if (res.data.status === 200) {
+                    if (res.data.status === true) {
                         swal("Success", res.data.message);
                         location.reload();
                     }

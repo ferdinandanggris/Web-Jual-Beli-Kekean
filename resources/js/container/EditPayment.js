@@ -69,7 +69,7 @@ function EditPayment() {
 
         axios.get("/sanctum/csrf-cookie").then((response) => {
             axios.put("api/update-payment", input).then((res) => {
-                if (res.data.status === 200) {
+                if (res.data.status === true) {
                     console.log(res.data.message);
                     history("/admin/payment");
                 } else {
