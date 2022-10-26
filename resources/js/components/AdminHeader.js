@@ -10,6 +10,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import InventoryIcon from "@mui/icons-material/Inventory";
 import PaymentIcon from "@mui/icons-material/Payment";
+import NewspaperIcon from '@mui/icons-material/Newspaper';
 import { Link } from 'react-router-dom';
 
 function AdminHeader(props) {
@@ -70,6 +71,22 @@ function AdminHeader(props) {
                                 fullWidth
                             >
                                 Edit Payment
+                            </Button>
+                        </Link>
+                        <Link
+                            to={"/admin/artikel"}
+                            style={{
+                                textDecoration: "none",
+                                color: "black",
+                            }}
+                        >
+                            <Button
+                                color="inherit"
+                                startIcon={<NewspaperIcon />}
+                                sx={{ py: 2, borderRadius: 0 }}
+                                fullWidth
+                            >
+                                Edit Artikel
                             </Button>
                         </Link>
                     </Box>

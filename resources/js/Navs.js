@@ -24,6 +24,9 @@ import ArticleDetailPage from './container/ArticleDetailPage';
 import AboutUs from './container/AboutUs';
 import Footer from './container/Footer';
 import EditPayment from './container/EditPayment';
+import AdminArtikel from './container/AdminArtikel';
+import AddArtikel from './container/AddArtikel';
+import EditArtikel from './container/EditArtikel';
 
 function Navs() {
     const theme = createTheme({
@@ -93,9 +96,12 @@ function Navs() {
                     <Route path='/admin' name='Admin' element={<AdminPrivateRoute comp={Admin}/>}/>
                     <Route path='/admin/addProduct' name='Admin' element={<AdminPrivateRoute comp={AddProduct}/>}/>
                     <Route path='/admin/editProduct/:id' name='Admin' element={<AdminPrivateRoute comp={EditProduct}/>}/>
-                    <Route path='/admin/editPayment/:id' name='Admin' element={<AdminPrivateRoute comp={EditPayment}/>}/>
                     <Route path='/admin/payment' name='Admin' element={<AdminPrivateRoute comp={AdminPayment}/>}/>
                     <Route path='/admin/addPayment' name='Admin' element={<AdminPrivateRoute comp={AddPayment}/>}/>
+                    <Route path='/admin/editPayment/:id' name='Admin' element={<AdminPrivateRoute comp={EditPayment}/>}/>
+                    <Route path='/admin/artikel' name='Admin' element={<AdminPrivateRoute comp={AdminArtikel}/>}/>
+                    <Route path='/admin/addArtikel' name='Admin' element={<AdminPrivateRoute comp={AddArtikel}/>}/>
+                    <Route path='/admin/editArtikel' name='Admin' element={<AdminPrivateRoute comp={EditArtikel}/>}/>
                 </Routes>
                 <Footer/>
             </Router>
