@@ -17,6 +17,8 @@ import { useNavigate } from "react-router";
 import { Editor } from "react-draft-wysiwyg";
 import { EditorState, convertToRaw } from "draft-js";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import ReactQuill from "react-quill";
+import 'react-quill/dist/quill.snow.css';
 
 export default function AddArtikel() {
     const [input, setInput] = React.useState({
@@ -24,6 +26,7 @@ export default function AddArtikel() {
         isi: "",
         featured: false,
     });
+    const [article, setArticle] = React.useState('')
     const [editorState, setEditorState] = React.useState(() => EditorState.createEmpty())
     const history = useNavigate();
     const useStyles = makeStyles((theme) => ({
@@ -46,6 +49,10 @@ export default function AddArtikel() {
 
     const saveArtikel = async (e) => {
         e.preventDefault();
+        setInput({
+            ...input,
+            isi: article
+        })
 
         axios.get("/sanctum/csrf-cookie").then((response) => {
             axios.post("api/article", input).then((res) => {
@@ -84,15 +91,6 @@ export default function AddArtikel() {
         }
     };
 
-    const RichTextChange = (editorValue) => {
-        setEditorState(editorValue)
-        setInput({
-            ...input,
-            isi: JSON.stringify(convertToRaw(editorState.getCurrentContent()))
-        })
-        console.log(input)
-    }
-
     const classes = useStyles();
     return (
         <Container sx={{ my: 5 }}>
@@ -124,7 +122,7 @@ export default function AddArtikel() {
                                 </FormControl>
                             </Grid>
                             <Grid item mobile={12}>
-                                <Editor editorState={editorState} onEditorStateChange={RichTextChange}/>
+                                <ReactQuill theme='snow' value={article} onChange={setArticle}/>
                             </Grid>
 
                             <Grid sx={{ mt: 5 }} item mobile={12}>

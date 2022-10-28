@@ -36,11 +36,13 @@
     "@mui/x-data-grid": "^5.17.3",
     "@react-pdf/renderer": "^3.0.0",
     "draft-js": "^0.11.7",
+    "html-react-parser": "^3.0.4",
     "moment": "^2.29.4",
     "mui-file-dropzone": "^4.0.2",
     "react-draft-wysiwyg": "^1.15.0",
     "react-lines-ellipsis": "^0.15.3",
     "react-material-ui-carousel": "^3.4.2",
+    "react-quill": "^2.0.0",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
     "sweetalert": "^2.1.2"
