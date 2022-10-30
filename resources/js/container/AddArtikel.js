@@ -14,9 +14,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router";
-import { Editor } from "react-draft-wysiwyg";
-import { EditorState, convertToRaw } from "draft-js";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import ReactQuill from "react-quill";
 import 'react-quill/dist/quill.snow.css';
 
@@ -27,7 +24,6 @@ export default function AddArtikel() {
         featured: false,
     });
     const [article, setArticle] = React.useState('')
-    const [editorState, setEditorState] = React.useState(() => EditorState.createEmpty())
     const history = useNavigate();
     const useStyles = makeStyles((theme) => ({
         root: {

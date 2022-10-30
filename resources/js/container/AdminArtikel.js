@@ -15,9 +15,7 @@ import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import { useNavigate } from "react-router";
 import AdminHeader from "../components/AdminHeader";
-import MenuIcon from "@mui/icons-material/Menu";
-import InventoryIcon from "@mui/icons-material/Inventory";
-import PaymentIcon from "@mui/icons-material/Payment";
+import striptags from 'striptags'
 
 export default function AdminArtikel() {
     const history = useNavigate();
@@ -73,7 +71,7 @@ export default function AdminArtikel() {
                                 ))
                         );
                     const res = await axios.delete(
-                        `/api/delete-articles/${thisRow.id}`
+                        `/api/article/${thisRow.id}`
                     );
                     if (res.data.status === 200) {
                         swal("Success", res.data.message);
@@ -102,8 +100,11 @@ export default function AdminArtikel() {
             setLoading(true);
             try {
                 axios.get("/api/article").then((res) => {
-                    console.log(res.data.data)
-                    setRows(res.data.data)
+                    let data = res.data.data
+                    data.map((d) => {
+                        d.isi = striptags(d.isi)
+                    })
+                    setRows(data)
                 });
             } catch (error) {
                 console.error(error.message);

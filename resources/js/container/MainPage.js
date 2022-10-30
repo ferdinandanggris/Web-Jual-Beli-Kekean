@@ -4,7 +4,7 @@ import CatalogItem from "../components/CatalogItem";
 import ArticleItem from "../components/ArticleItem";
 import { Link } from "react-router-dom";
 import CatalogCollection from "./CatalogCollection";
-import ArticleCollection from "./ArticleCollection";
+import ArticleCollection from "./Artikel/ArticleCollection";
 
 export default function MainPage(props) {
     // const product = JSON.parse(JSON.stringify(require('../product.json')))

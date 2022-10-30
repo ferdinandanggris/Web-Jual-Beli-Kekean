@@ -39,12 +39,12 @@
     "html-react-parser": "^3.0.4",
     "moment": "^2.29.4",
     "mui-file-dropzone": "^4.0.2",
-    "react-draft-wysiwyg": "^1.15.0",
     "react-lines-ellipsis": "^0.15.3",
     "react-material-ui-carousel": "^3.4.2",
     "react-quill": "^2.0.0",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
+    "striptags": "^3.2.0",
     "sweetalert": "^2.1.2"
   },
   "name": "pt.kekean",

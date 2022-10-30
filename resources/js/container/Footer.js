@@ -44,19 +44,19 @@ function Footer() {
                     >
                         Layanan
                     </Typography>
-                    <Link underline="none" href={"#"}>
+                    <Link underline="none" href={"/cara-pengembalian"}>
                         <Typography color="#C7C7C7" fontSize={12}>
                             Cara Pengembalian
                         </Typography>
                     </Link>
 
-                    <Link underline="none" href={"#"}>
+                    <Link underline="none" href={"/bantuan"}>
                         <Typography color="#C7C7C7" fontSize={12}>
                             Bantuan
                         </Typography>
                     </Link>
 
-                    <Link underline="none" href={"#"}>
+                    <Link underline="none" href={"konfirmasi-transfer"}>
                         <Typography color="#C7C7C7" fontSize={12}>
                             Konfirmasi Transfer
                         </Typography>

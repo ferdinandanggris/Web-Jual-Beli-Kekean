@@ -19,14 +19,18 @@ import NavAdmin from './components/NavAdmin';
 import AdminPrivateRoute from './AdminPrivateRoute';
 import Cart from './container/Cart';
 import AddPayment from './container/AddPayment';
-import ArticlePage from './container/ArticlePage';
-import ArticleDetailPage from './container/ArticleDetailPage';
+import ArticlePage from './container/Artikel/ArticlePage';
+import ArticleDetailPage from './container/Artikel/ArticleDetailPage';
 import AboutUs from './container/AboutUs';
 import Footer from './container/Footer';
 import EditPayment from './container/EditPayment';
 import AdminArtikel from './container/AdminArtikel';
 import AddArtikel from './container/AddArtikel';
 import EditArtikel from './container/EditArtikel';
+import ScrollToTop from './ScrollToTop';
+import CaraPengembalian from './container/Bantuan/CaraPengembalian';
+import Bantuan from './container/Bantuan/Bantuan';
+import KonfirmasiTransfer from './container/Bantuan/KonfirmasiTransfer';
 
 function Navs() {
     const theme = createTheme({
@@ -80,6 +84,7 @@ function Navs() {
         <CssBaseline/>
             <Router basename={'/'}>
                 <Navbar/>
+                <ScrollToTop/>
                 <Routes>
                     <Route path="/" exact element={<Main/>}/>
                     <Route path="/catalog" element={<CatalogPage/>}/>
@@ -92,6 +97,9 @@ function Navs() {
                     <Route path='/artikel' element={<ArticlePage/>}/>
                     <Route path='/artikel/:id' element={<ArticleDetailPage/>}/>
                     <Route path='/about' element={<AboutUs/>}/>
+                    <Route path='/cara-pengembalian' element={<CaraPengembalian/>}/>
+                    <Route path='/bantuan' element={<Bantuan/>}/>
+                    <Route path='/konfirmasi-transfer' element={<KonfirmasiTransfer/>}/>
                     {/* Admin Routes */}
                     <Route path='/admin' name='Admin' element={<AdminPrivateRoute comp={Admin}/>}/>
                     <Route path='/admin/addProduct' name='Admin' element={<AdminPrivateRoute comp={AddProduct}/>}/>
