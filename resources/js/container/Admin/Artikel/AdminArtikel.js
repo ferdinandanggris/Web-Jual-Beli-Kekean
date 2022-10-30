@@ -14,7 +14,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import { useNavigate } from "react-router";
-import AdminHeader from "../components/AdminHeader";
+import AdminHeader from "../../../components/AdminHeader";
 import striptags from 'striptags'
 
 export default function AdminArtikel() {

@@ -8,7 +8,7 @@ import {
     useNavigate,
 } from "react-router-dom";
 import swal from "sweetalert";
-import Admin from "./container/Admin";
+import Admin from "./container/Admin/Admin";
 
 export default function AdminPrivateRoute(props) {
     const [authenticated, setAuthenticated] = React.useState(false);
