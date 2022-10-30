@@ -39,6 +39,7 @@
     "html-react-parser": "^3.0.4",
     "moment": "^2.29.4",
     "mui-file-dropzone": "^4.0.2",
+    "react-lazy-load": "^4.0.1",
     "react-lines-ellipsis": "^0.15.3",
     "react-material-ui-carousel": "^3.4.2",
     "react-quill": "^2.0.0",

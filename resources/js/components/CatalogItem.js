@@ -2,6 +2,7 @@ import React from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import LazyLoad from "react-lazy-load";
 import { Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 
@@ -22,19 +23,21 @@ export default function CatalogItem(props) {
                     component={Link}
                     to={`/products/${props.id}`}
                 >
-                    <Box
-                        sx={{
-                            width: "100%",
-                            maxHeight: "132px",
-                            objectFit: "cover",
-                            borderRadius: "12px 12px 0 0",
-                            objectPosition: "0 -50px",
-                            border: "1px solid #D9D9D9",
-                            borderBottom: "none",
-                        }}
-                        component="img"
-                        src={`../catalog/${props.image}`}
-                    />
+                    <LazyLoad>
+                        <Box
+                            sx={{
+                                width: "100%",
+                                maxHeight: "132px",
+                                objectFit: "cover",
+                                borderRadius: "12px 12px 0 0",
+                                objectPosition: "0 -50px",
+                                border: "1px solid #D9D9D9",
+                                borderBottom: "none",
+                            }}
+                            component="img"
+                            src={`../catalog/${props.image}`}
+                        />
+                    </LazyLoad>
                     <Container
                         sx={{
                             border: "1px solid #D9D9D9",
