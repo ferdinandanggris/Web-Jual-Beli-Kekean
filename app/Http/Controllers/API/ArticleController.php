@@ -5,10 +5,11 @@ namespace App\Http\Controllers\API;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Article\CreateRequest;
 use App\Http\Requests\Article\UpdateRequest;
-use App\Http\Resources\Article\ArticleCollection;
 use App\Http\Resources\Article\ArticleResource;
+use App\Http\Resources\Article\ArticleCollection;
 
 class ArticleController extends Controller
 {
@@ -57,10 +58,25 @@ class ArticleController extends Controller
             "title",
             "isi",
             "featured",
-            "overview"
+            "overview",
+            "image"
         ]);
 
         try {
+            if (!empty($payload["image"])) {
+                $folderPath = "/article/";
+
+                $image_parts = explode(";base64,", $payload["image"]);
+                $image_type_aux = explode("image/", $image_parts[0]);
+                $image_type = $image_type_aux[1];
+                $image_base64 = base64_decode($image_parts[1]);
+                $file = $folderPath . uniqid() . "." . $image_type;
+                Storage::disk('public')->put($folderPath . $file, $image_base64);
+                $payload["image"] = $folderPath .$file ;
+                // $payload["gambar"] = $file;
+                // $payload["path_gambar"] = $folderPath;
+            }
+
             $result = $this->articleModel->store($payload);
             return response([
                 "status" => true,
@@ -93,6 +109,23 @@ class ArticleController extends Controller
         ]);
 
         try {
+
+            $dataLama = $this->articleModel->getById($payload['id']);
+            if ($dataLama["image"] && file_exists(public_path('storage/' . $dataLama["image"]))) {
+                // dd($dataLama["ttd_path"] . $dataLama["ttd"]);
+                // Storage::delete('storage/' . $dataLama["ttd_path"] . $dataLama["ttd"]);
+                unlink(public_path('storage/' . $dataLama["image"]));
+            }
+            $folderPath = "/article/";
+
+            $image_parts = explode(";base64,", $payload["image"]);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_type = $image_type_aux[1];
+            $image_base64 = base64_decode($image_parts[1]);
+            $file = $folderPath . uniqid() . "." . $image_type;
+            Storage::disk('public')->put($folderPath . $file, $image_base64);
+            $payload["image"] = $folderPath .$file ;
+
             $this->articleModel->edit($payload, $payload["id"]);
             return response([
                 "status" => true,

@@ -15,7 +15,8 @@ class Article extends Model
         'title',
         'isi',
         'featured',
-        'overview'
+        'overview',
+        'image'
     ];
 
     public function getAll(array $filter, int $itemPerPage, string $sort)
