@@ -28,7 +28,8 @@ class CreateRequest extends FormRequest
         return [
             "title" => 'required',
             "isi" => 'required',
-            "overview" => 'max:100'
+            "overview" => 'max:100',
+            "image"=> 'required'
         ];
     }
 
@@ -42,7 +43,8 @@ class CreateRequest extends FormRequest
         return [
             "title.required" => "Title harus diisi",
             "isi.required" => "Isi harus diisi",
-            "overview.max" => "Overview hanya boleh diisi kurang dari 100 karakter"
+            "overview.max" => "Overview hanya boleh diisi kurang dari 100 karakter",
+            "image.required" => "Image harus diisi",
         ];
     }
 
