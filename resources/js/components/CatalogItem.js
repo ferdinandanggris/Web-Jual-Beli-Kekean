@@ -23,7 +23,7 @@ export default function CatalogItem(props) {
                     component={Link}
                     to={`/products/${props.id}`}
                 >
-                    <LazyLoad>
+                    <LazyLoad height={'132px'}>
                         <Box
                             sx={{
                                 width: "100%",

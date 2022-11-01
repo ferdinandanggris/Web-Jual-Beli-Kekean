@@ -1,5 +1,12 @@
 import React from "react";
-import { Container, Grid, Typography, Box, Skeleton } from "@mui/material/";
+import {
+    Container,
+    Grid,
+    Typography,
+    Box,
+    Skeleton,
+    Pagination,
+} from "@mui/material/";
 import CatalogItem from "../components/CatalogItem";
 import ArticleItem from "../components/ArticleItem";
 import { Link } from "react-router-dom";
@@ -8,32 +15,42 @@ import ArticleCollection from "./Artikel/ArticleCollection";
 
 export default function MainPage(props) {
     // const product = JSON.parse(JSON.stringify(require('../product.json')))
-    
 
     const [loading, setLoading] = React.useState(true);
     const [product, setProduct] = React.useState([]);
+    const [currentPage, setCurrentPage] = React.useState(1);
+    const [postsPerPage, setPostsPerPage] = React.useState(12);
     let isMounted = true;
 
     React.useEffect(() => {
         const fetchData = async () => {
-            setLoading(true)
+            setLoading(true);
             try {
                 axios.get(`api/products`).then((res) => {
                     if (res.data.status === 200) {
                         setProduct(res.data.products);
-                        setLoading(false)
+                        setLoading(false);
                     }
                 });
-            } catch(error) {
-                console.error(error.message)
+            } catch (error) {
+                console.error(error.message);
             }
-        }
-        fetchData()
+        };
+        fetchData();
         isMounted = false;
-    }, []) 
-    if(!loading) {
+    }, []);
+
+    const indexOfLastPost = currentPage * postsPerPage;
+    const indexOfFirstPost = indexOfLastPost - postsPerPage;
+    const currentProducts = product.slice(indexOfFirstPost, indexOfLastPost);
+
+    const changeCurrentPage = (event, value) => {
+        window.scrollTo(0, 0)
+        setCurrentPage(value);
+    };
+    if (!loading) {
         var showProductList = "";
-        showProductList = product.map((item, id) => 
+        showProductList = currentProducts.map((item, id) => (
             <CatalogItem
                 key={id}
                 id={item.id}
@@ -44,8 +61,8 @@ export default function MainPage(props) {
                 have3d={item.has_3d}
                 model={item.model_3d}
             />
-        );
-        console.log(product)
+        ));
+        console.log(product);
     }
 
     return (
@@ -97,41 +114,128 @@ export default function MainPage(props) {
                 container
                 spacing={2}
             >
-                {loading?(
+                {loading ? (
                     <>
-                    <Grid item>
-                        <Skeleton variant="rounded" width={250} height={130}/>
-                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
-                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
-                    </Grid>
-                    <Grid item>
-                        <Skeleton variant="rounded" width={250} height={130}/>
-                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
-                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
-                    </Grid>
-                    <Grid item>
-                        <Skeleton variant="rounded" width={250} height={130}/>
-                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
-                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
-                    </Grid>
-                    <Grid item>
-                        <Skeleton variant="rounded" width={250} height={130}/>
-                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
-                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
-                    </Grid>
-                    <Grid item>
-                        <Skeleton variant="rounded" width={250} height={130}/>
-                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
-                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
-                    </Grid>
-                    <Grid item>
-                        <Skeleton variant="rounded" width={250} height={130}/>
-                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
-                        <Skeleton variant="text" width={250} sx={{ fontSize: '1rem' }} />
-                    </Grid>
-                    
+                        <Grid item>
+                            <Skeleton
+                                variant="rounded"
+                                width={250}
+                                height={130}
+                            />
+                            <Skeleton
+                                variant="text"
+                                width={250}
+                                sx={{ fontSize: "1rem" }}
+                            />
+                            <Skeleton
+                                variant="text"
+                                width={250}
+                                sx={{ fontSize: "1rem" }}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Skeleton
+                                variant="rounded"
+                                width={250}
+                                height={130}
+                            />
+                            <Skeleton
+                                variant="text"
+                                width={250}
+                                sx={{ fontSize: "1rem" }}
+                            />
+                            <Skeleton
+                                variant="text"
+                                width={250}
+                                sx={{ fontSize: "1rem" }}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Skeleton
+                                variant="rounded"
+                                width={250}
+                                height={130}
+                            />
+                            <Skeleton
+                                variant="text"
+                                width={250}
+                                sx={{ fontSize: "1rem" }}
+                            />
+                            <Skeleton
+                                variant="text"
+                                width={250}
+                                sx={{ fontSize: "1rem" }}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Skeleton
+                                variant="rounded"
+                                width={250}
+                                height={130}
+                            />
+                            <Skeleton
+                                variant="text"
+                                width={250}
+                                sx={{ fontSize: "1rem" }}
+                            />
+                            <Skeleton
+                                variant="text"
+                                width={250}
+                                sx={{ fontSize: "1rem" }}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Skeleton
+                                variant="rounded"
+                                width={250}
+                                height={130}
+                            />
+                            <Skeleton
+                                variant="text"
+                                width={250}
+                                sx={{ fontSize: "1rem" }}
+                            />
+                            <Skeleton
+                                variant="text"
+                                width={250}
+                                sx={{ fontSize: "1rem" }}
+                            />
+                        </Grid>
+                        <Grid item>
+                            <Skeleton
+                                variant="rounded"
+                                width={250}
+                                height={130}
+                            />
+                            <Skeleton
+                                variant="text"
+                                width={250}
+                                sx={{ fontSize: "1rem" }}
+                            />
+                            <Skeleton
+                                variant="text"
+                                width={250}
+                                sx={{ fontSize: "1rem" }}
+                            />
+                        </Grid>
                     </>
-                ):showProductList}
+                ) : (
+                    showProductList
+                )}
+                <Grid item laptop={12}>
+                    <Box
+                        display="flex"
+                        justifyContent="center"
+                        alignItems="center"
+                    >
+                        <Pagination
+                            sx={{ width: "fit-content" }}
+                            page={currentPage}
+                            onChange={changeCurrentPage}
+                            count={Math.ceil(product.length / postsPerPage)}
+                        />
+                    </Box>
+                </Grid>
             </Grid>
         </Box>
     );
