@@ -20,6 +20,7 @@ class ArticleResource extends JsonResource
             "isi" => $this->isi,
             "featured" => $this->featured,
             "overview" => $this->overview,
+            "image" => $this->image,
             "date" => $this->created_at,
         ];
     }

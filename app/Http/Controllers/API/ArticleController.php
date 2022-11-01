@@ -105,7 +105,8 @@ class ArticleController extends Controller
             "title",
             "isi",
             "featured",
-            "overview"
+            "overview",
+            "image"
         ]);
 
         try {
