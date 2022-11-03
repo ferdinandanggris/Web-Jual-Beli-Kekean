@@ -79,7 +79,7 @@ class ArticleController extends Controller
 
             $result = $this->articleModel->store($payload);
             return response([
-                "status" => true,
+                "status" => 200,
                 "message" => "Berhasil menambahkan data.",
                 "data" => $result,
             ], 200);
