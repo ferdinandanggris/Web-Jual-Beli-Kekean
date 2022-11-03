@@ -71,8 +71,8 @@ class ArticleController extends Controller
                 $image_type = $image_type_aux[1];
                 $image_base64 = base64_decode($image_parts[1]);
                 $file = $folderPath . uniqid() . "." . $image_type;
-                Storage::disk('public')->put($folderPath . $file, $image_base64);
-                $payload["image"] = $folderPath .$file ;
+                Storage::disk('public')->put($file, $image_base64);
+                $payload["image"] = $file ;
                 // $payload["gambar"] = $file;
                 // $payload["path_gambar"] = $folderPath;
             }
@@ -124,8 +124,8 @@ class ArticleController extends Controller
             $image_type = $image_type_aux[1];
             $image_base64 = base64_decode($image_parts[1]);
             $file = $folderPath . uniqid() . "." . $image_type;
-            Storage::disk('public')->put($folderPath . $file, $image_base64);
-            $payload["image"] = $folderPath .$file ;
+            Storage::disk('public')->put($file, $image_base64);
+            $payload["image"] = $file ;
 
             $this->articleModel->edit($payload, $payload["id"]);
             return response([
