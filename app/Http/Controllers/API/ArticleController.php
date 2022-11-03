@@ -64,7 +64,7 @@ class ArticleController extends Controller
 
         try {
             if (!empty($payload["image"])) {
-                $folderPath = "../articles/";
+                $folderPath = "/articles/";
 
                 $image_parts = explode(";base64,", $payload["image"]);
                 $image_type_aux = explode("image/", $image_parts[0]);
