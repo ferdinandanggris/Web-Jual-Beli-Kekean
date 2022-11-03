@@ -64,7 +64,7 @@ class ArticleController extends Controller
 
         try {
             if (!empty($payload["image"])) {
-                $folderPath = "/article/";
+                $folderPath = "/articles/";
 
                 $image_parts = explode(";base64,", $payload["image"]);
                 $image_type_aux = explode("image/", $image_parts[0]);
@@ -117,7 +117,7 @@ class ArticleController extends Controller
                 // Storage::delete('storage/' . $dataLama["ttd_path"] . $dataLama["ttd"]);
                 unlink(public_path('storage/' . $dataLama["image"]));
             }
-            $folderPath = "/article/";
+            $folderPath = "/articles/";
 
             $image_parts = explode(";base64,", $payload["image"]);
             $image_type_aux = explode("image/", $image_parts[0]);
