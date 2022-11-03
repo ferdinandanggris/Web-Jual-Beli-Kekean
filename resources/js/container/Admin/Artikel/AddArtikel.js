@@ -15,15 +15,19 @@ import {
 import React from "react";
 import { useNavigate } from "react-router";
 import ReactQuill from "react-quill";
-import 'react-quill/dist/quill.snow.css';
+import "react-quill/dist/quill.snow.css";
+import { DropzoneDialog } from "mui-file-dropzone";
 
 export default function AddArtikel() {
     const [input, setInput] = React.useState({
         title: "",
         isi: "",
+        image: new FormData(),
         featured: false,
     });
-    const [article, setArticle] = React.useState('')
+    const [article, setArticle] = React.useState("");
+    const [imageDropzone, setImageDropzone] = React.useState(false);
+
     const history = useNavigate();
     const useStyles = makeStyles((theme) => ({
         root: {
@@ -43,13 +47,40 @@ export default function AddArtikel() {
         });
     };
 
-    const saveArtikel = async (e) => {
-        e.preventDefault();
+    const changeArticle = (value) => {
         setInput({
             ...input,
-            isi: article
-        })
+            isi: value,
+        });
+    };
 
+    function handleOpenImage() {
+        setImageDropzone(true);
+    }
+
+    function handleCloseImage() {
+        setImageDropzone(false);
+    }
+
+    const handleImage = (files) => {
+        const file = files[0];
+        convertImgToBase64(file);
+    };
+
+    const convertImgToBase64 = (file) => {
+        let reader = new FileReader();
+        let base64 = "";
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            setInput({
+                ...input,
+                image: reader.result
+            })
+        };
+    };
+
+    const saveArtikel = async (e) => {
+        e.preventDefault();
         axios.get("/sanctum/csrf-cookie").then((response) => {
             axios.post("api/article", input).then((res) => {
                 if (res.data.status === 200) {
@@ -63,28 +94,6 @@ export default function AddArtikel() {
                 }
             });
         });
-    };
-
-    const pilihanBank = () => {
-        if (input.jenis == 1) {
-            return (
-                <>
-                    <MenuItem value={"BCA"}>BCA</MenuItem>
-                    <MenuItem value={"Mandiri"}>Mandiri</MenuItem>
-                    <MenuItem value={"Cimb_Niaga"}>Cimb Niaga</MenuItem>
-                    <MenuItem value={"BNI"}>BNI</MenuItem>
-                </>
-            );
-        } else if (input.jenis == 2) {
-            return (
-                <>
-                    <MenuItem value={"OVO"}>OVO</MenuItem>
-                    <MenuItem value={"Dana"}>Dana</MenuItem>
-                    <MenuItem value={"Gopay"}>Gopay</MenuItem>
-                    <MenuItem value={"Shopeepay"}>Shopeepay</MenuItem>
-                </>
-            );
-        }
     };
 
     const classes = useStyles();
@@ -118,7 +127,29 @@ export default function AddArtikel() {
                                 </FormControl>
                             </Grid>
                             <Grid item mobile={12}>
-                                <ReactQuill theme='snow' value={article} onChange={setArticle}/>
+                                <Button
+                                    variant="contained"
+                                    onClick={handleOpenImage}
+                                >
+                                    <Typography color={"white"}>
+                                        Add Image
+                                    </Typography>
+                                </Button>
+                                <DropzoneDialog
+                                    maxFileSize={50000000}
+                                    acceptedFiles={["image/*"]}
+                                    open={imageDropzone}
+                                    filesLimit={1}
+                                    onClose={handleCloseImage}
+                                    onSave={handleImage}
+                                />
+                            </Grid>
+                            <Grid item mobile={12}>
+                                <ReactQuill
+                                    theme="snow"
+                                    value={input.isi}
+                                    onChange={changeArticle}
+                                />
                             </Grid>
 
                             <Grid sx={{ mt: 5 }} item mobile={12}>

@@ -167,7 +167,7 @@ export default function AddProduct() {
 
     const classes = useStyles();
     return (
-        <Container sx={{my: 5}}>
+        <Container sx={{ my: 5 }}>
             <Paper elevation={5}>
                 <Container sx={{ py: 5 }}>
                     <form onSubmit={saveProduct} encType="multipart/form-data">
@@ -189,7 +189,9 @@ export default function AddProduct() {
                                         }}
                                     />
                                 </FormControl>
-                                <FormHelperText sx={{ color: 'red', fontSize: 10 }}>
+                                <FormHelperText
+                                    sx={{ color: "red", fontSize: 10 }}
+                                >
                                     {input.error_list.product_name}
                                 </FormHelperText>
                             </Grid>
@@ -210,7 +212,9 @@ export default function AddProduct() {
                                             input: classes.input,
                                         }}
                                     />
-                                    <FormHelperText sx={{ color: 'red', fontSize: 10 }}>
+                                    <FormHelperText
+                                        sx={{ color: "red", fontSize: 10 }}
+                                    >
                                         {input.error_list.price}
                                     </FormHelperText>
                                 </FormControl>
@@ -232,7 +236,9 @@ export default function AddProduct() {
                                             input: classes.input,
                                         }}
                                     />
-                                    <FormHelperText sx={{ color: 'red', fontSize: 10 }}>
+                                    <FormHelperText
+                                        sx={{ color: "red", fontSize: 10 }}
+                                    >
                                         {input.error_list.description}
                                     </FormHelperText>
                                 </FormControl>
@@ -364,7 +370,9 @@ export default function AddProduct() {
                                 ) : (
                                     ""
                                 )}
-                                <Typography color={'red'}>{input.error_list.image_detail1}</Typography>
+                                <Typography color={"red"}>
+                                    {input.error_list.image_detail1}
+                                </Typography>
                             </Grid>
 
                             {/* <Grid item mobile={12}>
@@ -409,7 +417,7 @@ export default function AddProduct() {
                             </Grid>
 
                             <Grid sx={{ mt: 5 }} item mobile={12}>
-                                <Button onClick={() => history('/admin')}>
+                                <Button onClick={() => history("/admin")}>
                                     <Typography color={"main"}>
                                         Cancel
                                     </Typography>
