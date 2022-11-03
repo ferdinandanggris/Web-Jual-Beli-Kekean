@@ -53,7 +53,7 @@ export default function AdminArtikel() {
                                     c.field
                                 ))
                         );
-                    history(`/admin/editProduct/${thisRow.id}`);
+                    history(`/admin/editArtikel/${thisRow.id}`);
                 };
                 const handleDelete = async (e) => {
                     e.stopPropagation(); // don't select this row after clicking

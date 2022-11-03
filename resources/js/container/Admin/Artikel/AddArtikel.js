@@ -85,7 +85,7 @@ export default function AddArtikel() {
             axios.post("api/article", input).then((res) => {
                 if (res.data.status === 200) {
                     console.log(res.data.message);
-                    history("/admin/payment");
+                    history("/admin/artikel");
                 } else {
                     setInput({
                         ...input,

@@ -109,7 +109,7 @@ function Navs() {
                     <Route path='/admin/editPayment/:id' name='Admin' element={<AdminPrivateRoute comp={EditPayment}/>}/>
                     <Route path='/admin/artikel' name='Admin' element={<AdminPrivateRoute comp={AdminArtikel}/>}/>
                     <Route path='/admin/addArtikel' name='Admin' element={<AdminPrivateRoute comp={AddArtikel}/>}/>
-                    <Route path='/admin/editArtikel' name='Admin' element={<AdminPrivateRoute comp={EditArtikel}/>}/>
+                    <Route path='/admin/editArtikel/:id' name='Admin' element={<AdminPrivateRoute comp={EditArtikel}/>}/>
                 </Routes>
                 <Footer/>
             </Router>

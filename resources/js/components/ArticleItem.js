@@ -18,7 +18,7 @@ export default function ArticleItem(props) {
                     objectFit: "cover",
                 }}
                 component="img"
-                src={`../articles/article-${props.image}.png`}
+                src={`../articles/${props.image}.png`}
                 borderRadius={0.5}
             />
             <Typography
