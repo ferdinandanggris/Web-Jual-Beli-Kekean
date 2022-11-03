@@ -25,7 +25,7 @@ class ArticleController extends Controller
         $filter = json_decode($request["filter"] ?? "", true) ?? [];
         $articles = $this->articleModel->getAll($filter, $request->itemPerPage ?? 20, $request->sort ?? "");
         return response([
-            "status" => true,
+            "status" => 200,
             "data" => (new ArticleCollection($articles))
         ], 200);
     }
@@ -35,7 +35,7 @@ class ArticleController extends Controller
         $article = $this->articleModel->getById($id);
         if ($article) {
             return response([
-                "status" => true,
+                "status" => 200,
                 "message" => "Data telah ditemukan.",
                 "data" => (new ArticleResource($article)),
             ], 200);
@@ -129,7 +129,7 @@ class ArticleController extends Controller
 
             $this->articleModel->edit($payload, $payload["id"]);
             return response([
-                "status" => true,
+                "status" => 200,
                 "message" => "Berhasil mengubah data.",
             ], 200);
         } catch (\Throwable $th) {
@@ -150,7 +150,7 @@ class ArticleController extends Controller
         }
 
         return response([
-            "status" => true,
+            "status" => 200,
             "message" => "Berhasil menghapus data.",
         ], 200);
     }
