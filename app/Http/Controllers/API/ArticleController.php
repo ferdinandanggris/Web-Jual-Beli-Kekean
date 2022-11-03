@@ -152,6 +152,6 @@ class ArticleController extends Controller
         return response([
             "status" => true,
             "message" => "Berhasil menghapus data.",
-        ], 422);
+        ], 200);
     }
 }
