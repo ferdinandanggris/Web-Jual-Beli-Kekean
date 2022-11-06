@@ -22,25 +22,10 @@ export default function Cart() {
     let isMounted = true;
     const { productId } = useParams();
     const history = useNavigate();
-    // const catalog = JSON.parse(JSON.stringify(require("../catalog.json")));
     if (!localStorage.getItem("auth_token")) {
         history.push("/");
         swal("Warning", "Login untuk melihat keranjang belanja", "error");
     }
-
-    // const fetchData = async () => {
-    //     setLoading(true);
-    //     try {
-    //         axios.get(`api/cart`).then((res) => {
-    //             if (res.data.status === 200) {
-    //                 setCart(res.data.cart);
-    //                 setLoading(false);
-    //             }
-    //         });
-    //     } catch (error) {
-    //         console.error(error.message);
-    //     }
-    // };
     const fetchData = async () => {
         const res = await axios.get(`api/cart`);
         return res.data.cart;
@@ -53,7 +38,7 @@ export default function Cart() {
         data: cart,
     } = useQuery({
         queryKey: ["cartItem"],
-        queryFn : fetchData
+        queryFn: fetchData,
     });
 
     var totalPrice;
@@ -63,46 +48,21 @@ export default function Cart() {
         }, 0);
     }
 
-    // const handleQtyChange = (event, cart_id) => {
-    //     let promise = new Promise(function (Resolved) {
-    //         setCart((cart) =>
-    //             cart.map((item) =>
-    //                 cart_id === item.id
-    //                     ? {
-    //                         ...item,
-    //                         qty:
-    //                             event.target.value < 1
-    //                                 ? 1
-    //                                 : event.target.value,
-    //                     }
-    //                     : item
-    //             )
-    //         );
-    //         Resolved();
-    //     });
-    //     promise.then(() => {
-    //         const newQty = {newQty: event.target.value}
-    //         updateCartQuantity(cart_id, newQty)
-    //     });
-    // };
+    const handleQtyChange = (event, cart_id) => {
+        const newQty = { newQty: event.target.value };
+        updateMutation.mutate({ cart_id: cart_id, newQty: newQty });
+    };
 
-    // const updateCartQuantity = (cart_id, newQty) => {
-    //     axios.put(`api/cart-update-quantity/${cart_id}`, newQty)
-    // };
+    const updateCartQuantity = async ({ cart_id, newQty }) => {
+        return await axios.put(`api/cart-update-quantity/${cart_id}`, newQty);
+    };
 
-    // const deleteCartItem = (e, cart_id) => {
-    //     e.preventDefault()
+    const updateMutation = useMutation(updateCartQuantity, {
+        onSuccess: () => {
+            queryClient.invalidateQueries("cartItem");
+        },
+    });
 
-    //     axios.delete(`api/delete-cart-item/${cart_id}`).then(res => {
-    //         if(res.data.status === 200) {
-    //             swal("Success", res.data.message, "success")
-    //             fetchData()
-    //         } else if(res.data.status === 404) {
-    //             swal("Error", res.data.message, "error")
-    //         }
-    //     })
-
-    // }
     const deleteCartItem = async ({ e, cart_id }) => {
         return await axios.delete(`api/delete-cart-item/${cart_id}`);
     };
@@ -144,7 +104,7 @@ export default function Cart() {
                                     value={item.size}
                                     img={item.product.image_detail1}
                                     onQtyChange={(event) =>
-                                        deleteMutation(event, item.id)
+                                        handleQtyChange(event, item.id)
                                     }
                                     onDeleteClick={(e) =>
                                         deleteMutation.mutate({
