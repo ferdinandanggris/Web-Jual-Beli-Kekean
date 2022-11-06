@@ -13,12 +13,12 @@ import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import { useNavigate } from "react-router";
 import AdminHeader from "../../../components/AdminHeader";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { LoadingButton } from "@mui/lab";
 
 function AdminPayment() {
-    const [rowsEwallet, setRowsEwallet] = React.useState([]);
-    const [rowsRekening, setRowsRekening] = React.useState([]);
-    const [loading, setLoading] = React.useState(false);
     const history = useNavigate();
+    const queryClient = useQueryClient();
     const columns = [
         { field: "id", headerName: "ID", width: 70 },
         { field: "nama_bank", headerName: "Nama Bank", width: 430 },
@@ -47,7 +47,6 @@ function AdminPayment() {
                     history(`/admin/editPayment/${thisRow.id}`);
                 };
                 const handleDelete = async (e) => {
-                    e.stopPropagation(); // don't select this row after clicking
 
                     const api = params.api;
                     const thisRow = {};
@@ -61,33 +60,52 @@ function AdminPayment() {
                                     c.field
                                 ))
                         );
-                    const res = await axios.delete(
+                    return await axios.delete(
                         `/api/delete-payment/${thisRow.id}`
                     );
-                    if (res.data.status === true) {
-                        swal("Success", res.data.message);
-                        location.reload();
-                    }
                 };
+
+                const deleteMutationPayment = useMutation(handleDelete, {
+                    onSuccess: () => {
+                        queryClient.invalidateQueries("article");
+                    },
+                });
 
                 return (
                     <>
                         <Button onClick={handleEdit}>Edit</Button>
-                        <Button onClick={handleDelete}>Delete</Button>
+                        <LoadingButton
+                            loading={
+                                deleteMutationPayment.isLoading ? true : false
+                            }
+                            onClick={() => deleteMutationPayment.mutate()}
+                        >
+                            Delete
+                        </LoadingButton>
                     </>
                 );
             },
         },
     ];
 
-    React.useEffect(() => {
-        axios.get('/api/payments')
-        .then((res) => {
-            setRowsRekening(res.data.payments.filter((d) => (d.jenis == '1')))
-            setRowsEwallet(res.data.payments.filter((d) => (d.jenis == '2')))
-        })
-    }, [])
+    const fetchRekening = async () => {
+        const res = await axios.get("/api/payments");
+        return res.data.payments.filter((d) => d.jenis == "1");
+    };
+    const fetchEwallet = async () => {
+        const res = await axios.get("/api/payments");
+        return res.data.payments.filter((d) => d.jenis == "2");
+    };
 
+    const rekening = useQuery({
+        queryKey: ["rekening"],
+        queryFn: fetchRekening,
+    });
+
+    const ewalet = useQuery({
+        queryKey: ["ewalet"],
+        queryFn: fetchEwallet,
+    });
 
     return (
         <Container sx={{ px: 10, my: 5 }}>
@@ -99,7 +117,7 @@ function AdminPayment() {
                         adminPage="addPayment"
                     />
                     <Box sx={{ height: 400, width: "100%" }}>
-                        {loading ? (
+                        {rekening.isLoading ? (
                             <Skeleton
                                 variant="rectangular"
                                 width={"100%"}
@@ -109,7 +127,7 @@ function AdminPayment() {
                             />
                         ) : (
                             <DataGrid
-                                rows={rowsRekening}
+                                rows={rekening.data}
                                 columns={columns}
                                 pageSize={15}
                                 rowsPerPageOptions={[5]}
@@ -141,7 +159,7 @@ function AdminPayment() {
                         </Stack>
                     </Box>
                     <Box sx={{ height: 400, width: "100%" }}>
-                        {loading ? (
+                        {ewalet.isLoading ? (
                             <Skeleton
                                 variant="rectangular"
                                 width={"100%"}
@@ -151,7 +169,7 @@ function AdminPayment() {
                             />
                         ) : (
                             <DataGrid
-                                rows={rowsEwallet}
+                                rows={ewalet.data}
                                 columns={columns}
                                 pageSize={15}
                                 rowsPerPageOptions={[5]}

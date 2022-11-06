@@ -10,15 +10,15 @@ import { Link } from "react-router-dom";
 export default function ArticleItem(props) {
     return (
         <Grid mobile={4} laptop={3} item px="0px" pt="10px">
-            <Link to={`/artikel/${props.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
+            <Link to={`/artikel${props.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
             <Box
                 sx={{
                     width: "100%",
-                    height: { mobile: "auto", laptop: "50%" },
+                    height: { mobile: "auto", laptop: '10em' },
                     objectFit: "cover",
                 }}
                 component="img"
-                src={`../articles/${props.image}.png`}
+                src={`../${props.image}`}
                 borderRadius={0.5}
             />
             <Typography

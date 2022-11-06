@@ -1,27 +1,17 @@
-import {
-    Box,
-    Button,
-    Container,
-    IconButton,
-    Paper,
-    Stack,
-    SwipeableDrawer,
-    Typography,
-} from "@mui/material";
+import { Box, Button, Container, Paper } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import { useNavigate } from "react-router";
 import AdminHeader from "../../../components/AdminHeader";
-import striptags from 'striptags'
+import striptags from "striptags";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { LoadingButton } from "@mui/lab";
 
 export default function AdminArtikel() {
     const history = useNavigate();
-    const [rows, setRows] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
-    const [open, setOpen] = React.useState(false);
+    const queryClient = useQueryClient();
     const columns = [
         { field: "id", headerName: "ID", width: 70 },
         { field: "title", headerName: "Judul Artikel", width: 200 },
@@ -56,8 +46,6 @@ export default function AdminArtikel() {
                     history(`/admin/editArtikel/${thisRow.id}`);
                 };
                 const handleDelete = async (e) => {
-                    e.stopPropagation(); // don't select this row after clicking
-
                     const api = params.api;
                     const thisRow = {};
 
@@ -70,49 +58,49 @@ export default function AdminArtikel() {
                                     c.field
                                 ))
                         );
-                    const res = await axios.delete(
-                        `/api/article/${thisRow.id}`
-                    );
-                    if (res.data.status === 200) {
-                        swal("Success", res.data.message);
-                        location.reload();
-                    }
+                    return await axios.delete(`/api/article/${thisRow.id}`);
                 };
+
+                const deleteMutationArticle = useMutation(handleDelete, {
+                    onSuccess: () => {
+                        queryClient.invalidateQueries("article");
+                    },
+                });
 
                 return (
                     <>
                         <Button onClick={handleEdit}>Edit</Button>
-                        <Button onClick={handleDelete}>Delete</Button>
+                        <LoadingButton
+                            loading={
+                                deleteMutationArticle.isLoading ? true : false
+                            }
+                            onClick={() => deleteMutationArticle.mutate()}
+                        >
+                            Delete
+                        </LoadingButton>
                     </>
                 );
             },
         },
     ];
 
-    const toggleDrawer = () => {
-        setOpen(!open);
+    const fetchData = async () => {
+        const res = await axios.get("/api/article");
+        res.data.data.map((d) => {
+            d.isi = striptags(d.isi);
+        });
+        return res.data.data;
     };
 
-    let articles = [];
-
-    React.useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                axios.get("/api/article").then((res) => {
-                    let data = res.data.data
-                    data.map((d) => {
-                        d.isi = striptags(d.isi)
-                    })
-                    setRows(data)
-                });
-            } catch (error) {
-                console.error(error.message);
-            }
-            setLoading(false);
-        };
-        fetchData();
-    }, []);
+    const {
+        isLoading,
+        isError,
+        error,
+        data: rows,
+    } = useQuery({
+        queryKey: ["articles"],
+        queryFn: fetchData,
+    });
 
     return (
         <Container sx={{ px: 10, my: 5 }}>
@@ -124,7 +112,7 @@ export default function AdminArtikel() {
                         adminPage="addArtikel"
                     />
                     <Box sx={{ height: 800, width: "100%" }}>
-                        {loading ? (
+                        {isLoading ? (
                             <Skeleton
                                 variant="rectangular"
                                 width={"100%"}

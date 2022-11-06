@@ -7,7 +7,12 @@ import {
     IconButton,
     AppBar,
     Toolbar,
-    Icon,
+    Menu,
+    MenuItem,
+    ListItemIcon,
+    Divider,
+    Avatar,
+    Badge,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
@@ -15,24 +20,17 @@ import axios from "axios";
 import swal from "sweetalert";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import LogoutIcon from "@mui/icons-material/Logout";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import PersonAdd from "@mui/icons-material/PersonAdd";
+import Settings from "@mui/icons-material/Settings";
+import Logout from "@mui/icons-material/Logout";
+import { useQuery } from "@tanstack/react-query";
 
 export default function Navbar() {
-
-    const StyledButton = (props) => (
-        <Button
-            sx={{
-                "& .MuiTouchRipple-child": { backgroundColor: "blue" },
-                "&& .MuiTouchRipple-rippleVisible": {
-                    backgroundColor: "blue",
-                },
-            }}
-        >
-            {props.children}
-        </Button>
-    );
+    const [drawerState, setDrawerState] = React.useState(false);
     const history = useNavigate();
+
     const logoutSubmit = (e) => {
         e.preventDefault();
 
@@ -47,50 +45,126 @@ export default function Navbar() {
             }
         });
     };
+
+    const fetchCart = async () => {
+        const res = await axios.get('api/cart')
+        return res.data.cart.length
+    }
+
+    const {
+        isLoading, 
+        isError, 
+        error, 
+        data: cartLength
+    } = useQuery({
+        queryKey: ['cartLength'],
+        queryFn: fetchCart
+    })
     function IsLogin() {
+        const [anchorEl, setAnchorEl] = React.useState(null);
+        const open = Boolean(anchorEl);
+
+        const openMenu = (e) => setAnchorEl(e.currentTarget);
+        const closeMenu = () => setAnchorEl(null);
         if (localStorage.getItem("auth_token")) {
             return (
                 <>
-                    <Box
-                        className="nav-right"
-                        sx={{ display: { mobile: "none", laptop: "block" } }}
-                    >
+                    <Box sx={{ display: { mobile: "none", laptop: "block" } }}>
                         {/* <Button color="inherit">
                             <Typography href="#" className="bx bx-search" />
                         </Button> */}
                         {/* <Button color="inherit">
                             <Typography href="#" className="bx bx-heart" />
                         </Button> */}
-                        <Button
+                        <IconButton
+                            size="small"
                             onClick={() => history("/cart")}
                             color="inherit"
-                            sx={{ color: "white", }}
+                            sx={{ color: "white", mr: 2 }}
                         >
-                            <Typography>
-                                Cart
-                            </Typography>
-                        </Button>
+                            <Badge badgeContent={isLoading ? 0 : cartLength} color="primary">
+                            <ShoppingCartIcon fontSize="small" />
+                            </Badge>
+                        </IconButton>
                         {/* <Button color="inherit">
                             <Typography href="#" className="bx bx-user" />
                         </Button> */}
-                        <Button
-                            onClick={logoutSubmit}
+                        <IconButton
+                            onClick={openMenu}
                             color="inherit"
                             sx={{ color: "white" }}
+                            size="small"
+                            aria-controls={open ? "account-menu" : undefined}
+                            aria-haspopup="true"
+                            aria-expanded={open ? "true" : undefined}
                         >
-                            <Typography>
+                            <AccountCircleIcon fontSize="small" />
+                        </IconButton>
+                        <Menu
+                            anchorEl={anchorEl}
+                            id="account-menu"
+                            open={open}
+                            onClose={closeMenu}
+                            onClick={closeMenu}
+                            PaperProps={{
+                                elevation: 0,
+                                sx: {
+                                    overflow: "visible",
+                                    filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                                    mt: 1.5,
+                                    "& .MuiAvatar-root": {
+                                        width: 32,
+                                        height: 32,
+                                        ml: -0.5,
+                                        mr: 1,
+                                    },
+                                    "&:before": {
+                                        content: '""',
+                                        display: "block",
+                                        position: "absolute",
+                                        top: 0,
+                                        right: 14,
+                                        width: 10,
+                                        height: 10,
+                                        bgcolor: "background.paper",
+                                        transform:
+                                            "translateY(-50%) rotate(45deg)",
+                                        zIndex: 0,
+                                    },
+                                },
+                            }}
+                            transformOrigin={{
+                                horizontal: "right",
+                                vertical: "top",
+                            }}
+                            anchorOrigin={{
+                                horizontal: "right",
+                                vertical: "bottom",
+                            }}
+                        >
+                            <MenuItem>
+                                <Avatar /> My account
+                            </MenuItem>
+                            <Divider />
+                            <MenuItem>
+                                <ListItemIcon>
+                                    <Settings fontSize="small" />
+                                </ListItemIcon>
+                                Settings
+                            </MenuItem>
+                            <MenuItem onClick={logoutSubmit}>
+                                <ListItemIcon>
+                                    <Logout fontSize="small" />
+                                </ListItemIcon>
                                 Logout
-                            </Typography>
-                        </Button>
+                            </MenuItem>
+                        </Menu>
                     </Box>
                 </>
             );
         } else {
             return (
-                <Box
-                    className="nav-right"
-                    sx={{ display: { mobile: "none", laptop: "block" } }}
-                >
+                <Box sx={{ display: { mobile: "none", laptop: "block" } }}>
                     <Typography
                         sx={{
                             "&:hover": {
@@ -114,7 +188,6 @@ export default function Navbar() {
             );
         }
     }
-    const [drawerState, setDrawerState] = React.useState(false);
     return (
         <>
             <SwipeableDrawer
@@ -193,7 +266,10 @@ export default function Navbar() {
                                     Shop
                                 </Typography>
                             </Button>
-                            <Button onClick={() => history("/artikel")} color="inherit">
+                            <Button
+                                onClick={() => history("/artikel")}
+                                color="inherit"
+                            >
                                 <Typography
                                     sx={{
                                         "&:hover": {
@@ -206,7 +282,10 @@ export default function Navbar() {
                                     Article
                                 </Typography>
                             </Button>
-                            <Button onClick={() => history("/about")} color="inherit">
+                            <Button
+                                onClick={() => history("/about")}
+                                color="inherit"
+                            >
                                 <Typography
                                     sx={{
                                         "&:hover": {

@@ -17,6 +17,8 @@ function ArticlePage() {
             setFeatured(res.data.data.filter((d) => (Number(d.featured) == 1)))
         });
     }, []);
+
+    console.log(articles)
     return (
         <Grid container sx={{ px: 17.5, mt: 10 }}>
             <Grid item laptop={12}>
@@ -33,7 +35,7 @@ function ArticlePage() {
                     <ArticleItem
                     key={id}
                         id={item.id}
-                        image={item.id}
+                        image={item.image}
                         tanggal={moment(
                             item.date,
                             "YYYY-MM-DD HH:mm:ss"

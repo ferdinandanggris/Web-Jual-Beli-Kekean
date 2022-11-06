@@ -1,29 +1,17 @@
-import {
-    Box,
-    Button,
-    Container,
-    IconButton,
-    Paper,
-    Stack,
-    SwipeableDrawer,
-    Typography,
-} from "@mui/material";
+import { Box, Button, Container, Paper } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
 import Skeleton from "@mui/material/Skeleton";
 import { useNavigate } from "react-router";
 import AdminHeader from "../../components/AdminHeader";
-import MenuIcon from "@mui/icons-material/Menu";
-import InventoryIcon from "@mui/icons-material/Inventory";
-import PaymentIcon from "@mui/icons-material/Payment";
+import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { LoadingButton } from "@mui/lab";
 
 export default function Admin() {
     const history = useNavigate();
-    const [rows, setRows] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
     const [open, setOpen] = React.useState(false);
+    const queryClient = useQueryClient();
     const columns = [
         { field: "id", headerName: "ID", width: 70 },
         { field: "product_name", headerName: "Nama Barang", width: 130 },
@@ -67,7 +55,6 @@ export default function Admin() {
                     history(`/admin/editProduct/${thisRow.id}`);
                 };
                 const handleDelete = async (e) => {
-                    e.stopPropagation(); // don't select this row after clicking
 
                     const api = params.api;
                     const thisRow = {};
@@ -81,49 +68,48 @@ export default function Admin() {
                                     c.field
                                 ))
                         );
-                    const res = await axios.delete(
+                    return await axios.delete(
                         `/api/delete-products/${thisRow.id}`
                     );
-                    if (res.data.status === 200) {
-                        swal("Success", res.data.message);
-                        location.reload();
-                    }
                 };
+
+                const deleteMutationProduct = useMutation(handleDelete, {
+                    onSuccess: () => {
+                        queryClient.invalidateQueries("article");
+                    },
+                });
 
                 return (
                     <>
                         <Button onClick={handleEdit}>Edit</Button>
-                        <Button onClick={handleDelete}>Delete</Button>
+                        <LoadingButton
+                            loading={
+                                deleteMutationProduct.isLoading ? true : false
+                            }
+                            onClick={() => deleteMutationProduct.mutate()}
+                        >
+                            Delete
+                        </LoadingButton>
                     </>
                 );
             },
         },
     ];
 
-    const toggleDrawer = () => {
-        setOpen(!open);
+    const fetchData = async () => {
+        const res = await axios.get("/api/products");
+        return res.data.products;
     };
 
-    let products = [];
-
-    React.useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            try {
-                const { data: res } = await axios.get("/api/products");
-                products = res.products;
-                products.has_3d = res.products.map(
-                    (u) => (u.has_3d = !!Number(u.has_3d))
-                );
-                setRows(products);
-                console.log(products);
-            } catch (error) {
-                console.error(error.message);
-            }
-            setLoading(false);
-        };
-        fetchData();
-    }, []);
+    const {
+        isLoading,
+        isError,
+        error,
+        data: rows,
+    } = useQuery({
+        queryKey: ["products"],
+        queryFn: fetchData,
+    });
 
     return (
         <Container sx={{ px: 10, my: 5 }}>
@@ -135,7 +121,7 @@ export default function Admin() {
                         adminPage="addProduct"
                     />
                     <Box sx={{ height: 800, width: "100%" }}>
-                        {loading ? (
+                        {isLoading ? (
                             <Skeleton
                                 variant="rectangular"
                                 width={"100%"}
