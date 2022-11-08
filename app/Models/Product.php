@@ -32,4 +32,18 @@ class Product extends Model
     public function size() {
         return $this->belongsTo(Size::class);
     }
+
+    public function getById(int $id)
+    {
+        return $this->find($id);
+    }
+    public function drop(int $id)
+    {
+        return $this->find($id)->delete();
+    }
+
+    public function edit(array $payload, int $id)
+    {
+        return $this->findOrFail($id)->update($payload);
+    }
 }
