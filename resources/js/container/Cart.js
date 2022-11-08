@@ -1,4 +1,11 @@
-import { Box, Button, Grid, Skeleton, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    Divider,
+    Grid,
+    Skeleton,
+    Typography,
+} from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import React from "react";
@@ -49,7 +56,7 @@ export default function Cart() {
     }
 
     const handleQtyChange = (event, cart_id) => {
-        const newQty = { newQty: event.target.value };
+        const newQty = { newQty: event.target.value == '' ? '0' : event.target.value };
         updateMutation.mutate({ cart_id: cart_id, newQty: newQty });
     };
 
@@ -82,11 +89,13 @@ export default function Cart() {
                         borderRadius: 1,
                         pt: 1,
                         pb: 2,
+                        px: 2,
                     }}
                 >
                     <Typography mx={2} fontWeight="500" fontSize={24}>
                         Keranjang Belanja
                     </Typography>
+                    <hr />
                     {isLoading ? (
                         <>
                             <CartItemLoading />
@@ -97,6 +106,7 @@ export default function Cart() {
                         cart.map((item) => {
                             return (
                                 <CartItem
+                                    sx={{ mb: 2 }}
                                     key={item.product_id}
                                     name={item.product.product_name}
                                     price={item.product.price}

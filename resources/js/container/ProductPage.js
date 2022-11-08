@@ -18,8 +18,10 @@ import ButtonKeranjang from "../components/ButtonKeranjang";
 import axios from "axios";
 import swal from "sweetalert";
 import Carousel from "react-material-ui-carousel";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function ProductPage(props) {
+    const queryClient = useQueryClient();
     const [size, setSize] = React.useState("");
     const [sizes, setSizes] = React.useState({
         S: "0",
@@ -38,18 +40,14 @@ export default function ProductPage(props) {
     React.useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
-            try {
-                axios.get(`api/products/${productId}`).then((res) => {
-                    if (res.data.status === 200) {
-                        setProduct(res.data.products);
-                        setSizes(res.data.size);
-                        console.log(res.data.size);
-                        setLoading(false);
-                    }
-                });
-            } catch (error) {
-                console.error(error.message);
-            }
+            axios.get(`api/products/${productId}`).then((res) => {
+                if (res.data.status === 200) {
+                    setProduct(res.data.products);
+                    setSizes(res.data.size);
+                    console.log(res.data.size);
+                    setLoading(false);
+                }
+            });
         };
         fetchData();
         isMounted = false;
@@ -73,6 +71,7 @@ export default function ProductPage(props) {
         };
         axios.post("/api/add-to-cart", data).then((res) => {
             if (res.data.status === 201) {
+                queryClient.invalidateQueries("cartLength");
                 swal("Success", res.data.message, "success");
             } else if (res.data.status === 409) {
                 swal("Warning", res.data.message, "warning");
@@ -111,7 +110,7 @@ export default function ProductPage(props) {
                             {!!Number(currentProduct[0].has_3d) ? (
                                 <div className="sketchfab-embed-wrapper">
                                     <iframe
-                                        title="Horse free download"
+                                        title={currentProduct[0].product_name}
                                         frameBorder="0"
                                         allowFullScreen
                                         mozAllowFullscreen="true"
@@ -132,7 +131,7 @@ export default function ProductPage(props) {
                                         sx={{
                                             height: "400px",
                                             objectFit: "fill",
-                                            ml: '30%'
+                                            ml: "30%",
                                         }}
                                         component="img"
                                         src={`../catalog/${currentProduct[0].image_detail1}`}
@@ -141,7 +140,7 @@ export default function ProductPage(props) {
                                         sx={{
                                             height: "400px",
                                             objectFit: "fill",
-                                            ml: '30%'
+                                            ml: "30%",
                                         }}
                                         component="img"
                                         src={`../catalog/${currentProduct[0].image_detail2}`}
@@ -150,7 +149,7 @@ export default function ProductPage(props) {
                                         sx={{
                                             height: "400px",
                                             objectFit: "fill",
-                                            ml: '30%'
+                                            ml: "30%",
                                         }}
                                         component="img"
                                         src={`../catalog/${currentProduct[0].image_detail3}`}
@@ -258,7 +257,7 @@ export default function ProductPage(props) {
                                     </MenuItem>
                                 </Select>
                             </FormControl>
-                            <br/>
+                            <br />
                             <TextField
                                 onChange={(event) => {
                                     if (event.target.value < 0) {

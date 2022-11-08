@@ -21,14 +21,15 @@ export default function CartItem({
     qty,
     onQtyChange,
     value,
-    onDeleteClick
+    onDeleteClick,
+    sx
 }) {
     const handleChange = (event) => {
         setSize(event.target.value);
     };
 
     return (
-        <Box pt={2} id="CartItem">
+        <Box sx={sx} pt={2} id="CartItem">
             <Grid container spacing={3}>
                 <Grid item laptop={3}>
                     <Box
