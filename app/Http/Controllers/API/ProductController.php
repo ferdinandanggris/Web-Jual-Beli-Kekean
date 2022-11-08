@@ -11,8 +11,37 @@ use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+
+    protected $productModel;
+
+    public function __construct()
+    {
+        $this->productModel = new Product();
+    }
+
     public function store(Request $request)
     {
+        $validator = Validator::make($request->input('input'), [
+            'product_name' => 'required',
+            'price' => 'required|numeric',
+            'description' => 'required',
+            'image_detail1' => 'required',
+            'model_3d' => 'required_if:has_3d,true'
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'validation_errors' => $validator->errors(),
+            ]);
+        }
+
+        // $payload = $request->only([
+        //     "title",
+        //     "isi",
+        //     "featured",
+        //     "overview",
+        //     "image"
+        // ]);
+
         $product = new Product;
         $size = new Size;
         $size->S = $request->input('sizes.S');

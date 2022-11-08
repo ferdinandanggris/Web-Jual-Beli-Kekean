@@ -21,6 +21,11 @@ class Product extends Model
         'model_3d'
     ];
 
+    public function store(array $payload)
+    {
+        return $this->create($payload);
+    }
+
     public function keranjang() {
         return $this->hasMany(Keranjang::class);
     }
