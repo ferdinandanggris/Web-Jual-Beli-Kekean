@@ -256,7 +256,8 @@ class ProductController extends Controller
                 }
             }
             if (!empty($payload['deleted_image'])) {
-                foreach ($payload['deleted_image'] as $key => $id_image) {
+                $deleted_image = json_decode($payload['deleted_image'],true);
+                foreach ($deleted_image as $key => $id_image) {
                     # code...
                     $dataLama = $this->imageDetailModel->getById($id_image);
                     if ($dataLama["path"] && file_exists(public_path('storage/' . $dataLama["path"]))) {
