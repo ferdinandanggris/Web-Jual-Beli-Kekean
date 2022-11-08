@@ -6,13 +6,42 @@ use App\Models\Size;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\ImageDetail;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
+
+    protected $productModel;
+    protected $imageDetailModel;
+
+    public function __construct()
+    {
+        $this->productModel = new Product();
+        $this->imageDetailModel = new ImageDetail();
+    }
+
     public function store(Request $request)
     {
+
+
+        $validator = Validator::make($request->input('input'), [
+            'product_name' => 'required',
+            'price' => 'required|numeric',
+            'description' => 'required',
+            // 'image_detail1' => 'required',
+            'image' => 'required',
+            'model_3d' => 'required_if:has_3d,true'
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'validation_errors' => $validator->errors(),
+            ]);
+        }
+
+
         $product = new Product;
         $size = new Size;
         $size->S = $request->input('sizes.S');
@@ -23,49 +52,52 @@ class ProductController extends Controller
         $size->XXL = $request->input('sizes.XXL');
         $size->save();
 
-        $validator = Validator::make($request->input('input'), [
-            'product_name' => 'required',
-            'price' => 'required|numeric',
-            'description' => 'required',
-            'image_detail1' => 'required',
-            'model_3d' => 'required_if:has_3d,true'
+        // dd();
+        $payload =$request->only([
+            'image',
+            'product_name',
+            'price',
+            'model_3d',
+            'description'
         ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'validation_errors' => $validator->errors(),
-            ]);
-        } else {
-            $product->size_id = $size->id;
-            $product->product_name = $request->input('input.product_name');
-            $product->price = $request->input('input.price');
-            $product->description = $request->input('input.description');
-            $product->has_3d = $request->input('input.has_3d');
-            if ($request->input('input.has_3d') == true) {
-                $product->model_3d = $request->input('input.model_3d');
-                $product->image_detail1 = $request->input('input.image_detail1');
-                $product->image_detail2 = $request->input('input.image_detail2');
-                $product->image_detail3 = $request->input('input.image_detail3');
-            } else {
-                $product->image_detail1 = $request->input('input.image_detail1');
-                $product->image_detail2 = $request->input('input.image_detail2');
-                $product->image_detail3 = $request->input('input.image_detail3');
-                $product->model_3d = '';
+        try {
+            //code...
+            $dataProduct = $this->productModel->store($payload);
+            if (!empty($payload['image'])) {
+                # code...
+                $imageArr = json_decode($payload['image'],true);
+
+                foreach ($imageArr as $key => $image) {
+                    # code...
+                    $folderPath = "/products/";
+
+                    $image_parts = explode(";base64,", $image);
+                    $image_type_aux = explode("image/", $image_parts[0]);
+                    $image_type = $image_type_aux[1];
+                    $image_base64 = base64_decode($image_parts[1]);
+                    $file = $folderPath . uniqid() . "." . $image_type;
+                    Storage::disk('local')->put($file, $image_base64);
+                    $image = $file ;
+
+                    ImageDetail::create([
+                        "product_id" => $dataProduct["id"],
+                        "path" => $file,
+                    ]);
+                    // $payload["gambar"] = $file;
+                    // $payload["path_gambar"] = $folderPath;
+
+                }
             }
-            $product->save();
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Product Added Successfully',
+                ]);
+        } catch (\Throwable $th) {
             return response()->json([
                 'status' => 200,
-                'message' => 'Product Added Successfully',
+                'message' => $th->getMessage()
             ]);
         }
-
-
-        // $product = Product::create([
-        //     'product_name' => $request->product_name,
-        //     'price' => $request->price,
-        //     'description' => $request->description,
-        //     'has_3d' => $request->has_3d,
-        // ]);
-
     }
 
     public function storeImage(Request $request)
@@ -167,6 +199,20 @@ class ProductController extends Controller
     }
     public function update(Request $request, $id)
     {
+
+                $validator = Validator::make($request->input('input'), [
+                    'product_name' => 'required',
+                    'price' => 'required|numeric',
+                    'description' => 'required',
+                    'image_detail1' => 'required',
+                    'model_3d' => 'required_if:has_3d,true'
+                ]);
+                if ($validator->fails()) {
+                    return response()->json([
+                        'validation_errors' => $validator->errors(),
+                    ]);
+                }
+
         $product = Product::find($id);
         $size = Size::find($product->size_id);
         $size->S = $request->input('sizes.S');
@@ -177,39 +223,81 @@ class ProductController extends Controller
         $size->XXL = $request->input('sizes.XXL');
         $size->update();
 
-        $validator = Validator::make($request->input('input'), [
-            'product_name' => 'required',
-            'price' => 'required|numeric',
-            'description' => 'required',
-            'image_detail1' => 'required',
-            'model_3d' => 'required_if:has_3d,true'
+        $payload =$request->only([
+            'image',
+            'product_name',
+            'price',
+            'model_3d',
+            'description'
         ]);
-        if ($validator->fails()) {
-            return response()->json([
-                'validation_errors' => $validator->errors(),
-            ]);
-        } else {
-            $product->product_name = $request->input('input.product_name');
-            $product->price = $request->input('input.price');
-            $product->description = $request->input('input.description');
-            $product->has_3d = $request->input('input.has_3d');
-            if ($request->input('input.has_3d') == true) {
-                $product->model_3d = $request->input('input.model_3d');
-                $product->image_detail1 = $request->input('input.image_detail1');
-                $product->image_detail2 = $request->input('input.image_detail2');
-                $product->image_detail3 = $request->input('input.image_detail3');
-            } else {
-                $product->image_detail1 = $request->input('input.image_detail1');
-                $product->image_detail2 = $request->input('input.image_detail2');
-                $product->image_detail3 = $request->input('input.image_detail3');
-                $product->model_3d = '';
+        try {
+            //code...
+            $dataProduct = $this->productModel->edit($payload,$id);
+            if (!empty($payload['image'])) {
+                # code...
+                $imageArr = json_decode($payload['image'],true);
+
+                foreach ($imageArr as $key => $image) {
+                    # code...
+                    $folderPath = "/products/";
+
+                    $image_parts = explode(";base64,", $image);
+                    $image_type_aux = explode("image/", $image_parts[0]);
+                    $image_type = $image_type_aux[1];
+                    $image_base64 = base64_decode($image_parts[1]);
+                    $file = $folderPath . uniqid() . "." . $image_type;
+                    Storage::disk('local')->put($file, $image_base64);
+                    $image = $file ;
+
+                    ImageDetail::create([
+                        "product_id" => $dataProduct["id"],
+                        "path" => $file,
+                    ]);
+                }
             }
-            $product->update();
+            if (!empty($payload['deleted_image'])) {
+                $deleted_image = json_decode($payload['deleted_image'],true);
+                foreach ($deleted_image as $key => $id_image) {
+                    # code...
+                    $dataLama = $this->imageDetailModel->getById($id_image);
+                    if ($dataLama["path"] && file_exists(public_path('storage/' . $dataLama["path"]))) {
+                        unlink(public_path('storage/' . $dataLama["path"]));
+                    }
+                    $this->imageDetailModel->drop($id_image);
+                }
+            }
+
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Product Added Successfully',
+                ]);
+        } catch (\Throwable $th) {
             return response()->json([
                 'status' => 200,
-                'message' => 'Product Updated Successfully',
+                'message' => $th->getMessage()
             ]);
         }
+
+            // $product->product_name = $request->input('input.product_name');
+            // $product->price = $request->input('input.price');
+            // $product->description = $request->input('input.description');
+            // $product->has_3d = $request->input('input.has_3d');
+            // if ($request->input('input.has_3d') == true) {
+            //     $product->model_3d = $request->input('input.model_3d');
+            //     $product->image_detail1 = $request->input('input.image_detail1');
+            //     $product->image_detail2 = $request->input('input.image_detail2');
+            //     $product->image_detail3 = $request->input('input.image_detail3');
+            // } else {
+            //     $product->image_detail1 = $request->input('input.image_detail1');
+            //     $product->image_detail2 = $request->input('input.image_detail2');
+            //     $product->image_detail3 = $request->input('input.image_detail3');
+            //     $product->model_3d = '';
+            // }
+            // $product->update();
+            // return response()->json([
+            //     'status' => 200,
+            //     'message' => 'Product Updated Successfully',
+            // ]);
     }
 
     public function destroy($id)
@@ -218,21 +306,14 @@ class ProductController extends Controller
         $size = Size::find($product->size_id);
         $product->delete();
         $size->delete();
-        $path = public_path() . '/catalog/' . $product->image_detail1;
-        if (File::exists($path)) {
-            File::delete($path);
-        }
-        if ($product->image_detail2 != null) {
-            $path = public_path() . '/catalog/' . $product->image_detail2;
-            if (File::exists($path)) {
-                File::delete($path);
+        $image = ImageDetail::where('product_id',$id);
+        foreach ($image as $key => $img) {
+            if ($img["path"] && file_exists(public_path('storage/' . $img["path"]))) {
+                // dd($img["ttd_path"] . $img["ttd"]);
+                // Storage::delete('storage/' . $img["ttd_path"] . $img["ttd"]);
+                unlink(public_path('storage/' . $img["path"]));
             }
-        }
-        if ($product->image_detail3 != null) {
-            $path = public_path() . '/catalog/' . $product->image_detail3;
-            if (File::exists($path)) {
-                File::delete($path);
-            }
+            $this->imageDetailModel->drop($img['id']);
         }
 
         return response()->json([

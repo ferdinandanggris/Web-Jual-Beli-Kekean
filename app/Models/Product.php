@@ -21,10 +21,29 @@ class Product extends Model
         'model_3d'
     ];
 
+    public function store(array $payload)
+    {
+        return $this->create($payload);
+    }
+
     public function keranjang() {
         return $this->hasMany(Keranjang::class);
     }
     public function size() {
         return $this->belongsTo(Size::class);
+    }
+
+    public function getById(int $id)
+    {
+        return $this->find($id);
+    }
+    public function drop(int $id)
+    {
+        return $this->find($id)->delete();
+    }
+
+    public function edit(array $payload, int $id)
+    {
+        return $this->findOrFail($id)->update($payload);
     }
 }
