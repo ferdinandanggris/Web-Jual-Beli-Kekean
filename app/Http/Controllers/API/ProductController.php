@@ -98,7 +98,7 @@ class ProductController extends Controller
                 ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'status' => 200,
+                'status' => 422,
                 'message' => $th->getMessage()
             ]);
         }
@@ -235,7 +235,7 @@ class ProductController extends Controller
                 ]);
         } catch (\Throwable $th) {
             return response()->json([
-                'status' => 200,
+                'status' => 422,
                 'message' => $th->getMessage()
             ]);
         }
