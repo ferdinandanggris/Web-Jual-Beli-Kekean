@@ -178,7 +178,7 @@ class ProductController extends Controller
 
     public function indexDetail($id)
     {
-        $products = Product::all();
+        $products = Product::find($id);
         $size = Product::find($id)->size;
         return response()->json([
             'status' => 200,
