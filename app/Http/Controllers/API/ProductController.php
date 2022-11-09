@@ -66,12 +66,12 @@ class ProductController extends Controller
         $size->save();
 
         // dd();
-        $payload['product_name'] = $request->input->product_name;
-        $payload['image'] = $request->input->image;
-        $payload['price'] = $request->input->price;
-        $payload['model_3d'] = $request->input->model_3d;
-        $payload['description'] = $request->input->description;
-        $payload['has_3d'] = $request->input->has_3d;
+        $payload['product_name'] = $request->input('product_name');
+        $payload['image'] = $request->input('input.image');
+        $payload['price'] = $request->input('input.price');
+        $payload['model_3d'] = $request->input('input.model_3d');
+        $payload['description'] = $request->input('input.description');
+        $payload['has_3d'] = $request->input('input.has_3d');
         $payload['size_id'] = $size->id;
         try {
             //code...
