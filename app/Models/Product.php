@@ -21,6 +21,16 @@ class Product extends Model
         'model_3d'
     ];
 
+    public function getAll(array $filter, int $itemPerPage, string $sort)
+    {
+        $data = $this->query()->with(['size','keranjang', 'image']);
+
+        $sort = $sort ? $sort : "created_at ASC";
+        $data->orderByRaw($sort);
+        $itemPerPage = ($itemPerPage > 0) ? $itemPerPage : false;
+        return $data->paginate($itemPerPage)->appends("sort", $sort);
+    }
+
     public function store(array $payload)
     {
         return $this->create($payload);
@@ -39,7 +49,7 @@ class Product extends Model
 
     public function getById(int $id)
     {
-        return $this->find($id);
+        return $this->with(['size','image'])->find($id);
     }
     public function drop(int $id)
     {
