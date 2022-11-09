@@ -66,8 +66,8 @@ class ProductController extends Controller
         $size->save();
 
         // dd();
-        $payload['image'] = $request->input->image;
         $payload['product_name'] = $request->input->product_name;
+        $payload['image'] = $request->input->image;
         $payload['price'] = $request->input->price;
         $payload['model_3d'] = $request->input->model_3d;
         $payload['description'] = $request->input->description;
