@@ -33,6 +33,10 @@ class Product extends Model
         return $this->belongsTo(Size::class);
     }
 
+    public function image(){
+        return $this->hasMany(ImageDetail::class,'product_id','id');
+    }
+
     public function getById(int $id)
     {
         return $this->find($id);

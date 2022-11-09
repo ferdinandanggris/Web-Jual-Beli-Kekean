@@ -6,6 +6,8 @@ use App\Models\Size;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Product\ProductCollection;
+use App\Http\Resources\Product\ProductResource;
 use App\Models\ImageDetail;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -172,7 +174,7 @@ class ProductController extends Controller
         $products = Product::all();
         return response()->json([
             'status' => 200,
-            'products' => $products,
+            'products' => (new ProductCollection($products)),
         ]);
     }
 
@@ -193,7 +195,7 @@ class ProductController extends Controller
         $size = Product::find($id)->size;
         return response()->json([
             'status' => 200,
-            'products' => $products,
+            'products' => (new ProductResource($products)),
             'size' => $size,
         ]);
     }
