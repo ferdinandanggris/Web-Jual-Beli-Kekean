@@ -55,7 +55,7 @@ class ProductController extends Controller
         $size->save();
 
         // dd();
-        $payload =$request->only([
+        $payload =$request->input->only([
             'image',
             'product_name',
             'price',
@@ -185,7 +185,7 @@ class ProductController extends Controller
         $size->XXL = $request->input('sizes.XXL');
         $size->update();
 
-        $payload =$request->only([
+        $payload =$request->input->only([
             'image',
             'product_name',
             'price',
