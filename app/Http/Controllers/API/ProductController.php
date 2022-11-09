@@ -184,7 +184,7 @@ class ProductController extends Controller
         $size = Product::find($id)->size;
         return response()->json([
             'status' => 200,
-            'products' => $products,
+            'products' => (new ProductResource($products)),
             'size' => $size,
         ]);
     }
