@@ -175,7 +175,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = $this->productModel->getAll([], 0, false);
+        $products = Product::all();
         return response()->json([
             'status' => 200,
             'products' => (new ProductCollection($products)),
