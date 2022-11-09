@@ -17,6 +17,7 @@ import { useNavigate } from "react-router";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { DropzoneDialog } from "mui-file-dropzone";
+import { toBase64 } from "../../../base64converter/base64Converter";
 
 export default function AddArtikel() {
     const [input, setInput] = React.useState({
@@ -62,22 +63,23 @@ export default function AddArtikel() {
         setImageDropzone(false);
     }
 
-    const handleImage = (files) => {
+    const handleImage = async (files) => {
         const file = files[0];
-        convertImgToBase64(file);
+        const base64img = await toBase64(file)
+        setInput({...input, image: base64img})
     };
 
-    const convertImgToBase64 = (file) => {
-        let reader = new FileReader();
-        let base64 = "";
-        reader.readAsDataURL(file);
-        reader.onload = () => {
-            setInput({
-                ...input,
-                image: reader.result
-            })
-        };
-    };
+    // const convertImgToBase64 = (file) => {
+    //     let reader = new FileReader();
+    //     let base64 = "";
+    //     reader.readAsDataURL(file);
+    //     reader.onload = () => {
+    //         setInput({
+    //             ...input,
+    //             image: reader.result
+    //         })
+    //     };
+    // };
 
     const saveArtikel = async (e) => {
         e.preventDefault();

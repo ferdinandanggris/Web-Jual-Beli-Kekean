@@ -16,7 +16,7 @@ import {
 import React from "react";
 import { DropzoneDialog } from "mui-file-dropzone";
 import { useNavigate } from "react-router";
-
+import { toBase64Handler } from "../../../base64converter/base64Converter";
 export default function AddProduct() {
     const [imageDropzone, setImageDropzone] = React.useState(false);
     const [sizes, setSizes] = React.useState({
@@ -32,9 +32,7 @@ export default function AddProduct() {
         price: "",
         description: "",
         has_3d: false,
-        image_detail1: "",
-        image_detail2: "",
-        image_detail3: "",
+        image: [],
         model_3d: "",
         error_list: [],
     });
@@ -88,47 +86,54 @@ export default function AddProduct() {
         });
     };
 
+    console.log(input);
     const handleImage = async (files) => {
+        const base46img = await toBase64Handler(files);
+        setInput({ ...input, image: base46img });
+
+
         // if(!files[1]) {
         //     files[1] = {name: ''}
         // }
         // if(!files[2]) {
         //     files[2] = {name: ''}
         // }
-        let imgData = new FormData();
-        if (files.length == 1) {
-            setInput({
-                ...input,
-                image_detail1: files[0].name,
-                // image_detail2: files[1].name,
-                // imagedetail3: files[2].name
-            });
-            imgData.append("image", files[0]);
-        } else if (files.length == 2) {
-            setInput({
-                ...input,
-                image_detail1: files[0].name,
-                image_detail2: files[1].name,
-                // image_detail3: files[2].name
-            });
-            imgData.append("image[]", files[0]);
-            imgData.append("image[]", files[1]);
-        } else if (files.length == 3) {
-            setInput({
-                ...input,
-                image_detail1: files[0].name,
-                image_detail2: files[1].name,
-                image_detail3: files[2].name,
-            });
-            imgData.append("image[]", files[0]);
-            imgData.append("image[]", files[1]);
-            imgData.append("image[]", files[2]);
-        }
 
-        const res = await axios.post("api/save-image", imgData);
-        if (res.data.status === 200) {
-            console.log(res.data.message);
-        }
+        //Old code
+        // let imgData = new FormData();
+        // if (files.length == 1) {
+        //     setInput({
+        //         ...input,
+        //         image_detail1: files[0].name,
+        //         // image_detail2: files[1].name,
+        //         // imagedetail3: files[2].name
+        //     });
+        //     imgData.append("image", files[0]);
+        // } else if (files.length == 2) {
+        //     setInput({
+        //         ...input,
+        //         image_detail1: files[0].name,
+        //         image_detail2: files[1].name,
+        //         // image_detail3: files[2].name
+        //     });
+        //     imgData.append("image[]", files[0]);
+        //     imgData.append("image[]", files[1]);
+        // } else if (files.length == 3) {
+        //     setInput({
+        //         ...input,
+        //         image_detail1: files[0].name,
+        //         image_detail2: files[1].name,
+        //         image_detail3: files[2].name,
+        //     });
+        //     imgData.append("image[]", files[0]);
+        //     imgData.append("image[]", files[1]);
+        //     imgData.append("image[]", files[2]);
+        // }
+
+        // const res = await axios.post("api/save-image", imgData);
+        // if (res.data.status === 200) {
+        //     console.log(res.data.message);
+        // }
         handleCloseImage();
     };
 

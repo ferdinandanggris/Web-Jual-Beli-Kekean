@@ -37,7 +37,8 @@ import CaraPengembalian from "./container/Bantuan/CaraPengembalian";
 import Bantuan from "./container/Bantuan/Bantuan";
 import KonfirmasiTransfer from "./container/Bantuan/KonfirmasiTransfer";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import {ReactQueryDevtools} from '@tanstack/react-query-devtools'
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { grey } from "@mui/material/colors";
 
 function Navs() {
     const theme = createTheme({
@@ -49,6 +50,9 @@ function Navs() {
                 main: "#7776BC",
             },
             subtitle: "rgb(0, 0, 0, 31%)",
+            background: {
+                default: '#F5F5F5'
+            }
         },
         typography: {
             fontFamily: `"Poppins", "Helvetica", "Arial", sans-serif`,
@@ -72,6 +76,7 @@ function Navs() {
             },
         },
     });
+
     axios.defaults.baseURL = "https://kekean.id/";
     // axios.defaults.baseURL = "http://localhost:8000";
     axios.defaults.headers.post["Accept"] = "application/json";
@@ -84,117 +89,127 @@ function Navs() {
         return config;
     });
 
-    const queryClient = new QueryClient()
+    const queryClient = new QueryClient();
     // axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
     return (
         <React.StrictMode>
-            <QueryClientProvider client={queryClient}>
-                <ReactQueryDevtools />
-                <ThemeProvider theme={theme}>
-                    <CssBaseline />
-                    <Router basename={"/"}>
-                        <Navbar />
-                        <ScrollToTop />
-                        <Routes>
-                            <Route path="/" exact element={<Main />} />
-                            <Route path="/catalog" element={<CatalogPage />} />
-                            <Route
-                                path="/products/:productId"
-                                element={<ProductPage />}
-                            />
-                            <Route
-                                path="/products/"
-                                element={<CatalogPage />}
-                            />
-                            <Route path="/payment" element={<Payment />} />
-                            <Route path="/login" element={<LoginPage />} />
-                            <Route
-                                path="/register"
-                                element={<RegisterPage />}
-                            />
-                            <Route path="/cart" element={<Cart />} />
-                            <Route path="/artikel" element={<ArticlePage />} />
-                            <Route
-                                path="/artikel/:id"
-                                element={<ArticleDetailPage />}
-                            />
-                            <Route path="/about" element={<AboutUs />} />
-                            <Route
-                                path="/cara-pengembalian"
-                                element={<CaraPengembalian />}
-                            />
-                            <Route path="/bantuan" element={<Bantuan />} />
-                            <Route
-                                path="/konfirmasi-transfer"
-                                element={<KonfirmasiTransfer />}
-                            />
-                            {/* Admin Routes */}
-                            <Route
-                                path="/admin"
-                                name="Admin"
-                                element={<AdminPrivateRoute comp={Admin} />}
-                            />
-                            <Route
-                                path="/admin/addProduct"
-                                name="Admin"
-                                element={
-                                    <AdminPrivateRoute comp={AddProduct} />
-                                }
-                            />
-                            <Route
-                                path="/admin/editProduct/:id"
-                                name="Admin"
-                                element={
-                                    <AdminPrivateRoute comp={EditProduct} />
-                                }
-                            />
-                            <Route
-                                path="/admin/payment"
-                                name="Admin"
-                                element={
-                                    <AdminPrivateRoute comp={AdminPayment} />
-                                }
-                            />
-                            <Route
-                                path="/admin/addPayment"
-                                name="Admin"
-                                element={
-                                    <AdminPrivateRoute comp={AddPayment} />
-                                }
-                            />
-                            <Route
-                                path="/admin/editPayment/:id"
-                                name="Admin"
-                                element={
-                                    <AdminPrivateRoute comp={EditPayment} />
-                                }
-                            />
-                            <Route
-                                path="/admin/artikel"
-                                name="Admin"
-                                element={
-                                    <AdminPrivateRoute comp={AdminArtikel} />
-                                }
-                            />
-                            <Route
-                                path="/admin/addArtikel"
-                                name="Admin"
-                                element={
-                                    <AdminPrivateRoute comp={AddArtikel} />
-                                }
-                            />
-                            <Route
-                                path="/admin/editArtikel/:id"
-                                name="Admin"
-                                element={
-                                    <AdminPrivateRoute comp={EditArtikel} />
-                                }
-                            />
-                        </Routes>
-                        <Footer />
-                    </Router>
-                </ThemeProvider>
-            </QueryClientProvider>
+                <QueryClientProvider client={queryClient}>
+                    <ReactQueryDevtools />
+                    <ThemeProvider theme={theme}>
+                        <CssBaseline />
+                        <Router basename={"/"}>
+                            <Navbar />
+                            <ScrollToTop />
+                            <Routes>
+                                <Route path="/" exact element={<Main />} />
+                                <Route
+                                    path="/catalog"
+                                    element={<CatalogPage />}
+                                />
+                                <Route
+                                    path="/products/:productId"
+                                    element={<ProductPage />}
+                                />
+                                <Route
+                                    path="/products/"
+                                    element={<CatalogPage />}
+                                />
+                                <Route path="/payment" element={<Payment />} />
+                                <Route path="/login" element={<LoginPage />} />
+                                <Route
+                                    path="/register"
+                                    element={<RegisterPage />}
+                                />
+                                <Route path="/cart" element={<Cart />} />
+                                <Route
+                                    path="/artikel"
+                                    element={<ArticlePage />}
+                                />
+                                <Route
+                                    path="/artikel/:id"
+                                    element={<ArticleDetailPage />}
+                                />
+                                <Route path="/about" element={<AboutUs />} />
+                                <Route
+                                    path="/cara-pengembalian"
+                                    element={<CaraPengembalian />}
+                                />
+                                <Route path="/bantuan" element={<Bantuan />} />
+                                <Route
+                                    path="/konfirmasi-transfer"
+                                    element={<KonfirmasiTransfer />}
+                                />
+                                {/* Admin Routes */}
+                                <Route
+                                    path="/admin"
+                                    name="Admin"
+                                    element={<AdminPrivateRoute comp={Admin} />}
+                                />
+                                <Route
+                                    path="/admin/addProduct"
+                                    name="Admin"
+                                    element={
+                                        <AdminPrivateRoute comp={AddProduct} />
+                                    }
+                                />
+                                <Route
+                                    path="/admin/editProduct/:id"
+                                    name="Admin"
+                                    element={
+                                        <AdminPrivateRoute comp={EditProduct} />
+                                    }
+                                />
+                                <Route
+                                    path="/admin/payment"
+                                    name="Admin"
+                                    element={
+                                        <AdminPrivateRoute
+                                            comp={AdminPayment}
+                                        />
+                                    }
+                                />
+                                <Route
+                                    path="/admin/addPayment"
+                                    name="Admin"
+                                    element={
+                                        <AdminPrivateRoute comp={AddPayment} />
+                                    }
+                                />
+                                <Route
+                                    path="/admin/editPayment/:id"
+                                    name="Admin"
+                                    element={
+                                        <AdminPrivateRoute comp={EditPayment} />
+                                    }
+                                />
+                                <Route
+                                    path="/admin/artikel"
+                                    name="Admin"
+                                    element={
+                                        <AdminPrivateRoute
+                                            comp={AdminArtikel}
+                                        />
+                                    }
+                                />
+                                <Route
+                                    path="/admin/addArtikel"
+                                    name="Admin"
+                                    element={
+                                        <AdminPrivateRoute comp={AddArtikel} />
+                                    }
+                                />
+                                <Route
+                                    path="/admin/editArtikel/:id"
+                                    name="Admin"
+                                    element={
+                                        <AdminPrivateRoute comp={EditArtikel} />
+                                    }
+                                />
+                            </Routes>
+                            <Footer />
+                        </Router>
+                    </ThemeProvider>
+                </QueryClientProvider>
         </React.StrictMode>
     );
 }

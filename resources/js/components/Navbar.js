@@ -13,6 +13,7 @@ import {
     Divider,
     Avatar,
     Badge,
+    useScrollTrigger,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
@@ -20,16 +21,36 @@ import axios from "axios";
 import swal from "sweetalert";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import PersonAdd from "@mui/icons-material/PersonAdd";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { useQuery } from "@tanstack/react-query";
 
-export default function Navbar() {
+export default function Navbar(props) {
+    const theme = {
+        textColor: "black",
+        borderColor: "black",
+    };
     const [drawerState, setDrawerState] = React.useState(false);
     const history = useNavigate();
+
+    function ElevationScroll(props) {
+        const { children, window } = props;
+        // Note that you normally won't need to set the window ref as useScrollTrigger
+        // will default to window.
+        // This is only being set here because the demo is in an iframe.
+        const trigger = useScrollTrigger({
+            disableHysteresis: true,
+            threshold: 0,
+            target: window ? window() : undefined,
+        });
+
+        return React.cloneElement(children, {
+            elevation: trigger ? 4 : 0,
+        });
+    }
 
     const logoutSubmit = (e) => {
         e.preventDefault();
@@ -47,19 +68,19 @@ export default function Navbar() {
     };
 
     const fetchCart = async () => {
-        const res = await axios.get('api/cart')
-        return res.data.cart.length
-    }
+        const res = await axios.get("api/cart");
+        return res.data.cart.length;
+    };
 
     const {
-        isLoading, 
-        isError, 
-        error, 
-        data: cartLength
+        isLoading,
+        isError,
+        error,
+        data: cartLength,
     } = useQuery({
-        queryKey: ['cartLength'],
-        queryFn: fetchCart
-    })
+        queryKey: ["cartLength"],
+        queryFn: fetchCart,
+    });
     function IsLogin() {
         const [anchorEl, setAnchorEl] = React.useState(null);
         const open = Boolean(anchorEl);
@@ -77,13 +98,18 @@ export default function Navbar() {
                             <Typography href="#" className="bx bx-heart" />
                         </Button> */}
                         <IconButton
-                            size="small"
                             onClick={() => history("/cart")}
                             color="inherit"
-                            sx={{ color: "white", mr: 2 }}
+                            sx={{ color: theme.textColor, mr: 1 }}
                         >
-                            <Badge badgeContent={isLoading ? 0 : cartLength} color="primary">
-                            <ShoppingCartIcon fontSize="small" />
+                            <Badge
+                                badgeContent={isLoading ? 0 : cartLength}
+                                color="primary"
+                            >
+                                <ShoppingCartOutlinedIcon
+                                    sx={{ color: theme.textColor }}
+                                    fontSize="medium"
+                                />
                             </Badge>
                         </IconButton>
                         {/* <Button color="inherit">
@@ -92,13 +118,15 @@ export default function Navbar() {
                         <IconButton
                             onClick={openMenu}
                             color="inherit"
-                            sx={{ color: "white" }}
-                            size="small"
+                            sx={{ color: theme.textColor }}
                             aria-controls={open ? "account-menu" : undefined}
                             aria-haspopup="true"
                             aria-expanded={open ? "true" : undefined}
                         >
-                            <AccountCircleIcon fontSize="small" />
+                            <AccountCircleOutlinedIcon
+                                sx={{ color: theme.textColor }}
+                                fontSize="medium"
+                            />
                         </IconButton>
                         <Menu
                             anchorEl={anchorEl}
@@ -241,67 +269,91 @@ export default function Navbar() {
                     display: { mobile: "none", laptop: "block" },
                 }}
             >
-                <AppBar
-                    elevation={0}
-                    sx={{
-                        bgcolor: "#3C2317",
-                        px: 7,
-                    }}
-                >
-                    <Toolbar>
-                        <Box sx={{ display: "flex", flexGrow: 1 }}>
-                            <Button
-                                color="inherit"
-                                onClick={() => history("/")}
+                <ElevationScroll {...props}>
+                    <AppBar
+                        elevation={4}
+                        sx={{
+                            bgcolor: "#F5F5F5",
+                            px: 7,
+                        }}
+                    >
+                        <Toolbar>
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    flexGrow: 1,
+                                    alignItems: "center",
+                                }}
                             >
                                 <Typography
-                                    sx={{
-                                        "&:hover": {
-                                            borderBottom: "1px solid white",
-                                        },
-                                    }}
-                                    color="white"
-                                    px={1}
+                                    textAlign={"center"}
+                                    color={"black"}
+                                    fontFamily='Dancing Script'
+                                    fontSize={25}
+                                    mr={1}
                                 >
-                                    Shop
+                                    Kekean
                                 </Typography>
-                            </Button>
-                            <Button
-                                onClick={() => history("/artikel")}
-                                color="inherit"
-                            >
-                                <Typography
-                                    sx={{
-                                        "&:hover": {
-                                            borderBottom: "1px solid white",
-                                        },
-                                    }}
-                                    color={"white"}
-                                    px={1}
+                                <Button
+                                    sx={{ color: theme.textColor }}
+                                    onClick={() => history("/")}
                                 >
-                                    Article
-                                </Typography>
-                            </Button>
-                            <Button
-                                onClick={() => history("/about")}
-                                color="inherit"
-                            >
-                                <Typography
-                                    sx={{
-                                        "&:hover": {
-                                            borderBottom: "1px solid white",
-                                        },
-                                    }}
-                                    color={"white"}
-                                    px={2}
+                                    <Typography
+                                        sx={{
+                                            "&:hover": {
+                                                borderBottom: `1px solid ${theme.borderColor}`,
+                                            },
+                                        }}
+                                        color={theme.textColor}
+                                        px={1}
+                                    >
+                                        Shop
+                                    </Typography>
+                                </Button>
+                                <Button
+                                    onClick={() => history("/artikel")}
+                                    sx={{ color: theme.textColor }}
                                 >
-                                    About Us
-                                </Typography>
-                            </Button>
-                        </Box>
-                        <IsLogin />
-                    </Toolbar>
-                </AppBar>
+                                    <Typography
+                                        sx={{
+                                            "&:hover": {
+                                                borderBottom: `1px solid ${theme.borderColor}`,
+                                            },
+                                        }}
+                                        color={theme.textColor}
+                                        px={1}
+                                    >
+                                        Article
+                                    </Typography>
+                                </Button>
+                                <Button
+                                    onClick={() => history("/about")}
+                                    sx={{ color: theme.textColor }}
+                                >
+                                    <Typography
+                                        sx={{
+                                            "&:hover": {
+                                                borderBottom: `1px solid ${theme.borderColor}`,
+                                            },
+                                        }}
+                                        color={theme.textColor}
+                                        px={2}
+                                    >
+                                        About Us
+                                    </Typography>
+                                </Button>
+                                {/* <Typography
+                                    flexGrow={0.75}
+                                    textAlign={"center"}
+                                    color={"black"}
+                                >
+                                    Kekean
+                                </Typography> */}
+                            </Box>
+                            <IsLogin />
+                        </Toolbar>
+                    </AppBar>
+                </ElevationScroll>
             </Container>
         </>
     );

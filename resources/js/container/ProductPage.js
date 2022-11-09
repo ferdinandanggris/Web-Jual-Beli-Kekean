@@ -53,11 +53,11 @@ export default function ProductPage(props) {
         isMounted = false;
     }, []);
 
-    if (!loading) {
-        var currentProduct = "";
-        currentProduct = product.filter((item) => item.id == productId);
-        console.log(currentProduct);
-    }
+    // if (!loading) {
+    //     var product"";
+    //     currentProduct = product.filter((item) => item.id == productId);
+    //     console.log(currentProduct);
+    // }
 
     const handleChange = (event) => {
         setSize(event.target.value);
@@ -107,10 +107,10 @@ export default function ProductPage(props) {
                         </>
                     ) : (
                         <Box>
-                            {!!Number(currentProduct[0].has_3d) ? (
+                            {!!Number(product.has_3d) ? (
                                 <div className="sketchfab-embed-wrapper">
                                     <iframe
-                                        title={currentProduct[0].product_name}
+                                        title={product.product_name}
                                         frameBorder="0"
                                         allowFullScreen
                                         mozAllowFullscreen="true"
@@ -122,7 +122,7 @@ export default function ProductPage(props) {
                                         webShare
                                         width={"512px"}
                                         height={"400px"}
-                                        src={currentProduct[0].model_3d}
+                                        src={product.model_3d}
                                     ></iframe>
                                 </div>
                             ) : (
@@ -134,7 +134,7 @@ export default function ProductPage(props) {
                                             ml: "30%",
                                         }}
                                         component="img"
-                                        src={`../catalog/${currentProduct[0].image_detail1}`}
+                                        src={`../catalog/${product.image_detail1}`}
                                     />
                                     <Box
                                         sx={{
@@ -143,7 +143,7 @@ export default function ProductPage(props) {
                                             ml: "30%",
                                         }}
                                         component="img"
-                                        src={`../catalog/${currentProduct[0].image_detail2}`}
+                                        src={`../catalog/${product.image_detail2}`}
                                     />
                                     <Box
                                         sx={{
@@ -152,7 +152,7 @@ export default function ProductPage(props) {
                                             ml: "30%",
                                         }}
                                         component="img"
-                                        src={`../catalog/${currentProduct[0].image_detail3}`}
+                                        src={`../catalog/${product.image_detail3}`}
                                     />
                                 </Carousel>
                                 // <Box
@@ -162,7 +162,7 @@ export default function ProductPage(props) {
                                 //         objectFit: "cover",
                                 //     }}
                                 //     component="img"
-                                //     src={`../catalog/${currentProduct[0].image_detail1}`}
+                                //     src={`../catalog/${product.image_detail1}`}
                                 // />
                             )}
                             <Box my={5}>
@@ -170,7 +170,7 @@ export default function ProductPage(props) {
                                     Deskripsi
                                 </Typography>
                                 <Typography>
-                                    {currentProduct[0].description}
+                                    {product.description}
                                 </Typography>
                             </Box>
                         </Box>
@@ -189,7 +189,7 @@ export default function ProductPage(props) {
                                 />
                             ) : (
                                 <Typography fontSize={30} fontWeight="medium">
-                                    {currentProduct[0].product_name}
+                                    {product.product_name}
                                 </Typography>
                             )}
                             {loading ? (
@@ -201,7 +201,7 @@ export default function ProductPage(props) {
                                 <Typography fontSize={20}>
                                     Rp.{" "}
                                     {Number(
-                                        currentProduct[0].price
+                                        product.price
                                     ).toLocaleString()}
                                 </Typography>
                             )}
