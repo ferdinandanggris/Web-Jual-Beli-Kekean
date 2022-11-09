@@ -68,7 +68,6 @@ class ProductController extends Controller
             $dataProduct = $this->productModel->store($payload);
             if (!empty($payload['image'])) {
                 # code...
-                $imageArr = json_decode($payload['image'], true);
                 // $imageArr = json_decode($payload['image'],true);
                 $imageArr = $payload['image'];
 
@@ -197,7 +196,6 @@ class ProductController extends Controller
             $dataProduct = $this->productModel->edit($payload, $id);
             if (!empty($payload['image'])) {
                 # code...
-                $imageArr = json_decode($payload['image'], true);
                 // $imageArr = json_decode($payload['image'],true);
                 $imageArr = $payload['image'];
 
