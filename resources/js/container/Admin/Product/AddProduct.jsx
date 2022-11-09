@@ -89,7 +89,7 @@ export default function AddProduct() {
     console.log(input);
     const handleImage = async (files) => {
         const base64img = await toBase64Handler(files);
-        setInput({ ...input, image: base64img });
+        setInput({ ...input, image: JSON.stringify(base64img) });
 
 
         // if(!files[1]) {
