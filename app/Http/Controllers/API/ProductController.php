@@ -27,7 +27,18 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-
+        // $test = [];
+        // $test = json_decode($request->image,true);
+        // // return gettype($test);
+        // // return $test;
+        // $temp = [];
+        // for ($i=0; $i < count($test); $i++) {
+        //     $temp[$i] = $test[$i];
+        // }
+        // foreach ($temp as $key => $value) {
+        //     # code...
+        // }
+        // return $temp;
 
         $validator = Validator::make($request->input('input'), [
             'product_name' => 'required',
@@ -75,20 +86,21 @@ class ProductController extends Controller
             $dataProduct = $this->productModel->store($payload);
             if (!empty($payload['image'])) {
                 # code...
-                // $imageArr = json_decode($payload['image'],true);
-                $imageArr = $payload['image'];
+                $imageArr = json_decode($payload['image'],true);
+                // $imageArr = $payload['image'];
 
-                foreach ($imageArr as $key => $image) {
+                for ($i=0; $i < $imageArr; $i++) {
                     # code...
+                                        # code...
                     $folderPath = "/products/";
 
-                    $image_parts = explode(";base64,", $image);
+                    $image_parts = explode(";base64,", $imageArr[$i]);
                     $image_type_aux = explode("image/", $image_parts[0]);
                     $image_type = $image_type_aux[1];
                     $image_base64 = base64_decode($image_parts[1]);
                     $file = $folderPath . uniqid() . "." . $image_type;
                     Storage::disk('local')->put($file, $image_base64);
-                    $image = $file ;
+                    $image[$i] = $file ;
 
                     ImageDetail::create([
                         "product_id" => $dataProduct["id"],
@@ -96,8 +108,27 @@ class ProductController extends Controller
                     ]);
                     // $payload["gambar"] = $file;
                     // $payload["path_gambar"] = $folderPath;
-
                 }
+                // foreach ($imageArr as $key => $image) {
+                //     # code...
+                //     $folderPath = "/products/";
+
+                //     $image_parts = explode(";base64,", $image);
+                //     $image_type_aux = explode("image/", $image_parts[0]);
+                //     $image_type = $image_type_aux[1];
+                //     $image_base64 = base64_decode($image_parts[1]);
+                //     $file = $folderPath . uniqid() . "." . $image_type;
+                //     Storage::disk('local')->put($file, $image_base64);
+                //     $image = $file ;
+
+                //     ImageDetail::create([
+                //         "product_id" => $dataProduct["id"],
+                //         "path" => $file,
+                //     ]);
+                //     // $payload["gambar"] = $file;
+                //     // $payload["path_gambar"] = $folderPath;
+
+                // }
             }
                 return response()->json([
                     'status' => 200,
