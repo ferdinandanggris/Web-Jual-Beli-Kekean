@@ -55,7 +55,12 @@ class ProductController extends Controller
         $size->save();
 
         // dd();
-        $payload =$request->input('input');
+        $payload['image'] = $request->input->image;
+        $payload['product_name'] = $request->input->product_name;
+        $payload['price'] = $request->input->price;
+        $payload['model_3d'] = $request->input->model_3d;
+        $payload['description'] = $request->input->description;
+        $payload['has_3d'] = $request->input->has_3d;
         $payload['size_id'] = $size->id;
         try {
             //code...
@@ -63,7 +68,7 @@ class ProductController extends Controller
             $dataProduct = $this->productModel->store($payload);
             if (!empty($payload['image'])) {
                 # code...
-                $imageArr = json_decode($payload['image'],true);
+                $imageArr = json_decode($payload['image'], true);
 
                 foreach ($imageArr as $key => $image) {
                     # code...
@@ -75,7 +80,7 @@ class ProductController extends Controller
                     $image_base64 = base64_decode($image_parts[1]);
                     $file = $folderPath . uniqid() . "." . $image_type;
                     Storage::disk('local')->put($file, $image_base64);
-                    $image = $file ;
+                    $image = $file;
 
                     ImageDetail::create([
                         "product_id" => $dataProduct["id"],
@@ -86,10 +91,10 @@ class ProductController extends Controller
 
                 }
             }
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Product Added Successfully',
-                ]);
+            return response()->json([
+                'status' => 200,
+                'message' => 'Product Added Successfully',
+            ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 422,
@@ -125,7 +130,7 @@ class ProductController extends Controller
 
     public function index()
     {
-        $products = $this->productModel->getAll([],0,false);
+        $products = $this->productModel->getAll([], 0, false);
         return response()->json([
             'status' => 200,
             'products' => (new ProductCollection($products)),
@@ -156,18 +161,18 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
 
-                $validator = Validator::make($request->input('input'), [
-                    'product_name' => 'required',
-                    'price' => 'required|numeric',
-                    'description' => 'required',
-                    'image_detail1' => 'required',
-                    'model_3d' => 'required_if:has_3d,true'
-                ]);
-                if ($validator->fails()) {
-                    return response()->json([
-                        'validation_errors' => $validator->errors(),
-                    ]);
-                }
+        $validator = Validator::make($request->input('input'), [
+            'product_name' => 'required',
+            'price' => 'required|numeric',
+            'description' => 'required',
+            'image_detail1' => 'required',
+            'model_3d' => 'required_if:has_3d,true'
+        ]);
+        if ($validator->fails()) {
+            return response()->json([
+                'validation_errors' => $validator->errors(),
+            ]);
+        }
 
         $product = Product::find($id);
         $size = Size::find($product->size_id);
@@ -179,19 +184,18 @@ class ProductController extends Controller
         $size->XXL = $request->input('sizes.XXL');
         $size->update();
 
-        $payload =$request->input->only([
-            'input.image',
-            'input.product_name',
-            'input.price',
-            'input.model_3d',
-            'input.description'
-        ]);
+        $payload['image'] = $request->input->image;
+        $payload['product_name'] = $request->input->product_name;
+        $payload['price'] = $request->input->price;
+        $payload['model_3d'] = $request->input->model_3d;
+        $payload['description'] = $request->input->description;
+        $payload['has_3d'] = $request->input->has_3d;
         try {
             //code...
-            $dataProduct = $this->productModel->edit($payload,$id);
+            $dataProduct = $this->productModel->edit($payload, $id);
             if (!empty($payload['image'])) {
                 # code...
-                $imageArr = json_decode($payload['image'],true);
+                $imageArr = json_decode($payload['image'], true);
 
                 foreach ($imageArr as $key => $image) {
                     # code...
@@ -203,7 +207,7 @@ class ProductController extends Controller
                     $image_base64 = base64_decode($image_parts[1]);
                     $file = $folderPath . uniqid() . "." . $image_type;
                     Storage::disk('local')->put($file, $image_base64);
-                    $image = $file ;
+                    $image = $file;
 
                     ImageDetail::create([
                         "product_id" => $dataProduct["id"],
@@ -212,7 +216,7 @@ class ProductController extends Controller
                 }
             }
             if (!empty($payload['deleted_image'])) {
-                $deleted_image = json_decode($payload['deleted_image'],true);
+                $deleted_image = json_decode($payload['deleted_image'], true);
                 foreach ($deleted_image as $key => $id_image) {
                     # code...
                     $dataLama = $this->imageDetailModel->getById($id_image);
@@ -223,10 +227,10 @@ class ProductController extends Controller
                 }
             }
 
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Product Added Successfully',
-                ]);
+            return response()->json([
+                'status' => 200,
+                'message' => 'Product Added Successfully',
+            ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 422,
@@ -234,26 +238,26 @@ class ProductController extends Controller
             ]);
         }
 
-            // $product->product_name = $request->input('input.product_name');
-            // $product->price = $request->input('input.price');
-            // $product->description = $request->input('input.description');
-            // $product->has_3d = $request->input('input.has_3d');
-            // if ($request->input('input.has_3d') == true) {
-            //     $product->model_3d = $request->input('input.model_3d');
-            //     $product->image_detail1 = $request->input('input.image_detail1');
-            //     $product->image_detail2 = $request->input('input.image_detail2');
-            //     $product->image_detail3 = $request->input('input.image_detail3');
-            // } else {
-            //     $product->image_detail1 = $request->input('input.image_detail1');
-            //     $product->image_detail2 = $request->input('input.image_detail2');
-            //     $product->image_detail3 = $request->input('input.image_detail3');
-            //     $product->model_3d = '';
-            // }
-            // $product->update();
-            // return response()->json([
-            //     'status' => 200,
-            //     'message' => 'Product Updated Successfully',
-            // ]);
+        // $product->product_name = $request->input('input.product_name');
+        // $product->price = $request->input('input.price');
+        // $product->description = $request->input('input.description');
+        // $product->has_3d = $request->input('input.has_3d');
+        // if ($request->input('input.has_3d') == true) {
+        //     $product->model_3d = $request->input('input.model_3d');
+        //     $product->image_detail1 = $request->input('input.image_detail1');
+        //     $product->image_detail2 = $request->input('input.image_detail2');
+        //     $product->image_detail3 = $request->input('input.image_detail3');
+        // } else {
+        //     $product->image_detail1 = $request->input('input.image_detail1');
+        //     $product->image_detail2 = $request->input('input.image_detail2');
+        //     $product->image_detail3 = $request->input('input.image_detail3');
+        //     $product->model_3d = '';
+        // }
+        // $product->update();
+        // return response()->json([
+        //     'status' => 200,
+        //     'message' => 'Product Updated Successfully',
+        // ]);
     }
 
     public function destroy($id)
@@ -262,7 +266,7 @@ class ProductController extends Controller
         $size = Size::find($product->size_id);
         $product->delete();
         $size->delete();
-        $image = ImageDetail::where('product_id',$id);
+        $image = ImageDetail::where('product_id', $id);
         foreach ($image as $key => $img) {
             if ($img["path"] && file_exists(public_path('storage/' . $img["path"]))) {
                 // dd($img["ttd_path"] . $img["ttd"]);
