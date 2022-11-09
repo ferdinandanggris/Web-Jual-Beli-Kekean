@@ -89,7 +89,7 @@ class ProductController extends Controller
                 $imageArr = json_decode($payload['image'],true);
                 // $imageArr = $payload['image'];
 
-                for ($i=0; $i < $imageArr; $i++) {
+                for ($i=0; $i < count($imageArr); $i++) {
                     # code...
                                         # code...
                     $folderPath = "/products/";
