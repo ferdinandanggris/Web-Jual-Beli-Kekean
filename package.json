@@ -22,7 +22,8 @@
     "react-dom": "^17.0.2",
     "resolve-url-loader": "^5.0.0",
     "sass": "^1.32.11",
-    "sass-loader": "^11.0.1"
+    "sass-loader": "^11.0.1",
+    "vite": "^3.2.3"
   },
   "dependencies": {
     "@david.kucsai/react-pdf-table": "^0.4.1",
@@ -69,5 +70,15 @@
   "bugs": {
     "url": "https://github.com/farhanizazz/Web-Jual-Beli-Kekean/issues"
   },
-  "homepage": "https://github.com/farhanizazz/Web-Jual-Beli-Kekean#readme"
+  "homepage": "https://github.com/farhanizazz/Web-Jual-Beli-Kekean#readme",
+  "comments": {
+    "dev": "npm run development",
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "prod": "npm run production",
+    "production": "mix --production",
+    "build": "webpack --config webpack.config.js"
+  }
 }
