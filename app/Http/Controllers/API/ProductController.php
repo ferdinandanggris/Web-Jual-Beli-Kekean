@@ -62,8 +62,10 @@ class ProductController extends Controller
             'model_3d',
             'description'
         ]);
+        $payload['size_id'] = $size->id;
         try {
             //code...
+
             $dataProduct = $this->productModel->store($payload);
             if (!empty($payload['image'])) {
                 # code...
