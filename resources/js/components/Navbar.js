@@ -285,16 +285,17 @@ export default function Navbar(props) {
                                     alignItems: "center",
                                 }}
                             >
-                                <Typography
-                                    textAlign={"center"}
-                                    color={"black"}
-                                    fontFamily='Dancing Script'
-                                    fontSize={25}
-                                    mr={1}
-                                >
-                                    Kekean
-                                </Typography>
-                                <Button
+                                <Link to={'/'} style={{textDecoration: 'none'}}>
+                                    <Typography
+                                        color={"black"}
+                                        fontSize={20}
+                                        fontWeight={500}
+                                        mr={2}
+                                    >
+                                        Kekean
+                                    </Typography>
+                                </Link>
+                                {/* <Button
                                     sx={{ color: theme.textColor }}
                                     onClick={() => history("/")}
                                 >
@@ -309,7 +310,7 @@ export default function Navbar(props) {
                                     >
                                         Shop
                                     </Typography>
-                                </Button>
+                                </Button> */}
                                 <Button
                                     onClick={() => history("/artikel")}
                                     sx={{ color: theme.textColor }}
