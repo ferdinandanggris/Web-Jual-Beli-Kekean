@@ -49,7 +49,7 @@ class Product extends Model
 
     public function getById(int $id)
     {
-        return $this->find($id);
+        return $this->with(['size','image'])->find($id);
     }
     public function drop(int $id)
     {
