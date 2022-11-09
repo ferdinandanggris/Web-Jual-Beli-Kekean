@@ -84,7 +84,7 @@ class ProductController extends Controller
         $payload['price'] = $request->input('input.price');
         $payload['model_3d'] = $request->input('input.model_3d');
         $payload['description'] = $request->input('input.description');
-        $payload['has_3d'] = $request->input('input.has_3s');
+        $payload['has_3d'] = $request->input('input.has_3d');
         $payload['size_id'] = $size->id;
         try {
             //code...
