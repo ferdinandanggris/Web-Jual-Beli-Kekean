@@ -55,13 +55,19 @@ class ProductController extends Controller
         $size->save();
 
         // dd();
-        $payload =$request->only([
-            'input.image',
-            'input.product_name',
-            'input.price',
-            'input.model_3d',
-            'input.description'
-        ]);
+        // $payload =$request->only([
+        //     'image',
+        //     'product_name',
+        //     'price',
+        //     'model_3d',
+        //     'description'
+        // ]);
+        $payload['image'] = $request->input->image;
+        $payload['product_name'] = $request->input->product_name;
+        $payload['price'] = $request->input->price;
+        $payload['model_3d'] = $request->input->model_3d;
+        $payload['description'] = $request->input->description;
+        $payload['has_3d'] = $request->input->has_3d;
         $payload['size_id'] = $size->id;
         try {
             //code...
@@ -185,13 +191,19 @@ class ProductController extends Controller
         $size->XXL = $request->input('sizes.XXL');
         $size->update();
 
-        $payload =$request->input->only([
-            'input.image',
-            'input.product_name',
-            'input.price',
-            'input.model_3d',
-            'input.description'
-        ]);
+        // $payload =$request->input->only([
+        //     'input.image',
+        //     'input.product_name',
+        //     'input.price',
+        //     'input.model_3d',
+        //     'input.description'
+        // ]);
+        $payload['image'] = $request->input->image;
+        $payload['product_name'] = $request->input->product_name;
+        $payload['price'] = $request->input->price;
+        $payload['model_3d'] = $request->input->model_3d;
+        $payload['description'] = $request->input->description;
+        $payload['has_3d'] = $request->input->has_3d;
         try {
             //code...
             $dataProduct = $this->productModel->edit($payload,$id);
