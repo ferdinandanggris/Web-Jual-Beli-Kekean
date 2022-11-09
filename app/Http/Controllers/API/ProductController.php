@@ -55,12 +55,12 @@ class ProductController extends Controller
         $size->save();
 
         // dd();
-        $payload =$request->input->only([
-            'image',
-            'product_name',
-            'price',
-            'model_3d',
-            'description'
+        $payload =$request->only([
+            'input.image',
+            'input.product_name',
+            'input.price',
+            'input.model_3d',
+            'input.description'
         ]);
         $payload['size_id'] = $size->id;
         try {
@@ -186,11 +186,11 @@ class ProductController extends Controller
         $size->update();
 
         $payload =$request->input->only([
-            'image',
-            'product_name',
-            'price',
-            'model_3d',
-            'description'
+            'input.image',
+            'input.product_name',
+            'input.price',
+            'input.model_3d',
+            'input.description'
         ]);
         try {
             //code...
