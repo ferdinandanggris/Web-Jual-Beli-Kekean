@@ -292,7 +292,7 @@ export default function Navbar(props) {
                                         fontWeight={500}
                                         mr={4}
                                     >
-                                        Kekean
+                                        Kekean <Box component='span' sx={{color: 'primary.main'}}> Gallery</Box>
                                     </Typography>
                                 </Link>
                                 {/* <Button
