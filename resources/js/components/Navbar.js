@@ -290,7 +290,7 @@ export default function Navbar(props) {
                                         color={"black"}
                                         fontSize={20}
                                         fontWeight={500}
-                                        mr={2}
+                                        mr={4}
                                     >
                                         Kekean
                                     </Typography>
