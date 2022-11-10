@@ -236,7 +236,7 @@ class ProductController extends Controller
                 // $imageArr = json_decode($payload['image'],true);
                 $imageArr = $payload['image'];
 
-                foreach ($imageArr as $key => $image) {
+                for ($i = 0; $i < count($imageArr); $i++) {
                     # code...
                     $folderPath = "/catalog/";
 
