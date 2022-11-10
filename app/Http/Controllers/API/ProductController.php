@@ -92,8 +92,7 @@ class ProductController extends Controller
                     # code...
                     # code...
                     $folderPath = "/catalog/";
-                                        # code...
-                    $folderPath = "/products/";
+                    # code...
                     $test = $imageArr[$i];
                     $image_parts = explode(";base64,", $imageArr[$i]);
                     $image_type_aux = explode("image/", $image_parts[0]);
@@ -237,21 +236,18 @@ class ProductController extends Controller
                 # code...
                 // $imageArr = json_decode($payload['image'],true);
                 $imageArr = json_decode($payload['image'], true);
-                $imageArr = json_decode($payload['image'],true);
                 // $imageArr = $payload['image'];
 
-                for ($i = 0; $i < count($imageArr); $i++) {
+                foreach ($imageArr as $key => $image) {
                     # code...
                     $folderPath = "/catalog/";
 
-                    $image_parts = explode(";base64,", $imageArr[$i]);
+                    $image_parts = explode(";base64,", $image);
                     $image_type_aux = explode("image/", $image_parts[0]);
                     $image_type = $image_type_aux[1];
                     $image_base64 = base64_decode($image_parts[1]);
                     $file = $folderPath . uniqid() . "." . $image_type;
                     Storage::disk('local')->put($file, $image_base64);
-                    // $image = $file;
-                    // $image = $file ;
 
                     ImageDetail::create([
                         "product_id" => $dataProduct["id"],
