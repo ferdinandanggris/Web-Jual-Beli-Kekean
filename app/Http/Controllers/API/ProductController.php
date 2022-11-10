@@ -250,7 +250,7 @@ class ProductController extends Controller
                     Storage::disk('local')->put($file, $image_base64);
 
                     ImageDetail::create([
-                        "product_id" => $dataProduct["id"],
+                        "product_id" => $id,
                         "path" => $file,
                     ]);
                 }
