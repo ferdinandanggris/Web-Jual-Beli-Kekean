@@ -98,7 +98,7 @@ class ProductController extends Controller
                 for ($i = 0; $i < count($imageArr); $i++) {
                     # code...
                     # code...
-                    $folderPath = "/products/";
+                    $folderPath = "/catalog/";
 
                     $image_parts = explode(";base64,", $imageArr[$i]);
                     $image_type_aux = explode("image/", $image_parts[0]);

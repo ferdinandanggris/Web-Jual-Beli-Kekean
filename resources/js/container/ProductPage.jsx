@@ -127,33 +127,18 @@ export default function ProductPage(props) {
                                 </div>
                             ) : (
                                 <Carousel>
-                                    <Box
+                                    {product.image.map((item, id) => (
+                                        <Box
+                                        key={id}
                                         sx={{
                                             height: "400px",
                                             objectFit: "fill",
                                             ml: "30%",
                                         }}
                                         component="img"
-                                        src={`../catalog/${product.image_detail1}`}
+                                        src={`..${item.path}`}
                                     />
-                                    <Box
-                                        sx={{
-                                            height: "400px",
-                                            objectFit: "fill",
-                                            ml: "30%",
-                                        }}
-                                        component="img"
-                                        src={`../catalog/${product.image_detail2}`}
-                                    />
-                                    <Box
-                                        sx={{
-                                            height: "400px",
-                                            objectFit: "fill",
-                                            ml: "30%",
-                                        }}
-                                        component="img"
-                                        src={`../catalog/${product.image_detail3}`}
-                                    />
+                                    ))}
                                 </Carousel>
                                 // <Box
                                 //     sx={{
@@ -169,9 +154,7 @@ export default function ProductPage(props) {
                                 <Typography fontSize={36} fontWeight={"medium"}>
                                     Deskripsi
                                 </Typography>
-                                <Typography>
-                                    {product.description}
-                                </Typography>
+                                <Typography>{product.description}</Typography>
                             </Box>
                         </Box>
                     )}
@@ -199,10 +182,7 @@ export default function ProductPage(props) {
                                 />
                             ) : (
                                 <Typography fontSize={20}>
-                                    Rp.{" "}
-                                    {Number(
-                                        product.price
-                                    ).toLocaleString()}
+                                    Rp. {Number(product.price).toLocaleString()}
                                 </Typography>
                             )}
                         </Box>
