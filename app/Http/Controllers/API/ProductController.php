@@ -234,10 +234,14 @@ class ProductController extends Controller
             $dataProduct = $this->productModel->edit($payload, $id);
             if (!empty($payload['image'])) {
                 # code...
+                ImageDetail::where('product_id',$id)->delete();
                 // $imageArr = json_decode($payload['image'],true);
                 $imageArr = json_decode($payload['image'], true);
                 // $imageArr = $payload['image'];
 
+
+
+                // implementasi hapus image sesuai user
                 foreach ($imageArr as $key => $image) {
                     # code...
                     $folderPath = "/catalog/";
@@ -250,22 +254,24 @@ class ProductController extends Controller
                     Storage::disk('local')->put($file, $image_base64);
 
                     ImageDetail::create([
-                        "product_id" => $dataProduct["id"],
+                        "product_id" => $id,
                         "path" => $file,
                     ]);
                 }
             }
-            if (!empty($payload['deleted_image'])) {
-                $deleted_image = json_decode($payload['deleted_image'], true);
-                foreach ($deleted_image as $key => $id_image) {
-                    # code...
-                    $dataLama = $this->imageDetailModel->getById($id_image);
-                    if ($dataLama["path"] && file_exists(public_path('storage/' . $dataLama["path"]))) {
-                        unlink(public_path('storage/' . $dataLama["path"]));
-                    }
-                    $this->imageDetailModel->drop($id_image);
-                }
-            }
+
+            // #IMPLEMENTASI DELETE IMAGE SESUAI KEBUTUHAN USER
+            // if (!empty($payload['deleted_image'])) {
+            //     $deleted_image = json_decode($payload['deleted_image'], true);
+            //     foreach ($deleted_image as $key => $id_image) {
+            //         # code...
+            //         $dataLama = $this->imageDetailModel->getById($id_image);
+            //         if ($dataLama["path"] && file_exists(public_path('storage/' . $dataLama["path"]))) {
+            //             unlink(public_path('storage/' . $dataLama["path"]));
+            //         }
+            //         $this->imageDetailModel->drop($id_image);
+            //     }
+            // }
 
             return response()->json([
                 'status' => 200,
