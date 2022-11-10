@@ -246,7 +246,7 @@ class ProductController extends Controller
                     $image_base64 = base64_decode($image_parts[1]);
                     $file = $folderPath . uniqid() . "." . $image_type;
                     Storage::disk('local')->put($file, $image_base64);
-                    $image = $file;
+                    // $image = $file;
 
                     ImageDetail::create([
                         "product_id" => $dataProduct["id"],
