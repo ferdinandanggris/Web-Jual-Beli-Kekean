@@ -17,6 +17,8 @@
     <title>KEKEAN Wastra Gallery</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- @viteReactRefresh
+    @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
 </head>
 
 <body>
