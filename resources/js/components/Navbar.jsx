@@ -196,7 +196,7 @@ export default function Navbar(props) {
                     <Typography
                         sx={{
                             "&:hover": {
-                                borderBottom: "1px solid white",
+                                borderBottom: `1px solid ${theme.borderColor}`,
                             },
                         }}
                         color={"black"}
@@ -205,7 +205,7 @@ export default function Navbar(props) {
                         <Link
                             style={{
                                 textDecoration: "none",
-                                color: "white",
+                                color: theme.textColor,
                             }}
                             to={`/login`}
                         >
