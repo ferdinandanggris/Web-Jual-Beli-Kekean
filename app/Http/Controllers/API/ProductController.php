@@ -44,7 +44,6 @@ class ProductController extends Controller
             'product_name' => 'required',
             'price' => 'required|numeric',
             'description' => 'required',
-            // 'image_detail1' => 'required',
             'image' => 'required',
             'model_3d' => 'required_if:has_3d,true'
         ]);
@@ -210,7 +209,7 @@ class ProductController extends Controller
             'product_name' => 'required',
             'price' => 'required|numeric',
             'description' => 'required',
-            'image_detail1' => 'required',
+            'image' => 'required',
             'model_3d' => 'required_if:has_3d,true'
         ]);
         if ($validator->fails()) {
@@ -245,7 +244,7 @@ class ProductController extends Controller
 
                 foreach ($imageArr as $key => $image) {
                     # code...
-                    $folderPath = "/products/";
+                    $folderPath = "/catalog/";
 
                     $image_parts = explode(";base64,", $image);
                     $image_type_aux = explode("image/", $image_parts[0]);
