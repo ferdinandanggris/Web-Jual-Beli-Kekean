@@ -86,7 +86,7 @@ export default function AddProduct() {
         });
     };
 
-    console.log(input);
+    
     const handleImage = async (files) => {
         const base64img = await toBase64Handler(files);
         setInput({ ...input, image: JSON.stringify(base64img) });
@@ -136,7 +136,8 @@ export default function AddProduct() {
         // }
         handleCloseImage();
     };
-
+    
+    console.log(input);
     const saveProduct = async (e) => {
         e.preventDefault();
 

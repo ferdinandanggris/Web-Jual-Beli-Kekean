@@ -16,9 +16,11 @@ import {
 import React from "react";
 import { DropzoneDialog } from "mui-file-dropzone";
 import { useNavigate, useParams } from "react-router";
+import { toBase64Handler } from "../../../base64converter/base64Converter";
 
 export default function EditProduct(props) {
     const [imageDropzone, setImageDropzone] = React.useState(false);
+    const [loading, setLoading] = React.useState(true);
     const [input, setInput] = React.useState({
         product_name: "",
         price: "",
@@ -73,11 +75,13 @@ export default function EditProduct(props) {
         const fetchData = () => {
             try {
                 axios.get(`api/edit-products/${prod_id.id}`).then((res) => {
-                    products = { ...res.data.products, error_list: [] };
-                    size = res.data.size;
-                    products.has_3d = !!Number(products.has_3d);
-                    setInput(products);
-                    setSizes(size);
+                    res.data.products.has_3d = !!Number(
+                        res.data.products.has_3d
+                    );
+                    res.data.products.model_3d == null ? (res.data.products.model_3d = "") : null
+                    setInput({ ...input, ...res.data.products });
+                    setSizes(res.data.size);
+                    setLoading(false);
                 });
             } catch (error) {
                 console.error(error.message);
@@ -104,53 +108,50 @@ export default function EditProduct(props) {
     };
 
     const handleImage = async (files) => {
-        // if(!files[1]) {
-        //     files[1] = {name: ''}
-        // }
-        // if(!files[2]) {
-        //     files[2] = {name: ''}
-        // }
-        setInput({
-            ...input,
-            image_detail1: files[0].name,
-            // image_detail2: files[1].name,
-            // imagedetail3: files[2].name
-        });
+        const base64img = await toBase64Handler(files);
+        setInput({ ...input, image: JSON.stringify(base64img) });
 
-        let imgData = new FormData();
-        if (files.length == 1) {
-            setInput({
-                ...input,
-                image_detail1: files[0].name,
-                // image_detail2: files[1].name,
-                // imagedetail3: files[2].name
-            });
-            imgData.append("image[]", files[0]);
-        } else if (files.length == 2) {
-            setInput({
-                ...input,
-                image_detail1: files[0].name,
-                image_detail2: files[1].name,
-                // image_detail3: files[2].name
-            });
-            imgData.append("image[]", files[0]);
-            imgData.append("image[]", files[1]);
-        } else if (files.length == 3) {
-            setInput({
-                ...input,
-                image_detail1: files[0].name,
-                image_detail2: files[1].name,
-                image_detail3: files[2].name,
-            });
-            imgData.append("image[]", files[0]);
-            imgData.append("image[]", files[1]);
-            imgData.append("image[]", files[2]);
-        }
+        // setInput({
+        //     ...input,
+        //     image_detail1: files[0].name,
+        //     // image_detail2: files[1].name,
+        //     // imagedetail3: files[2].name
+        // });
 
-        const res = await axios.post(`api/edit-image/${prod_id.id}`, imgData);
-        if (res.data.status === 200) {
-            console.log(res.data.message);
-        }
+        // let imgData = new FormData();
+        // if (files.length == 1) {
+        //     setInput({
+        //         ...input,
+        //         image_detail1: files[0].name,
+        //         // image_detail2: files[1].name,
+        //         // imagedetail3: files[2].name
+        //     });
+        //     imgData.append("image[]", files[0]);
+        // } else if (files.length == 2) {
+        //     setInput({
+        //         ...input,
+        //         image_detail1: files[0].name,
+        //         image_detail2: files[1].name,
+        //         // image_detail3: files[2].name
+        //     });
+        //     imgData.append("image[]", files[0]);
+        //     imgData.append("image[]", files[1]);
+        // } else if (files.length == 3) {
+        //     setInput({
+        //         ...input,
+        //         image_detail1: files[0].name,
+        //         image_detail2: files[1].name,
+        //         image_detail3: files[2].name,
+        //     });
+        //     imgData.append("image[]", files[0]);
+        //     imgData.append("image[]", files[1]);
+        //     imgData.append("image[]", files[2]);
+        // }
+
+        // const res = await axios.post(`api/edit-image/${prod_id.id}`, imgData);
+        // if (res.data.status === 200) {
+        //     console.log(res.data.message);
+        // }
         handleCloseImage();
     };
 
@@ -389,21 +390,11 @@ export default function EditProduct(props) {
                                     acceptedFiles={["image/*"]}
                                     maxFileSize={50000000}
                                 />
-                                <Typography>
-                                    {input.image_detail1 != null
-                                        ? input.image_detail1
-                                        : ""}
-                                    {`, ${
-                                        input.image_detail2 != null
-                                            ? input.image_detail2
-                                            : ""
-                                    }`}
-                                    {`, ${
-                                        input.image_detail3 != null
-                                            ? input.image_detail3
-                                            : ""
-                                    }`}
-                                </Typography>
+                                {loading ? '' : <Typography>
+                                    {input.image.map((item, key) => (
+                                        item.path.substr((item.path.lastIndexOf('/') + 1), item.path.length) + ', '
+                                    ))}
+                                </Typography>}
                                 <Typography color={"red"}>
                                     {input.error_list.image_detail1}
                                 </Typography>
