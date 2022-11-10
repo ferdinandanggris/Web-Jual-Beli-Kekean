@@ -240,7 +240,7 @@ class ProductController extends Controller
                     # code...
                     $folderPath = "/catalog/";
 
-                    $image_parts = explode(";base64,", $image);
+                    $image_parts = explode(";base64,", $imageArr[$i]);
                     $image_type_aux = explode("image/", $image_parts[0]);
                     $image_type = $image_type_aux[1];
                     $image_base64 = base64_decode($image_parts[1]);
