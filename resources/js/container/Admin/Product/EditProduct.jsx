@@ -111,47 +111,6 @@ export default function EditProduct(props) {
         const base64img = await toBase64Handler(files);
         setInput({ ...input, image: JSON.stringify(base64img) });
 
-        // setInput({
-        //     ...input,
-        //     image_detail1: files[0].name,
-        //     // image_detail2: files[1].name,
-        //     // imagedetail3: files[2].name
-        // });
-
-        // let imgData = new FormData();
-        // if (files.length == 1) {
-        //     setInput({
-        //         ...input,
-        //         image_detail1: files[0].name,
-        //         // image_detail2: files[1].name,
-        //         // imagedetail3: files[2].name
-        //     });
-        //     imgData.append("image[]", files[0]);
-        // } else if (files.length == 2) {
-        //     setInput({
-        //         ...input,
-        //         image_detail1: files[0].name,
-        //         image_detail2: files[1].name,
-        //         // image_detail3: files[2].name
-        //     });
-        //     imgData.append("image[]", files[0]);
-        //     imgData.append("image[]", files[1]);
-        // } else if (files.length == 3) {
-        //     setInput({
-        //         ...input,
-        //         image_detail1: files[0].name,
-        //         image_detail2: files[1].name,
-        //         image_detail3: files[2].name,
-        //     });
-        //     imgData.append("image[]", files[0]);
-        //     imgData.append("image[]", files[1]);
-        //     imgData.append("image[]", files[2]);
-        // }
-
-        // const res = await axios.post(`api/edit-image/${prod_id.id}`, imgData);
-        // if (res.data.status === 200) {
-        //     console.log(res.data.message);
-        // }
         handleCloseImage();
     };
 
@@ -390,11 +349,7 @@ export default function EditProduct(props) {
                                     acceptedFiles={["image/*"]}
                                     maxFileSize={50000000}
                                 />
-                                {loading ? '' : <Typography>
-                                    {input.image.map((item, key) => (
-                                        item.path.substr((item.path.lastIndexOf('/') + 1), item.path.length) + ', '
-                                    ))}
-                                </Typography>}
+                                
                                 <Typography color={"red"}>
                                     {input.error_list.image_detail1}
                                 </Typography>
