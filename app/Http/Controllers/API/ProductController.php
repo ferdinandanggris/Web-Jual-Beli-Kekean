@@ -234,7 +234,7 @@ class ProductController extends Controller
             if (!empty($payload['image'])) {
                 # code...
                 // $imageArr = json_decode($payload['image'],true);
-                $imageArr = $payload['image'];
+                $imageArr = json_decode($payload['image'], true);
 
                 for ($i = 0; $i < count($imageArr); $i++) {
                     # code...
