@@ -64,6 +64,7 @@ class ProductController extends Controller
             //code...
 
             $dataProduct = $this->productModel->store($payload);
+            return empty($payload['image']);
             if (!empty($payload['image'])) {
                 # code...
                 $imageArr = json_decode($payload['image'], true);
