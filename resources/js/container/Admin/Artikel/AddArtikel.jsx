@@ -9,6 +9,8 @@ import {
     Typography,
     Button,
     FormHelperText,
+    FormControlLabel,
+    Checkbox,
     Select,
     MenuItem,
 } from "@mui/material";
@@ -22,6 +24,7 @@ import { toBase64 } from "../../../base64converter/base64Converter";
 export default function AddArtikel() {
     const [input, setInput] = React.useState({
         title: "",
+        featured: "",
         isi: "",
         image: new FormData(),
         featured: false,
@@ -65,8 +68,8 @@ export default function AddArtikel() {
 
     const handleImage = async (files) => {
         const file = files[0];
-        const base64img = await toBase64(file)
-        setInput({...input, image: base64img})
+        const base64img = await toBase64(file);
+        setInput({ ...input, image: base64img });
     };
 
     // const convertImgToBase64 = (file) => {
@@ -98,6 +101,13 @@ export default function AddArtikel() {
         });
     };
 
+    const checkboxColor = {
+        color: "primary.main",
+        "&.Mui-checked": {
+            color: "primary",
+        },
+    };
+
     const classes = useStyles();
     return (
         <Container sx={{ my: 5 }}>
@@ -114,6 +124,30 @@ export default function AddArtikel() {
                                         value={input.title}
                                         onChange={handleInput}
                                         name="title"
+                                        id="component-filled"
+                                        disableUnderline={true}
+                                        classes={{
+                                            root: classes.root,
+                                            input: classes.input,
+                                        }}
+                                    />
+                                    <FormHelperText
+                                        sx={{ color: "red", fontSize: 10 }}
+                                    >
+                                        {/* {input.error_list.price} */}
+                                    </FormHelperText>
+                                </FormControl>
+                            </Grid>
+
+                            <Grid item mobile={12}>
+                                <FormControl fullWidth variant="filled">
+                                    <InputLabel htmlFor="component-filled">
+                                        Overview Artikel (Optional)
+                                    </InputLabel>
+                                    <FilledInput
+                                        value={input.overview}
+                                        onChange={handleInput}
+                                        name="overview"
                                         id="component-filled"
                                         disableUnderline={true}
                                         classes={{
@@ -151,6 +185,24 @@ export default function AddArtikel() {
                                     theme="snow"
                                     value={input.isi}
                                     onChange={changeArticle}
+                                />
+                            </Grid>
+                            <Grid item mobile={12}>
+                                <FormControlLabel
+                                    control={
+                                        <Checkbox
+                                            sx={checkboxColor}
+                                            checked={input.featured}
+                                            onChange={(e) =>
+                                                setInput({
+                                                    ...input,
+                                                    featured: e.target.checked,
+                                                })
+                                            }
+                                            name="XXL"
+                                        />
+                                    }
+                                    label="Featured?"
                                 />
                             </Grid>
 
