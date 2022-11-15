@@ -164,7 +164,6 @@ class ProductController extends Controller
             'product_name' => 'required',
             'price' => 'required|numeric',
             'description' => 'required',
-            'image' => 'required',
             'model_3d' => 'required_if:has_3d,true'
         ]);
         if ($validator->fails()) {
