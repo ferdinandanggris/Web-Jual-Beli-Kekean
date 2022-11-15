@@ -127,7 +127,7 @@ export default function ProductPage(props) {
                                 </div>
                             ) : (
                                 <Carousel>
-                                    {product.image.map((item, id) => (
+                                    {product.imageUrl.map((item, id) => (
                                         <Box
                                         key={id}
                                         sx={{

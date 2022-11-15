@@ -56,7 +56,7 @@ export default function MainPage(props) {
                 id={item.id}
                 description={item.description}
                 nama={item.product_name}
-                image={item.image[0].path}
+                image={item.imageUrl[0].path}
                 harga={item.price}
                 have3d={item.has_3d}
                 model={item.model_3d}
