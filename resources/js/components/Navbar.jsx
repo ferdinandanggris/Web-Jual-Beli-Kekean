@@ -195,7 +195,7 @@ export default function Navbar(props) {
                 <Box sx={{ display: { mobile: "none", laptop: "block" } }}>
                     <Typography
                         sx={{
-                            "&:hover": {
+                            "&:hover":  {
                                 borderBottom: `1px solid ${theme.borderColor}`,
                             },
                         }}
@@ -273,7 +273,7 @@ export default function Navbar(props) {
                     <AppBar
                         elevation={4}
                         sx={{
-                            bgcolor: "#F5F5F5",
+                            bgcolor: "primary.background.default",
                             px: 7,
                         }}
                     >
@@ -311,9 +311,9 @@ export default function Navbar(props) {
                                         Shop
                                     </Typography>
                                 </Button> */}
-                                <Button
-                                    onClick={() => history("/artikel")}
-                                    sx={{ color: theme.textColor }}
+                                <Link
+                                    to={'/artikel'}
+                                    style={{ color: theme.textColor, textDecoration: 'none' }}
                                 >
                                     <Typography
                                         sx={{
@@ -326,10 +326,10 @@ export default function Navbar(props) {
                                     >
                                         Article
                                     </Typography>
-                                </Button>
-                                <Button
-                                    onClick={() => history("/about")}
-                                    sx={{ color: theme.textColor }}
+                                </Link>
+                                <Link
+                                    to={'/about'}
+                                    style={{ color: theme.textColor, textDecoration: 'none' }}
                                 >
                                     <Typography
                                         sx={{
@@ -342,7 +342,7 @@ export default function Navbar(props) {
                                     >
                                         About Us
                                     </Typography>
-                                </Button>
+                                </Link>
                                 {/* <Typography
                                     flexGrow={0.75}
                                     textAlign={"center"}

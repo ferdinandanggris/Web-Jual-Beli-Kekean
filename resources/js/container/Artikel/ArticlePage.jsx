@@ -20,7 +20,7 @@ function ArticlePage() {
 
     console.log(articles)
     return (
-        <Grid container sx={{ px: 17.5, mt: 10 }}>
+        <Grid container sx={{ px: 17.5, pt: 10}}>
             <Grid item laptop={12}>
                 <Carousel swipe={false} height={235}>
                 {featured.map((item, id) => (

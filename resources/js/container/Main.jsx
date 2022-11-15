@@ -2,7 +2,7 @@ import React from 'react';
 import Hero from '../components/Hero'
 import Filter from '../components/Filter';
 import Container from '@mui/material/Container'
-import { Grid } from '@mui/material';
+import { CssBaseline, Grid } from '@mui/material';
 import MainPage from './MainPage'
 import Carousel from 'react-material-ui-carousel/dist/components/Carousel';
 

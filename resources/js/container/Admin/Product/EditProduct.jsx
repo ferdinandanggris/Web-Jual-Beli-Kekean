@@ -52,9 +52,9 @@ export default function EditProduct(props) {
     }
 
     const checkboxColor = {
-        color: "#FF674D",
+        color: "main.primary",
         "&.Mui-checked": {
-            color: "#FF674D",
+            color: "main.primary",
         },
     };
 
@@ -69,25 +69,26 @@ export default function EditProduct(props) {
         },
     }));
 
-    let products = {};
-    let size = {};
     React.useEffect(() => {
         const fetchData = () => {
-            try {
-                axios.get(`api/edit-products/${prod_id.id}`).then((res) => {
-                    res.data.products.has_3d = !!Number(
-                        res.data.products.has_3d
-                    );
-                    res.data.products.model_3d == null ? (res.data.products.model_3d = "") : null
-                    setInput({ ...input, ...res.data.products });
-                    setSizes(res.data.size);
-                    setLoading(false);
-                });
-            } catch (error) {
-                console.error(error.message);
-            }
-        };
+            axios.get(`api/edit-products/${prod_id.id}`).then((res) => {
+                res.data.products.has_3d = !!Number(res.data.products.has_3d);
+                res.data.products.model_3d == null
+                    ? (res.data.products.model_3d = "")
+                    : null;
+                console.log(res.data.products.image);
+                let imagePath = [];
+                for (let i = 0; i < res.data.products.image.length; i++) {
+                    imagePath.push(".." + Object.values(res.data.products.image[i])[2])
+                }
+                console.log(imagePath)
+                res.data.products.image = toBase64Handler(imagePath);
 
+                setInput({ ...input, ...res.data.products });
+                setSizes(res.data.size);
+                setLoading(false);
+            });
+        };
         fetchData();
     }, []);
 
@@ -349,7 +350,7 @@ export default function EditProduct(props) {
                                     acceptedFiles={["image/*"]}
                                     maxFileSize={50000000}
                                 />
-                                
+
                                 <Typography color={"red"}>
                                     {input.error_list.image_detail1}
                                 </Typography>

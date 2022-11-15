@@ -19,19 +19,21 @@ export default function CatalogItem(props) {
                 <Box
                     sx={{
                         textDecoration: "none",
+                        border: "1px solid #D9D9D9",
+                        borderRadius: "10px",
                     }}
                     component={Link}
                     to={`/products/${props.id}`}
+                    display="flex"
+                    alignItems="center"
+                    flexDirection="column"
                 >
-                    <LazyLoad height={'132px'}>
+                    <LazyLoad height={"132px"}>
                         <Box
                             sx={{
-                                width: "100%",
-                                maxHeight: "132px",
-                                objectFit: "cover",
-                                borderRadius: "12px 12px 0 0",
-                                objectPosition: "0 -50px",
-                                border: "1px solid #D9D9D9",
+                                height: "100%",
+                                width: '100%',
+                                objectFit: "contain",
                                 borderBottom: "none",
                             }}
                             component="img"
@@ -40,9 +42,7 @@ export default function CatalogItem(props) {
                     </LazyLoad>
                     <Container
                         sx={{
-                            border: "1px solid #D9D9D9",
                             borderTop: "none",
-                            borderRadius: "0px 0px 10px 10px",
                             px: { mobile: 1, laptop: 2 },
                             textDecoration: "none",
                         }}
