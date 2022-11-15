@@ -27,18 +27,7 @@ class ProductController extends Controller
 
     public function store(Request $request)
     {
-        // $test = [];
-        $test = json_decode($request->image,true);
-        // // return gettype($test);
-        // return $test;
-        // $temp = [];
-        for ($i=0; $i < count($test); $i++) {
-            $temp[$i] = $test[$i];
-            return $temp[$i];
-        }
-        // foreach ($temp as $key => $value) {
-        //     # code...
-        // }
+        $test = json_decode($request->image, true);
 
         $validator = Validator::make($request->input('input'), [
             'product_name' => 'required',
@@ -64,14 +53,6 @@ class ProductController extends Controller
         $size->XXL = $request->input('sizes.XXL');
         $size->save();
 
-        // dd();
-        // $payload =$request->only([
-        //     'image',
-        //     'product_name',
-        //     'price',
-        //     'model_3d',
-        //     'description'
-        // ]);
         $payload['image'] = $request->input('input.image');
         $payload['product_name'] = $request->input('input.product_name');
         $payload['price'] = $request->input('input.price');
@@ -83,6 +64,7 @@ class ProductController extends Controller
             //code...
 
             $dataProduct = $this->productModel->store($payload);
+            return empty($payload['image']);
             if (!empty($payload['image'])) {
                 # code...
                 $imageArr = json_decode($payload['image'], true);
@@ -106,29 +88,7 @@ class ProductController extends Controller
                         "product_id" => $dataProduct["id"],
                         "path" => $file,
                     ]);
-                    // $payload["gambar"] = $file;
-                    // $payload["path_gambar"] = $folderPath;
                 }
-                // foreach ($imageArr as $key => $image) {
-                //     # code...
-                //     $folderPath = "/products/";
-
-                //     $image_parts = explode(";base64,", $image);
-                //     $image_type_aux = explode("image/", $image_parts[0]);
-                //     $image_type = $image_type_aux[1];
-                //     $image_base64 = base64_decode($image_parts[1]);
-                //     $file = $folderPath . uniqid() . "." . $image_type;
-                //     Storage::disk('local')->put($file, $image_base64);
-                //     $image = $file ;
-
-                //     ImageDetail::create([
-                //         "product_id" => $dataProduct["id"],
-                //         "path" => $file,
-                //     ]);
-                //     // $payload["gambar"] = $file;
-                //     // $payload["path_gambar"] = $folderPath;
-
-                // }
             }
             return response()->json([
                 'status' => 200,
@@ -234,7 +194,7 @@ class ProductController extends Controller
             $dataProduct = $this->productModel->edit($payload, $id);
             if (!empty($payload['image'])) {
                 # code...
-                ImageDetail::where('product_id',$id)->delete();
+                ImageDetail::where('product_id', $id)->delete();
                 // $imageArr = json_decode($payload['image'],true);
                 $imageArr = json_decode($payload['image'], true);
                 // $imageArr = $payload['image'];
