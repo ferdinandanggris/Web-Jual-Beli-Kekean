@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 export default function ArticleItem(props) {
     return (
         <Grid mobile={4} laptop={3} item px="0px" pt="10px">
-            <Link to={`/artikel${props.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
+            <Link to={`/artikel/${props.id}`} style={{textDecoration: 'none', color: 'inherit'}}>
             <Box
                 sx={{
                     width: "100%",

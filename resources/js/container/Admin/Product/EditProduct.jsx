@@ -26,11 +26,9 @@ export default function EditProduct(props) {
         price: "",
         description: "",
         has_3d: false,
-        image_detail1: "",
-        image_detail2: "",
-        image_detail3: "",
         model_3d: "",
         error_list: [],
+        image: [],
     });
     const [sizes, setSizes] = React.useState({
         S: "0",
@@ -72,18 +70,6 @@ export default function EditProduct(props) {
     React.useEffect(() => {
         const fetchData = () => {
             axios.get(`api/edit-products/${prod_id.id}`).then((res) => {
-                res.data.products.has_3d = !!Number(res.data.products.has_3d);
-                res.data.products.model_3d == null
-                    ? (res.data.products.model_3d = "")
-                    : null;
-                console.log(res.data.products.image);
-                let imagePath = [];
-                for (let i = 0; i < res.data.products.image.length; i++) {
-                    imagePath.push(".." + Object.values(res.data.products.image[i])[2])
-                }
-                console.log(imagePath)
-                res.data.products.image = toBase64Handler(imagePath);
-
                 setInput({ ...input, ...res.data.products });
                 setSizes(res.data.size);
                 setLoading(false);

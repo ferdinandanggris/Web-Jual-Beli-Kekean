@@ -50,6 +50,7 @@
     "react-quill": "^2.0.0",
     "react-router": "^6.3.0",
     "react-router-dom": "^6.3.0",
+    "react-spinners": "^0.13.6",
     "striptags": "^3.2.0",
     "sweetalert": "^2.1.2"
   },

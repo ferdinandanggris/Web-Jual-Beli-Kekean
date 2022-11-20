@@ -120,8 +120,8 @@ export default function ProductPage(props) {
                                         executionWhileOutOfViewPort
                                         executionWhileNotRendered
                                         webShare
-                                        width={"512px"}
-                                        height={"400px"}
+                                        width={"612px"}
+                                        height={"500px"}
                                         src={product.model_3d}
                                     ></iframe>
                                 </div>

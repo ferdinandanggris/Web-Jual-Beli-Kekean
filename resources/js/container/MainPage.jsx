@@ -12,6 +12,7 @@ import ArticleItem from "../components/ArticleItem";
 import { Link } from "react-router-dom";
 import CatalogCollection from "./CatalogCollection";
 import ArticleCollection from "./Artikel/ArticleCollection";
+import { LoadingContext } from "../Navs";
 
 export default function MainPage(props) {
     // const product = JSON.parse(JSON.stringify(require('../product.json')))
@@ -24,17 +25,12 @@ export default function MainPage(props) {
 
     React.useEffect(() => {
         const fetchData = async () => {
-            setLoading(true);
-            try {
-                axios.get(`api/products`).then((res) => {
-                    if (res.data.status === 200) {
-                        setProduct(res.data.products);
-                        setLoading(false);
-                    }
-                });
-            } catch (error) {
-                console.error(error.message);
-            }
+            axios.get(`api/products`).then((res) => {
+                if (res.data.status === 200) {
+                    setProduct(res.data.products);
+                    setLoading(false);
+                }
+            });
         };
         fetchData();
         isMounted = false;
@@ -45,7 +41,7 @@ export default function MainPage(props) {
     const currentProducts = product.slice(indexOfFirstPost, indexOfLastPost);
 
     const changeCurrentPage = (event, value) => {
-        window.scrollTo(0, 0)
+        window.scrollTo(0, 0);
         setCurrentPage(value);
     };
     if (!loading) {
@@ -116,108 +112,27 @@ export default function MainPage(props) {
             >
                 {loading ? (
                     <>
-                        <Grid item>
-                            <Skeleton
-                                variant="rounded"
-                                width={250}
-                                height={130}
-                            />
-                            <Skeleton
-                                variant="text"
-                                width={250}
-                                sx={{ fontSize: "1rem" }}
-                            />
-                            <Skeleton
-                                variant="text"
-                                width={250}
-                                sx={{ fontSize: "1rem" }}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <Skeleton
-                                variant="rounded"
-                                width={250}
-                                height={130}
-                            />
-                            <Skeleton
-                                variant="text"
-                                width={250}
-                                sx={{ fontSize: "1rem" }}
-                            />
-                            <Skeleton
-                                variant="text"
-                                width={250}
-                                sx={{ fontSize: "1rem" }}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <Skeleton
-                                variant="rounded"
-                                width={250}
-                                height={130}
-                            />
-                            <Skeleton
-                                variant="text"
-                                width={250}
-                                sx={{ fontSize: "1rem" }}
-                            />
-                            <Skeleton
-                                variant="text"
-                                width={250}
-                                sx={{ fontSize: "1rem" }}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <Skeleton
-                                variant="rounded"
-                                width={250}
-                                height={130}
-                            />
-                            <Skeleton
-                                variant="text"
-                                width={250}
-                                sx={{ fontSize: "1rem" }}
-                            />
-                            <Skeleton
-                                variant="text"
-                                width={250}
-                                sx={{ fontSize: "1rem" }}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <Skeleton
-                                variant="rounded"
-                                width={250}
-                                height={130}
-                            />
-                            <Skeleton
-                                variant="text"
-                                width={250}
-                                sx={{ fontSize: "1rem" }}
-                            />
-                            <Skeleton
-                                variant="text"
-                                width={250}
-                                sx={{ fontSize: "1rem" }}
-                            />
-                        </Grid>
-                        <Grid item>
-                            <Skeleton
-                                variant="rounded"
-                                width={250}
-                                height={130}
-                            />
-                            <Skeleton
-                                variant="text"
-                                width={250}
-                                sx={{ fontSize: "1rem" }}
-                            />
-                            <Skeleton
-                                variant="text"
-                                width={250}
-                                sx={{ fontSize: "1rem" }}
-                            />
-                        </Grid>
+                        {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+                            <Grid key={item} item laptop={3}>
+                                <Box>
+                                    <Skeleton
+                                        variant="rounded"
+                                        width={250}
+                                        height={130}
+                                    />
+                                    <Skeleton
+                                        variant="text"
+                                        width={250}
+                                        sx={{ fontSize: "1rem" }}
+                                    />
+                                    <Skeleton
+                                        variant="text"
+                                        width={250}
+                                        sx={{ fontSize: "1rem" }}
+                                    />
+                                </Box>
+                            </Grid>
+                        ))}
                     </>
                 ) : (
                     showProductList
