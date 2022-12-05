@@ -110,7 +110,7 @@ export default function Payment() {
         logoStyle: {
             width: "100px",
             height: "50px",
-            objectFit: "cover",
+            objectFit: "contain",
             bottom: "25px",
         },
     });
