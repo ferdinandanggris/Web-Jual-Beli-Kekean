@@ -293,12 +293,7 @@ export default function Payment() {
                 <View style={{ marginTop: "250px", marginHorizontal: "50px" }}>
                     <Text style={{ fontSize: "12px" }}>{today}</Text>
                     <Image
-                        style={{
-                            marginTop: "20px",
-                            width: "100px",
-                            height: "50px",
-                            objectFit: "cover",
-                        }}
+                        style={styles.logoStyle}
                         src={"../images/logoKekean.jpg"}
                     />
                     <Text style={{ marginTop: "20px", fontSize: "12px" }}>
