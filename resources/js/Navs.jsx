@@ -40,6 +40,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { grey } from "@mui/material/colors";
 import SplashScreen from "./container/SplashScreen";
+import ProductCustomize from "./container/ProductCustomize";
 
 export const LoadingContext = React.createContext();
 
@@ -167,6 +168,10 @@ function Navs() {
                                         <Route
                                             path="/about"
                                             element={<AboutUs />}
+                                        />
+                                        <Route
+                                            path="/product-customize"
+                                            element={<ProductCustomize />}
                                         />
                                         <Route
                                             path="/cara-pengembalian"

@@ -343,6 +343,22 @@ export default function Navbar(props) {
                                         About Us
                                     </Typography>
                                 </Link>
+                                <Link
+                                    to={'/product-customize'}
+                                    style={{ color: theme.textColor, textDecoration: 'none' }}
+                                >
+                                    <Typography
+                                        sx={{
+                                            "&:hover": {
+                                                borderBottom: `1px solid ${theme.borderColor}`,
+                                            },
+                                        }}
+                                        color={theme.textColor}
+                                        px={2}
+                                    >
+                                        Customize Your Product
+                                    </Typography>
+                                </Link>
                                 {/* <Typography
                                     flexGrow={0.75}
                                     textAlign={"center"}
