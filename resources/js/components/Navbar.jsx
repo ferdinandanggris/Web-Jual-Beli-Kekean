@@ -343,8 +343,7 @@ export default function Navbar(props) {
                                         About Us
                                     </Typography>
                                 </Link>
-                                <Link
-                                    to={'/customize'}
+                                <Link to={'/customize'}
                                     style={{ color: theme.textColor, textDecoration: 'none' }}
                                 >
                                     <Typography

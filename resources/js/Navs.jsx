@@ -170,6 +170,10 @@ function Navs() {
                                             element={<AboutUs />}
                                         />
                                         <Route
+                                            path="/product-customize"
+                                            element={<ProductCustomize />}
+                                        />
+                                        <Route
                                             path="/cara-pengembalian"
                                             element={<CaraPengembalian />}
                                         />
