@@ -40,6 +40,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { grey } from "@mui/material/colors";
 import SplashScreen from "./container/SplashScreen";
+import Customize from "./container/Customize";
 
 export const LoadingContext = React.createContext();
 
@@ -180,6 +181,10 @@ function Navs() {
                                             path="/konfirmasi-transfer"
                                             element={<KonfirmasiTransfer />}
                                         />
+                                        <Route
+                                            path="/customize"
+                                            element={<Customize />}
+                                        />
                                         {/* Admin Routes */}
                                         <Route
                                             path="/admin"
@@ -279,3 +284,7 @@ export default Navs;
 if (document.getElementById("app")) {
     ReactDOM.render(<Navs />, document.getElementById("app"));
 }
+
+// const container = document.getElementById('app');
+// const root = createRoot(container); // createRoot(container!) if you use TypeScript
+// root.render(<Navs />);
