@@ -9,7 +9,7 @@ import { useGLTF } from '@react-three/drei'
 export function Kemeja(props) {
   const { nodes, materials } = useGLTF('/3dModel/.GLB/3D KEMEJA.glb')
   return (
-    <group {...props} dispose={null}>
+    <group position={[0, -1, 0]} {...props} dispose={null}>
       <mesh geometry={nodes.Belakang.geometry} material={nodes.Belakang.material} position={[-0.01, 1.38, -0.32]} rotation={[Math.PI / 2, 0, 0]} />
       <mesh geometry={nodes.Depan_Kanan.geometry} material={nodes.Depan_Kanan.material} position={[-0.35, 1.45, 0.4]} rotation={[Math.PI / 2, 0, 0]} />
       <mesh geometry={nodes.Kancing.geometry} material={nodes.Kancing.material} position={[0, 1.81, 0.5]} rotation={[Math.PI / 2, 0, 0]} />
