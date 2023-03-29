@@ -3,9 +3,11 @@ import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
 import Product from "./ProductCustomize/Product";
 import "../../css/ProductCustomize.css";
+import { useCustomization } from "./ProductCustomize/Customization";
 
 export default function Customize(props) {
-
+    const {material, setMaterial} = useCustomization()
+    console.log('material', material)
 
     return (
         <Container sx={{ px: 10, mt: 5 }}>
@@ -77,7 +79,7 @@ export default function Customize(props) {
                             </div>
                             <div className="row mx-3">
                                 <div className="col-6">
-                                    <div className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
+                                    <div onClick={() => setMaterial('kawung')} className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
                                         <div style={{paddingTop : '100%', position : 'relative'}}>
                                             <img src="../images/motif-batik-dummy/kawung.webp" className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover',position : 'absolute',height : '100%', width : '100%', top : 0, left : 0 , right : 0 , bottom : 0}}></img>
                                         </div>
@@ -85,7 +87,7 @@ export default function Customize(props) {
                                     </div>
                                 </div>
                                 <div className="col-6">
-                                    <div className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
+                                    <div onClick={() => setMaterial('parang')} className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
                                         <div style={{paddingTop : '100%', position : 'relative'}}>
                                             <img src="../images/motif-batik-dummy/parang.webp" className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover',position : 'absolute',height : '100%', width : '100%', top : 0, left : 0 , right : 0 , bottom : 0}}></img>
                                         </div>
@@ -93,7 +95,7 @@ export default function Customize(props) {
                                     </div>
                                 </div>
                                 <div className="col-6">
-                                    <div className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
+                                    <div onClick={() => setMaterial('megaMendung')} className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
                                         <div style={{paddingTop : '100%', position : 'relative'}}>
                                             <img src="../images/motif-batik-dummy/mega-mendung.webp" className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover',position : 'absolute',height : '100%', width : '100%', top : 0, left : 0 , right : 0 , bottom : 0}}></img>
                                         </div>
@@ -101,7 +103,7 @@ export default function Customize(props) {
                                     </div>
                                 </div>
                                 <div className="col-6">
-                                    <div className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
+                                    <div onClick={() => setMaterial('sagon')} className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
                                         <div style={{paddingTop : '100%', position : 'relative'}}>
                                             <img src="../images/motif-batik-dummy/sagon.webp" className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover',position : 'absolute',height : '100%', width : '100%', top : 0, left : 0 , right : 0 , bottom : 0}}></img>
                                         </div>

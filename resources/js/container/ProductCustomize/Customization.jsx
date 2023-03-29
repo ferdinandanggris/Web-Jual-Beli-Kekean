@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 const CustomizationContext = createContext({})
 
 export const CustomizationProvider = (props) => {
-    const [material, setMaterial] = useState('leather')
+    const [material, setMaterial] = useState('kawung')
     return (
         <CustomizationContext.Provider value={{
             material,

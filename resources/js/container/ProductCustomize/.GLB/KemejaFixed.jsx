@@ -5,14 +5,17 @@ Command: npx gltfjsx@6.1.4 .\KEMEJA FIXED.glb
 
 import React, { useRef } from 'react'
 import { useGLTF, useTexture } from '@react-three/drei'
+import { useCustomization } from '../Customization'
+
 
 export function KemejaFixed(props) {
   const { nodes, materials } = useGLTF('/3dModel/.GLB/KEMEJA FIXED.glb')
+  const {material, setMaterial} = useCustomization()
   const fabricTextureProps = useTexture({
-    map: "/3dModel/.GLB/Textures/Fabric_035_SD/Batik1.png",
+    map: `/3dModel/.GLB/Textures/Fabric_035_SD/${material}.png`,
     // map: "/3dModel/.GLB/Textures/Fabric_035_SD/Fabric_035_basecolor.jpg",
     // normalMap: "/3dModel/.GLB/Textures/Fabric_035_SD/Fabric_035_normal.jpg",
-    // roughnessMap: "/3dModel/.GLB/Textures/Fabric_035_SD/Fabric_035_roughness.jpg",
+    // roughnessMap: "/3dModel/.GLB/Textures/Fabric_035_S D/Fabric_035_roughness.jpg",
     aoMap: "/3dModel/.GLB/Textures/Fabric_035_SD/Fabric_035_ambientOcclusion.jpg",
   })
 
