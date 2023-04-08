@@ -7,7 +7,9 @@ import { useCustomization } from "./ProductCustomize/Customization";
 
 export default function Customize(props) {
     const {material, setMaterial} = useCustomization()
+    const [seleksi, setSeleksi] = React.useState('dadaKanan')
     console.log('material', material)
+    console.log('seleksi', seleksi)
 
     return (
         <Container sx={{ px: 10, mt: 5 }}>
@@ -23,16 +25,16 @@ export default function Customize(props) {
                                 </Canvas>
                                 <div className="row justify-content-center text-center m-auto" style={{position : 'absolute', width : '60%', bottom : 0,left: 0, right : 0,fontWeight: 500, fontSize: 12 }}>
                                     {/* <div className="row m-auto" style={{width : '100%'}}> */}
-                                        <div className="col">
+                                        <div onClick={() => setSeleksi('kerah')} className="col" style={{cursor: 'pointer'}}>
                                             <p>Kerah</p>
                                         </div>
-                                        <div className="col">
+                                        <div onClick={() => setSeleksi('dadaKanan')} className="col" style={{cursor: 'pointer'}}>
                                             <p className="text-truncate">Dada Kanan</p>
                                         </div>
-                                        <div className="col">
+                                        <div onClick={() => setSeleksi('dadaKiri')} className="col" style={{cursor: 'pointer'}}>
                                             <p className="text-truncate">Dada Kiri</p>
                                         </div>
-                                        <div className="col">
+                                        <div onClick={() => setSeleksi('kancing')} className="col" style={{cursor: 'pointer'}}>
                                             <p>Kancing</p>
                                         </div>
                                     {/* </div> */}
