@@ -12,6 +12,7 @@ import { OutlinePass } from "three/examples/jsm/postprocessing/OutlinePass"
 import { RenderPass } from "three/examples/jsm/postprocessing/RenderPass"
 import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass"
 import { FXAAShader } from "three/examples/jsm/shaders/FXAAShader"
+import { KemejaFixed } from "./.GLB/KemejaFixed";
 
 
 
@@ -29,7 +30,8 @@ export default function Product() {
     return (
         <>
             <PerspectiveCamera makeDefault position={[1, 2, 3]} fov={60} />
-            <Kemeja rotation={[0, 0, 0]} position={[0, -1.3, 0]} />
+            {/* <Kemeja rotation={[0, 0, 0]} position={[0, -1.3, 0]} /> */}
+            <KemejaFixed/>
             <OrbitControls ref={controlRef} />
 
 

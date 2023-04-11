@@ -3,9 +3,13 @@ import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
 import Product from "./ProductCustomize/Product";
 import "../../css/ProductCustomize.css";
+import { useCustomization } from "./ProductCustomize/Customization";
 
 export default function Customize(props) {
-
+    const {material, setMaterial} = useCustomization()
+    const [seleksi, setSeleksi] = React.useState('dadaKanan')
+    console.log('material', material)
+    console.log('seleksi', seleksi)
 
     return (
         <Container sx={{ px: 10, mt: 5 }}>
@@ -21,16 +25,16 @@ export default function Customize(props) {
                                 </Canvas>
                                 <div className="row justify-content-center text-center m-auto" style={{position : 'absolute', width : '60%', bottom : 0,left: 0, right : 0,fontWeight: 500, fontSize: 12 }}>
                                     {/* <div className="row m-auto" style={{width : '100%'}}> */}
-                                        <div className="col">
+                                        <div onClick={() => setSeleksi('kerah')} className="col" style={{cursor: 'pointer'}}>
                                             <p>Kerah</p>
                                         </div>
-                                        <div className="col">
+                                        <div onClick={() => setSeleksi('dadaKanan')} className="col" style={{cursor: 'pointer'}}>
                                             <p className="text-truncate">Dada Kanan</p>
                                         </div>
-                                        <div className="col">
+                                        <div onClick={() => setSeleksi('dadaKiri')} className="col" style={{cursor: 'pointer'}}>
                                             <p className="text-truncate">Dada Kiri</p>
                                         </div>
-                                        <div className="col">
+                                        <div onClick={() => setSeleksi('kancing')} className="col" style={{cursor: 'pointer'}}>
                                             <p>Kancing</p>
                                         </div>
                                     {/* </div> */}
@@ -77,7 +81,7 @@ export default function Customize(props) {
                             </div>
                             <div className="row mx-3">
                                 <div className="col-6">
-                                    <div className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
+                                    <div onClick={() => setMaterial('kawung')} className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
                                         <div style={{paddingTop : '100%', position : 'relative'}}>
                                             <img src="../images/motif-batik-dummy/kawung.webp" className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover',position : 'absolute',height : '100%', width : '100%', top : 0, left : 0 , right : 0 , bottom : 0}}></img>
                                         </div>
@@ -85,7 +89,7 @@ export default function Customize(props) {
                                     </div>
                                 </div>
                                 <div className="col-6">
-                                    <div className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
+                                    <div onClick={() => setMaterial('parang')} className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
                                         <div style={{paddingTop : '100%', position : 'relative'}}>
                                             <img src="../images/motif-batik-dummy/parang.webp" className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover',position : 'absolute',height : '100%', width : '100%', top : 0, left : 0 , right : 0 , bottom : 0}}></img>
                                         </div>
@@ -93,7 +97,7 @@ export default function Customize(props) {
                                     </div>
                                 </div>
                                 <div className="col-6">
-                                    <div className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
+                                    <div onClick={() => setMaterial('megaMendung')} className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
                                         <div style={{paddingTop : '100%', position : 'relative'}}>
                                             <img src="../images/motif-batik-dummy/mega-mendung.webp" className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover',position : 'absolute',height : '100%', width : '100%', top : 0, left : 0 , right : 0 , bottom : 0}}></img>
                                         </div>
@@ -101,7 +105,7 @@ export default function Customize(props) {
                                     </div>
                                 </div>
                                 <div className="col-6">
-                                    <div className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
+                                    <div onClick={() => setMaterial('sagon')} className="motif mx-auto text-center" style={{ width: 'auto', height: 'auto', cursor: 'pointer' }}>
                                         <div style={{paddingTop : '100%', position : 'relative'}}>
                                             <img src="../images/motif-batik-dummy/sagon.webp" className="py-1 px-1" style={{ borderRadius: '50%', objectFit: 'cover',position : 'absolute',height : '100%', width : '100%', top : 0, left : 0 , right : 0 , bottom : 0}}></img>
                                         </div>
