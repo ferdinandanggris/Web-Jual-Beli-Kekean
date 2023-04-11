@@ -41,6 +41,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { grey } from "@mui/material/colors";
 import SplashScreen from "./container/SplashScreen";
 import Customize from "./container/Customize";
+import {environment} from "./environments/environment.js"
 import { CustomizationProvider } from "./container/ProductCustomize/Customization";
 
 export const LoadingContext = React.createContext();
@@ -85,8 +86,8 @@ function Navs() {
         },
     });
 
-    axios.defaults.baseURL = "https://kekean.id/";
-    // axios.defaults.baseURL = "http://localhost:8000";
+    // axios.defaults.baseURL = "https://kekean.id/";
+    axios.defaults.baseURL = environment.url ;
     axios.defaults.headers.post["Accept"] = "application/json";
     axios.defaults.headers.post["Content-Type"] = "application/json";
 
