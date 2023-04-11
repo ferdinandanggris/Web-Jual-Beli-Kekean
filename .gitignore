@@ -4,6 +4,7 @@
 /storage/*.key
 /vendor
 /resources/js/components/environments
+/resources/js/components/environments/*
 /public/catalog/
 .env
 .env.backup
