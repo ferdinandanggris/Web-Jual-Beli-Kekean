@@ -136,7 +136,7 @@ export default function ProductPage(props) {
                                             ml: "30%",
                                         }}
                                         component="img"
-                                        src={`..${item.path}`}
+                                        src={`../storage/${item.path}`}
                                     />
                                     ))}
                                 </Carousel>

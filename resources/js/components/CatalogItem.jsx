@@ -51,7 +51,7 @@ export default function CatalogItem(props) {
                                     borderBottom: "none",
                                 }}
                                 component="img"
-                                src={`..${props.image}`}
+                                src={`../storage/${props.image}`}
                             />
                         </LazyLoad>
                         <Container

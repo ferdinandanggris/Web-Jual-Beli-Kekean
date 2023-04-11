@@ -55,9 +55,11 @@ class ProductController extends Controller
 
         $payload['image'] = $request->input('input.image');
         $payload['product_name'] = $request->input('input.product_name');
+        $payload['product_name_english'] = $request->input('input.product_name_english');
         $payload['price'] = $request->input('input.price');
         $payload['model_3d'] = $request->input('input.model_3d');
         $payload['description'] = $request->input('input.description');
+        $payload['description_english'] = $request->input('input.description_english');
         $payload['has_3d'] = $request->input('input.has_3d');
         $payload['size_id'] = $size->id;
         try {
@@ -81,7 +83,7 @@ class ProductController extends Controller
                     $image_type = $image_type_aux[1];
                     $image_base64 = base64_decode($image_parts[1]);
                     $file = $folderPath . uniqid() . "." . $image_type;
-                    Storage::disk('local')->put($file, $image_base64);
+                    Storage::disk('public')->put($file, $image_base64);
                     // $image[$i] = $file ;
 
                     ImageDetail::create([
@@ -183,10 +185,12 @@ class ProductController extends Controller
         $size->update();
 
         $payload['product_name'] = $request->input('input.product_name');
+        $payload['product_name_english'] = $request->input('input.product_name_english');
         $payload['image'] = $request->input('input.image');
         $payload['price'] = $request->input('input.price');
         $payload['model_3d'] = $request->input('input.model_3d');
         $payload['description'] = $request->input('input.description');
+        $payload['description_english'] = $request->input('input.description_english');
         $payload['has_3d'] = $request->input('input.has_3d');
         try {
             //code...
@@ -210,7 +214,7 @@ class ProductController extends Controller
                     $image_type = $image_type_aux[1];
                     $image_base64 = base64_decode($image_parts[1]);
                     $file = $folderPath . uniqid() . "." . $image_type;
-                    Storage::disk('local')->put($file, $image_base64);
+                    Storage::disk('public')->put($file, $image_base64);
 
                     ImageDetail::create([
                         "product_id" => $id,
