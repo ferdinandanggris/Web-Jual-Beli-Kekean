@@ -10,7 +10,8 @@ import { Link } from "react-router-dom";
 import { Stack } from "@mui/system";
 
 export default function CatalogItem(props) {
-    console.log(props)
+    console.log(props);
+    
     return (
         <>
             <Grid
