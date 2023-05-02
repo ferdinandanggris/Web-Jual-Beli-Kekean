@@ -13,7 +13,7 @@ class AddColumnProductNameEnglishAndDescriptionEnglishOnTableProducts extends Mi
      */
     public function up()
     {
-        if (Schema::hasColumn('products', 'product_name_english') && Schema::hasColumn('products', 'description_english')) {
+        if (!Schema::hasColumn('products', 'product_name_english') && !Schema::hasColumn('products', 'description_english')) {
             Schema::table('products', function (Blueprint $table) {
                 $table->string('product_name_english')->nullable()->after('product_name');
                 $table->text('description_english')->nullable()->after('description');
