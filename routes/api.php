@@ -7,6 +7,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CartController;
 use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\ProductController;
+use App\Http\Controllers\Api\TextureController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,6 +63,14 @@ Route::group(["prefix" => "article"], function () {
     Route::post("/", [ArticleController::class, "store"]);
     Route::put("/", [ArticleController::class, "update"]);
     Route::delete("/{id}", [ArticleController::class, "destroy"]);
+});
+
+Route::group(["prefix" => "texture"], function () {
+    Route::get("/", [TextureController::class, "index"]);
+    Route::get("/{id}", [TextureController::class, "show"]);
+    Route::post("/", [TextureController::class, "store"]);
+    Route::put("/", [TextureController::class, "update"]);
+    Route::delete("/{id}", [TextureController::class, "destroy"]);
 });
 
 // Route::group(["prefix" => "payments"], function () {
