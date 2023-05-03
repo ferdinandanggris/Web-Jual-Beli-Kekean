@@ -13,10 +13,12 @@ class AddColumnTitleEnglishAndIsiEnglishOnTableArticles extends Migration
      */
     public function up()
     {
-        Schema::table('articles', function (Blueprint $table) {
-            $table->string('title_english')->nullable()->after('title');
-            $table->mediumText('isi_english')->nullable()->after('isi');
-        });
+        if (!Schema::hasColumn('articles', 'title_english') && !Schema::hasColumn('articles', 'isi_english')) {
+            Schema::table('articles', function (Blueprint $table) {
+                $table->string('title_english')->nullable()->after('title');
+                $table->mediumText('isi_english')->nullable()->after('isi');
+            });
+        }
     }
 
     /**
