@@ -52,16 +52,29 @@ class ProductController extends Controller
         $size->XL = $request->input('sizes.XL');
         $size->XXL = $request->input('sizes.XXL');
         $size->save();
-
+        
         $payload['image'] = $request->input('input.image');
         $payload['product_name'] = $request->input('input.product_name');
         $payload['product_name_english'] = $request->input('input.product_name_english');
         $payload['price'] = $request->input('input.price');
-        $payload['model_3d'] = $request->input('input.model_3d');
+        // $payload['model_3d'] = $request->input('input.model_3d');
         $payload['description'] = $request->input('input.description');
         $payload['description_english'] = $request->input('input.description_english');
         $payload['has_3d'] = $request->input('input.has_3d');
         $payload['size_id'] = $size->id;
+
+        if ($request->input('input.model_3d') !== null) {
+            /**upload image3d */
+            $payload['model_3d'] = $request->input('input.model_3d');
+            $image_parts = explode(";base64,", $payload['model_3d']);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_base64 = base64_decode($image_parts[1]);
+            $folderPath = "/catalog/";
+            $file = $folderPath . uniqid() . ".glb";
+            $payload['model_3d'] = $file;
+            Storage::disk('public')->put($file, $image_base64);
+        }
+
         try {
             //code...
 
@@ -92,6 +105,7 @@ class ProductController extends Controller
                     ]);
                 }
             }
+
             return response()->json([
                 'status' => 200,
                 'message' => 'Product Added Successfully',

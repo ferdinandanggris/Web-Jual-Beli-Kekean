@@ -16,8 +16,8 @@ class TextureResource extends JsonResource
     {
         return [
             "id" => $this->id,
-            "title" => $this->title,
-            "nama"  => $this->nama
+            "nama"  => $this->nama,
+            "image" => $this->image,
         ];
     }
 }

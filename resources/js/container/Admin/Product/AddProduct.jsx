@@ -86,11 +86,25 @@ export default function AddProduct() {
         });
     };
 
-    
+    const onFileChange = (e) => {
+        let files = e.target.files;
+        let fileReader = new FileReader();
+        fileReader.readAsDataURL(files[0]);
+
+        fileReader.onload = (event) => {
+            // this.setState({
+            //     selectedImage: event.target.result,
+            // })
+            setInput({
+            ...input,
+            model_3d: event.target.result,
+        });
+        };
+    };
+
     const handleImage = async (files) => {
         const base64img = await toBase64Handler(files);
         setInput({ ...input, image: JSON.stringify(base64img) });
-
 
         // if(!files[1]) {
         //     files[1] = {name: ''}
@@ -136,7 +150,7 @@ export default function AddProduct() {
         // }
         handleCloseImage();
     };
-    
+
     console.log(input);
     const saveProduct = async (e) => {
         e.preventDefault();
@@ -344,6 +358,17 @@ export default function AddProduct() {
                                             </Typography>
                                         }
                                     />
+                                    <div style={{display : input.has_3d ? 'inline' : 'none'}} className="form-group mb-3">
+                                        <label style={{ fontWeight:500,color:"#000000DE", fontSize : '1rem'}}>
+                                            Masukkan file 3D
+                                        </label>
+                                        <input
+                                            type="file"
+                                            className="form-control"
+                                            name="model_3d"
+                                            onChange={onFileChange}
+                                        />
+                                    </div>
                                 </FormGroup>
                             </Grid>
 
@@ -402,7 +427,7 @@ export default function AddProduct() {
                                 />
                             </Grid> */}
 
-                            <Grid item mobile={12}>
+                            {/* <Grid item mobile={12}>
                                 <FormControl fullWidth variant="filled">
                                     <InputLabel htmlFor="component-filled">
                                         Link model 3d dari sketchfab
@@ -420,7 +445,7 @@ export default function AddProduct() {
                                         }}
                                     />
                                 </FormControl>
-                            </Grid>
+                            </Grid> */}
 
                             <Grid sx={{ mt: 5 }} item mobile={12}>
                                 <Button onClick={() => history("/admin")}>
