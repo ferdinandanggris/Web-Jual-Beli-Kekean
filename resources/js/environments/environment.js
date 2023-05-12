@@ -11,7 +11,7 @@ export const environment = {
     production      : false,
     apiURL          : "https://kekean.pusproset.site/api",
     url             : "https://kekean.pusproset.site/",
-    fileUrl         : "https://kekean.pusproset.site/storage",
+    fileUrl         : "https://kekean.pusproset.site/storage/",
     generateUrl     : 'https://kekean.pusproset.site/',
-    imgUrl          : "https://kekean.pusproset.site/storage",
+    imgUrl          : "https://kekean.pusproset.site/storage/",
 };

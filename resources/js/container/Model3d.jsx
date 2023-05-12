@@ -7,7 +7,7 @@ import {environment} from  "../environments/environment"
 
 const Model3d = (props) => {
     const gltf = useLoader(
-        GLTFLoader,`environment.fileUrl/${props.model}`
+        GLTFLoader,`environment.fileUrl` + props.model
     );
     return (
         <PresentationControls
