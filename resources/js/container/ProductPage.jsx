@@ -10,7 +10,7 @@ import {
     TextField,
     Skeleton,
 } from "@mui/material";
-import React from "react";
+import React, { Suspense } from "react";
 import ButtonBeli from "../components/ButtonBeli";
 import { useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -19,6 +19,8 @@ import axios from "axios";
 import swal from "sweetalert";
 import Carousel from "react-material-ui-carousel";
 import { useQueryClient } from "@tanstack/react-query";
+import Model3d from "./Model3d";
+import { Canvas } from "@react-three/fiber";
 
 export default function ProductPage(props) {
     const queryClient = useQueryClient();
@@ -44,7 +46,6 @@ export default function ProductPage(props) {
                 if (res.data.status === 200) {
                     setProduct(res.data.products);
                     setSizes(res.data.size);
-                    console.log(res.data.size);
                     setLoading(false);
                 }
             });
@@ -108,36 +109,26 @@ export default function ProductPage(props) {
                     ) : (
                         <Box>
                             {!!Number(product.has_3d) ? (
-                                <div className="sketchfab-embed-wrapper">
-                                    <iframe
-                                        title={product.product_name}
-                                        frameBorder="0"
-                                        allowFullScreen
-                                        mozAllowFullscreen="true"
-                                        webkitAllowFullscreen="true"
-                                        allow="autoplay; fullscreen; xr-spatial-tracking"
-                                        xrSpecialTracking
-                                        executionWhileOutOfViewPort
-                                        executionWhileNotRendered
-                                        webShare
-                                        width={"612px"}
-                                        height={"500px"}
-                                        src={product.model_3d}
-                                    ></iframe>
+                                <div className="sketchfab-embed-wrapper" style={{height : '300px'}}>
+                                    <Suspense>
+                                        <Canvas>
+                                            <Model3d model={product.model_3d} />
+                                        </Canvas>
+                                    </Suspense>
                                 </div>
                             ) : (
                                 <Carousel>
                                     {product.imageUrl.map((item, id) => (
                                         <Box
-                                        key={id}
-                                        sx={{
-                                            height: "400px",
-                                            objectFit: "fill",
-                                            ml: "30%",
-                                        }}
-                                        component="img"
-                                        src={`../storage/${item.path}`}
-                                    />
+                                            key={id}
+                                            sx={{
+                                                height: "400px",
+                                                objectFit: "fill",
+                                                ml: "30%",
+                                            }}
+                                            component="img"
+                                            src={`../storage/${item.path}`}
+                                        />
                                     ))}
                                 </Carousel>
                                 // <Box
