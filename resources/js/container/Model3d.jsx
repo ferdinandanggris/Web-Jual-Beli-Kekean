@@ -10,7 +10,7 @@ const Model3d = (props) => {
         GLTFLoader,environment.fileUrl + '/' + props.model
     );
     return (
-        <PresentationControls
+        <OrbitControls
             speed={1.5}
             global
             zoom={0.7}
@@ -48,7 +48,7 @@ const Model3d = (props) => {
           metalness={0.5}
         />
       </mesh> */}
-        </PresentationControls>
+        </OrbitControls>
     );
 };
 
