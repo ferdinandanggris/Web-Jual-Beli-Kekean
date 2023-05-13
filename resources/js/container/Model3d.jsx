@@ -10,8 +10,9 @@ const Model3d = (props) => {
         GLTFLoader,environment.fileUrl + '/' + props.model
     );
     return (
-        <OrbitControls
-        >
+        <>
+        <PerspectiveCamera makeDefault position={[1, 2, 3]} fov={60} />
+        <OrbitControls/>
             <Stage
                 environment={"city"}
                 intensity={0.6}
@@ -44,7 +45,7 @@ const Model3d = (props) => {
           metalness={0.5}
         />
       </mesh> */}
-        </OrbitControls>
+      </>
     );
 };
 
