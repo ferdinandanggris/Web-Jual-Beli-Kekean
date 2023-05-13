@@ -1,4 +1,4 @@
-import { OrbitControls, PresentationControls, Stage, PerspectiveCamera } from "@react-three/drei";
+import { OrbitControls, PresentationControls, Stage } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import React from "react";
 import { Suspense } from "react";
@@ -10,9 +10,12 @@ const Model3d = (props) => {
         GLTFLoader,environment.fileUrl + '/' + props.model
     );
     return (
-        <>
-        <PerspectiveCamera makeDefault position={[1, 2, 3]} fov={60} />
-        <OrbitControls/>
+        <PresentationControls
+            speed={1.5}
+            global
+            zoom={0.7}
+            polar={[-1, Math.PI / 2]}
+        >
             <Stage
                 environment={"city"}
                 intensity={0.6}
@@ -45,7 +48,7 @@ const Model3d = (props) => {
           metalness={0.5}
         />
       </mesh> */}
-      </>
+        </PresentationControls>
     );
 };
 
