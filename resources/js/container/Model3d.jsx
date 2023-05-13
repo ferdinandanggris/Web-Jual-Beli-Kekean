@@ -11,10 +11,6 @@ const Model3d = (props) => {
     );
     return (
         <OrbitControls
-            speed={1.5}
-            global
-            zoom={0.7}
-            polar={[-1, Math.PI / 2]}
         >
             <Stage
                 environment={"city"}
