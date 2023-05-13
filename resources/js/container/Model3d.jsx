@@ -2,6 +2,7 @@ import { OrbitControls, PresentationControls, Stage } from "@react-three/drei";
 import { useLoader } from "@react-three/fiber";
 import React from "react";
 import { Suspense } from "react";
+import { PerspectiveCamera } from "three";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import {environment} from  "../environments/environment"
 
