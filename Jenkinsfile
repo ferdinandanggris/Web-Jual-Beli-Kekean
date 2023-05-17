@@ -5,10 +5,10 @@ pipeline {
         stage('Deploy') {
             steps {
               echo 'Deploying....'
-                sh 'sudo \\cd /var/www/dev1.my.id/anggris && sudo git pull'
-                sh 'sudo \\cd /var/www/dev1.my.id/anggris && php artisan migrate'
-                sh 'sudo \\cd /var/www/dev1.my.id/anggris && composer i && npm i'
-                sh 'sudo \\cd /var/www/dev1.my.id/anggris && npm run dev'
+                sh 'sudo \\cd /var/www/dev1.my.id/anggris && sudo git pull origin main'
+                sh 'sudo \\cd /var/www/dev1.my.id/anggris && sudo php artisan migrate'
+                sh 'sudo \\cd /var/www/dev1.my.id/anggris && sudo composer i && sudo npm i'
+                sh 'sudo \\cd /var/www/dev1.my.id/anggris && sudo npm run dev'
                 sh 'sudo \\cd /var/www/dev1.my.id/anggris && sudo chown nginx:nginx -R ./'
             }
         }
