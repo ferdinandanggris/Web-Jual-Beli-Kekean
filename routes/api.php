@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CartController;
+use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\Api\TextureController;
@@ -73,6 +74,10 @@ Route::group(["prefix" => "texture"], function () {
     Route::delete("/{id}", [TextureController::class, "destroy"]);
 });
 
+Route::group(['prefix' => "order"],function(){
+    Route::get("/", [OrderController::class, "index"]);
+    Route::post("/", [OrderController::class, "order"]);
+});
 // Route::group(["prefix" => "payments"], function () {
 //     Route::get("/", [PaymentController::class, "getPayment"]);
 //     Route::get("/{id}", [PaymentController::class, "show"]);

@@ -8,13 +8,14 @@ import {
 } from "@mui/material";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router";
 import swal from "sweetalert";
 import CartItem from "../components/CartItem";
 import CartItemLoading from "../components/CartItemLoading";
 
 export default function Cart() {
+    const navigate = useNavigate();
     const queryClient = useQueryClient();
     const [size, setSize] = React.useState("S");
     const [sizes, setSizes] = React.useState({
@@ -25,6 +26,8 @@ export default function Cart() {
         XL: "0",
         XXL: "0",
     });
+    const [totalPrice, setTotalPrice] = React.useState(0);
+    const [cart, setCart] = React.useState([]);
     const [quantity, setQuantity] = React.useState(0);
     let isMounted = true;
     const { productId } = useParams();
@@ -35,29 +38,63 @@ export default function Cart() {
     }
     const fetchData = async () => {
         const res = await axios.get(`api/cart`);
-        return res.data.cart;
+        setCart(res.data.cart.map((item) => {return {...item, checked: false}}));
     };
+
+    useEffect(() => {
+        total = cart.reduce((acc, tot) => {
+            return acc + (tot.checked == true ? tot.product.price * tot.qty : 0);
+        }, 0);
+        console.log(total);
+        setTotalPrice(total);
+    })
 
     const {
         isLoading,
         isError,
         error,
-        data: cart,
     } = useQuery({
         queryKey: ["cartItem"],
         queryFn: fetchData,
     });
 
-    var totalPrice;
-    if (!isLoading) {
-        totalPrice = cart.reduce((acc, tot) => {
-            return acc + tot.product.price * tot.qty;
-        }, 0);
-    }
+    var total;
+    // if (!isLoading) {
+    //     total = cart.reduce((acc, tot) => {
+    //         return acc + (tot.product.checked ? tot.product.price * tot.qty : 0);
+    //     }, 0);
+    //     setTotalPrice(total);
+    // }
 
-    const handleQtyChange = (event, cart_id) => {
+    const handleQtyChange = async (event, cart_id) => {
         const newQty = { newQty: event.target.value == '' ? '0' : event.target.value };
-        updateMutation.mutate({ cart_id: cart_id, newQty: newQty });
+        await updateCartQuantity({ cart_id: cart_id, newQty: newQty });
+        await fetchData();
+        total = cart.reduce((acc, tot) => {
+            return acc + (tot.checked == true ? tot.product.price * tot.qty : 0);
+        }, 0);
+        console.log(total);
+        setTotalPrice(total);
+        // updateMutation.mutate({ cart_id: cart_id, newQty: newQty });
+    };
+    
+    const handleCheckedChange = (event, cart_id) => {
+        const newQty = { checked: event.target.checked };
+        let tempCart = cart.map((item) => {
+            if (item.id == cart_id) {
+                return {...item, product: {...item.product},checked: event.target.checked};    
+            }else{
+                return {...item}
+            }   
+        });
+
+        setCart(tempCart);
+        total = tempCart.reduce((acc, tot) => {
+            return acc + (tot.checked == true ? tot.product.price * tot.qty : 0);
+        }, 0);
+        console.log(total);
+        setTotalPrice(total);
+        // updateMutation.mutate({ cart_id: cart_id, newQty: newQty });
     };
 
     const updateCartQuantity = async ({ cart_id, newQty }) => {
@@ -79,6 +116,52 @@ export default function Cart() {
             queryClient.invalidateQueries("cartItem");
         },
     });
+
+    function checkStock(params){
+        switch(params){
+            case 'XS':
+                return 'stock_xs';
+                break;
+            case 'S' :
+                return 'stock_s';
+                break;
+            case 'M' :
+                return 'stock_m';
+                break;
+            case 'L' :
+                return 'stock_l';
+                break;
+            case 'XL':
+                return 'stock_xxl';
+                break;
+            default :
+                return '';
+                break;
+        }
+    } 
+
+    const orderProduct = async () => {
+        axios.get("sanctum/csrf-cookie").then(async (response) => {
+            await axios
+                .post("api/order", {
+                    cart: cart.filter((item)=> item.checked == true),
+                    total_price: totalPrice,
+                })
+                .then((res) => {
+                    if (res.data.status == 200) {
+                        swal(
+                            "Success",
+                            "Pesanan berhasil dibuat, silahkan cek email anda secara berkala untuk melihat status pesanan",
+                            "success"
+                            );
+                            navigate("/")
+                            
+                    } else {
+                        swal("Error", "Pesanan gagal dibuat", "error");
+                    }
+                });
+        })
+    }
 
     return (
         <Grid paddingX={10} mt={5} container spacing={2}>
@@ -104,6 +187,7 @@ export default function Cart() {
                         </>
                     ) : cart.length > 0 ? (
                         cart.map((item) => {
+                            console.log(item.product.size[checkStock(item.size ?? '')])
                             return (
                                 <CartItem
                                     sx={{ mb: 2 }}
@@ -112,7 +196,9 @@ export default function Cart() {
                                     price={item.product.price}
                                     qty={Number(item.qty)}
                                     value={item.size}
-                                    img={item.product.image_detail1}
+                                    img={item.product.image[0].path}
+                                    max={item.product.size[checkStock(item.size ?? '')]}
+                                    onCheckedChange={(e) => handleCheckedChange(e, item.id)}
                                     onQtyChange={(event) =>
                                         handleQtyChange(event, item.id)
                                     }
@@ -122,6 +208,7 @@ export default function Cart() {
                                             cart_id: item.id,
                                         })
                                     }
+                                    
                                 />
                             );
                         })
@@ -159,10 +246,11 @@ export default function Cart() {
                             color="primary"
                             disableElevation
                             sx={{ py: 1.5, px: 3, ml: 2, mt: 5, mb: 2 }}
-                            onClick={() => history("/payment")}
+                            disabled={isLoading || cart.length == 0}
+                            onClick={() => orderProduct()}
                         >
                             <Typography color={"white"}>
-                                Lanjutkan ke pembayaran
+                                Lanjutkan ke pemesanan
                             </Typography>
                         </Button>
                     </Box>

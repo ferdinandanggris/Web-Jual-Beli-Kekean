@@ -9,6 +9,7 @@ import {
     InputLabel,
     TextField,
     IconButton,
+    Checkbox,
 } from "@mui/material";
 import Stack from "@mui/material/Stack";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -22,7 +23,9 @@ export default function CartItem({
     onQtyChange,
     value,
     onDeleteClick,
-    sx
+    sx,
+    max,
+    onCheckedChange,
 }) {
     const handleChange = (event) => {
         setSize(event.target.value);
@@ -42,12 +45,12 @@ export default function CartItem({
                             ml: 2,
                         }}
                         component="img"
-                        src={`../catalog/${img}`}
+                        src={`../storage/${img}`}
                     />
                 </Grid>
-                <Grid item laptop={9}>
+                <Grid item laptop={8}>
                     <Stack
-                        maxWidth={310}
+                        maxWidth={360}
                         direction={"row"}
                         justifyContent={"space-between"}
                     >
@@ -63,27 +66,42 @@ export default function CartItem({
                             </IconButton>
                         </Box>
                     </Stack>
-                    <Stack alignItems={'center'} mt={{desktop: 2}} spacing={2} direction={'row'}>
+                    <Stack
+                        alignItems={"center"}
+                        mt={{ desktop: 2 }}
+                        spacing={2}
+                        direction={"row"}
+                    >
                         <Typography>Size: {value}</Typography>
                         <Typography> Jumlah: </Typography>
                         <TextField
-                                onChange={onQtyChange}
-                                size="small"
-                                id="jumlah-barang"
-                                type="number"
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                                InputProps={{ style: { fontSize: 15 } }}
-                                sx={{
-                                    "& legend": { display: "none" },
-                                    "& fieldset": { top: 0 },
-                                    width: 75,
-                                }}
-                                variant="outlined"
-                                value={qty}
-                            />
+                            onChange={onQtyChange}
+                            size="small"
+                            id="jumlah-barang"
+                            type="number"
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                            InputProps={{ 
+                                style: { fontSize: 15 },
+                                inputProps: { 
+                                    max:max, min: 1 
+                                } }}
+                            sx={{
+                                "& legend": { display: "none" },
+                                "& fieldset": { top: 0 },
+                                width: 75,
+                            }}
+                            variant="outlined"
+                            value={qty}
+                        />
                     </Stack>
+
+                </Grid>
+                <Grid item laptop={1} justifyItems={"center"} justifyContent={"center"}>
+                        <Box justifyContent={"start"} justifyItems={"center"}>
+                            <Checkbox onChange={onCheckedChange} />
+                        </Box>
                 </Grid>
             </Grid>
         </Box>

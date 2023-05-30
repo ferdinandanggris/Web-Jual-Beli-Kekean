@@ -12,6 +12,7 @@ use App\Models\ImageDetail;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -51,6 +52,12 @@ class ProductController extends Controller
         $size->L = $request->input('sizes.L');
         $size->XL = $request->input('sizes.XL');
         $size->XXL = $request->input('sizes.XXL');
+        $size->stock_s = $request->input('sizes.stock_s');
+        $size->stock_m = $request->input('sizes.stock_m');
+        $size->stock_xs = $request->input('sizes.stock_xs');
+        $size->stock_l = $request->input('sizes.stock_l');
+        $size->stock_xl = $request->input('sizes.stock_xl');
+        $size->stock_xxl = $request->input('sizes.stock_xxl');
         $size->save();
         
         $payload['image'] = $request->input('input.image');
@@ -63,6 +70,8 @@ class ProductController extends Controller
         $payload['has_3d'] = $request->input('input.has_3d');
         $payload['size_id'] = $size->id;
 
+        try {
+            DB::beginTransaction();
         if ($request->input('input.model_3d') !== null) {
             /**upload image3d */
             $payload['model_3d'] = $request->input('input.model_3d');
@@ -75,12 +84,23 @@ class ProductController extends Controller
             Storage::disk('public')->put($file, $image_base64);
         }
 
-        try {
             //code...
 
             $dataProduct = $this->productModel->store($payload);
             // return empty($payload['image']);
             if (!empty($payload['image'])) {
+
+
+                $validator = Validator::make($payload, [
+                    'image' => 'required',
+                    'image.*' => 'image|mimes:jpg,jpeg|max:1024'
+                ]);
+                if ($validator->fails()) {
+                    return response()->json([
+                        'validation_errors' => $validator->errors(),
+                    ]);
+                }
+
                 # code...
                 $imageArr = json_decode($payload['image'], true);
                 // $imageArr = $payload['image'];
@@ -105,12 +125,13 @@ class ProductController extends Controller
                     ]);
                 }
             }
-
+            DB::commit();
             return response()->json([
                 'status' => 200,
                 'message' => 'Product Added Successfully',
             ]);
         } catch (\Throwable $th) {
+            DB::rollback();
             return response()->json([
                 'status' => 422,
                 'message' => $th->getMessage()
@@ -196,6 +217,12 @@ class ProductController extends Controller
         $size->L = $request->input('sizes.L');
         $size->XL = $request->input('sizes.XL');
         $size->XXL = $request->input('sizes.XXL');
+        $size->stock_s = $request->input('sizes.stock_s');
+        $size->stock_m = $request->input('sizes.stock_m');
+        $size->stock_xs = $request->input('sizes.stock_xs');
+        $size->stock_l = $request->input('sizes.stock_l');
+        $size->stock_xl = $request->input('sizes.stock_xl');
+        $size->stock_xxl = $request->input('sizes.stock_xxl');
         $size->update();
 
         $payload['product_name'] = $request->input('input.product_name');
@@ -207,6 +234,18 @@ class ProductController extends Controller
         $payload['description_english'] = $request->input('input.description_english');
         $payload['has_3d'] = $request->input('input.has_3d');
         try {
+            // if ($request->input('input.model_3d') !== null) {
+            //     /**upload image3d */
+            //     $payload['model_3d'] = $request->input('input.model_3d');
+            //     $image_parts = explode(";base64,", $payload['model_3d']);
+            //     $image_type_aux = explode("image/", $image_parts[0]);
+            //     $image_base64 = base64_decode($image_parts[1]);
+            //     $folderPath = "/catalog/";
+            //     $file = $folderPath . uniqid() . ".glb";
+            //     $payload['model_3d'] = $file;
+            //     Storage::disk('public')->put($file, $image_base64);
+            // }
+    
             //code...
             $dataProduct = $this->productModel->edit($payload, $id);
             if (!empty($payload['image'])) {

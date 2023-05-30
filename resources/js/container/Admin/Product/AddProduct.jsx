@@ -20,6 +20,12 @@ import { toBase64Handler } from "../../../base64converter/base64Converter";
 export default function AddProduct() {
     const [imageDropzone, setImageDropzone] = React.useState(false);
     const [sizes, setSizes] = React.useState({
+        stock_s  : 0,
+        stock_m  : 0,
+        stock_xs : 0,
+        stock_l  : 0,
+        stock_xl : 0,
+        stock_xxl : 0,
         S: false,
         M: false,
         XS: false,
@@ -83,6 +89,13 @@ export default function AddProduct() {
         setSizes({
             ...sizes,
             [e.target.name]: e.target.checked,
+        });
+    };
+
+    const handleSizeStock = (e) => {
+        setSizes({
+            ...sizes,
+            [e.target.name]: e.target.value,
         });
     };
 
@@ -333,6 +346,34 @@ export default function AddProduct() {
                                     />
                                 </FormGroup>
                             </Grid>
+                            <div class="row">
+                                <div class="ms-3">
+                                    <div class="form-floating mb-3" style={{display : sizes.S ? 'block' : 'none'}}>
+                                        <input type="number" class="form-control" onChange={handleSizeStock} id="stock_s" name="stock_s" />
+                                        <label for="stock_s">Stock size S</label>
+                                    </div>
+                                    <div class="form-floating mb-3" style={{display : sizes.M ? 'block' : 'none'}}>
+                                        <input type="number" class="form-control" onChange={handleSizeStock} id="stock_m" name="stock_m" />
+                                        <label for="stock_m">Stock size M</label>
+                                    </div>
+                                    <div class="form-floating mb-3" style={{display : sizes.XS ? 'block' : 'none'}}>
+                                        <input type="number" class="form-control" onChange={handleSizeStock} id="stock_xs" name="stock_xs" />
+                                        <label for="stock_xs">Stock size XS</label>
+                                    </div>
+                                    <div class="form-floating mb-3" style={{display : sizes.L ? 'block' : 'none'}}>
+                                        <input type="number" class="form-control" onChange={handleSizeStock} id="stock_l" name="stock_l" />
+                                        <label for="stock_l">Stock size L</label>
+                                    </div>
+                                    <div class="form-floating mb-3" style={{display : sizes.XL ? 'block' : 'none'}}>
+                                        <input type="number" class="form-control" onChange={handleSizeStock} id="stock_xl" name="stock_xl" />
+                                        <label for="stock_xl">Stock size XL</label>
+                                    </div>
+                                    <div class="form-floating mb-3" style={{display : sizes.XXL ? 'block' : 'none'}}>
+                                        <input type="number" class="form-control" onChange={handleSizeStock} id="stock_xxl" name="stock_xxl" />
+                                        <label for="stock_xxl">Stock size XXL</label>
+                                    </div>
+                                </div>
+                            </div>
 
                             <Grid item mobile={12}>
                                 <FormGroup>

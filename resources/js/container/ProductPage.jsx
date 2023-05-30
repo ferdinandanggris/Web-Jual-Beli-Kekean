@@ -85,6 +85,31 @@ export default function ProductPage(props) {
             }
         });
     }
+
+
+    function checkStock(params){
+        switch(params){
+            case 'XS':
+                return 'stock_xs';
+                break;
+            case 'S' :
+                return 'stock_s';
+                break;
+            case 'M' :
+                return 'stock_m';
+                break;
+            case 'L' :
+                return 'stock_l';
+                break;
+            case 'XL':
+                return 'stock_xxl';
+                break;
+            default :
+                return '';
+                break;
+        }
+    } 
+
     return (
         <Container sx={{ px: 10, mt: 5 }}>
             <Grid
@@ -191,37 +216,37 @@ export default function ProductPage(props) {
                                     onChange={handleChange}
                                 >
                                     <MenuItem
-                                        disabled={!Number(sizes.XS)}
+                                        disabled={!Number(sizes.XS) || sizes[checkStock("XS")] == 0}
                                         value={"XS"}
                                     >
                                         Xtra Small (XS)
                                     </MenuItem>
                                     <MenuItem
-                                        disabled={!Number(sizes.S)}
+                                        disabled={!Number(sizes.S) || sizes[checkStock("S")] == 0}
                                         value={"S"}
                                     >
                                         Small
                                     </MenuItem>
                                     <MenuItem
-                                        disabled={!Number(sizes.M)}
+                                        disabled={!Number(sizes.M) || sizes[checkStock("M")] == 0}
                                         value={"M"}
                                     >
                                         Medium
                                     </MenuItem>
                                     <MenuItem
-                                        disabled={!Number(sizes.L)}
+                                        disabled={!Number(sizes.L) || sizes[checkStock("L")] == 0}
                                         value={"L"}
                                     >
                                         Large
                                     </MenuItem>
                                     <MenuItem
-                                        disabled={!Number(sizes.XL)}
+                                        disabled={!Number(sizes.XL) || sizes[checkStock("XL")] == 0}
                                         value={"XL"}
                                     >
                                         Xtra Large (XL)
                                     </MenuItem>
                                     <MenuItem
-                                        disabled={!Number(sizes.XXL)}
+                                        disabled={!Number(sizes.XXL) || sizes[checkStock("XXL")] == 0}
                                         value={"XXL"}
                                     >
                                         Xtra Xtra Large (XXL)
@@ -231,8 +256,8 @@ export default function ProductPage(props) {
                             <br />
                             <TextField
                                 onChange={(event) => {
-                                    if (event.target.value < 0) {
-                                        event.target.value = 0;
+                                    if (event.target.value <= 0) {
+                                        event.target.value = 1;
                                         setQuantity(event.target.value);
                                     } else {
                                         event.target.value;
@@ -246,9 +271,15 @@ export default function ProductPage(props) {
                                     shrink: true,
                                 }}
                                 variant="outlined"
+                                InputProps={{
+                                    inputProps: { 
+                                        max: sizes[checkStock(size ?? '')], min: 1 
+                                    }
+                                }}
                                 sx={{ mt: 3, width: 300 }}
-                                value={quantity}
+                                value={quantity ?? 1}
                             />
+                            <span style={{display : 'inline-block',marginTop : '40px', marginLeft : '20px'}}>Stock : {sizes[checkStock(size ?? '')] ?? '-'}</span>
                             <Grid container>
                                 <Grid item laptop={6}>
                                     <ButtonKeranjang

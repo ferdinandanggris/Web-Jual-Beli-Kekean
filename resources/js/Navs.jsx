@@ -43,6 +43,7 @@ import SplashScreen from "./container/SplashScreen";
 import Customize from "./container/Customize";
 import {environment} from "./environments/environment.js"
 import { CustomizationProvider } from "./container/ProductCustomize/Customization";
+import Order from "./container/Admin/Order/Order";
 
 export const LoadingContext = React.createContext();
 
@@ -267,6 +268,15 @@ function Navs() {
                                                 element={
                                                     <AdminPrivateRoute
                                                         comp={EditArtikel}
+                                                    />
+                                                }
+                                            />
+                                            <Route
+                                                path="/admin/order/"
+                                                name="Admin"
+                                                element={
+                                                    <AdminPrivateRoute
+                                                        comp={Order}
                                                     />
                                                 }
                                             />

@@ -343,7 +343,7 @@ export default function Navbar(props) {
                                         About Us
                                     </Typography>
                                 </Link>
-                                <Link to={'/customize'}
+                                {/* <Link to={'/customize'}
                                     style={{ color: theme.textColor, textDecoration: 'none' }}
                                 >
                                     <Typography
@@ -357,7 +357,7 @@ export default function Navbar(props) {
                                     >
                                         Buat produkmu sendiri
                                     </Typography>
-                                </Link>
+                                </Link> */}
                                 {/* <Typography
                                     flexGrow={0.75}
                                     textAlign={"center"}

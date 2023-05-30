@@ -37,6 +37,12 @@ export default function EditProduct(props) {
         L: "0",
         XL: "0",
         XXL: "0",
+        stock_s  : 0,
+        stock_m  : 0,
+        stock_xs : 0,
+        stock_l  : 0,
+        stock_xl : 0,
+        stock_xxl : 0,
     });
     const prod_id = useParams();
     const history = useNavigate();
@@ -67,6 +73,22 @@ export default function EditProduct(props) {
         },
     }));
 
+    const onFileChange = (e) => {
+        let files = e.target.files;
+        let fileReader = new FileReader();
+        fileReader.readAsDataURL(files[0]);
+
+        fileReader.onload = (event) => {
+            // this.setState({
+            //     selectedImage: event.target.result,
+            // })
+            setInput({
+            ...input,
+            model_3d: event.target.result,
+        });
+        };
+    };
+
     React.useEffect(() => {
         const fetchData = () => {
             axios.get(`api/edit-products/${prod_id.id}`).then((res) => {
@@ -77,8 +99,6 @@ export default function EditProduct(props) {
         };
         fetchData();
     }, []);
-
-    console.log(input);
 
     const handleInput = (e) => {
         setInput({
@@ -105,6 +125,12 @@ export default function EditProduct(props) {
         setSizes({
             ...sizes,
             [e.target.name]: e.target.checked,
+        });
+    };
+    const handleSizeStock = (e) => {
+        setSizes({
+            ...sizes,
+            [e.target.name]: e.target.value,
         });
     };
 
@@ -313,8 +339,48 @@ export default function EditProduct(props) {
                                             </Typography>
                                         }
                                     />
+                                    <div style={{display : input.has_3d ? 'inline' : 'none'}} className="form-group mb-3">
+                                        <label style={{ fontWeight:500,color:"#000000DE", fontSize : '1rem'}}>
+                                            Masukkan file 3D
+                                        </label>
+                                        <input
+                                            type="file"
+                                            className="form-control"
+                                            name="model_3d"
+                                            onChange={onFileChange}
+                                        />
+                                    </div>
                                 </FormGroup>
                             </Grid>
+
+                            <div class="row">
+                                <div class="ms-3">
+                                    <div class="form-floating mb-3" style={{display : sizes.S ? 'block' : 'none'}}>
+                                        <input type="number" class="form-control" value={sizes.stock_s} onChange={handleSizeStock} id="stock_s" name="stock_s" />
+                                        <label for="stock_s">Stock size S</label>
+                                    </div>
+                                    <div class="form-floating mb-3" style={{display : sizes.M ? 'block' : 'none'}}>
+                                        <input type="number" class="form-control" value={sizes.stock_m} onChange={handleSizeStock} id="stock_m" name="stock_m" />
+                                        <label for="stock_m">Stock size M</label>
+                                    </div>
+                                    <div class="form-floating mb-3" style={{display : sizes.XS ? 'block' : 'none'}}>
+                                        <input type="number" class="form-control" value={sizes.stock_xs} onChange={handleSizeStock} id="stock_xs" name="stock_xs" />
+                                        <label for="stock_xs">Stock size XS</label>
+                                    </div>
+                                    <div class="form-floating mb-3" style={{display : sizes.L ? 'block' : 'none'}}>
+                                        <input type="number" class="form-control" value={sizes.stock_l} onChange={handleSizeStock} id="stock_l" name="stock_l" />
+                                        <label for="stock_l">Stock size L</label>
+                                    </div>
+                                    <div class="form-floating mb-3" style={{display : sizes.XL ? 'block' : 'none'}}>
+                                        <input type="number" class="form-control" value={sizes.stock_xl} onChange={handleSizeStock} id="stock_xl" name="stock_xl" />
+                                        <label for="stock_xl">Stock size XL</label>
+                                    </div>
+                                    <div class="form-floating mb-3" style={{display : sizes.XXL ? 'block' : 'none'}}>
+                                        <input type="number" class="form-control" value={sizes.stock_xxl} onChange={handleSizeStock} id="stock_xxl" name="stock_xxl" />
+                                        <label for="stock_xxl">Stock size XXL</label>
+                                    </div>
+                                </div>
+                            </div>
 
                             <Grid item mobile={12}>
                                 <Typography fontWeight={"medium"}>
@@ -362,7 +428,7 @@ export default function EditProduct(props) {
                                     onSave={handleModel}
                                 />
                             </Grid> */}
-
+{/* 
                             <Grid item mobile={12}>
                                 <FormControl fullWidth variant="filled">
                                     <InputLabel htmlFor="component-filled">
@@ -381,7 +447,7 @@ export default function EditProduct(props) {
                                         }}
                                     />
                                 </FormControl>
-                            </Grid>
+                            </Grid> */}
 
                             <Grid sx={{ mt: 5 }} item mobile={12}>
                                 <Button onClick={() => history("/admin")}>

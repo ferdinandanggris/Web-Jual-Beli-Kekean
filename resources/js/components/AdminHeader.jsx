@@ -12,6 +12,7 @@ import InventoryIcon from "@mui/icons-material/Inventory";
 import PaymentIcon from "@mui/icons-material/Payment";
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import { Link } from 'react-router-dom';
+import { PointOfSale } from '@mui/icons-material';
 
 function AdminHeader(props) {
     const [open, setOpen] = React.useState(false);
@@ -56,7 +57,6 @@ function AdminHeader(props) {
                                 Edit Catalog
                             </Button>
                         </Link>
-
                         <Link
                             to={"/admin/payment"}
                             style={{
@@ -89,17 +89,35 @@ function AdminHeader(props) {
                                 Edit Artikel
                             </Button>
                         </Link>
+                        <Link
+                            to={"/admin/order"}
+                            style={{
+                                textAlign : 'left',
+                                left : '0',
+                                textDecoration: "none",
+                                color: "black",
+                            }}
+                        >
+                            <Button
+                                color="inherit"
+                                startIcon={<PointOfSale />}
+                                sx={{textAlign:'left',px:3, py: 2, borderRadius: 0 }}
+                                fullWidth
+                            >
+                                Order
+                            </Button>
+                        </Link>
                     </Box>
                 </SwipeableDrawer>
                 <Typography fontWeight={"medium"}>Daftar {props.daftar}</Typography>
             </Stack>
-            <Link to={`/admin/${props.adminPage}`} style={{ textDecoration: "none" }}>
+            {(props.tambahkan && ( (<Link  to={`/admin/${props.adminPage}`} style={{ textDecoration: "none" }}>
                 <Button>
                     <Typography fontWeight={"medium"}>
                         Tambahkan {props.tambahkan}
                     </Typography>
                 </Button>
-            </Link>
+            </Link>)))}
         </Box>
     );
 }

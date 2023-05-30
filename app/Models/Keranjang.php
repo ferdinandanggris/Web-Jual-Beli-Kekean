@@ -18,7 +18,7 @@ class Keranjang extends Model
     
     protected $with = ['product'];
     public function product() {
-        return $this->belongsTo(Product::class, 'product_id', 'id');
+        return $this->belongsTo(Product::class, 'product_id', 'id')->with(['image', 'size']);
     }
     public function user() {
         return $this->belongsTo(User::class);

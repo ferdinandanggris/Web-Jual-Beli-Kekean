@@ -21,14 +21,43 @@ class CartController extends Controller
             $product_qty = $request->product_qty;
             $product_size = $request->product_size;
 
-            $productCheck = Product::where('id', $product_id)->first();
+            if ($product_size == '') {
+                return response()->json([
+                    'status' => 500,
+                    'message' => 'Harap memilih ukuran produk',
+                ]);
+            } else if ($product_qty == 0) {
+                return response()->json([
+                    'status' => 500,
+                    'message' => 'harap menentukan jumlah produk yang akan dibeli',
+                ]);
+            }
+
+            $productCheck = Product::where('id', $product_id)->with('size')->first();
             if ($productCheck) {
-                if (Keranjang::where('product_id', $product_id)->where('user_id', $user_id)->exists()) {
+                $dataKeranjang = Keranjang::where('product_id', $product_id)->where('user_id', $user_id)->where('size', $product_size)->first();
+                if (!empty($dataKeranjang)) {
+                    $size = $this->checkStock($product_size);
+                    if($productCheck->size->$size < $dataKeranjang->qty + $product_qty){
+                        return response()->json([
+                            'status' => 409,
+                            'message' => 'Kamu telah memasukkan ' . $dataKeranjang->qty . ' barang ke dalam keranjang. Kamu tidak bisa menambah jumlah barang di keranjang karena telah melebihi batas pembelian promosi.',
+                        ]);
+                    }
+                    $dataKeranjang->qty = $dataKeranjang->qty + $product_qty;
+                    $dataKeranjang->save();
                     return response()->json([
-                        'status' => 409,
-                        'message' => $productCheck->name . ' Barang sudah ada di keranjang',
+                        'status' => 201,
+                        'message' => 'Barang berhasil ditambahkan ke keranjang',
                     ]);
                 } else {
+                    $size = $this->checkStock($product_size);
+                    if($productCheck->size->$size < $product_qty){
+                        return response()->json([
+                            'status' => 409,
+                            'message' => 'Kamu tidak bisa menambah jumlah barang di keranjang karena telah melebihi batas pembelian promosi.',
+                        ]);
+                    }
                     if ($product_size == '') {
                         return response()->json([
                             'status' => 500,
@@ -48,7 +77,7 @@ class CartController extends Controller
                         $cartItem->save();
                         return response()->json([
                             'status' => 201,
-                            'message' => 'Barang sudah masuk ke keranjang',
+                            'message' => 'Barang berhasil ditambahkan ke keranjang',
                         ]);
                     }
                 }
@@ -129,4 +158,27 @@ class CartController extends Controller
             ]);
         }
     }
+
+    private function checkStock($params){
+        switch($params){
+            case 'XS':
+                return 'stock_xs';
+                break;
+            case 'S' :
+                return 'stock_s';
+                break;
+            case 'M' :
+                return 'stock_m';
+                break;
+            case 'L' :
+                return 'stock_l';
+                break;
+            case 'XL':
+                return 'stock_xxl';
+                break;
+            default :
+                return 'stock_xs';
+                break;
+        }
+    } 
 }

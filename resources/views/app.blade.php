@@ -31,6 +31,7 @@
             </div>
         </div>
     </div>
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js"></script>
     <div id="app"></div>
     <script src="/js/app.js"></script>
     <script type='module' src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
