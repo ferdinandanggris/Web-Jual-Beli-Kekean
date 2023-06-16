@@ -44,6 +44,7 @@ import Customize from "./container/Customize";
 import {environment} from "./environments/environment.js"
 import { CustomizationProvider } from "./container/ProductCustomize/Customization";
 import Order from "./container/Admin/Order/Order";
+import UserAddress from "./container/UserAddress";
 
 export const LoadingContext = React.createContext();
 
@@ -189,6 +190,13 @@ function Navs() {
                                                 path="/customize"
                                                 element={<Customize />}
                                             />
+                                            <Route
+                                                path="/user/address"
+                                                exact
+                                                element={<UserAddress />}
+                                            />
+
+
                                             {/* Admin Routes */}
                                             <Route
                                                 path="/admin"

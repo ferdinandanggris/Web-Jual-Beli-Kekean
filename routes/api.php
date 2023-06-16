@@ -5,10 +5,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CartController;
+use App\Http\Controllers\API\CheckOngkirController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\PaymentController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\Api\TextureController;
+use App\Http\Controllers\API\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +23,7 @@ use App\Http\Controllers\Api\TextureController;
 |
 */
 
-Route::post('register', [AuthController::class, 'register']);
+Route::post('register', [AuthController::class, 'register']);   
 Route::post('login', [AuthController::class, 'login']);
 
 Route::post('add-product', [ProductController::class, 'store']);
@@ -76,7 +78,22 @@ Route::group(["prefix" => "texture"], function () {
 
 Route::group(['prefix' => "order"],function(){
     Route::get("/", [OrderController::class, "index"]);
+    Route::post("/update-status", [OrderController::class, "updateStatus"]);
+    Route::get("/{id}", [OrderController::class, "show"]);
+    Route::post("/checkout", [OrderController::class, "checkoutPembayaran"]);
     Route::post("/", [OrderController::class, "order"]);
+});
+
+Route::get('/getProvinsi', [CheckOngkirController::class , 'index']);
+Route::post('/ongkir', [CheckOngkirController::class , 'check_ongkir']);
+Route::get('/getKotaByProvince/{province_id}', [CheckOngkirController::class , 'getCities']);
+
+Route::group(['prefix' => "profil"],function(){
+    Route::put("/", [UserController::class, "updateProfil"]);
+    Route::post("/address", [UserController::class, "saveAddress"]);
+    Route::get("/address", [UserController::class, "getAddress"]);
+    Route::post("/address/utama/{m_user_address_id}", [UserController::class, "setUtama"]);
+    Route::get("/address/utama", [UserController::class, "getAddressUtama"]);
 });
 // Route::group(["prefix" => "payments"], function () {
 //     Route::get("/", [PaymentController::class, "getPayment"]);
