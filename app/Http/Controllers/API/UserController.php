@@ -34,6 +34,22 @@ class UserController extends Controller
         ],200);
     }
 
+    public function destroyAddress($id){
+        UserAddress::where('id',$id)->delete();
+        return response()->json([
+            'status' => 200,
+            'message' => 'Address deleted successfully',
+        ],200);
+    }
+
+    public function getAddressById($id){
+        $address = UserAddress::with(['kota','provinsi'])->where('id',$id)->first();
+        return response()->json([
+            'status' => 200,
+            'data' => $address,
+        ],200);
+    }
+
     public function saveAddress(Request $request){
         $userId =auth('sanctum')->user()->id;
         $payload = $request->only([

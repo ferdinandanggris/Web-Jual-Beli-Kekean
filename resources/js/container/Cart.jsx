@@ -200,23 +200,56 @@ export default function Cart() {
     } 
 
     const orderProduct = async () => {
-        
-        axios.get("sanctum/csrf-cookie").then(async (response) => {
-            await axios
-                .post("api/order", {
-                    cart: selectedCart,
-                    total_price: totalPrice,
-                })
-                .then((res) => {
-                    setOrderId(res.data.data.id);
-                    if (res.data.status == 200) {
-                        handleClickOpen(res.data.data.id);
-                            
-                    } else {
-                        swal("Error", "Pesanan gagal dibuat", "error");
+        await axios.get('sanctum/csrf-cookie').then(response => {
+            axios.get('/api/profil/address').then(res => {
+              if (res.data.data.length > 1) {
+                let utama = res.data.data.filter((item) => item.is_utama ==1);
+                if (utama.length > 0) {
+
+                    if (selectedCart.length >0) {                        
+                        axios.get("sanctum/csrf-cookie").then(async (response) => {
+                            await axios
+                                .post("api/order", {
+                                    cart: selectedCart,
+                                    total_price: totalPrice,
+                                })
+                                .then((res) => {
+                                    setOrderId(res.data.data.id);
+                                    if (res.data.status == 200) {
+                                        handleClickOpen(res.data.data.id);
+                                            
+                                    } else {
+                                        swal("Error", "Pesanan gagal dibuat", "error");
+                                    }
+                                });
+                        })
+                    }else{
+                        swal({
+                            title: "Warning",
+                            text: "Anda belum memilih produk, silahkan pilih produk yang akan dipesan",
+                            icon: "warning",
+                            dangerMode: true,
+                        });
                     }
+                }else{
+                    swal({
+                        title: "Warning",
+                        text: "Anda belum memiliki alamat utama, silahkan pilih alamat utama pada menu profil",
+                        icon: "warning",
+                        dangerMode: true,
+                    });
+                }
+              }else{
+                swal({
+                    title: "Warning",
+                    text: "Anda belum memiliki alamat, silahkan tambahkan alamat pada menu profil",
+                    icon: "warning",
+                    dangerMode: true,
                 });
-        })
+              }
+            })
+          })
+       
     }
 
 

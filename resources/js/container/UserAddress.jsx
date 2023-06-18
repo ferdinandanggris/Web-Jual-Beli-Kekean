@@ -1,10 +1,11 @@
-import { Button, Card, CardActions, CardContent, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, Input, InputLabel, MenuItem, Select, TextField, Typography, FilledInput, } from "@mui/material";
+import { Button, Card, CardActions, CardContent, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, Input, InputLabel, MenuItem, Select, TextField, Typography, FilledInput, IconButton, } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
 import React, { useState } from "react";
 import Autocomplete from '@mui/material/Autocomplete';
 import { useEffect } from "react";
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import { get } from "lodash";
 
 const UserAddress = () => {
     //Hook
@@ -49,6 +50,18 @@ const UserAddress = () => {
           })
         })
       }
+    
+    const getAddressById = async (id) => {
+      await axios.get(`/api/profil/address/${id}`)
+      .then((res) => {
+        getProvince()
+        getKota(res.data.data.m_provinsi_id)
+        setInput(res.data.data);
+        setKota({name : res.data.data.kota.name, id : res.data.data.m_kota_id})
+        setProvince({name : res.data.data.provinsi.name, id : res.data.data.m_provinsi_id})
+        setOpen(true);
+      })
+    }
       
       const getKota = async (id) => {
     console.log(id);
@@ -152,6 +165,17 @@ const UserAddress = () => {
           })
         });
       }
+
+      const deleteAddress = (id) =>{
+        axios.get('/sanctum/csrf-cookie').then(response => {
+          axios.delete(`/api/profil/address/${id}`).then(res => {
+            if(res.data.status === 200){
+              getAddress();
+              swal("Berhasil", "Data berhasil dihapus", "success")
+            }
+          })
+        })
+      }
       
 
     return (
@@ -181,7 +205,10 @@ const UserAddress = () => {
                                                   </Typography>
                                               </CardContent>
                                               <CardActions>
-                                                  <Button size="small">Ubah Alamat</Button>
+                                                  <Button size="small" onClick={()=>{getAddressById(item.id)}}>Ubah Alamat</Button>
+                                                  <IconButton onClick={()=>{deleteAddress(item.id)}} color="primary">
+                                                    <DeleteIcon />
+                                                </IconButton>
                                               </CardActions>
                                       </Grid>
                                       <Grid item xs={4} sm={4} style={{marginRight : "10px",width:100}}>

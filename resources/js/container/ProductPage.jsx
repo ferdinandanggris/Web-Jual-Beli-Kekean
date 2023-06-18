@@ -54,12 +54,6 @@ export default function ProductPage(props) {
         isMounted = false;
     }, []);
 
-    // if (!loading) {
-    //     var product"";
-    //     currentProduct = product.filter((item) => item.id == productId);
-    //     console.log(currentProduct);
-    // }
-
     const handleChange = (event) => {
         setSize(event.target.value);
     };
