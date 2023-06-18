@@ -9,6 +9,7 @@ use App\Models\Keranjang;
 use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
+use App\Models\Size;
 use App\Services\Midtrans\CreateSnapTokenService;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
@@ -84,12 +85,26 @@ class OrderController extends Controller
                 DB::beginTransaction();
                 $dataOrder = Order::create($payloadOrder);
             foreach ($cart as $crt) {
+                $product = Product::where('id', $crt['product_id'])->first();
+                $size = Size::where('id', $product['size_id'])->first();
+
+                if ($crt['qty'] > $size['stock_' . strtolower($crt['size'])]) {
+                    DB::rollBack();
+                    return response()->json([
+                        'status' => 422,
+                        'message' => 'Stok produk tidak mencukupi',
+                    ]);
+                }
+                $size['stock_' . strtolower($crt['size'])] = $size['stock_' . strtolower($crt['size'])] - $crt['qty'];
+                $size->save();
+
                 $payloadOrderDetail = [
                     'product_id' => $crt['product_id'],
                     'qty' => $crt['qty'],
                     'size' => $crt['size'],
                     'harga'=> Product::where('id', $crt['product_id'])->first()->price * $crt['qty'],
                 ];
+                
                 $payloadOrderDetail['order_id'] = $dataOrder->id;
                 $dataOrderDetail = OrderDetail::create($payloadOrderDetail);
                 if ($dataOrderDetail) {

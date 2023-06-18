@@ -92,13 +92,13 @@ Route::get('/getKotaByProvince/{province_id}', [CheckOngkirController::class , '
 
 Route::group(['prefix' => "profil"],function(){
     Route::put("/", [UserController::class, "updateProfil"]);
+    Route::get("/address/utama", [UserController::class, "getAddressUtama"]);
     Route::post("/address", [UserController::class, "saveAddress"]);
     Route::delete("/address/{id}", [UserController::class, "destroyAddress"]);
     Route::put("/address/{id}", [UserController::class, "updateAddress"]);
-    Route::get("/address/{id}", [UserController::class, "getAddressById"]);
+    Route::get("/addressById/{id}", [UserController::class, "getAddressById"]);
     Route::get("/address", [UserController::class, "getAddress"]);
     Route::post("/address/utama/{m_user_address_id}", [UserController::class, "setUtama"]);
-    Route::get("/address/utama", [UserController::class, "getAddressUtama"]);
     Route::get("/transaction", [OrderController::class, "getOrderByUser"]);
 });
 

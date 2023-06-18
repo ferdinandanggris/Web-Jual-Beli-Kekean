@@ -52,7 +52,7 @@ const UserAddress = () => {
       }
     
     const getAddressById = async (id) => {
-      await axios.get(`/api/profil/address/${id}`)
+      await axios.get(`/api/profil/addressById/${id}`)
       .then((res) => {
         getProvince()
         getKota(res.data.data.m_provinsi_id)

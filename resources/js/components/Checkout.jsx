@@ -34,7 +34,8 @@ const [dataPembayaran, setDataPembayaran] = React.useState({
     total_bayar : 0,
     id_transaksi : 'TRX-20211001-0001',
     id : '',
-    status_pembayaran : 'pending'
+    status_pembayaran : 'pending',
+    status_pemesanan : 'pending',
 });
 
 
@@ -66,7 +67,7 @@ const getOrderById = async (id) => {
     await axios.get('sanctum/csrf-cookie').then(response => {
         axios.get(`api/order/${id}`).then(res => {
           setProductCheckout(res.data.data.detail);
-            setDataPembayaran({...dataPembayaran, id_transaksi: res.data.data.id_transaksi, total: res.data.data.order.total_harga_produk, ongkir: res.data.data.order.biaya_pengiriman, total_bayar: res.data.data.order.total_harga_produk + res.data.data.order.ongkir, id: res.data.data.order.id, status: res.data.data.order.status_pembayaran,pengiriman : res.data.data.order.tipe_pengiriman});
+            setDataPembayaran({...dataPembayaran, id_transaksi: res.data.data.id_transaksi, total: res.data.data.order.total_harga_produk, ongkir: res.data.data.order.biaya_pengiriman, total_bayar: res.data.data.order.total_harga_produk + res.data.data.order.ongkir, id: res.data.data.order.id, status: res.data.data.order.status_pembayaran,pengiriman : res.data.data.order.tipe_pengiriman,status_pemesanan : res.data.data.order.status_pemesanan});
             setOngkir(res.data.data.order.biaya_pengiriman);
             setAlamat({
               id : res.data.data.order.user_address.id,
@@ -378,12 +379,13 @@ const setHargaPengiriman = (params) => {
                 Kembali
             </Typography>
         </Button>
+        {()=>{console.log(dataPembayaran)}}
           <Button
             variant="contained"
             color="primary"
             disableElevation
             sx={{ py: 1.5, px: 3, ml: 2, mt: 1, mb: 2 }}
-            hidden= {dataPembayaran.statusPembayaran == 'settlement' || dataPembayaran.statusPembayaran == 'failure'|| dataPembayaran.statusPembayaran == 'expire'}
+            hidden= {dataPembayaran.status_pemesanan == 'settlement' || dataPembayaran.status_pemesanan == 'failure' || dataPembayaran.status_pemesanan == 'batal'|| dataPembayaran.status_pemesanan == 'expire'}
             disabled={isLoading || !alamat || !dataPembayaran.pengiriman }
             onClick={() => checkout({dataPembayaran : dataPembayaran,ongkir : ongkir,user_address_id : alamat.id})}
         >
