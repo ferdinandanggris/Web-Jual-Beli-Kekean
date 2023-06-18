@@ -17,11 +17,13 @@ class AddressUtama extends JsonResource
         return [
             "id" => $this->id,
             "nama_penerima"  => $this->nama,
-            "label" => $this->label,
+            "label" => $this->label_alamat,
             "no_hp" => $this->telepon,
             "alamat" => $this->alamat_lengkap,
             "kode_pos" => $this->kode_pos,
             "catatan" => $this->catatan,
+            "kota"  => $this->kota->nama,
+            "provinsi" => $this->provinsi->nama,
             "m_kota_id" => $this->m_kota_id,
             "m_provinsi_id" => $this->m_provinsi_id
         ];

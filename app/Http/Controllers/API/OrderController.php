@@ -30,9 +30,35 @@ class OrderController extends Controller
         ]);
     }
 
+    public function getOrderByUser(){
+        $userId =auth('sanctum')->user()->id;
+        $order = Order::with('orderDetailWithProduct')->where("user_id","=",$userId)->orderBy("created_at","desc")->get();
+        foreach ($order as $key => $value) {
+            $order[$key]["waktu"] = date("d F Y",strtotime($value->created_at));
+        }
+        return response()->json([
+            'status' => 200,
+            'data' => $order
+        ]);
+    }
+
+    public function updateOrder(Request $request){
+        $payload = $request->only([
+            'status_pemesanan',
+            'status_approval',
+            'status_pengiriman',
+            'resi',
+        ]);
+        $order = Order::where("id","=",$request->order_id)->update($payload);
+        return response()->json([
+            'status' => 200,
+            'data' => $order
+        ]);
+    }
+
     public function show($id)
     {
-        $order = Order::with('orderDetailWithProduct')->find($id);
+        $order = Order::with(['orderDetailWithProduct','userAddress'])->find($id);
         return response()->json([
             'status' => 200,
             'data' => [
@@ -137,4 +163,25 @@ class OrderController extends Controller
             ]);
         }
     }
+
+    public function updateStatusBatal(Request $request){
+        try {
+            $order = Order::where('id', $request->id)->first();
+            $order->status_pemesanan = $request->status_pemesanan;
+            $order->save();
+            return response()->json([
+                'status' => 200,
+                'data' => $order,
+                'message' => 'Berhasil mengubah status pemesanan',
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'status' => 422,
+                'message' => $th->getMessage(),
+            ]);
+        }
+    }
+
+
 }

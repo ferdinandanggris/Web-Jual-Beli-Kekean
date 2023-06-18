@@ -79,9 +79,11 @@ Route::group(["prefix" => "texture"], function () {
 Route::group(['prefix' => "order"],function(){
     Route::get("/", [OrderController::class, "index"]);
     Route::post("/update-status", [OrderController::class, "updateStatus"]);
+    Route::post("/update-status-batal", [OrderController::class, "updateStatusBatal"]);
     Route::get("/{id}", [OrderController::class, "show"]);
     Route::post("/checkout", [OrderController::class, "checkoutPembayaran"]);
     Route::post("/", [OrderController::class, "order"]);
+    Route::post("/saveAdmin", [OrderController::class, "updateOrder"]);
 });
 
 Route::get('/getProvinsi', [CheckOngkirController::class , 'index']);
@@ -94,7 +96,10 @@ Route::group(['prefix' => "profil"],function(){
     Route::get("/address", [UserController::class, "getAddress"]);
     Route::post("/address/utama/{m_user_address_id}", [UserController::class, "setUtama"]);
     Route::get("/address/utama", [UserController::class, "getAddressUtama"]);
+    Route::get("/transaction", [OrderController::class, "getOrderByUser"]);
 });
+
+
 // Route::group(["prefix" => "payments"], function () {
 //     Route::get("/", [PaymentController::class, "getPayment"]);
 //     Route::get("/{id}", [PaymentController::class, "show"]);

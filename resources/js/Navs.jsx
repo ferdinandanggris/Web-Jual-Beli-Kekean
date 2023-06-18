@@ -45,6 +45,7 @@ import {environment} from "./environments/environment.js"
 import { CustomizationProvider } from "./container/ProductCustomize/Customization";
 import Order from "./container/Admin/Order/Order";
 import UserAddress from "./container/UserAddress";
+import HistoryTransaction from "./container/HistoryTransaction";
 
 export const LoadingContext = React.createContext();
 
@@ -194,6 +195,11 @@ function Navs() {
                                                 path="/user/address"
                                                 exact
                                                 element={<UserAddress />}
+                                            />
+                                            <Route
+                                                path="/user/transaction"
+                                                exact
+                                                element={<HistoryTransaction />}
                                             />
 
 

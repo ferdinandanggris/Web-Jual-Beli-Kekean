@@ -13,12 +13,14 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'status_pemesanan',
-        'status_approve',
+        'status_approval',
         'biaya_pengiriman',
         'total_harga_produk',
         'snap_token',
         'id_transaksi',
         'tipe_pengiriman',
+        'status_pengiriman',
+        'resi',
         'm_user_address_id',
         'created_at',
         'updated_at',
@@ -36,5 +38,9 @@ class Order extends Model
 
     public function orderDetailWithProduct() {
         return $this->hasMany(OrderDetail::class)->with('product');
+    }
+
+    public function userAddress(){
+        return $this->belongsTo(UserAddress::class,'m_user_address_id','id');
     }
 }

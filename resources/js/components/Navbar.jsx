@@ -1,5 +1,7 @@
 import React from "react";
 import Container from "@mui/material/Container";
+import PersonPinIcon from '@mui/icons-material/PersonPin';
+import ReceiptIcon from '@mui/icons-material/Receipt';
 import { Box } from "@mui/system";
 import {
     SwipeableDrawer,
@@ -19,7 +21,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
 import axios from "axios";
 import swal from "sweetalert";
-import { useNavigate } from "react-router";
+import { Navigate, useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
@@ -29,6 +31,7 @@ import Logout from "@mui/icons-material/Logout";
 import { useQuery } from "@tanstack/react-query";
 
 export default function Navbar(props) {
+    const navigate = useNavigate();
     const theme = {
         textColor: "black",
         borderColor: "black",
@@ -170,15 +173,21 @@ export default function Navbar(props) {
                                 vertical: "bottom",
                             }}
                         >
-                            <MenuItem>
+                            {/* <MenuItem>
                                 <Avatar /> My account
-                            </MenuItem>
+                            </MenuItem> */}
                             <Divider />
-                            <MenuItem>
+                            <MenuItem onClick={()=>{navigate('/user/address')}}>
                                 <ListItemIcon>
-                                    <Settings fontSize="small" />
+                                    <PersonPinIcon fontSize="small" />
                                 </ListItemIcon>
-                                Settings
+                                Alamat
+                            </MenuItem>
+                            <MenuItem onClick={()=>{navigate('/user/transaction')}}>
+                                <ListItemIcon>
+                                    <ReceiptIcon fontSize="small" />
+                                </ListItemIcon>
+                                Riwayat Pembelian
                             </MenuItem>
                             <MenuItem onClick={logoutSubmit}>
                                 <ListItemIcon>
