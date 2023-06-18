@@ -51,6 +51,11 @@ class UserController extends Controller
         ]);
         $payload['m_user_id'] = $userId;
         isset($payload['is_utama']) ?  : $payload['is_utama'] = 0;
+
+        if ($payload['is_utama'] == 0) {
+            UserAddress::where('m_user_id',$userId)->count() == 0 ? $payload['is_utama'] = 1 : $payload['is_utama'] = 0;
+        }
+
         UserAddress::create($payload);
 
         return response()->json([

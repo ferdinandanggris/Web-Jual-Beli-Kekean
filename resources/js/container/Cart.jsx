@@ -53,28 +53,44 @@ export default function Cart() {
         swal("Warning", "Login untuk melihat keranjang belanja", "error");
     }
     const fetchData = async () => {
-        const res = await axios.get(`api/cart`);
-        setCart(res.data.cart.map((item) => {return {...item, checked: false}}));
+        axios.get(`api/cart`).then((res) => {
+            setCart(res.data.cart.map((item) => {return {...item, checked: false}}));
+        
+        });
+
+        setIsLoading(false);
     };
+
+    const fetchingFirst = async () => {
+        axios.get(`api/cart`).then((res) => {
+            setSelectedCart(res.data.cart.map((item) => {return {...item, checked: false}}));
+        });
+    }
+
     const [margin,setMargin] = React.useState("30px");
 
     useEffect(() => {
-        total = cart.reduce((acc, tot) => {
-            return acc + (tot.checked == true ? tot.product.price * tot.qty : 0);
-        }, 0);
+        fetchData();
+        fetchingFirst();
+        // total = cart.reduce((acc, tot) => {
+        //     return acc + (tot.checked == true ? tot.product.price * tot.qty : 0);
+        // }, 0);
 
-        setTotalPrice(total);
-    })
+        // setTotalPrice(total);
+        
+    },[])
 
-    const {
-        isLoading,
-        isError,
-        error,
-    } = useQuery({
-        queryKey: ["cartItem"],
-        queryFn: fetchData,
-    });
-
+    // const {
+    //     isLoading,
+    //     isError,
+    //     error,
+    // } = useQuery({
+    //     queryKey: ["cartItem"],
+    //     queryFn: fetchData,
+    // });
+    const [isLoading, setIsLoading] = React.useState(true);
+    const [isError, setIsError] = React.useState(false);
+    const [error, setError] = React.useState(null);
     var total;
     // if (!isLoading) {
     //     total = cart.reduce((acc, tot) => {
@@ -85,37 +101,50 @@ export default function Cart() {
 
     const handleQtyChange = async (event, cart_id) => {
         const newQty = { newQty: event.target.value == '' ? '0' : event.target.value };
-        await updateCartQuantity({ cart_id: cart_id, newQty: newQty });
+        await updateCartQuantity({ cart_id: cart_id, newQty: newQty,event: event });
         await fetchData();
-        total = cart.reduce((acc, tot) => {
-            return acc + (tot.checked == true ? tot.product.price * tot.qty : 0);
-        }, 0);
-        console.log(total);
-        setTotalPrice(total);
+        
         // updateMutation.mutate({ cart_id: cart_id, newQty: newQty });
     };
     
     const handleCheckedChange = (event, cart_id) => {
         const newQty = { checked: event.target.checked };
-        let tempCart = cart.map((item) => {
+        let tempCart = selectedCart.map((item) => {
             if (item.id == cart_id) {
                 return {...item, product: {...item.product},checked: event.target.checked};    
             }else{
                 return {...item}
             }   
         });  
-
-        setCart(tempCart);
+        
+        // setCart(tempCart);
+        setSelectedCart(tempCart);
+        let total = 0;
         total = tempCart.reduce((acc, tot) => {
             return acc + (tot.checked == true ? tot.product.price * tot.qty : 0);
         }, 0);
-        console.log(total);
         setTotalPrice(total);
         // updateMutation.mutate({ cart_id: cart_id, newQty: newQty });
     };
 
-    const updateCartQuantity = async ({ cart_id, newQty }) => {
-        return await axios.put(`api/cart-update-quantity/${cart_id}`, newQty);
+    const updateCartQuantity = async ({ cart_id, newQty,event }) => {
+        return await axios.put(`api/cart-update-quantity/${cart_id}`, newQty).then((res) => {
+            let tempCart = selectedCart.map((item) => {
+                if (item.id == cart_id) {
+                    return {...item, product: {...item.product},qty: Number(newQty.newQty)};    
+                }else{
+                    return {...item}
+                }   
+            });  
+
+            setSelectedCart(tempCart);
+            // let total = 0;
+            // console.log({cart : cart})
+            total = tempCart.reduce((acc, tot) => {
+                return acc + (tot.checked == true ? tot.product.price * tot.qty : 0);
+            }, 0);
+            setTotalPrice(total);
+        });
     };
 
     const updateMutation = useMutation(updateCartQuantity, {
@@ -125,7 +154,20 @@ export default function Cart() {
     });
 
     const deleteCartItem = async ({ e, cart_id }) => {
-        return await axios.delete(`api/delete-cart-item/${cart_id}`);
+         axios.delete(`api/delete-cart-item/${cart_id}`).then((res) => {
+            let tempCart = selectedCart.filter((item) => item.id != cart_id);  
+
+            setSelectedCart(tempCart);
+            // let total = 0;
+            // console.log({cart : cart})
+            total = tempCart.reduce((acc, tot) => {
+                return acc + (tot.checked == true ? tot.product.price * tot.qty : 0);
+            }, 0);
+            setTotalPrice(total);
+
+            fetchData();
+         });
+
     };
 
     const deleteMutation = useMutation(deleteCartItem, {
@@ -162,17 +204,12 @@ export default function Cart() {
         axios.get("sanctum/csrf-cookie").then(async (response) => {
             await axios
                 .post("api/order", {
-                    cart: cart.filter((item)=> item.checked == true),
+                    cart: selectedCart,
                     total_price: totalPrice,
                 })
                 .then((res) => {
                     setOrderId(res.data.data.id);
                     if (res.data.status == 200) {
-                        // swal(
-                        //     "Success",
-                        //     "Pesanan berhasil dibuat, silahkan cek email anda secara berkala untuk melihat status pesanan",
-                        //     "success"
-                        //     );
                         handleClickOpen(res.data.data.id);
                             
                     } else {
@@ -188,6 +225,7 @@ export default function Cart() {
 
     const [totalPrice, setTotalPrice] = React.useState(0);
     const [cart, setCart] = React.useState([]);
+    const [selectedCart, setSelectedCart] = React.useState([]);
     let isMounted = true;
 
 
@@ -227,7 +265,6 @@ export default function Cart() {
                         </>
                     ) : cart.length > 0 ? (
                         cart.map((item) => {
-                            console.log(item.product.size[checkStock(item.size ?? '')])
                             return (
                                 <CartItem
                                     sx={{ mb: 2 }}
@@ -243,10 +280,11 @@ export default function Cart() {
                                         handleQtyChange(event, item.id)
                                     }
                                     onDeleteClick={(e) =>
-                                        deleteMutation.mutate({
-                                            e: e,
-                                            cart_id: item.id,
-                                        })
+                                        deleteCartItem({e: e, cart_id: item.id})
+                                        // deleteMutation.mutate({
+                                        //     e: e,
+                                        //     cart_id: item.id,
+                                        // })
                                     }
                                     
                                 />
@@ -277,7 +315,7 @@ export default function Cart() {
                             {isLoading ? (
                                 <Skeleton variant="text" />
                             ) : (
-                                `RP. ${totalPrice.toLocaleString()}`
+                                `RP. ${(parseInt(totalPrice)).toLocaleString()}`
                             )}
                         </Typography>
 

@@ -245,7 +245,7 @@ const setHargaPengiriman = (params) => {
                                                         JNE - {item.service}
                                                     </Typography>
                                                     <Typography variant="body2">
-                                                        Estimasi tiba {item.cost[0].etd} Jun
+                                                        Estimasi tiba {item.cost[0].etd} hari
                                                     </Typography>
                                                 </Grid>
                                                 <Grid item>

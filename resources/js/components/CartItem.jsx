@@ -30,6 +30,7 @@ export default function CartItem({
     const handleChange = (event) => {
         setSize(event.target.value);
     };
+    
 
     return (
         <Box sx={sx} pt={2} id="CartItem">

@@ -98,10 +98,7 @@ const UserAddress = () => {
       const [value, setValue] = React.useState(null);
 
       const handleInputChange = (event, option, reason) => {
-        console.log(event);
         setHighlightedInput({ name: option });
-        console.log(option);
-        console.log('On input change triggered');
       };
 
       const handleGetOptionsLabel = (option) => {
@@ -148,14 +145,9 @@ const UserAddress = () => {
           axios.post('/api/profil/address', input).then(res => {
             console.log(res);
             if(res.data.status === 200){
-              Swal.fire({
-                icon: 'success',
-                title: 'Berhasil',
-                text: 'Data berhasil disimpan',
-                showConfirmButton: false,
-                timer: 1500
-              })
+              swal("Berhasil", "Data berhasil disimpan", "success")
               setOpen(false);
+              getAddress();
             }
           })
         });
