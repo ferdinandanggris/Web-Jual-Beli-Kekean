@@ -146,7 +146,7 @@ export default function HistoryTransaction(){
                               </Grid>
                               <Grid item laptop={3} style={{margin : "auto"}}>
                                   <Typography style={{fontSize: "16px"}}>Total Belanja</Typography>
-                                  <Typography fontSize={20} style={{fontWeight : '700'}}>Rp.{(element.total_harga_produk + element.biaya_pengiriman).toLocaleString()}</Typography>
+                                  <Typography fontSize={20} style={{fontWeight : '700'}}>Rp.{(Number(element.total_harga_produk) + Number(element.biaya_pengiriman)).toLocaleString()}</Typography>
                               </Grid>
                             </Grid>
     
