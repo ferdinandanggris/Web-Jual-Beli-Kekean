@@ -202,7 +202,7 @@ export default function Cart() {
     const orderProduct = async () => {
         await axios.get('sanctum/csrf-cookie').then(response => {
             axios.get('/api/profil/address').then(res => {
-              if (res.data.data.length > 1) {
+              if (res.data.data.length > 0) {
                 let utama = res.data.data.filter((item) => item.is_utama ==1);
                 if (utama.length > 0) {
 
