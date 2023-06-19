@@ -26,15 +26,6 @@ use App\Http\Controllers\API\UserController;
 Route::post('register', [AuthController::class, 'register']);   
 Route::post('login', [AuthController::class, 'login']);
 
-Route::post('add-product', [ProductController::class, 'store']);
-Route::post('save-image/', [ProductController::class, 'storeImage']);
-Route::post('edit-image/{id}', [ProductController::class, 'editImage']);
-Route::post('save-model', [ProductController::class, 'storeModel']);
-Route::put('update-products/{id}', [ProductController::class, 'update']);
-Route::delete('delete-products/{id}', [ProductController::class, 'destroy']);
-Route::get('products', [ProductController::class, 'index']);
-Route::get('products/{id}', [ProductController::class, 'indexDetail']);
-Route::get('edit-products/{id}', [ProductController::class, 'edit']);
 
 Route::post('add-to-cart', [CartController::class, 'addToCart']);
 Route::get('cart', [CartController::class, 'viewcart']);
@@ -103,6 +94,16 @@ Route::group(['prefix' => "profil"],function(){
     Route::get("/transaction", [OrderController::class, "getOrderByUser"]);
 });
 
+
+Route::post('add-product', [ProductController::class, 'store']);
+Route::post('save-image/', [ProductController::class, 'storeImage']);
+Route::post('edit-image/{id}', [ProductController::class, 'editImage']);
+Route::post('save-model', [ProductController::class, 'storeModel']);
+Route::put('update-products/{id}', [ProductController::class, 'update']);
+Route::delete('delete-products/{id}', [ProductController::class, 'destroy']);
+Route::get('products', [ProductController::class, 'index']);
+Route::get('products/{id}', [ProductController::class, 'indexDetail']);
+Route::get('edit-products/{id}', [ProductController::class, 'edit']);
 
 // Route::group(["prefix" => "payments"], function () {
 //     Route::get("/", [PaymentController::class, "getPayment"]);

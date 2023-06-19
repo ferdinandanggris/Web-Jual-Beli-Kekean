@@ -29,7 +29,6 @@ class ProductController extends Controller
     public function store(Request $request)
     {   
         $test = json_decode($request->image, true);
-
         $validator = Validator::make($request->input('input'), [
             'product_name' => 'required',
             'price' => 'required|numeric',
@@ -43,9 +42,7 @@ class ProductController extends Controller
             ]);
         }
 
-
-        $product = new Product;
-        $size = new Size;
+        $size = new Size();
         $size->S = $request->input('sizes.S');
         $size->M = $request->input('sizes.M');
         $size->XS = $request->input('sizes.XS');
