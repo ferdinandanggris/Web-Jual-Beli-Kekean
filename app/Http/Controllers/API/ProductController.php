@@ -27,7 +27,7 @@ class ProductController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {   
         $test = json_decode($request->image, true);
 
         $validator = Validator::make($request->input('input'), [

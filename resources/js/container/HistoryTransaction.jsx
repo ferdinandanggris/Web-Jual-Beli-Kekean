@@ -50,6 +50,7 @@ export default function HistoryTransaction(){
 
   const sendData = (data)=>{
     setOpen(data);
+    getTransactionByUser();
   }
 
   return (
@@ -139,7 +140,7 @@ export default function HistoryTransaction(){
                                           <Typography fontSize={12}>Jumlah : {element.order_detail_with_product[0].qty}</Typography>
                                       </Stack>
                                       <Typography fontSize={15} style={{fontWeight : '400',color : 'gray'}}>
-                                          Rp.{(element.order_detail_with_product[0].harga).toLocaleString()}
+                                          Rp.{Number(element.order_detail_with_product[0].harga).toLocaleString()}
                                       </Typography>
                                   </Box>
                               </Stack>

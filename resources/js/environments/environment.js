@@ -17,7 +17,7 @@ export const environment = {
 
     // Development
     // production      : false,
-    // apiURL          : "https://1ddb-202-80-216-227.ngrok-free.app/api",
+    // apiURL          : "https://1ddb-202-80-216-227.ngrok.-free.app/api",
     // url             : "https://1ddb-202-80-216-227.ngrok-free.app/",
     // fileUrl         : "https://1ddb-202-80-216-227.ngrok-free.app/storage",
     // generateUrl     : 'https://1ddb-202-80-216-227.ngrok-free.app/',

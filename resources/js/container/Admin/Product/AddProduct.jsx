@@ -170,8 +170,10 @@ export default function AddProduct() {
 
         let data = { input, sizes };
         console.log(data);
-        axios.get("/sanctum/csrf-cookie").then((response) => {
+        // return;
+        // axios.get("/sanctum/csrf-cookie").then((response) => {
             axios.post("api/add-product", data).then((res) => {
+
                 if (res.data.status === 200) {
                     console.log(res.data.message);
                     history("/admin");
@@ -182,7 +184,7 @@ export default function AddProduct() {
                     });
                 }
             });
-        });
+        // });
         // axios.get("/sanctum/csrf-cookie").then((response) => {
         //     axios.post("/api/login", input).then((res) => {
         //         if (res.data.status === 200) {
