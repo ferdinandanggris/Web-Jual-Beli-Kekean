@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\User\AddressUtama;
+use App\Http\Resources\User\AddressUtamaCollection;
 use App\Models\User;
 use App\Models\UserAddress;
 use App\Models\UserKontak;
@@ -23,6 +24,15 @@ class UserController extends Controller
         return response()->json([
             'status' => 200,
             'data' => $user->getAddress,
+        ],200);
+    }
+
+    public function getAddressByUser()
+    {
+        $address = UserAddress::with(['kota','provinsi'])->where('m_user_id',auth('sanctum')->user()->id)->get();
+        return response()->json([
+            'status' => 200,
+            'data' => new AddressUtamaCollection($address),
         ],200);
     }
 

@@ -94,6 +94,7 @@ Route::group(['prefix' => "profil"],function(){
     Route::put("/", [UserController::class, "updateProfil"]);
     Route::get("/address/utama", [UserController::class, "getAddressUtama"]);
     Route::post("/address", [UserController::class, "saveAddress"]);
+    Route::get("/getAddressByUser", [UserController::class, "getAddressByUser"]);
     Route::delete("/address/{id}", [UserController::class, "destroyAddress"]);
     Route::put("/address/{id}", [UserController::class, "updateAddress"]);
     Route::get("/addressById/{id}", [UserController::class, "getAddressById"]);

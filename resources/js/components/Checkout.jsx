@@ -1,8 +1,9 @@
-import { Box, Button, Card, CardActions, CardContent, CardHeader, DialogActions, DialogContentText, FormControl, Grid, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardHeader, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, Grid, InputLabel, MenuItem, Select, Stack, Typography } from '@mui/material';
 import React from 'react'
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useEffect } from 'react';
 import { useNavigate, useParams } from "react-router";
+import SelectAddress from './selectAddress';
 function Checkout(props) {
   const navigate = useNavigate();
   useEffect(()=>{
@@ -57,10 +58,10 @@ const handleClickOpen = (id) => {
 };
 
 const handleClose = () => {
-  if (props.sendData) {
+    navigate('/user/transaction')
+  if (props?.sendData) {
       props.sendData(false);
   }
-  navigate('/user/transaction')
 };
 
 const getOrderById = async (id) => {
@@ -172,7 +173,9 @@ const updateStatusOrder = async (order) => {
                 if (res.data.status == 200) {
                     // swal("Success", "Status berhasil diupdate", "success");
                     // fetchData();
-                    props.sendData(false);
+                    if (props.sendData) {
+                        props.sendData(false);
+                    }
                     navigate('/user/transaction');
                 } else {
                     swal("Error", "Status gagal diupdate", "error");
@@ -186,6 +189,28 @@ const setHargaPengiriman = (params) => {
     setOngkir(params);
     console.log({ongkir : params});
 }
+
+const [openAlamat, setOpenAlamat] = React.useState(false);
+
+const handleClickOpenAlamat = () => {
+  setOpenAlamat(true);
+};
+
+const handleCloseAlamat = (value) => {
+  setOpenAlamat(false);
+  setAlamat(value);
+  axios.post('api/ongkir',{m_provinsi_id : value.m_provinsi_id, m_kota_id: value.m_kota_id}).then(responseOngkir => {
+    setListPengiriman(responseOngkir.data.data[0].costs);
+    setOngkir(0);
+    setDataPembayaran({...dataPembayaran, ongkir: 0});
+    setDataPembayaran({...dataPembayaran, pengiriman: ''});
+    // console.log(responseOngkir.data.data[0].cost);
+})
+};
+
+const [selectedAlamat, setSelectedAlamat] = React.useState({});
+
+
 
   return (
     <>
@@ -214,8 +239,8 @@ const setHargaPengiriman = (params) => {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button size="small" onClick={()=>{navigate("/user/address")}}>Alamat Baru</Button>
-                                    <Button size="small">Alamat Lain</Button>
+                                    {/* <Button size="small" onClick={()=>{navigate("/user/address")}}>Alamat Baru</Button> */}
+                                    <Button size="small" onClick={handleClickOpenAlamat}>Ubah Alamat</Button>
                                 </CardActions>
                             </Card>
                         </div>
@@ -395,6 +420,12 @@ const setHargaPengiriman = (params) => {
         </Button>
         </DialogActions>
       </Card>
+
+      <SelectAddress 
+        open={openAlamat}
+        selectedValue={alamat}
+        onClose={handleCloseAlamat}
+      />
     </>
   )
 }
