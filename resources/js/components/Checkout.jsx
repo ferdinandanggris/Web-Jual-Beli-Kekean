@@ -13,16 +13,16 @@ function Checkout(props) {
 
   const [alamat, setAlamat] = React.useState({
     id : 0,
-    nama_penerima: 'Ferdinand Anggris',
-    label : 'Rumah',
-    alamat: 'Jl. Raya Cipadung No. 9',
+    nama_penerima: '-',
+    label : '-',
+    alamat: '-',
     kecamatan: '',
     kota: '',
     provinsi: '',
     m_kota_id: 0,
     m_provinsi_id: 0,
-    kode_pos: '40614',
-    no_hp: '081234567890',
+    kode_pos: '-',
+    no_hp: '-',
     catatan : 'Tidak ada catatan',
 });
 
