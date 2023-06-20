@@ -75,7 +75,7 @@ class UserController extends Controller
             'catatan',
             'is_utama'
         ]);
-        if ($payload['id'] != null) {
+        if (isset($payload['id']) && $payload['id'] != null) {
             UserAddress::where('id',$payload['id'])->update($payload);
             return response()->json([
                 'status' => 200,
