@@ -240,15 +240,15 @@ export default function Navbar(props) {
             >
                 <Box width="250px">
                     <Card sx={{ backgroundColor: '#FF9C8B', borderRadius: 0, boxShadow: 'none' }}>
-                        <CardActionArea disabled={localStorage.getItem("auth_token")} sx={{ display: 'flex',  backgroundColor: '#FF9C8B', alignItems: 'center', p: 1.5 }} onClick={() => history("/login")}>
+                        <CardActionArea  sx={{ display: 'flex',  backgroundColor: '#FF9C8B', alignItems: 'center', p: 1.5 }} onClick={() => history("/login")}>
                             <AccountCircleOutlinedIcon sx={{ fontSize: '3rem' }} />
                             <Box ml={2}>
                                 
                                 <Typography fontWeight={'600'}>
-                                    {/* {localStorage.getItem('first_name')} */}
-                                    Akun Saya
+                                    {localStorage.getItem('first_name')}
+                                    {/* Akun Saya */}
                                 </Typography>
-                                {localStorage.getItem('auth_token') ?? (
+                                {localStorage.getItem('auth_token') ? '' : (
                                     <Typography  fontSize={9} fontWeight={'400'}>
                                     Sign in / Register
                                 </Typography>
