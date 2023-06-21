@@ -16,6 +16,8 @@ import {
     Avatar,
     Badge,
     useScrollTrigger,
+    Card,
+    CardActionArea,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
@@ -62,6 +64,7 @@ export default function Navbar(props) {
             if (res.data.status === 200) {
                 localStorage.removeItem("auth_token");
                 localStorage.removeItem("auth_firstName");
+                localStorage.removeItem("first_name");
                 localStorage.removeItem("auth_lastName");
                 localStorage.removeItem("auth_email");
                 swal("Berhasil Logout", res.data.message, "success");
@@ -69,6 +72,8 @@ export default function Navbar(props) {
             }
         });
     };
+
+    
 
     const fetchCart = async () => {
         const res = await axios.get("api/cart");
@@ -233,8 +238,60 @@ export default function Navbar(props) {
                 onClose={() => setDrawerState(false)}
                 onOpen={() => setDrawerState(true)}
             >
-                <Box p={2} width="250px" textAlign="center">
-                    <Typography>Side Panel</Typography>
+                <Box width="250px">
+                    <Card sx={{ backgroundColor: '#FF9C8B', borderRadius: 0, boxShadow: 'none' }}>
+                        <CardActionArea disabled={localStorage.getItem("auth_token")} sx={{ display: 'flex',  backgroundColor: '#FF9C8B', alignItems: 'center', p: 1.5 }} onClick={() => history("/login")}>
+                            <AccountCircleOutlinedIcon sx={{ fontSize: '3rem' }} />
+                            <Box ml={2}>
+                                
+                                <Typography fontWeight={'600'}>
+                                    {/* {localStorage.getItem('first_name')} */}
+                                    Akun Saya
+                                </Typography>
+                                {localStorage.getItem('auth_token') ?? (
+                                    <Typography  fontSize={9} fontWeight={'400'}>
+                                    Sign in / Register
+                                </Typography>
+                                )}
+                                {/* <Typography  fontSize={9} fontWeight={'400'}>
+                                    Sign in / Register
+                                </Typography> */}
+                            </Box>
+                        </CardActionArea>
+                    </Card>
+
+                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/user/address")}>
+                        <Typography fontWeight={'light'}>
+                            ALAMAT
+                        </Typography>
+                    </CardActionArea>
+                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/user/transaction")}>
+                        <Typography fontWeight={'light'}>
+                            RIWAYAT PEMBELIAN
+                        </Typography>
+                    </CardActionArea>
+                    <hr/>
+                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/")}>
+                        <Typography fontWeight={'light'}>
+                            KATALOG
+                        </Typography>
+                    </CardActionArea>
+                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/artikel")}>
+                        <Typography fontWeight={'light'}>
+                            ARTIKEL
+                        </Typography>
+                    </CardActionArea>
+                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/about")}>
+                        <Typography fontWeight={'light'}>
+                            TENTANG KAMI
+                        </Typography>
+                    </CardActionArea>
+                    <hr/>
+                    <CardActionArea sx={{ p: 2 }} onClick={logoutSubmit}>
+                        <Typography fontWeight={'light'}>
+                                Logout <Logout fontSize="small" color={"#000000de"}/>
+                        </Typography>
+                    </CardActionArea>
                 </Box>
             </SwipeableDrawer>
             <AppBar
@@ -248,27 +305,36 @@ export default function Navbar(props) {
                     <IconButton
                         size="large"
                         edge="start"
-                        color="inherit"
                         aria-label="menu"
-                        sx={{ mr: 2 }}
+                        sx={{ mr: 2, color: theme.textColor }}
                         onClick={() => setDrawerState(true)}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography
-                        sx={{ flexGrow: 1 }}
-                        textAlign={"center"}
-                        color={"black"}
-                    >
-                        Kekean
-                    </Typography>
-                    <Button color="inherit">
+                    <Link to={`/`} style={{ textDecoration: 'none', textAlign: 'center', flexGrow: 1 }}>
                         <Typography
-                            fontSize={20}
-                            href="#"
-                            className="bx bx-cart"
-                        ></Typography>
-                    </Button>
+                            color={"black"}
+                        >
+                            KEKEAN
+                        </Typography>
+                    </Link>
+                    <IconButton
+                        size="large"
+                        edge="start"
+                        aria-label="menu"
+                        sx={{ color: theme.textColor }}
+                        onClick={() => history("/cart")}
+                    >
+                        <Badge
+                            badgeContent={isLoading ? 0 : cartLength}
+                            color="primary"
+                        >
+                            <ShoppingCartOutlinedIcon
+                                sx={{ color: theme.textColor }}
+                                fontSize="medium"
+                            />
+                        </Badge>
+                    </IconButton>
                 </Toolbar>
             </AppBar>
             <Container

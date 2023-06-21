@@ -1,4 +1,5 @@
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
 import "../../css/checkout.css";
 import {
     Box,
@@ -13,6 +14,7 @@ import {
     DialogContentText,
     DialogTitle,
     Divider,
+    Fab,
     FormControl,
     FormHelperText,
     Grid,
@@ -275,8 +277,8 @@ export default function Cart() {
 
     return (
         <>
-        <Grid paddingX={10} mt={5} container spacing={2} hidden={open}>
-            <Grid item laptop={6}>
+        <Grid  mt={5}  sx={{paddingX : {laptop : 10}, marginTop : {mobile : 10}}} container spacing={2} hidden={open}>
+            <Grid item laptop={6} mobile={12}>
                 <Box
                     sx={{
                         border: "1px solid #BABABA",
@@ -337,7 +339,7 @@ export default function Cart() {
                     )}
                 </Box>
             </Grid>
-            <Grid item laptop={6}>
+            <Grid item laptop={6} display={{ mobile: "none", laptop: "block" }}>
                 <Box sx={{ border: "1px solid #BABABA", borderRadius: 1 }}>
                     <Box px={2} pt={1}>
                         <Typography mx={2} fontWeight="500" fontSize={24}>
@@ -367,6 +369,29 @@ export default function Cart() {
                     </Box>
                 </Box>
             </Grid>
+
+            <Fab variant="extended" color="primary" aria-label="add" 
+                disabled={isLoading || cart.length == 0}
+                onClick={() => orderProduct()}
+            sx={{position : 'fixed', bottom : '10%',mx : 'auto',left: 50, width : '70%', display : {mobile : "block", laptop : "none"}}}>
+                <Grid container justifyContent={'space-between'} alignContent={'center'} >
+                    <Grid item sx={{my : 'auto'}}>
+                    <div>
+                        <Typography color={"white"} sx={{fontSize : '12px'}}>
+                        {selectedCart.reduce((total, item) => {item.checked ? total++ : total; return total}, 0)} Produk
+                        </Typography>
+                    </div>
+                    </Grid>
+                    <Grid item sx={{my : 'auto'}}>
+                    
+                        <Typography color={"white"} sx={{fontWeight : 'normal', fontSize : '16px', my : 'auto'}}>
+                           Rp. {(parseInt(totalPrice)).toLocaleString()} <LocalMallIcon/>
+                        </Typography>
+                    </Grid>
+                </Grid>
+               
+               
+            </Fab>
         </Grid>
         
         <div className='mx-3' style={{marginTop : '30px'}}>

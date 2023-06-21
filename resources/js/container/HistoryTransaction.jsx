@@ -56,7 +56,7 @@ export default function HistoryTransaction(){
   return (
     <>
     <div className="mx-auto" hidden={open} style={{minHeight : "50vh",maxWidth : "1000px"}}>
-      <Card sx={{maxWidth : "1000px"}} >
+      <Card sx={{maxWidth : "1000px", marginTop : {mobile : 8}}} >
         <CardHeader sx={{fontWeight : "bold", fontSize : "12px"}} title="Riwayat Pesanan"/>
         <hr style={{marginTop: 0}}/>
         <CardContent style={{height : "60vh",overflowY:"scroll"}}>

@@ -5,11 +5,35 @@ import {Link} from 'react-router-dom'
 
 
 export default function CatalogCollection() {
-    const catalog = JSON.parse(JSON.stringify(require('../catalog.json')))
-    const catalogs = catalog.slice(0,3).map((item) => 
-        <CatalogItem key={item.id} id={item.id} nama={item.nama} item={item.item} harga={item.harga} have3d={item.have3d} model={item.model} />
+    const [product, setProduct] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+    let isMounted = true;
+
+
+    React.useEffect(() => {
+        const fetchData = async () => {
+            axios.get(`api/products`).then((res) => {
+                if (res.data.status === 200) {
+                    setProduct(res.data.products);
+                    setLoading(false);
+                }
+            });
+        };
+        fetchData();
+        isMounted = false;
+    }, []);
+
+    const products = product.slice(0, 3).map((item) =>
+        <CatalogItem key={item.id}
+            id={item.id}
+            description={item.description}
+            nama={item.product_name}
+            image={item.imageUrl[0].path}
+            harga={item.price}
+            have3d={item.has_3d}
+            model={item.model_3d} />
     )
-    return(
+    return (
         <Grid item>
             <Grid container alignItems="center" justifyContent="center">
                 <Grid item mobile={6}>
@@ -24,7 +48,7 @@ export default function CatalogCollection() {
                 </Grid>
 
                 <Grid item mobile={6}>
-                    <Link style={{textDecoration: 'none'}} to={'/catalog'}>
+                    <Link style={{ textDecoration: 'none' }} to={'/catalog'}>
                         <Typography
                             display={{ mobile: "block", laptop: "none" }}
                             fontWeight={"regular"}
@@ -45,7 +69,7 @@ export default function CatalogCollection() {
                             display: { mobile: "flex", laptop: "none" },
                         }}
                     >
-                        {catalogs}
+                        {products}
                     </Grid>
                 </Grid>
             </Grid>

@@ -34,11 +34,12 @@ export default function CartItem({
 
     return (
         <Box sx={sx} pt={2} id="CartItem">
-            <Grid container spacing={3}>
-                <Grid item laptop={3}>
+            <Grid container sx={{laptop : {spacing : 3}}} >
+                <Grid item laptop={3} mobile={3}>
                     <Box
                         sx={{
-                            width: { laptop: 90, desktop: 110 },
+                            width: { laptop: 90, desktop: 110, mobile: '60px' },
+                            fontSize : {laptop: 15, desktop: 20, mobile: 10},
                             height: { laptop: 90, desktop: 110 },
                             aspectRatio: 1 / 1,
                             objectFit: "cover",
@@ -49,14 +50,18 @@ export default function CartItem({
                         src={`../storage/${img}`}
                     />
                 </Grid>
-                <Grid item laptop={8}>
+                <Grid item laptop={8} mobile={8} sx={{margin : 'auto'}}>
                     <Stack
                         maxWidth={360}
                         direction={"row"}
                         justifyContent={"space-between"}
                     >
-                        <Box>
-                            <Typography fontSize={20}>{name}</Typography>
+                        <Box xs={{
+                            fontSize : {laptop: 15, desktop: 20, mobile: 10},
+                        }}>
+                            <Typography xs={{
+                            fontSize : {laptop: 15, desktop: 20, mobile: 10},
+                        }}>{name}</Typography>
                             <Typography color={"#7D7D7D"}>
                                 {`Rp. ${Number(price).toLocaleString()}`}
                             </Typography>
@@ -72,8 +77,12 @@ export default function CartItem({
                         mt={{ desktop: 2 }}
                         spacing={2}
                         direction={"row"}
+                        xs={{
+                            fontSize : {laptop: 15, desktop: 20, mobile: 10},
+                            margin : 'auto'
+                        }}
                     >
-                        <Typography>Size: {value}</Typography>
+                        <Typography >Size: {value}</Typography>
                         <Typography> Jumlah: </Typography>
                         <TextField
                             onChange={onQtyChange}
@@ -99,7 +108,7 @@ export default function CartItem({
                     </Stack>
 
                 </Grid>
-                <Grid item laptop={1} justifyItems={"center"} justifyContent={"center"}>
+                <Grid item laptop={1} mobile={1} justifyItems={"center"} justifyContent={"center"} sx={{margin : 'auto'}}>
                         <Box justifyContent={"start"} justifyItems={"center"}>
                             <Checkbox onChange={onCheckedChange} />
                         </Box>

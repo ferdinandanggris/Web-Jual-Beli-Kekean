@@ -10,7 +10,7 @@ export const environment = {
     // Production
     production      : false,
     apiURL          : "https://kekean.anggris.my.id/api",
-    url             : "https://kekean.anggris.my.id/",
+    url             : "https://kekean.anggris.my.id/",   
     fileUrl         : "https://kekean.anggris.my.id/storage",
     generateUrl     : 'https://kekean.anggris.my.id/',
     imgUrl          : "https://kekean.anggris.my.id/storage",

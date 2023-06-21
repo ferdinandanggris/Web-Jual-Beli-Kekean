@@ -6,6 +6,8 @@ import {
     Box,
     Skeleton,
     Pagination,
+    Card,
+    CardActionArea,
 } from "@mui/material/";
 import CatalogItem from "../components/CatalogItem";
 import ArticleItem from "../components/ArticleItem";
@@ -13,6 +15,8 @@ import { Link } from "react-router-dom";
 import CatalogCollection from "./CatalogCollection";
 import ArticleCollection from "./Artikel/ArticleCollection";
 import { LoadingContext } from "../Navs";
+import FilterListIcon from '@mui/icons-material/FilterList';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export default function MainPage(props) {
     // const product = JSON.parse(JSON.stringify(require('../product.json')))
@@ -63,15 +67,13 @@ export default function MainPage(props) {
 
     return (
         <Box>
-            <Grid
+            {/* <Grid
                 display={{ mobile: "flex", laptop: "none" }}
                 container
                 alignItems="center"
                 justifyContent="center"
                 pt={0}
             >
-                <CatalogCollection />
-                <CatalogCollection />
                 <CatalogCollection />
                 <ArticleCollection />
                 <Grid item mobile={12}>
@@ -104,7 +106,84 @@ export default function MainPage(props) {
                         </Typography>
                     </Container>
                 </Grid>
+            </Grid> */}
+            <Grid display={{ mobile: "flex", laptop: "none" }}>
+                <Container>
+                <Grid pt={1} container alignItems="center" justifyContent="center">
+                    <Grid item mobile={12}>
+                        <Typography
+                            display={{ mobile: "block", laptop: "none" }}
+                            fontWeight={"light"}
+                            fontSize={18}
+                            py={2}
+                            textAlign={'center'}
+                        >
+                            Our Collection
+                        </Typography>
+                    </Grid>
+                    <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'} sx={{width: 1}} pb={1}>
+                        <Card sx={{backgroundColor: '#0000', boxShadow: 'none'}}>
+                            <CardActionArea sx={{display: 'flex', flexDirection: 'row', pr: 5, py: 0.5, pl: 1, backgroundColor: '#0000', border: '1px solid #D9D9D9'}}>
+                                <FilterListIcon sx={{ fontSize: 15, mr: 1 }} />
+                                <Typography sx={{ fontSize: 12 }} fontWeight={'light'}>
+                                    Filter
+                                </Typography>
+                            </CardActionArea>
+                        </Card>
+                        <Card sx={{backgroundColor: '#0000', boxShadow: 'none'}}>
+                            <CardActionArea sx={{display: 'flex', flexDirection: 'row', py: 0.5, backgroundColor: '#0000', border: '1px solid #D9D9D9', justifyContent: 'space-between', width: 100}}>
+                                <Typography sx={{ fontSize: 12 }} fontWeight={'light'} ml={1}>
+                                    Sort By
+                                </Typography>
+                                <KeyboardArrowDownIcon sx={{ fontSize: 15, mx: 1 }} />
+                            </CardActionArea>
+                        </Card>
+                    </Box>
+                    <Grid item mobile={12}>
+                        <Grid
+                            container
+                            spacing={1}
+                            sx={{
+                                display: { mobile: "flex", laptop: "none" },
+                            }}
+                        >
+                            {showProductList}
+                        </Grid>
+                        <Grid item mobile={12} style={{marginTop : "20px"}}>
+                            <Box
+                                display="flex"
+                                justifyContent="center"
+                                alignItems="center"
+                            >
+                                <Pagination
+                                    sx={{ width: "fit-content" }}
+                                    page={currentPage}
+                                    onChange={changeCurrentPage}
+                                    count={Math.ceil(product.length / postsPerPage)}
+                                />
+                            </Box>
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                        {/* <Button
+                                    sx={{
+                                        display: { mobile: "block", laptop: "none" },
+                                        px: 1,
+                                        mt: { laptop: 8, mobile: 3 },
+                                    }}
+                                    variant="contained"
+                                    color="primary"
+                                    disableElevation
+                                >
+                                    <Typography variant="button" color="white">
+                                        Lihat Selengkapnya
+                                    </Typography>
+                                </Button> */}
+                    </Grid>
+                </Grid>
+            </Container>
             </Grid>
+
             <Grid
                 sx={{ display: { mobile: "none", laptop: "flex" } }}
                 container
@@ -142,6 +221,7 @@ export default function MainPage(props) {
                         display="flex"
                         justifyContent="center"
                         alignItems="center"
+                        
                     >
                         <Pagination
                             sx={{ width: "fit-content" }}
@@ -153,5 +233,7 @@ export default function MainPage(props) {
                 </Grid>
             </Grid>
         </Box>
+
+        
     );
 }

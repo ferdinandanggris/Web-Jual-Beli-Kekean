@@ -214,7 +214,7 @@ const [selectedAlamat, setSelectedAlamat] = React.useState({});
 
   return (
     <>
-      <Card>
+      <Card sx={{marginTop : {mobile : 8}}}>
         <CardHeader title="Detail Pembayaran"/>
         <hr style={{marginTop : 0}} />
         <CardContent>

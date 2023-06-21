@@ -192,8 +192,8 @@ const UserAddress = () => {
                     
                               <Card sx={{}}>
                                   <Grid container spacing={2} justifyContent="space-between" alignItems="center">
-                                      <Grid item xs={8} sm={8}>
-                                              <CardContent>
+                                      <Grid item xs={6}>
+                                              <CardContent sx={{width : "250px"}}>
                                                   <Typography sx={{ fontSize: 14,fontWeight:"normal" }}  gutterBottom>
                                                   {item.nama} ({item.label_alamat})
                                                   </Typography>
@@ -211,7 +211,7 @@ const UserAddress = () => {
                                                 </IconButton>
                                               </CardActions>
                                       </Grid>
-                                      <Grid item xs={4} sm={4} style={{marginRight : "10px",width:100}}>
+                                      <Grid item xs={6} style={{marginRight : "10px",width:100}}>
                                         {item.is_utama == 0 ? 
                                           <Button variant="contained" color="primary" onClick={()=> changeUtama(item.id)} size="small" style={{marginTop:"20px"}}>
                                           Pilih

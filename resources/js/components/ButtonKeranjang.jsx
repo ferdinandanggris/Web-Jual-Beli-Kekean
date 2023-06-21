@@ -9,7 +9,7 @@ export default function ButtonKeranjang({onClick, id}) {
                 onClick={onClick}
                 sx={{
                     display: {
-                        mobile: "none",
+                        mobile: "flex",
                         laptop: "flex",
                     },
                     px: 1,

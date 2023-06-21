@@ -1,4 +1,4 @@
-import { Box, Container, Icon, Link, Stack, Typography } from "@mui/material";
+import { Box, Container, Grid, Icon, Link, Stack, Typography } from "@mui/material";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -6,7 +6,8 @@ import React from "react";
 
 function Footer() {
     return (
-        <Container sx={{ mt: 10, pr: 20, pl: 10, py: 5, bgcolor: "black" }}>
+        <>
+        <Container sx={{ display: {mobile: 'none', laptop: 'block'},mt: 10, pr: 20, pl: 10, py: 5, bgcolor: "black" }}>
             <Stack direction={"row"} spacing={25}>
                 <Stack direction={"column"} spacing={3}>
                     <Box
@@ -118,6 +119,33 @@ function Footer() {
                 </Stack>
             </Stack>
         </Container>
+
+        
+        <Grid item mobile={12} display={{ mobile: "flex", laptop: "none" }} sx={{bgcolor: "black",width : '100%',mt: 5, pr: 5, pl: 5, py: 5}}>
+        <Container >
+                <Box
+                sx={{
+                    width: "128px",
+                }}
+                component="img"
+                src={`../images/logoKekean.jpg`}
+            />
+            <Typography
+                fontSize={8.65}
+                mt={1}
+                fontWeight={"regular"}
+                mb={2}
+                color="#C7C7C7"
+            >
+                Kekean Wastra Gallery is a business that carries
+                local Indonesian cultural values. This business was
+                established in Bali on December 2, 2014. Kekean
+                Wastra Gallery focuses on sustainable fashion with
+                Batik, Weaving, and Embroidery.
+            </Typography>
+        </Container>
+        </Grid>
+        </>
     );
 }
 

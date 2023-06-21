@@ -105,12 +105,12 @@ export default function ProductPage(props) {
     } 
 
     return (
-        <Container sx={{ px: 10, mt: 5 }}>
+        <Container sx={{ px: {laptop : 10} , mt: {laptop : 5, mobile : 8} }}>
             <Grid
-                spacing={15}
+                sx={{ spacing: { mobile: 0, laptop: 15 }}}
                 container
-                display={{ mobile: "none", laptop: "flex" }}
-            >
+                display={{ mobile: "block", laptop: "flex" }}
+            >   
                 <Grid item laptop={6}>
                     {loading ? (
                         <>
@@ -126,7 +126,7 @@ export default function ProductPage(props) {
                             <Skeleton variant="text" sx={{ fontSize: 12 }} />
                         </>
                     ) : (
-                        <Box>
+                        <Box >
                             {!!Number(product.has_3d) ? (
                                 <div className="sketchfab-embed-wrapper" style={{height : '300px'}}>
                                     <Suspense>
@@ -136,14 +136,14 @@ export default function ProductPage(props) {
                                     </Suspense>
                                 </div>
                             ) : (
-                                <Carousel>
+                                <Carousel >
                                     {product.imageUrl.map((item, id) => (
-                                        <Box
+                                        <Box 
                                             key={id}
                                             sx={{
                                                 height: "400px",
                                                 objectFit: "fill",
-                                                ml: "30%",
+                                                ml: {laptop : "30%"},
                                             }}
                                             component="img"
                                             src={`../storage/${item.path}`}
@@ -160,8 +160,8 @@ export default function ProductPage(props) {
                                 //     src={`../catalog/${product.image_detail1}`}
                                 // />
                             )}
-                            <Box my={5}>
-                                <Typography fontSize={36} fontWeight={"medium"}>
+                            <Box my={5} display={{mobile :'none', laptop : 'block'}}>
+                                <Typography fontSize={36} sx={{fontSize : { mobile : 20 }}} fontWeight={"medium"}>
                                     Deskripsi
                                 </Typography>
                                 <Typography>{product.description}</Typography>
@@ -178,20 +178,20 @@ export default function ProductPage(props) {
                             {loading ? (
                                 <Skeleton
                                     variant="text"
-                                    sx={{ fontSize: 36 }}
+                                    sx={{ fontSize: {mobile : 24 , laptop : 36} }}
                                 />
                             ) : (
-                                <Typography fontSize={30} fontWeight="medium">
+                                <Typography fontSize={30} sx={{fontSize : {mobile : 20}}} fontWeight="medium">
                                     {product.product_name}
                                 </Typography>
                             )}
                             {loading ? (
                                 <Skeleton
                                     variant="text"
-                                    sx={{ fontSize: 24 }}
+                                    sx={{ fontSize : { mobile : 18, laptop : 24} }}
                                 />
                             ) : (
-                                <Typography fontSize={20}>
+                                <Typography fontSize={20} sx={{fontSize : {mobile : 16, laptop : 20}}}>
                                     Rp. {Number(product.price).toLocaleString()}
                                 </Typography>
                             )}
@@ -285,6 +285,13 @@ export default function ProductPage(props) {
                         </Box>
                     </Box>
                 </Grid>
+                <Box my={5}  sx={{ border: "1px solid #D9D9D9", borderRadius: 1 }}
+                        p={2} display={{mobile :'block', laptop : 'none'}}>
+                    <Typography fontSize={36} sx={{fontSize : { mobile : 20 }}} fontWeight={"medium"}>
+                        Deskripsi
+                    </Typography>
+                    <Typography>{product.description}</Typography>
+                </Box>
             </Grid>
         </Container>
     );
