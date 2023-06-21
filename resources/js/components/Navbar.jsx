@@ -19,6 +19,7 @@ import {
     Card,
     CardActionArea,
 } from "@mui/material";
+import LoginIcon from '@mui/icons-material/Login';
 import MenuIcon from "@mui/icons-material/Menu";
 import Button from "@mui/material/Button";
 import axios from "axios";
@@ -240,7 +241,7 @@ export default function Navbar(props) {
             >
                 <Box width="250px">
                     <Card sx={{ backgroundColor: '#FF9C8B', borderRadius: 0, boxShadow: 'none' }}>
-                        <CardActionArea  sx={{ display: 'flex',  backgroundColor: '#FF9C8B', alignItems: 'center', p: 1.5 }} onClick={() => history("/login")}>
+                        <CardActionArea disabled={localStorage.getItem("auth_token")} sx={{ display: 'flex',  backgroundColor: '#FF9C8B', alignItems: 'center', p: 1.5 }} onClick={() => history("/login")}>
                             <AccountCircleOutlinedIcon sx={{ fontSize: '3rem' }} />
                             <Box ml={2}>
                                 
@@ -260,17 +261,22 @@ export default function Navbar(props) {
                         </CardActionArea>
                     </Card>
 
-                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/user/address")}>
+                    {localStorage.getItem('auth_token') ? (
+                        <>
+                        <CardActionArea sx={{ p: 2 }} onClick={() => history("/user/address")}>
                         <Typography fontWeight={'light'}>
                             ALAMAT
-                        </Typography>
-                    </CardActionArea>
-                    <CardActionArea sx={{ p: 2 }} onClick={() => history("/user/transaction")}>
-                        <Typography fontWeight={'light'}>
-                            RIWAYAT PEMBELIAN
-                        </Typography>
-                    </CardActionArea>
-                    <hr/>
+                            </Typography>
+                        </CardActionArea>
+                        <CardActionArea sx={{ p: 2 }} onClick={() => history("/user/transaction")}>
+                            <Typography fontWeight={'light'}>
+                                RIWAYAT PEMBELIAN
+                            </Typography>
+                        </CardActionArea>
+                        <hr/>
+                        </>
+                    ) : ''}
+                    
                     <CardActionArea sx={{ p: 2 }} onClick={() => history("/")}>
                         <Typography fontWeight={'light'}>
                             KATALOG
@@ -286,12 +292,17 @@ export default function Navbar(props) {
                             TENTANG KAMI
                         </Typography>
                     </CardActionArea>
-                    <hr/>
-                    <CardActionArea sx={{ p: 2 }} onClick={logoutSubmit}>
-                        <Typography fontWeight={'light'}>
-                                Logout <Logout fontSize="small" color={"#000000de"}/>
-                        </Typography>
-                    </CardActionArea>
+                    {localStorage.getItem('auth_token') ? (
+                        <>
+                        <hr/>
+                            <CardActionArea sx={{ p: 2 }} onClick={logoutSubmit}>
+                                <Typography fontWeight={'light'}>
+                                        Logout <Logout fontSize="small" color={"#000000de"}/>
+                                </Typography>
+                            </CardActionArea>
+                        </>
+                    ) : ''}
+                    
                 </Box>
             </SwipeableDrawer>
             <AppBar
@@ -318,7 +329,8 @@ export default function Navbar(props) {
                             KEKEAN
                         </Typography>
                     </Link>
-                    <IconButton
+                    {localStorage.getItem('auth_token') ? (
+                        <IconButton
                         size="large"
                         edge="start"
                         aria-label="menu"
@@ -335,6 +347,18 @@ export default function Navbar(props) {
                             />
                         </Badge>
                     </IconButton>
+                    ) : (
+                        <Link
+                            style={{
+                                textDecoration: "none",
+                                color: theme.textColor,
+                            }}
+                            to={`/login`}
+                        >
+                            <LoginIcon/>
+                        </Link>
+                    )}
+
                 </Toolbar>
             </AppBar>
             <Container

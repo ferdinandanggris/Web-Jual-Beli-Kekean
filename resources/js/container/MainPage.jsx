@@ -107,7 +107,7 @@ export default function MainPage(props) {
                     </Container>
                 </Grid>
             </Grid> */}
-            <Grid display={{ mobile: "flex", laptop: "none" }}>
+            <Grid display={{ mobile: "flex", laptop: "none" }} sx={{minHeight : "70vh"}}>
                 <Container>
                 <Grid pt={1} container alignItems="center" justifyContent="center">
                     <Grid item mobile={12}>

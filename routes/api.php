@@ -71,6 +71,7 @@ Route::group(['prefix' => "order"],function(){
     Route::get("/", [OrderController::class, "index"]);
     Route::post("/update-status", [OrderController::class, "updateStatus"]);
     Route::post("/update-status-batal", [OrderController::class, "updateStatusBatal"]);
+    Route::post("/update-status-selesai", [OrderController::class, "updateStatusSelesai"]);
     Route::get("/{id}", [OrderController::class, "show"]);
     Route::post("/checkout", [OrderController::class, "checkoutPembayaran"]);
     Route::post("/", [OrderController::class, "order"]);

@@ -277,7 +277,7 @@ export default function Cart() {
 
     return (
         <>
-        <Grid  mt={5}  sx={{paddingX : {laptop : 10}, marginTop : {mobile : 10}}} container spacing={2} hidden={open}>
+        <Grid  mt={5}  sx={{minHeight : "60vh",paddingX : {laptop : 10}, marginTop : {mobile : 10}}} container spacing={2} hidden={open}>
             <Grid item laptop={6} mobile={12}>
                 <Box
                     sx={{
@@ -373,7 +373,7 @@ export default function Cart() {
             <Fab variant="extended" color="primary" aria-label="add" 
                 disabled={isLoading || cart.length == 0}
                 onClick={() => orderProduct()}
-            sx={{position : 'fixed', bottom : '10%',mx : 'auto',left: 50, width : '70%', display : {mobile : "block", laptop : "none"}}}>
+            sx={{position : 'fixed', bottom : '30%',mx : 'auto',left: 50, width : '70%', display : {mobile : "block", laptop : "none"}}}>
                 <Grid container justifyContent={'space-between'} alignContent={'center'} >
                     <Grid item sx={{my : 'auto'}}>
                     <div>

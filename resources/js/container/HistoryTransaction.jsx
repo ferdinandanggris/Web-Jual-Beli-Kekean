@@ -36,6 +36,24 @@ export default function HistoryTransaction(){
             })
     });
 }
+  const updateStatusSelesaiOrder = async (id) => {
+    axios.get("sanctum/csrf-cookie").then(async (response) => {
+        await axios
+            .post("api/order/update-status-selesai", {
+                id : id,
+                status_pengiriman : 'selesai',
+            }).then((res) => {
+                console.log(res.data);
+                if (res.data.status == 200) {
+                    // swal("Success", "Status berhasil diupdate", "success");
+                    // fetchData();
+                    getTransactionByUser();
+                } else {
+                    swal("Error", "Status gagal diupdate", "error");
+                }
+            })
+    });
+}
 
   const getTransactionByUser = async() => {
     axios.get('/sanctum/csrf-cookie').then(response => {
@@ -106,8 +124,8 @@ export default function HistoryTransaction(){
                   </Grid>
                   <Typography hidden={element.status_pemesanan != 'settlement' && (element.status_pengiriman != 'pengiriman' || element.status_pengiriman != 'selesai')} style={{fontSize:"12px",fontWeight : 'normal',marginTop: '5px'}} ><span style={{fontWeight: 'bold'}}>Resi</span> : {element.resi ?? '-'}</Typography>
                     <hr style={{marginLeft : 2,marginRight : 2}}/>
-                  <Grid container spacing={3}>
-                      <Grid item laptop={3}>
+                  <Grid container spacing={3} sx={{my : 'auto'}}>
+                      <Grid item laptop={3} mobile={4}>
                               <Box
                                   sx={{
                                     width: { laptop: 90, desktop: 110 },
@@ -121,11 +139,11 @@ export default function HistoryTransaction(){
                                   src={`../storage/${element.order_detail_with_product[0].product.image[0].path}`}
                               />
                           </Grid>
-                          <Grid item laptop={8}>
+                          <Grid item laptop={8} mobile={8}>
                             <Grid container alignContent={"center"} spacing={3}>
-                              <Grid item laptop={9} >
+                              <Grid item laptop={9} mobile={7}>
                               <Stack
-                                  maxWidth={360}
+                                  maxWidth={400}
                                   direction={"row"}
                                   justifyContent={"space-between"}
                               >
@@ -145,9 +163,9 @@ export default function HistoryTransaction(){
                                   </Box>
                               </Stack>
                               </Grid>
-                              <Grid item laptop={3} style={{margin : "auto"}}>
-                                  <Typography style={{fontSize: "16px"}}>Total Belanja</Typography>
-                                  <Typography fontSize={20} style={{fontWeight : '700'}}>Rp.{(Number(element.total_harga_produk) + Number(element.biaya_pengiriman)).toLocaleString()}</Typography>
+                              <Grid item laptop={3} mobile={5} style={{margin : "auto"}}>
+                                  <Typography style={{fontSize: "16px"}} sx={{fontSize : {mobile : '10px'}}}>Total Belanja</Typography>
+                                  <Typography fontSize={20} style={{fontWeight : '700'}} sx={{fontSize : {mobile : '16px'}}}>Rp.{(Number(element.total_harga_produk) + Number(element.biaya_pengiriman)).toLocaleString()}</Typography>
                               </Grid>
                             </Grid>
     
@@ -163,6 +181,15 @@ export default function HistoryTransaction(){
                             >
                                 <Typography style={{fontSize: "14px"}} color="primary">
                                     Batalkan 
+                                </Typography>
+                            </Button>
+                            <Button hidden={element.status_pemesanan != 'settlement' || element.status_approval != 'approve' || element.status_pengiriman != 'pengiriman' }
+                                variant="contained"
+                                sx={{ py: 1, px: 2,marginRight : "10px",backgroundColor : 'white','&:hover>p' : {color : 'white !important',}}}  
+                                onClick={()=>{updateStatusSelesaiOrder(element.id)}}                    
+                            >
+                                <Typography style={{fontSize: "14px"}} color="primary">
+                                    Selesai 
                                 </Typography>
                             </Button>
                               <Button

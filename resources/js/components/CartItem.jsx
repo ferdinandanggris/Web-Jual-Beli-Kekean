@@ -33,7 +33,7 @@ export default function CartItem({
     
 
     return (
-        <Box sx={sx} pt={2} id="CartItem">
+        <Box  pt={2} id="CartItem" >
             <Grid container sx={{laptop : {spacing : 3}}} >
                 <Grid item laptop={3} mobile={3}>
                     <Box

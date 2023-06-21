@@ -179,10 +179,10 @@ const UserAddress = () => {
       
 
     return (
-        <div style={{minHeight: "50vh"}}>
+        <div style={{minHeight: "70vh"}}>
             <div style={{ margin : "10px 80px"}}>
             <div style={{display: "flex",flexDirection: "row-reverse"}}>
-                <Button variant="contained" color="primary" size="small" style={{marginBottom:"20px",}}  onClick={handleClickOpen}>
+                <Button sx={{ marginTop : {mobile : 8}}} variant="contained" color="primary" size="small" style={{marginBottom:"20px",}}  onClick={handleClickOpen}>
                   <AddIcon/> Tambah Alamat
                 </Button>
             </div>

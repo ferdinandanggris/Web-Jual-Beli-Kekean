@@ -20,12 +20,12 @@ function ArticlePage() {
 
     console.log(articles)
     return (
-        <Grid container sx={{ px: 17.5, pt: 10}}>
-            <Grid item laptop={12}>
-                <Carousel swipe={false} height={235}>
+        <Grid container sx={{ px: {laptop : 17.5, mobile : 2},mt : {mobile : 8} , pt: {laptop : 10} }}>
+            <Grid item laptop={12} mobile={12}>
+                <Carousel swipe={false} sx={{height : {mobile : 300,laptop : 235}}}>
                 {featured.map((item, id) => (
                     <Link sx={{'&:hover': {color: 'inherit'}}} underline="none" color="inherit" href={`/artikel/${item.id}`}>
-                        <ArticleCarousel img={item.id} date={moment(item.date,"YYYY-MM-DD HH:mm:ss").format("DD MMMM YYYY")} title={item.title} body={striptags(item.isi)} />
+                        <ArticleCarousel img={item.id}  date={moment(item.date,"YYYY-MM-DD HH:mm:ss").format("DD MMMM YYYY")} title={item.title} body={striptags(item.isi)} />
                     </Link>
                 ))}
                 </Carousel>

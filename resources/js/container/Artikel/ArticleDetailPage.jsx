@@ -24,7 +24,7 @@ function ArticleDetailPage() {
         });
     }, []);
     return (
-        <Container sx={{mt: 5, px: 20 }}>
+        <Container sx={{mt: {mobile : 8, laptop : 5}, px:{mobile : 2, laptop : 20} }}>
             <Stack direction="column" spacing={6}>
                 {loading ? (
                     <Grid alignItems={'center'} spacing={6} container direction={"row"}>
@@ -59,10 +59,11 @@ function ArticleDetailPage() {
                                 color={"primary"}
                                 fontWeight="600"
                                 fontSize={32}
+                                sx={{fontSize : {mobile : 20}}}
                             >
                                 {article.title}
                             </Typography>
-                            <Typography color="#909090">
+                            <Typography color="#909090" sx={{fontSize : {mobile : 14}}}>
                                 {article.overview}
                             </Typography>
                         </Grid>
@@ -74,7 +75,7 @@ function ArticleDetailPage() {
                                     objectFit: "cover",
                                 }}
                                 component="img"
-                                src={`../articles/article-${article.id}.png`}
+                                src={`../storage/${article.image}`}
                                 borderRadius={0.5}
                             />
                         </Grid>
@@ -88,7 +89,7 @@ function ArticleDetailPage() {
                         <Skeleton variant="text" />
                     </Box>
                 ) : (
-                    HTMLReactParser(article.isi)
+                        HTMLReactParser(article.isi)
                 )}
             </Stack>
         </Container>

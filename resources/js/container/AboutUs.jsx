@@ -3,7 +3,8 @@ import React from "react";
 
 function AboutUs() {
     return (
-        <Container sx={{ px: 15 }}>
+        <>
+        <Container sx={{px: 15,display : {mobile : 'none', laptop : 'block'}}}>
             <Typography
                 sx={{ mt: 3, mb: 3 }}
                 color={"primary.main"}
@@ -37,6 +38,44 @@ function AboutUs() {
                 fashion brand Christian Dior.
             </Typography>
         </Container>
+        <Container  sx={{ px: 2,mt: 8 ,display : {mobile : 'block', laptop : 'none'}}}>
+            <Typography
+                sx={{ mt: 3, mb: 3 }}
+                color={"primary.main"}
+                fontWeight="600"
+                fontSize={26}
+            >
+                Tentang Kekean
+                <br />
+                Wastra Gallery
+            </Typography>
+            <Box
+                sx={{
+                    width: "100%",
+                }}
+                component="img"
+                src={`../images/aboutUs.png`}
+            />
+            <Typography sx={{mt: 3}} fontSize={12} align={'justify'}>
+                Kekean Wastra Gallery is a business that carries local
+                Indonesian cultural values. This business was established in
+                Bali on December 2, 2014. Kekean Wastra Gallery focuses on
+                sustainable fashion with Batik, Weaving, and Embroidery. With a
+                sustainable spirit, Kekean also empowers young people from
+                vocational schools and women in remote areas who need jobs. This
+                business that carries environmentally friendly products by
+                reducing "waste water" as well as using natural fibers and dyes
+                as the basic ingredients for making wastra implements an open
+                trade that provides welfare to its craftsmen. Kekean has
+                received various national and international achievements, even
+                Kekean Wastra Gallery has collaborated with international
+                fashion brand Christian Dior.
+            </Typography>
+        </Container>
+        </>
+
+
+        
     );
 }
 

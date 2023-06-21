@@ -198,5 +198,24 @@ class OrderController extends Controller
         }
     }
 
+    public function updateStatusSelesai(Request $request){
+        try {
+            $order = Order::where('id', $request->id)->first();
+            $order->status_pengiriman = $request->status_pengiriman;
+            $order->save();
+            return response()->json([
+                'status' => 200,
+                'data' => $order,
+                'message' => 'Berhasil mengubah status pengiriman',
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+            return response()->json([
+                'status' => 422,
+                'message' => $th->getMessage(),
+            ]);
+        }
+    }
+
 
 }
