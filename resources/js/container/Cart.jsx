@@ -371,7 +371,7 @@ export default function Cart() {
             </Grid>
 
             <Fab variant="extended" color="primary" aria-label="add" 
-                disabled={isLoading || cart.length == 0}
+                disabled={isLoading || cart.length == 0 || parseInt(totalPrice) == 0}
                 onClick={() => orderProduct()}
             sx={{position : 'fixed', bottom : '30%',mx : 'auto',left: 50, width : '70%', display : {mobile : "block", laptop : "none"}}}>
                 <Grid container justifyContent={'space-between'} alignContent={'center'} >
