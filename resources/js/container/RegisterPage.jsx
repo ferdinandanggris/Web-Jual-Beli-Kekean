@@ -61,7 +61,7 @@ function RegisterPage() {
             const data = {
                 first_name: register.first_name,
                 last_name: register.last_name,
-                address: register.address,
+                // address: register.address,
                 email: register.email,
                 password: register.password,
                 number_phone: register.number_phone,
@@ -186,7 +186,7 @@ function RegisterPage() {
                                 </FormHelperText>
                             </FormControl>
                         </Grid>
-                        <Grid item mobile={12}>
+                        {/* <Grid item mobile={12}>
                             <FormControl
                                 error={
                                     register.error_list.address ? true : false
@@ -212,7 +212,7 @@ function RegisterPage() {
                                     {register.error_list.address}
                                 </FormHelperText>
                             </FormControl>
-                        </Grid>
+                        </Grid> */}
                         <Grid item mobile={12}>
                             <FormControl
                                 error={
