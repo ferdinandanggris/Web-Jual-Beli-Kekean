@@ -141,9 +141,10 @@ export default function ProductPage(props) {
                                         <Box 
                                             key={id}
                                             sx={{
-                                                height: "400px",
+                                                height: {laptop : 400 , mobile : 300},
+                                                width : {laptop : 400, mobile : 300},
                                                 objectFit: "fill",
-                                                ml: {laptop : "25%"},
+                                                ml: {laptop : "10%"},
                                             }}
                                             component="img"
                                             src={`../storage/${item.path}`}
