@@ -143,7 +143,7 @@ export default function ProductPage(props) {
                                             sx={{
                                                 height: {laptop : 400 , mobile : 300},
                                                 width : {laptop : 400, mobile : 300},
-                                                objectFit: "fill",
+                                                objectFit: "cover",
                                                 ml: {laptop : "10%"},
                                             }}
                                             component="img"
