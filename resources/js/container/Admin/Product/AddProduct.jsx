@@ -13,7 +13,7 @@ import {
     Button,
     FormHelperText,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { DropzoneDialog } from "mui-file-dropzone";
 import { useNavigate } from "react-router";
 import { toBase64Handler } from "../../../base64converter/base64Converter";
@@ -42,6 +42,7 @@ export default function AddProduct() {
         model_3d: "",
         error_list: [],
     });
+    const [isLoading,setIsLoading] = useState(false);
 
     const history = useNavigate();
 
@@ -170,19 +171,24 @@ export default function AddProduct() {
 
         let data = { input, sizes };
         console.log(data);
+        setIsLoading(true);
         // return;
         // axios.get("/sanctum/csrf-cookie").then((response) => {
             axios.post("api/add-product", data).then((res) => {
-
+                setIsLoading(false);
                 if (res.data.status === 200) {
                     console.log(res.data.message);
                     history("/admin");
                 } else {
+                    setIsLoading(false);
                     setInput({
                         ...input,
                         error_list: res.data.validation_errors,
                     });
                 }
+            },()=>{
+                setIsLoading(false);
+
             });
         // });
         // axios.get("/sanctum/csrf-cookie").then((response) => {
@@ -497,6 +503,7 @@ export default function AddProduct() {
                                     </Typography>
                                 </Button>
                                 <Button
+                                    disabled={isLoading}
                                     sx={{ ml: 2 }}
                                     variant="contained"
                                     type="submit"

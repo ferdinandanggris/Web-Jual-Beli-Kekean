@@ -13,7 +13,7 @@ import {
     Button,
     FormHelperText,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { DropzoneDialog } from "mui-file-dropzone";
 import { useNavigate, useParams } from "react-router";
 import { toBase64Handler } from "../../../base64converter/base64Converter";
@@ -46,6 +46,7 @@ export default function EditProduct(props) {
     });
     const prod_id = useParams();
     const history = useNavigate();
+    const [isLoading,setIsLoading] = useState(false);
 
     function handleOpenImage() {
         setImageDropzone(true);
@@ -137,9 +138,10 @@ export default function EditProduct(props) {
     const editProduct = async (e) => {
         e.preventDefault();
         let data = { input, sizes };
-
+        setIsLoading(true);
         axios.get("/sanctum/csrf-cookie").then((response) => {
             axios.put(`api/update-products/${prod_id.id}`, data).then((res) => {
+                setIsLoading(false);
                 if (res.data.status === 200) {
                     console.log(res.data.message);
                     history("/admin");
@@ -149,6 +151,8 @@ export default function EditProduct(props) {
                         error_list: res.data.validation_errors,
                     });
                 }
+            },()=>{
+                setIsLoading(false);
             });
         });
         // axios.get("/sanctum/csrf-cookie").then((response) => {
@@ -456,6 +460,7 @@ export default function EditProduct(props) {
                                     </Typography>
                                 </Button>
                                 <Button
+                                    disabled = {isLoading}
                                     sx={{ ml: 2 }}
                                     variant="contained"
                                     type="submit"

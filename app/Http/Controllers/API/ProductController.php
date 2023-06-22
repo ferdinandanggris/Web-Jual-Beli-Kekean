@@ -226,7 +226,20 @@ class ProductController extends Controller
         $payload['product_name_english'] = $request->input('input.product_name_english');
         $payload['image'] = $request->input('input.image');
         $payload['price'] = $request->input('input.price');
-        $payload['model_3d'] = $request->input('input.model_3d');
+        // $payload['model_3d'] = $request->input('input.model_3d');
+
+        if ($request->input('input.model_3d') !== null) {
+            /**upload image3d */
+            $payload['model_3d'] = $request->input('input.model_3d');
+            $image_parts = explode(";base64,", $payload['model_3d']);
+            $image_type_aux = explode("image/", $image_parts[0]);
+            $image_base64 = base64_decode($image_parts[1]);
+            $folderPath = "/catalog/";
+            $file = $folderPath . uniqid() . ".glb";
+            $payload['model_3d'] = $file;
+            Storage::disk('public')->put($file, $image_base64);
+        }
+
         $payload['description'] = $request->input('input.description');
         $payload['description_english'] = $request->input('input.description_english');
         $payload['has_3d'] = $request->input('input.has_3d');
