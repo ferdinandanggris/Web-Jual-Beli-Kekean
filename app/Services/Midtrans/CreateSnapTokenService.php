@@ -23,14 +23,14 @@ class CreateSnapTokenService extends Midtrans
 
         $params['transaction_details'] = [
             'order_id' => $this->order->id_transaksi,
-            'gross_amount' => ($this->order->total_harga_produk + $this->order->biaya_pengiriman),
+            'gross_amount' => 0,
         ];
         
         foreach ($dataOrder->orderDetailWithProduct as $key => $value) {
             $params["item_details"][] = [
                 'id' => $value->product->id,
                 'name' => $value->product->product_name,
-                'price' => $value->harga,
+                'price' => ($value->harga / $value->qty),
                 'quantity' => $value->qty,
             ];
         }
