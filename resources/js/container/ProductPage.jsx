@@ -143,7 +143,7 @@ export default function ProductPage(props) {
                                             sx={{
                                                 height: "400px",
                                                 objectFit: "fill",
-                                                ml: {laptop : "30%"},
+                                                ml: {laptop : "25%"},
                                             }}
                                             component="img"
                                             src={`../storage/${item.path}`}
